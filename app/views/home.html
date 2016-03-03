@@ -1,0 +1,25 @@
+    <h4>Home</h4>
+
+    <div id="object-information">
+        <h4>Titel</h4>
+        <p>
+            Objekt Informationen
+        </p>
+    </div>
+
+    <openlayers custom-layers="true" ol-center="Home.current" ol-view="Home.view" ol-defaults="Home.defaults">
+        <ol-layer ol-layer-properties="layer" ng-repeat="layer in Home.layers"></ol-layer>
+    </openlayers>
+
+    <div id="map" ngeo-map="Home.map"></div>
+
+
+    <input type="text" class="typeahead" sf-typeahead options="Home.thoptions" datasets="Home.places" ng-model="Home.search">
+
+    <div ng-repeat="layer in Home.layers">
+        <input type="checkbox" ng-model="layer.visible">
+    </div>
+
+    <button ngeo-mobile-geolocation=""
+            ngeo-mobile-geolocation-map="Home.map"
+            ngeo-mobile-geolocation-options="Home.mobileGeolocationOptions">locate me</button>
