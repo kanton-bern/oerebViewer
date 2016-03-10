@@ -1,3 +1,1 @@
-$(window).load(function() {
-    $(document).foundation('reflow');
-});
+// layout js here

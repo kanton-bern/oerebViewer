@@ -54,6 +54,7 @@ angular
         'pascalprecht.translate',// angular-translate
         'tmh.dynamicLocale', // angular-dynamic-locale
         'ngeo',
+        'mm.foundation',
         'siyfion.sfTypeahead',
         'base64',
     ])
