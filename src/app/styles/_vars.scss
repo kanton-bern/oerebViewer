@@ -1,0 +1,42 @@
+// Fonts
+$fontNormal:      Asap;
+$fontCondensed:   Asap;
+$fontBold:        Asap;
+$fontLineHeightBase: 120%;
+$fontSizeBase:  1rem;
+
+// Colour
+$colorMain:         #F1152E;
+$colorWhite:        #FFF;
+$colorBlack:        #000;
+$colorHeadContent:  #5E7287;
+$colorDarkGrey:     #2D363E;
+$colorLightGrey:    #BBBBBB;
+$colorContent:      $colorDarkGrey;
+$colorContentBgnd:  #E4E9ED;
+$colorContentGrey:  #545454;
+$colorHeader:       #444;
+$colorMenuBgnd:     #CBD3DB;
+$colorMenuTop:      #8091A2;
+$colorSuccess:      #46A447;
+$colorSuccessDark:  #286E2A;
+$colorAlert:        #C31924;
+$colorAlertDark:    #991614;
+$colorWarning:      #DA9E1A;
+$colorWarningDark:  #966D15;
+$colorLinkActive:   $colorWhite;
+$colorLinkInactive: $colorMain;
+$colorMiddleGrey:   #9C9C9C;
+
+// Filter-Variables
+$filterContrastHeaderImg:130%;
+
+// Navibuttons
+$button-size : 2rem;
+$transition: .2s; // increase this to see the transformations in slow-motion
+
+// Media-Query width
+$widthLarge: 1200px; // Foundation Breakpoint
+$widthMedium: 1024px; // Foundation Breakpoint
+$widthSmallToMedium: 800px; // Indermidiate Breakpoint from small to medium
+$widthSmall: 640px; // Foundation Breakpoint

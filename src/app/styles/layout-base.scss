@@ -1,0 +1,776 @@
+// Base Layout for all widths
+// Disabling Buttons for swisstopo maps
+.ol-control {
+  visibility: hidden;
+  display: none;
+}
+
+
+// basic content
+body {
+  @include fontNormal();
+  z-index:10;
+}
+
+// changed global foundation styles
+.row {
+  max-width:100%;
+}
+// stop changed global foundation styles
+
+// Left slider
+.wrapper-inner {
+  overflow:hidden;
+  height:100vh;
+  position:relative;
+  .position-left {
+    padding-top:3em;
+    position:absolute;
+    display:none;
+    height:100vh;
+    width:75%;
+    z-index:5;
+    overflow-y:auto;
+    @include castShadowRight;
+    background-color: $colorMenuTop;
+  }
+
+  // Bottom slider
+  .position-bottom {
+    @include castShadowTop;
+    width:100%;
+    height:100vh;
+    padding-top:0em;
+    top:calc(100% - 40px);
+    position:absolute;
+    background-color: $colorMenuBgnd;
+    z-index:4;
+  }
+
+}
+
+// end left slider
+
+// SVG-Icons
+.button {
+  @include button_svg();
+}
+.icon {
+  @include icon_svg();
+}
+// End SVG-Icons
+
+.header {
+  height: 44px;
+  z-index: 10;
+  position: relative;
+
+  // Sticky Container for the top bar
+  .header-sticky-container {
+    .header-sticky {
+      width:100%;
+      background-color: $colorMenuBgnd;
+      @include castShadow();
+    }
+  }
+  .mainlogo {
+    color:$colorHeadContent;
+    img {
+      position:absolute;
+      left:0.5em;
+      top:0.5em;
+      width:1.2em;
+    }
+    p {
+      margin:0.5em 0em 0em 16px;
+    }
+    .oereb-title {
+      font-size:$fontSizeBase * 1.4;
+    }
+  }
+
+  // Provider Logo (Kanton)
+  .provider-logo {
+    position:absolute;
+    right:8%;
+    top:5px;
+    img {
+      height:35px;
+
+    }
+  }
+
+}
+
+// Start Mainmenu / theme list
+.mainnav, .theme-list {
+  @include contentLinks();
+
+  // Langnav
+  .top-menu {
+    font-size:$fontSizeBase * 1;
+    .small-9 {
+      padding:0.5em 15px 15px 15px;
+      span {
+        margin-right:10px;
+      }
+    }
+  }
+
+  .button {
+    &.menu-close {
+      background:none;
+      float:right;
+    }
+  }
+
+  li {
+    background-color: $colorMenuBgnd;
+    a {
+      .badge {
+        line-height: 1.5; // badge neeeds this
+        vertical-align: middle;
+        min-width:1.5em;
+        font-size:$fontSizeBase * 0.8;
+        padding:0;
+        margin-left:8px;
+      }
+    }
+  }
+
+  .menu {
+    li {
+      border-bottom:1px solid $colorLightGrey;
+      &:last-child {
+        border-bottom:none;
+      }
+      &.top-item li {
+        border-top:none !important;
+        border-bottom:none !important;
+      }
+      a {
+          min-height:40px;
+          font-size: $fontSizeBase * 1;
+          line-height: $fontLineHeightBase - 20%;
+      }
+
+    }
+    .nested {
+
+      margin-left:0em;
+      li {
+        padding-left:1rem;
+        a {
+          padding-left:0px;
+          margin-right:32px;
+          position:relative;
+        }
+      }
+
+
+      // Badge
+      .badge {
+        color:$colorContentGrey;
+        padding-right:5px;
+        position:absolute;
+        right:0px;
+        // Success badge -> current theme
+        &.success {
+          font-size:$fontSizeBase * 0.5;
+        }
+      }
+    }
+  }
+
+  // Accordion symbol
+  .button {
+    background-color:transparent;
+
+    &.submenu {
+      position:absolute;
+      right:0px;
+      transition: none;
+      transform: none;
+      top:0px;
+    }
+  }
+  .is-accordion-submenu-parent {
+    a {
+      padding-right:40px;
+    }
+
+    > a:after {
+      border:none !important;
+      border-color:none;
+      position:relative;
+      transform:none;
+    }
+
+  }
+  .is-submenu-item {
+    a {
+      padding-right:0px !important;
+      margin-right:12px !important;
+    }
+  }
+
+  .accordion-navigation {
+    &[aria-expanded='true'] {
+      > a svg.icon-plus {
+        display: none;
+      }
+      > a svg.icon-minus {
+        display:inline-block;
+      }
+    }
+    &[aria-expanded='false'] {
+      > a svg.icon-minus {
+        display: none;
+      }
+      > a svg.icon-plus {
+        display: inline-block;;
+      }
+    }
+  }
+
+  // end accordion symbol
+
+  .top-menu, .top-item * {
+    color:$colorWhite;
+    @include menuLinks();
+    background-color: $colorMenuTop;
+
+  }
+  .top-item {
+    @include menuLinks;
+    font-size:$fontSizeBase * 1;
+    p, a {
+      &.name, &.egrid {
+        @include fontBold();
+        font-size: $fontSizeBase * 1.2;
+      }
+
+      margin:0;
+      line-height: $fontLineHeightBase - 10%;
+
+      &.timestamp {
+        margin-top:8px;
+        color:$colorContentBgnd;
+        font-size: $fontSizeBase * 0.8;
+      }
+    }
+    .row {
+      line-height:$fontLineHeightBase - 20%;
+      padding-bottom:0.5em;
+      .oereb-value {
+        color:$colorContentBgnd;
+      }
+      &.more-info {
+        margin-top:1em;
+        .icon {
+          height:$fontSizeBase * 1;
+          margin-right:5px;
+        }
+        a {
+          padding:0;
+          width:80%;
+          font-size:$fontSizeBase * 1;
+        }
+      }
+    }
+  }
+
+  // Row with pdf
+  .row {
+    &.pdf-list {
+      margin-top:1em;
+      .icon {
+        height:$fontSizeBase * 1;
+        margin-right:5px;
+        fill:$colorContent;
+      }
+      a {
+        padding:0;
+        display:block;
+        width:80%;
+        font-size:$fontSizeBase * 1;
+      }
+    }
+  }
+  // end row with pdf
+
+  // ul hierarchy
+  ul { // first level
+    .button {
+      &.submenu {
+        border-left:1px solid $colorLightGrey;
+        //border-bottom:1px solid $colorLightGrey;
+        height:100%;
+        .icon {
+          fill:$colorDarkGrey;
+        }
+      }
+    }
+    .top-item {
+      .button {
+        &.submenu {
+          height:auto;
+          border-top:1px solid $colorLightGrey;
+          border-bottom:1px solid $colorLightGrey;
+
+          .icon {
+            fill: $colorWhite;
+          }
+        }
+
+      }
+
+    }
+
+    ul { // second level
+      li {
+        background-color:$colorContentBgnd;
+        &:first-child {
+          border-top:1px solid $colorLightGrey;
+        }
+      }
+
+      ul { // third level
+
+      }
+
+    }
+
+  }
+  // end ul hierarchy
+
+  // last items
+  .history-item {
+    display:block;
+    ul {
+      li {
+        display:block;
+        .logo-gemeinde {
+          width:32px;
+          display:inline-block;
+          float:left;
+          margin-right:10px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-color: $colorContentBgnd;
+          background-blend-mode: multiply;
+          height:40px;
+        }
+        .history-date {
+          font-size:$fontSizeBase * 0.8;
+          color:$colorLightGrey;
+          display:block;
+          margin-top:0.5em;
+        }
+      }
+    }
+  }
+
+  // end last items
+
+  // svg icon
+  li {
+    .listicon{
+      fill:$colorDarkGrey;
+      height:1em;
+      margin-right:5px;
+    }
+  }
+
+
+
+}
+
+// End Mainmenu
+
+.article {
+  // Navigation overlay on map
+  .menu-nav, .map-nav {
+    position:absolute;
+    left:5%;
+    top:10%;
+    z-index:4;
+
+
+    .button {
+        background-color:rgba($colorDarkGrey,0.9);
+        @include rounded;
+        display:block;
+        margin:0.5em;
+
+        &.btnMapAerial {
+          padding:0.3em;
+        }
+        .icon-aerial {
+          width:2em;
+          height:2em;
+        }
+
+
+    }
+
+  }
+  .map-nav {
+    right:5%;
+    left:auto;
+
+    .search-input {
+      display:none;
+    }
+
+    .search-open {
+      display:block;
+      position: absolute;
+      top:0;
+      width:50vw;
+      right:64px;
+      background-color:rgba($colorDarkGrey,0.9);
+      padding:10px;
+      @include rounded;
+
+      .twitter-typeahead {
+        width: 100%;
+      }
+
+      input { /* important, cause of typeahead */
+        border:none !important;
+        background-color: rgba($colorDarkGrey,0.9) !important;
+        color:$colorWhite !important;
+        width: 100%;
+        margin: 0;
+      }
+
+      .tt-menu {
+        position: relative !important;
+        margin-top: 8px;
+      }
+
+      .autocomplete, .tt-suggestion {
+        color:$colorWhite;
+        font-size:$fontSizeBase * 0.9;
+        line-height: $fontSizeBase * 1.2;
+
+        @include BoxLinks;
+        p {
+            margin-bottom:0.5rem;
+        }
+      }
+    }
+  }
+
+
+    // End navbuttons
+
+  // Map Canvas
+  .map {
+    height:100vh;
+    position:relative;
+    background-color: $colorContentBgnd;
+  }
+
+}
+// End article
+
+// Theme display
+// Theme-map
+.theme-map {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  @include opacityTransition;
+
+}
+
+// Hide class for the theme-map
+.oereb-fade-out {
+  opacity:0;
+  display:none !important;
+}
+
+
+// Start orbit
+.position-bottom {
+  .toggler-center {
+    position:absolute;
+    top:0px;
+    left:calc(50% - 22px);
+
+
+  }
+  &.slider-active {
+    #themeBottomToggler {
+      .icon {
+          transform:rotate(180deg);
+          -ms-transform:rotate(180deg);
+          -webkit-transform:rotate(180deg);
+      }
+    }
+  }
+  #themeBottomToggler {
+    margin:0 auto 0 auto;
+  }
+  .svg-icon {
+    background-color:transparent;
+    .icon {
+        fill:$colorDarkGrey;
+    }
+
+  }
+
+
+
+  .row-theme-nav {
+    .button {
+      margin:0;
+
+    }
+    span {
+      font-size:$fontSizeBase * 1;
+      line-height:1;
+      vertical-align: middle;
+      margin:0px 0px 16px 0px;
+    }
+  }
+
+  // Orbit
+  &.orbit {
+    .orbit-container {
+      height:100%;
+      margin-left:0px;
+
+      // Slider Navigation
+      .orbit-previous, .orbit-next {
+        top:1.2rem;
+      }
+      .orbit-slide {
+        height:100%;
+        overflow-y:auto; // Scroll the entire slider if necessary
+        padding-bottom:4rem;
+
+        border-left:1px solid $colorContent;
+        h3 {
+          font-size:$fontSizeBase * 1;
+          @include fontBold();
+          margin:1em 0em 0em 0em;
+          opacity:0.5;
+        }
+
+        // Lists
+        .theme-list {
+          margin-left:0;
+          margin-top:1em;
+
+          .top-item, .top-item * {
+            background-color: $colorMenuBgnd;
+            color:$colorContent;
+            .menu {
+              margin-left:1rem;
+            }
+
+            .name, .egrid {
+              font-size:$fontSizeBase * 1;
+              color: $colorHeader;
+            }
+            .icon {
+              fill:$colorContent;
+            }
+          }
+
+          li {
+            .menu {
+              margin-left:0;
+            }
+          }
+
+
+          // ul hierarchy
+          li { // first level
+            border-top:1px solid $colorLightGrey;
+            border-bottom:none;
+            background-color: $colorContentBgnd;
+            .button {
+              &.submenu {
+                border-left:1px solid $colorLightGrey;
+                //border-bottom:1px solid $colorLightGrey;
+                height:100%;
+                .icon {
+                  fill:$colorDarkGrey;
+                }
+              }
+            }
+            &.top-item {
+              background-color: $colorMenuBgnd;
+              border-top:none;
+              li {
+                border-top:none;
+                padding:0;
+              }
+              .button {
+                &.submenu {
+                  height:auto;
+                  border-top:1px solid $colorLightGrey;
+                  border-bottom:1px solid $colorLightGrey;
+
+
+                }
+
+              }
+
+            }
+
+            ul { // second level
+
+              li {
+                padding:1rem;
+                background-color:$colorContentBgnd;
+                &:first-child {
+
+                }
+              }
+
+              ul { // third level
+
+              }
+
+            }
+
+          }
+          // end ul hierarchy
+
+
+          // Legende in den Themen (key)
+          .theme-key {
+            display:block;
+            h3 {
+              margin:0em 0em 1em 0em;
+              font-size:$fontSizeBase * 1.2;
+            }
+            img {
+              display:block;
+              max-width:100%;
+            }
+            margin-bottom: 10px;
+          }
+          // Ende Legende in den Themen (key)
+
+          // Start Logos in theme list
+          .logo-bund, .logo-kanton, .logo-gemeinde {
+            display:inline-block;
+            width:30px;
+            height:30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: $colorMenuBgnd;
+            margin-right:10px;
+            float:right;
+
+          }
+
+          .logo-gemeinde {
+            background-blend-mode: multiply;
+          }
+
+          // End logo in theme list
+
+
+        }
+        // End List
+      }
+      // Bullets
+      .theme-bullets {
+        width:100%;
+        position:absolute;
+        bottom:2rem;
+        .orbit-bullets {
+          button {
+            width:0.8rem;
+            height:0.8rem;
+          }
+
+        }
+      }
+
+    }
+  }
+
+
+}
+// End theme navigation
+
+// Spinners and Loaders
+.spinner-wrapper {
+  @include showSpinnerPulse($colorBlack);
+  z-index:6000; // has to be the topmost element
+  position:absolute;
+  width:120px;
+  height:120px;
+  top:calc(50vh - 120px);
+  left:calc(50vw - 60px);
+  @include showSpinnerLoader($colorWhite);
+
+}
+// END Spinners and loaders
+
+// Notifications
+.notification-wrapper {
+  @include opacityTransition;
+  position:absolute;
+  z-index:5000;
+  bottom:0px;
+  width:100%;
+  left:0px;
+
+  .callout {
+    position:relative;
+    border:none;
+    color:$colorWhite;
+    border-left:15px solid $colorSuccessDark;
+    margin-bottom:0px;
+
+    p {
+      width:80%;
+    }
+    &.success {
+      background-color: $colorSuccess;
+
+    }
+    &.alert {
+      border-left:15px solid $colorAlertDark;
+      background-color: $colorAlert;
+
+
+    }
+    &.warning {
+      border-left:15px solid $colorWarningDark;
+      background-color: $colorWarning;
+
+    }
+    button {
+      background-color: transparent;
+      position:absolute;
+      right:10px;
+      top:10px;
+
+      &.notification-button {
+        border:1px solid $colorWhite;
+        transform: none;
+        position:inherit;
+        display: inline-block;
+        margin-bottom:0px;
+        right:auto;
+        top:auto;
+        text-transform: uppercase;
+        font-size:$fontSizeBase * 1;
+        color:$colorWhite;
+      }
+    }
+  }
+}

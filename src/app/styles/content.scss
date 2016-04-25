@@ -1,0 +1,66 @@
+// All content styles
+
+// Global
+// Images
+
+
+
+// Typography
+.article {
+  // Links
+  p, table {
+    @include contentLinks;
+    hyphens: auto;
+  }
+  h1, h2, h3, h4, h5 {
+    @include contentLinks;
+    @include fontBold;
+  }
+  h1, h2, h3, h4, h5 {
+    @include contentLinks;
+    @include fontBold;
+    line-height: $fontLineHeightBase - 20%;
+    margin-bottom:1em;
+    font-size:$fontSizeBase * 2;
+    color: $colorHeader;
+  }
+  h2, h3 {
+    font-size:$fontSizeBase * 1.5;
+    margin-bottom:1.2em;
+    margin-top:3em;
+  }
+
+  h3 {
+    font-size:$fontSizeBase * 1.2;
+  }
+
+
+  // Table
+  table {
+    td {
+      vertical-align: top;
+      line-height: $fontLineHeightBase;
+    }
+  }
+
+  // Lists
+  ul, ol {
+    margin-left:2rem;
+  }
+
+}
+
+// Nedia Queries for different content sizes
+// Medium
+@media screen and (min-width: $widthMedium) and (max-width: $widthLarge - 1px)  {
+
+
+
+}
+
+// Small
+@media screen and (max-width: $widthSmall)  {
+
+
+
+}
