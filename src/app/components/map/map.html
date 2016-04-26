@@ -1,14 +1,20 @@
 <div id="map" class="map" ngeo-map="map.map"></div>
 
 <div class="infobox" id="infobox">
-    <address>Waisenhausplatz 5,<br />3007 Bern</address>
+    <div ng-if="infoboxLoading">
+        Loading
+    </div>
 
-    a{{map.egrids}}a
-    <ul>
-        <li><a href="#egrid">EGRID 1</a></li>
-        <li><a href="#egrid">EGRID 2</a></li>
-        <li><a href="#egrid">EGRID 3</a></li>
-    </ul>
+    <div ng-if="!infoboxLoading">
+        <address>Waisenhausplatz 5,<br />3007 Bern</address>
+
+        <div ng-if="map.egrids.length == 0">Kein Resultat</div>
+        <ul>
+            <li ng-repeat="egrid in map.egrids">
+                <a href="#">{{egrid}}</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div class="menu-nav">

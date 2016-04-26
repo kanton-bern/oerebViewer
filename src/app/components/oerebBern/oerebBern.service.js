@@ -44,31 +44,31 @@ export class OerebBernService {
 
 
     getEGRID(long, lat) {
-        self = this;
-        this.$log.info('getEgrid('+long+','+lat+'): ');
 
         let url = this.base + 'getegrid/?GNSS=' + long + ',' + lat;
 
-        return this.$http.get(
+        var promise = this.$http.get(
             url,
             {
                 transformResponse: function (data) {
-                    // convert the data to JSON and provide
-                    // it to the success function below
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
 
                     self.$log.info(object);
 
-                    if (!object  || !object.GetEGRIDResponse)
+                    if (!object || !object.GetEGRIDResponse) {
                         return false;
+                    }
 
-                    if (object.GetEGRIDResponse.egrid instanceof Array)
+                    if (object.GetEGRIDResponse.egrid instanceof Array) {
                         return object.GetEGRIDResponse.egrid;
+                    }
 
                     return [object.GetEGRIDResponse.egrid];
                 }
             }
         );
+
+        return promise;
     }
 }

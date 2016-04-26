@@ -220,9 +220,11 @@ class MapController {
 
         var cords = this.ol.proj.transform(coordinate, self.config.projection.epsg, 'EPSG:4326');
 
-        this.Oereb.getEGRID(cords[1], cords[0]).success(function (data, status) {
-            console.log(self);
-            self.egrids = data;
+        this.egrids = [];
+        this.infoboxLoading = true;
+        this.Oereb.getEGRID(cords[1], cords[0]).then(function(d) {
+            self.egrids = d.data;
+            self.infoboxLoading = false;
         });
 
 
