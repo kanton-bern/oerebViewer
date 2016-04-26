@@ -1,3 +1,20 @@
-.map {
+.infobox {
+  position: absolute;
+  background-color: rgba(45, 54, 62, 0.9);
+  color: white;
 
+  padding: 1.2rem;
+
+  min-width: 14rem;
+  max-width: 90%;
+
+  a {
+    color: white;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+  }
 }

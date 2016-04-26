@@ -4,9 +4,6 @@ export function MapDirective() {
     let directive = {
         restrict: 'E',
         templateUrl: 'app/components/map/map.html',
-        scope: {
-            bladeObj: '='
-        },
         controller: MapController,
         controllerAs: 'map',
         bindToController: true
@@ -16,11 +13,13 @@ export function MapDirective() {
 }
 
 class MapController {
-    constructor(Layers, $log, $http, ngeoDecorateLayer, ngeoLocation, $scope, $base64) {
+    constructor(Layers, $log, $http, ngeoDecorateLayer, ngeoLocation, $scope, $base64, $window) {
         'ngInject';
 
+        this.$window = $window;
         this.$log = $log;
         this.$base64 = $base64;
+        this.ol = ol;
 
 
         var self = this;
@@ -28,7 +27,7 @@ class MapController {
         this.config = {
             zoom: {
                 default: 4,
-                zoomedIn: 12,
+                zoomedIn: 12
             },
             projection: {
                 epsg: 'EPSG:21781',
@@ -52,22 +51,22 @@ class MapController {
 
 
         // projection
-        this.projection = ol.proj.get(self.config.projection.epsg);
+        this.projection = this.ol.proj.get(self.config.projection.epsg);
 
         // define view
-        this.view = new ol.View({
+        this.view = new this.ol.View({
             center: self.center,
             zoom: self.zoom,
-            projection: this.projection,
+            projection: this.projection
         });
 
-        this.map = new ol.Map({
+        this.map = new this.ol.Map({
             layers: Layers.get(),
             view: this.view
         });
 
         this.zoomIn = function () {
-            console.log('zoomIn');
+            this.$log.warn('zoomIn');
             self.map.zoom = self.map.zoom + 1;
         };
 
@@ -91,7 +90,7 @@ class MapController {
 
             var state = {
                 zoom: view.getZoom(),
-                center: view.getCenter(),
+                center: view.getCenter()
             };
             window.history.pushState(state, 'map', hash);
         };
@@ -113,17 +112,17 @@ class MapController {
             self.onClickOnMap(event);
         });
 
-        var positionFeatureStyle = new ol.style.Style({
-            image: new ol.style.Circle({
+        var positionFeatureStyle = new this.ol.style.Style({
+            image: new this.ol.style.Circle({
                 radius: 6,
-                fill: new ol.style.Fill({color: 'rgba(230, 100, 100, 1)'}),
-                stroke: new ol.style.Stroke({color: 'rgba(230, 40, 40, 1)', width: 2})
+                fill: new this.ol.style.Fill({color: 'rgba(230, 100, 100, 1)'}),
+                stroke: new this.ol.style.Stroke({color: 'rgba(230, 40, 40, 1)', width: 2})
             })
         });
 
-        var accuracyFeatureStyle = new ol.style.Style({
-            fill: new ol.style.Fill({color: 'rgba(100, 100, 230, 0.3)'}),
-            stroke: new ol.style.Stroke({color: 'rgba(40, 40, 230, 1)', width: 2})
+        var accuracyFeatureStyle = new this.ol.style.Style({
+            fill: new this.ol.style.Fill({color: 'rgba(100, 100, 230, 0.3)'}),
+            stroke: new this.ol.style.Stroke({color: 'rgba(40, 40, 230, 1)', width: 2})
         });
 
         this.mobileGeolocationOptions = {
@@ -165,7 +164,7 @@ class MapController {
         }, function (value) {
             if (self.search !== null && typeof self.search === 'object') {
                 // center result
-                self.map.getView().setCenter(ol.proj.transform([self.search.attrs.lon, self.search.attrs.lat], 'EPSG:4326', self.config.projection.epsg));
+                self.map.getView().setCenter(this.ol.proj.transform([self.search.attrs.lon, self.search.attrs.lat], 'EPSG:4326', self.config.projection.epsg));
                 self.map.getView().setZoom(self.config.zoom.zoomedIn);
             }
         });
@@ -195,8 +194,10 @@ class MapController {
     onClickOnMap(event) {
         self = this;
         // Popup showing the position the user clicked
-        var popup = new ol.Overlay({
-            element: document.getElementById('object-information')
+        self.infocords = event.coordinate;
+
+        var popup = new this.ol.Overlay({
+            element: document.getElementById('infobox')
         });
 
         this.map.addOverlay(popup);
@@ -206,7 +207,7 @@ class MapController {
         this.$log.warn('clicked');
         var element = popup.getElement();
         var coordinate = event.coordinate;
-        var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+        var hdms = this.ol.coordinate.toStringHDMS(ol.proj.transform(
             coordinate, 'EPSG:3857', self.config.projection.epsg));
 
         $(element).hide();
@@ -214,9 +215,11 @@ class MapController {
 
         popup.setPosition(coordinate);
 
+
+        return true;
         // infos vom wms
 
-        let wmsCantoneCadestral = new ol.source.TileWMS(({
+        let wmsCantoneCadestral = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_planungwms_d_fk_s/MapServer/WMSServer?',
             params: {
                 'LAYERS': 'GEODB.UZP_BAU_det',
@@ -235,7 +238,7 @@ class MapController {
         );
 
         if (url) {
-            console.log(url);
+            this.$log.warn(url);
 
             /*$http({
              method: 'get',
@@ -261,7 +264,7 @@ class MapController {
     }
 
     test() {
-        this.$log('wtf');
+        this.$log.warn('wtf');
 
     }
 }

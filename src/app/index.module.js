@@ -6,6 +6,7 @@ import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { LayersService } from '../app/components/map/layers.service';
 import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
+import { ExtractsService } from '../app/components/extracts/extracts.service';
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MapDirective } from '../app/components/map/map.directive';
 
@@ -19,7 +20,9 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
 
     .service('Oereb', OerebBernService)
     .service('Layers', LayersService)
+    .service('Extracts', ExtractsService)
 
     .controller('MainController', MainController)
+
     .directive('acmeNavbar', NavbarDirective)
     .directive('map', MapDirective);
