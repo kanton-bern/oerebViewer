@@ -1,6 +1,6 @@
 .infobox {
   position: absolute;
-  background-color: rgba(45, 54, 62, 0.9);
+  background-color: rgba(45, 54, 62, 0.7);
   color: white;
 
   padding: 1.2rem;
@@ -12,9 +12,16 @@
     color: white;
   }
 
-  h3 {
-    font-size: 1.5rem;
-    color: white;
+  li {
+    list-style: none;
     margin: 0;
+    margin-left: -2rem;
+    font-size: 0.9rem;
+  }
+
+  address {
+    border-bottom: 1px solid white;
+    font-style: normal;
+    font-weight: bold;
   }
 }

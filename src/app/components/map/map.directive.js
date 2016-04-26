@@ -12,14 +12,17 @@ export function MapDirective() {
     return directive;
 }
 
+// use: WGS84 bzw. EPSG:4326
+
 class MapController {
-    constructor(Layers, $log, $http, ngeoDecorateLayer, ngeoLocation, $scope, $base64, $window) {
+    constructor(Layers, $log, $http, ngeoDecorateLayer, ngeoLocation, $scope, $base64, $window, Oereb) {
         'ngInject';
 
         this.$window = $window;
         this.$log = $log;
         this.$base64 = $base64;
         this.ol = ol;
+        this.Oereb = Oereb;
 
 
         var self = this;
@@ -164,7 +167,7 @@ class MapController {
         }, function (value) {
             if (self.search !== null && typeof self.search === 'object') {
                 // center result
-                self.map.getView().setCenter(this.ol.proj.transform([self.search.attrs.lon, self.search.attrs.lat], 'EPSG:4326', self.config.projection.epsg));
+                self.map.getView().setCenter(self.ol.proj.transform([self.search.attrs.lon, self.search.attrs.lat], 'EPSG:4326', self.config.projection.epsg));
                 self.map.getView().setZoom(self.config.zoom.zoomedIn);
             }
         });
@@ -207,17 +210,21 @@ class MapController {
         this.$log.warn('clicked');
         var element = popup.getElement();
         var coordinate = event.coordinate;
-        var hdms = this.ol.coordinate.toStringHDMS(ol.proj.transform(
-            coordinate, 'EPSG:3857', self.config.projection.epsg));
+        /*var hdms = this.ol.coordinate.toStringHDMS(ol.proj.transform(
+            coordinate, 'EPSG:3857', self.config.projection.epsg)); */
 
         $(element).hide();
         $(element).show();
 
         popup.setPosition(coordinate);
 
+        var cords = this.ol.proj.transform(coordinate, self.config.projection.epsg, 'EPSG:4326');
 
-        return true;
-        // infos vom wms
+        this.Oereb.getEGRID(cords[1], cords[0]).success(function (data, status) {
+            console.log(self);
+            self.egrids = data;
+        });
+
 
         let wmsCantoneCadestral = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_planungwms_d_fk_s/MapServer/WMSServer?',
@@ -231,11 +238,13 @@ class MapController {
             serverType: 'geoserver'
         }));
 
-        var viewResolution = (self.map.getView().getResolution());
+        var viewResolution = (this.map.getView().getResolution());
         var url = wmsCantoneCadestral.getGetFeatureInfoUrl(
-            event.coordinate, viewResolution, self.config.projection.epsg,
+            event.coordinate, viewResolution, this.config.projection.epsg,
             {'INFO_FORMAT': 'text/xml' /* application/json */}
         );
+
+
 
         if (url) {
             this.$log.warn(url);

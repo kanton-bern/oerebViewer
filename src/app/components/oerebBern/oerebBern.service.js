@@ -5,6 +5,8 @@ export class OerebBernService {
         this.$http = $http;
         this.$log = $log;
 
+        this.base = 'http://adue03.myqnapcloud.com/oereb/OerbverSVC.svc/';
+
     }
 
     getExtractById(egrid) {
@@ -41,7 +43,32 @@ export class OerebBernService {
     }
 
 
-    getEGRID(gnss) {
-        // baseurl / getegrid/?GNSS=gnss
+    getEGRID(long, lat) {
+        self = this;
+        this.$log.info('getEgrid('+long+','+lat+'): ');
+
+        let url = this.base + 'getegrid/?GNSS=' + long + ',' + lat;
+
+        return this.$http.get(
+            url,
+            {
+                transformResponse: function (data) {
+                    // convert the data to JSON and provide
+                    // it to the success function below
+                    let x2js = new X2JS();
+                    let object = x2js.xml_str2json(data);
+
+                    self.$log.info(object);
+
+                    if (!object  || !object.GetEGRIDResponse)
+                        return false;
+
+                    if (object.GetEGRIDResponse.egrid instanceof Array)
+                        return object.GetEGRIDResponse.egrid;
+
+                    return [object.GetEGRIDResponse.egrid];
+                }
+            }
+        );
     }
 }
