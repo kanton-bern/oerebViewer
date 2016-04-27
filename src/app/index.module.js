@@ -7,8 +7,9 @@ import { MainController } from './main/main.controller';
 import { LayersService } from '../app/components/map/layers.service';
 import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
 import { ExtractsService } from '../app/components/extracts/extracts.service';
-import { NavbarDirective } from '../app/components/navbar/navbar.directive';
+import { NotificationsService } from '../app/components/notifications/notifications.service';
 import { MapDirective } from '../app/components/map/map.directive';
+import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'toastr', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate'])
     .constant('moment', moment)
@@ -21,8 +22,9 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .service('Oereb', OerebBernService)
     .service('Layers', LayersService)
     .service('Extracts', ExtractsService)
+    .service('Notifications', NotificationsService)
 
     .controller('MainController', MainController)
 
-    .directive('acmeNavbar', NavbarDirective)
-    .directive('map', MapDirective);
+    .directive('map', MapDirective)
+    .directive('notifications', NotificationsDirective);
