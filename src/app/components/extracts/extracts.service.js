@@ -13,7 +13,8 @@ export class ExtractsService {
 
     add(newExtract) {
         let self = this;
-
+        
+        this.$log.warn('extract loaded: ' + newExtract.egrid);
         // adds remove function to extract
         newExtract.remove = function() { self.remove(this.egrid); };
 

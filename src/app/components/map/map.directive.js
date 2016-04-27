@@ -15,7 +15,7 @@ export function MapDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class MapController {
-    constructor(Layers, $log, $http, ngeoDecorateLayer, ngeoLocation, $scope, $base64, $window, Oereb) {
+    constructor(Layers, $log, $http, ngeoDecorateLayer, ngeoLocation, $scope, $base64, $window, Oereb, Extracts) {
         'ngInject';
 
         this.$window = $window;
@@ -23,6 +23,7 @@ class MapController {
         this.$base64 = $base64;
         this.ol = ol;
         this.Oereb = Oereb;
+        this.Extracts = Extracts;
 
 
         var self = this;
@@ -53,6 +54,44 @@ class MapController {
         });
 
 
+        let bottomSlider = $('.position-bottom');
+        let $themeTitle = $('.slide-title');
+        var vHeight = $(window).height() - 40;
+        var $btnOpenTheme = $('#themeBottomToggler');
+
+        $btnOpenTheme.click(function() {
+            var topBarHeight = $('.header-sticky-container').height();
+            if(bottomSlider.hasClass("slider-active")) {
+                bottomSlider.animate({
+                        top: vHeight
+                    }, {
+                        duration:400
+                    }
+
+                );
+                // Modifying the title of the theme
+                $themeTitle.css("margin-top","1em");
+                $themeTitle.css("opacity","0.5");
+
+            }
+            if(bottomSlider.hasClass("slider-inactive")) {
+                bottomSlider.animate({
+                        top: 50
+                    }, {
+                        duration:400
+                    }
+                );
+                // Modifying the title of the theme
+                $themeTitle.css("margin-top","3em");
+                $themeTitle.css("opacity","1");
+            }
+            bottomSlider.toggleClass("slider-active");
+            bottomSlider.toggleClass("slider-inactive");
+
+        });
+
+
+
         // projection
         this.projection = this.ol.proj.get(self.config.projection.epsg);
 
@@ -77,6 +116,8 @@ class MapController {
         var shouldUpdate = true;
         var view = this.map.getView();
         var updatePermalink = function () {
+            return true;
+
             if (!shouldUpdate) {
                 // do not update the URL when the view was changed in the 'popstate' handler
                 shouldUpdate = true;
@@ -194,6 +235,14 @@ class MapController {
         }
     }
 
+    addExtract(egrid) {
+        this.Extracts.add(
+            {
+                egrid: egrid
+            }
+        )
+    }
+
     onClickOnMap(event) {
         self = this;
         // Popup showing the position the user clicked
@@ -211,7 +260,7 @@ class MapController {
         var element = popup.getElement();
         var coordinate = event.coordinate;
         /*var hdms = this.ol.coordinate.toStringHDMS(ol.proj.transform(
-            coordinate, 'EPSG:3857', self.config.projection.epsg)); */
+         coordinate, 'EPSG:3857', self.config.projection.epsg)); */
 
         $(element).hide();
         $(element).show();
@@ -222,7 +271,7 @@ class MapController {
 
         this.egrids = [];
         this.infoboxLoading = true;
-        this.Oereb.getEGRID(cords[1], cords[0]).then(function(d) {
+        this.Oereb.getEGRID(cords[1], cords[0]).then(function (d) {
             self.egrids = d.data;
             self.infoboxLoading = false;
         });
@@ -245,7 +294,6 @@ class MapController {
             event.coordinate, viewResolution, this.config.projection.epsg,
             {'INFO_FORMAT': 'text/xml' /* application/json */}
         );
-
 
 
         if (url) {
