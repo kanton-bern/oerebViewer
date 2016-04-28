@@ -1,10 +1,12 @@
 export class ExtractsService {
-    constructor ($log) {
+    constructor ($log, Loading, Oereb) {
 
         'ngInject';
 
         this.$log = $log;
         this.extracts = [];
+        this.Loading = Loading;
+        this.Oereb = Oereb;
     }
 
     reset() {
@@ -15,6 +17,13 @@ export class ExtractsService {
         let self = this;
         
         this.$log.warn('extract loaded: ' + newExtract.egrid);
+
+        this.Loading.show();
+
+        this.Oereb.getExtractById(newExtract.egrid).then(function (d) {
+            self.$log(d);
+        });
+
         // adds remove function to extract
         newExtract.remove = function() { self.remove(this.egrid); };
 

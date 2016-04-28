@@ -236,6 +236,9 @@ class MapController {
     }
 
     addExtract(egrid) {
+        var element = this.popup.getElement();
+        $(element).hide();
+
         this.Extracts.add(
             {
                 egrid: egrid
@@ -266,6 +269,8 @@ class MapController {
         $(element).show();
 
         popup.setPosition(coordinate);
+
+        this.popup = popup;
 
         var cords = this.ol.proj.transform(coordinate, self.config.projection.epsg, 'EPSG:4326');
 
