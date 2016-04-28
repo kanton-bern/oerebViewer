@@ -1,35 +1,15 @@
 <div class="notification-wrapper">
-    <div data-closable="scale-out-down fast" class="callout success">
-        <p>Gespeicherte Auszüge wurden als Links in die Zwischenablage kopiert</p>
+    <div ng-repeat="element in notifications.elements"  data-closable="scale-out-down fast" class="callout" ng-class="element.type">
+        <p>{{element.message}}</p>
         <button type="button" role="button" aria-label="Schliessen" data-close
                 class="button svg-icon notification-close">
             <svg class="icon icon-cross">
                 <use xlink:href="#icon-cross"></use>
             </svg>
         </button>
-    </div>
-    <div data-closable="scale-out-down fast" class="callout warning">
-        <p>Sollen alle vorhandenen Auszüge gelöscht werden?</p>
-        <button type="button" role="button" aria-label="Schliessen" data-close
-                class="button svg-icon notification-close">
-            <svg class="icon icon-cross">
-                <use xlink:href="#icon-cross"></use>
-            </svg>
-        </button>
-        <button type="button" role="button" aria-label="Ja" data-close
-                class="button svg-icon success notification-button hollow">Ja
-        </button>
-        <button type="button" role="button" aria-label="Nein" data-close
-                class="button svg-icon alert notification-button hollow">Nein
-        </button>
-    </div>
-    <div data-closable="scale-out-down fast" class="callout alert">
-        <p>Es kann keine Datenverbindung hergestellt werden!</p>
-        <button type="button" role="button" aria-label="Schliessen" data-close
-                class="button svg-icon notification-close">
-            <svg class="icon icon-cross">
-                <use xlink:href="#icon-cross"></use>
-            </svg>
+        <button ng-repeat="button in element.buttons" type="button" role="button" aria-label="Ja" data-close
+                ng-click="button.callback()" class="button svg-icon success notification-button hollow">
+                {{button.label}}
         </button>
     </div>
 </div>

@@ -5,7 +5,7 @@ export function NotificationsDirective() {
         restrict: 'E',
         templateUrl: 'app/components/notifications/notifications.html',
         controller: NotificationsController,
-        controllerAs: 'map',
+        controllerAs: 'notifications',
         bindToController: true
     };
 
@@ -15,13 +15,10 @@ export function NotificationsDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class NotificationsController {
-    constructor() {
+    constructor(Notifications) {
         'ngInject';
 
-    }
-
-    // restore permalink
-    restore() {
+        this.elements = Notifications.notifications
 
     }
 }
