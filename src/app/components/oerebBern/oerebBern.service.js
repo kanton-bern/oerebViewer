@@ -10,6 +10,8 @@ export class OerebBernService {
     }
 
     getExtractById(egrid) {
+        // forbidden workarround
+        egrid = 'CH494684043597'; 
 
         let url = this.base + 'extract/reduced/json/' + egrid;
 
