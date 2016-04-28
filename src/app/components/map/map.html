@@ -11,7 +11,7 @@
         <div ng-if="map.egrids.length == 0">Kein Resultat</div>
         <ul>
             <li ng-repeat="egrid in map.egrids">
-                <a href="#" ng-click="map.addExtract(egrid)">{{egrid}}</a>
+                <span class="clickable" href="#" ng-click="map.addExtract(egrid)">{{egrid}}</span>
             </li>
         </ul>
     </div>

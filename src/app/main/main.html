@@ -7,7 +7,8 @@
                class="position-left ease-in-out">
             <nav id="mainNav" class="mainnav mobile clearfix">
                 <div class="row top-menu">
-                    <div class="small-9"><span> <a ng-click="main.changeLanguage('de')" href="#" class="is-active">Deutsch</a></span><span> <a ng-click="main.changeLanguage('fr')" href="#">Français</a></span>
+                    <div class="small-9"><span> <a ng-click="main.changeLanguage('de')" href="#" class="is-active">Deutsch</a></span><span> <a
+                            ng-click="main.changeLanguage('fr')" href="#">Français</a></span>
                     </div>
                     <div class="small-3">
                         <button type="button" role="button" aria-label="Toggle Navigation" data-toggle="menuLeftSlider"
@@ -147,7 +148,8 @@
                                 Liegenschaft Nr. 1426, Obwalden, Gemeinde Engelberg<span class="history-date">12. Dezember 2015</span></a>
                             </li>
                             <li><a href="">
-                                <div style="background-image:url('/assets/images/gde_bern.jpeg')" class="logo-gemeinde"></div>
+                                <div style="background-image:url('/assets/images/gde_bern.jpeg')"
+                                     class="logo-gemeinde"></div>
                                 Liegenschaft Nr. 846, Bern, Gemeinde Bern<span class="history-date">15. März 2016</span></a>
                             </li>
                             <li><a href="#" class="copy-clipboard">
@@ -168,10 +170,16 @@
             <header class="header">
                 <div data-sticky-container class="header-sticky-container">
                     <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0"
-                         class="header-sticky"><a href="/" title="Zum Eingang" class="mainlogo"><img
-                            src="/assets/images/logo_dot_oereb.svg" title="OEREB Logo">
-                        <p><span class="oereb-title">ÖREB</span> {{ 'subtitle' | translate }}</p>
-                        <div class="provider-logo"><img src="/assets/images/kanton_be.png" title="Der Kanton Bern"></div>
+                         class="header-sticky">
+                        <a href="/" title="Zum Eingang" class="mainlogo">
+                            <img src="/assets/images/logo_dot_oereb.svg" title="OEREB Logo">
+                            <p>
+                                <span class="oereb-title">ÖREB</span> {{ 'subtitle' | translate }}
+                            </p>
+                        </a>
+                        <div class="provider-logo">
+                            <img src="/assets/images/kanton_be.png" title="Der Kanton Bern">
+                        </div>
                     </div>
                 </div>
             </header>
