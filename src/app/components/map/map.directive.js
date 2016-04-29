@@ -54,8 +54,8 @@ class MapController {
         });
 
 
-        let bottomSlider = $('.position-bottom');
-        let $themeTitle = $('.slide-title');
+        var bottomSlider = $('.position-bottom');
+        var $themeTitle = $('.slide-title');
         var vHeight = $(window).height() - 40;
         var $btnOpenTheme = $('#themeBottomToggler');
 
