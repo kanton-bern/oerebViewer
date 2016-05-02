@@ -131,18 +131,15 @@
                                 <use xlink:href="#icon-minus"></use>
                             </svg>
                         </button>
-                        Letzte betrachtete Grundstücke <span class="secondary badge">2</span></a>
+                        Letzte betrachtete Grundstücke <span class="secondary badge">{{main.history.length}}</span></a>
                         <ul class="menu vertical-nested">
-                            <li><a href="">
-                                <div style="background-image:url('/assets/images/gde_engelberg.png')"
+
+                            <li ng-repeat="hextract in main.history  track by $index" ng-click="main.setCurrentExtract(hextract.egrid)">
+                                <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}"
                                      class="logo-gemeinde"></div>
-                                Liegenschaft Nr. 1426, Obwalden, Gemeinde Engelberg<span class="history-date">12. Dezember 2015</span></a>
+                                Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span class="history-date">{{main.extract.data.CreationDate}}</span>
                             </li>
-                            <li><a href="">
-                                <div style="background-image:url('/assets/images/gde_bern.jpeg')"
-                                     class="logo-gemeinde"></div>
-                                Liegenschaft Nr. 846, Bern, Gemeinde Bern<span class="history-date">15. März 2016</span></a>
-                            </li>
+
                             <li><a href="#" class="copy-clipboard">
                                 <svg class="icon icon-inbox listicon">
                                     <use xlink:href="#icon-inbox"></use>
@@ -201,7 +198,7 @@
                                     <div class="row">
                                         <div class="small-6">
                                             <p class="name">Gemeinde Bern (841)</p>
-                                            <p class="egrid">CH299978329106</p>
+                                            <p class="egrid">{{main.extract.egrid}}</p>
                                         </div>
                                         <div class="small-6 clearfix">
                                             <div style="background-image:url('/assets/images/gde_bern.jpeg')"
@@ -222,11 +219,11 @@
                                         <li>
                                             <div class="row">
                                                 <div class="small-6 oereb-label">Grundstück-Nr:</div>
-                                                <div class="small-6 oereb-value">AU7046</div>
+                                                <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
                                             </div>
                                             <div class="row">
                                                 <div class="small-6 oereb-label">Fläche des Grundstücks:</div>
-                                                <div class="small-6 oereb-value">1711.2m2</div>
+                                                <div class="small-6 oereb-value">[nicht im Auszug]</div>
                                             </div>
                                             <div class="row">
                                                 <div class="small-6 oereb-label">EGRID:</div>

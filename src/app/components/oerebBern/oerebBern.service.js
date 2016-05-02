@@ -10,9 +10,6 @@ export class OerebBernService {
     }
 
     getExtractById(egrid) {
-        // forbidden workarround
-        egrid = 'CH494684043597';
-
         let url = this.base + 'extract/reduced/xml/' + egrid;
 
         var promise = this.$http.get(url,
@@ -20,6 +17,11 @@ export class OerebBernService {
                 transformResponse: function (data) {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
+                    
+                    if (!object.GetEGRIDResponse) {
+                        object.error = true;
+                        return object;
+                    }
 
                     return object.GetExtractByIdResponse.Extract;
                 }
@@ -27,7 +29,6 @@ export class OerebBernService {
 
         return promise;
     }
-
 
     getEGRID(long, lat) {
 
