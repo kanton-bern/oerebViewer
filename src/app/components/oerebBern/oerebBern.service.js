@@ -17,6 +17,10 @@ export class OerebBernService {
                 transformResponse: function (data) {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
+
+                    if (object.GetExtractByIdResponse) {
+                        return object.GetExtractByIdResponse.Extract;
+                    }
                     
                     if (!object.GetEGRIDResponse) {
                         object.error = true;
