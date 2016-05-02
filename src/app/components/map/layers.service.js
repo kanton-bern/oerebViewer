@@ -74,7 +74,28 @@ export class LayersService {
          },
          serverType: 'geoserver'
          }))
-         });*/
+         });
+
+         http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer
+         */
+
+        let oerebSource = new this.ol.source.TileWMS(({
+            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
+            params: {
+                'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
+                'TILED': true,
+                'VERSION': '1.3.0',
+                'FORMAT': 'image/png',
+                'CRS': 'EPSG:21781'
+            },
+            serverType: 'geoserver'
+        }));
+
+        let wmsOEREB = new this.ol.layer.Tile({
+            preload: Infinity,
+            visible: true,
+            source: oerebSource
+        });
 
         let wmsCantoneCadestral = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_planungwms_d_fk_s/MapServer/WMSServer?',
@@ -99,7 +120,8 @@ export class LayersService {
         // http://www.geoservice2-test.apps.be.ch/geoservice/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/WFSServer?
 
         this.add(osmLayer);
-        this.add(cantoneCadestral);
+        this.add(wmsOEREB);
+        // this.add(cantoneCadestral);
     }
 
     get() {

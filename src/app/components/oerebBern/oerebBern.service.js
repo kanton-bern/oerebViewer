@@ -11,11 +11,19 @@ export class OerebBernService {
 
     getExtractById(egrid) {
         // forbidden workarround
-        egrid = 'CH494684043597'; 
+        egrid = 'CH494684043597';
 
-        let url = this.base + 'extract/reduced/json/' + egrid;
+        let url = this.base + 'extract/reduced/xml/' + egrid;
 
-        var promise = this.$http.get(url);
+        var promise = this.$http.get(url,
+            {
+                transformResponse: function (data) {
+                    let x2js = new X2JS();
+                    let object = x2js.xml_str2json(data);
+
+                    return object.GetExtractByIdResponse.Extract;
+                }
+            });
 
         return promise;
     }

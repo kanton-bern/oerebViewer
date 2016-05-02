@@ -6,7 +6,7 @@
     </div>
 
     <div ng-if="!infoboxLoading">
-        <address>Waisenhausplatz 5,<br />3007 Bern</address>
+        <strong>Grundstücke</strong>
 
         <div ng-if="map.egrids.length == 0">Kein Resultat</div>
         <ul>
@@ -18,7 +18,7 @@
 </div>
 
 <div class="menu-nav">
-    <button data-toggle="menuLeftSlider" aria-controls="menuLeftSlider"
+    <button id="buttonShowExtract" data-toggle="menuLeftSlider" aria-controls="menuLeftSlider"
             class="button svg-icon btnOpenMenu">
         <svg class="icon icon-menu">
             <use xlink:href="#icon-menu"></use>

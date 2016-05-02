@@ -10,6 +10,7 @@ import { ExtractsService } from '../app/components/extracts/extracts.service';
 import { NotificationsService } from '../app/components/notifications/notifications.service';
 import { LoadingService } from '../app/components/loading/loading.service';
 import { MapDirective } from '../app/components/map/map.directive';
+import { ExtractDirective } from '../app/components/extract/extract.directive';
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 
@@ -30,5 +31,6 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .controller('MainController', MainController)
 
     .directive('map', MapDirective)
+    .directive('extract', ExtractDirective)
     .directive('notifications', NotificationsDirective)
     .directive('loading', LoadingDirective);

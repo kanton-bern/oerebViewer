@@ -5,6 +5,7 @@
     <div class="wrapper-inner">
         <aside id="menuLeftSlider" data-toggler data-animate="slide-in-left slide-out-left"
                class="position-left ease-in-out">
+
             <nav id="mainNav" class="mainnav mobile clearfix">
                 <div class="row top-menu">
                     <div class="small-9"><span> <a ng-click="main.changeLanguage('de')" href="#" class="is-active">Deutsch</a></span><span> <a
@@ -29,38 +30,37 @@
                                 <use xlink:href="#icon-minus"></use>
                             </svg>
                         </button>
-                        <p class="name">Gemeinde Bern (841)</p>
-                        <p class="egrid">CH299978329106</p>
-                        <p class="timestamp">15. März 2016 15:05:16</p></a>
+                        <p class="name">Gemeinde {{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</p>
+                        <p class="egrid">{{main.extract.egrid}}</p>
+                        <p class="timestamp">{{main.extract.data.CreationDate}}</p></a>
                         <ul class="menu vertical nested">
                             <li>
                                 <div class="row">
                                     <div class="small-6 oereb-label">Grundstück-Nr:</div>
-                                    <div class="small-6 oereb-value">AU7046</div>
+                                    <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
                                 </div>
                                 <div class="row">
                                     <div class="small-6 oereb-label">Fläche des Grundstücks:</div>
-                                    <div class="small-6 oereb-value">1711.2m2</div>
+                                    <div class="small-6 oereb-value">[nicht im Auszug]</div>
                                 </div>
                                 <div class="row">
                                     <div class="small-6 oereb-label">EGRID:</div>
-                                    <div class="small-6 oereb-value">CH299978329106</div>
+                                    <div class="small-6 oereb-value">{{main.extract.egrid}}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="small-6 oereb-label">Geneinde:</div>
-                                    <div class="small-6 oereb-value">Bern (841)</div>
+                                    <div class="small-6 oereb-label">Gemeinde:</div>
+                                    <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</div>
                                 </div>
                                 <div class="row">
                                     <div class="small-6 oereb-label">Auszugsnummer:</div>
-                                    <div class="small-6 oereb-value">eb78b1b7-57fc-4ba7-b133-839d43d76111</div>
+                                    <div class="small-6 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
                                 </div>
                                 <div class="row more-info">
                                     <div class="small-12">
                                         <svg class="icon icon-file">
                                             <use xlink:href="#icon-file"></use>
                                         </svg>
-                                        <a href="#" title="PDF herunterladen">Auszug als PDF herunterladen (PDF,
-                                            4MB)</a>
+                                        <a href="#" title="PDF herunterladen">Auszug als PDF herunterladen (PDF, 4MB)</a>
                                     </div>
                                 </div>
                                 <div class="row more-info">
@@ -85,11 +85,9 @@
                         </button>
                         Das Grundstück betreffende ÖREB-Themen</a>
                         <ul class="menu vertical nested">
-                            <li><a href="#">Zonenplan - Grundnutzungen<span
-                                    class="success badge float-right">&nbsp;</span></a></li>
-                            <li><a href="#">Zonenplan - Überlagernde Nutzungsplaninhalte</a></li>
-                            <li><a href="#">Baulinien (kantonal / kommunal)</a></li>
-                            <li><a href="#">KbS im Bereich des öffentlichen Verkehrs</a></li>
+                            <li ng-repeat="theme in main.extract.themes track by $index">
+                                <a href="#">{{theme}}</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="accordion-navigation"><a href="#">
@@ -103,17 +101,9 @@
                         </button>
                         Das Grundstück nicht betreffende ÖREB-Themen</a>
                         <ul class="menu vertical nested">
-                            <li><a href="">Projektierungszonen Nationalstrassen</a></li>
-                            <li><a href="">Projektierungszonen Eisenbahnanlagen</a></li>
-                            <li><a href="">Baulinien Eisenbahnanlagen</a></li>
-                            <li><a href="">Projektierungszonen Flughafenanlagen</a></li>
-                            <li><a href="">Baulinien Flughafenanlagen</a></li>
-                            <li><a href="">Sicherheitszonenplan bei Flughäfen</a></li>
-                            <li><a href="">Kataster der belasteten Standorte im Bereich der zivilen Flugplätze</a></li>
-                            <li><a href="">Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs</a>
+                            <li ng-repeat="theme in main.extract.ncthemes track by $index">
+                                <a href="#">{{theme}}</a>
                             </li>
-                            <li><a href="">Grundwasserschutzzonen</a></li>
-                            <li><a href="">Grundwasserschutzareale</a></li>
                         </ul>
                     </li>
                     <li class="accordion-navigation"><a href="#">
@@ -127,8 +117,9 @@
                         </button>
                         Nicht vorhandene ÖREB-Themen</a>
                         <ul class="menu vertical nested">
-                            <li><a href="">Kommunale Nutzungsplanung</a></li>
-                            <li><a href="">Kataster der belasteten Standorte im Bereich des Militärs</a></li>
+                            <li ng-repeat="theme in main.extract.wdthemes track by $index">
+                                <a href="#">{{theme}}</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="accordion-navigation history-item"><a href="#">
