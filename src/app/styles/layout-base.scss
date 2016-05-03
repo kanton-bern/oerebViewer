@@ -29,6 +29,7 @@ body {
     display:none;
     height:100vh;
     width:75%;
+    max-width: 680px;
     z-index:5;
     overflow-y:auto;
     @include castShadowRight;
