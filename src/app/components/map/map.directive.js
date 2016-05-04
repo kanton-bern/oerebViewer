@@ -30,18 +30,26 @@ class MapController {
 
         this.config = {
             zoom: {
-                default: 4,
-                zoomedIn: 12
+
+                default: 11,
+                zoomedIn: 20
             },
             projection: {
-                epsg: 'EPSG:21781',
-                extent: [556537.4299988629, 133372.99984210846, 677228.07650191, 243445.06515347536]
+                epsg: 'EPSG:2056',
+                // extend: [5.9700, 45.8300, 10.4900, 47.8100]
+
+
+                /*
+                    old epsg:
+                        extent: [420000, 30000, 900000, 350000],
+                        epsg: 'EPSG:21781',
+                */
             }
         }
 
-        // 612644.12/195917.85/0
-        this.center = [612644, 195917];
+        this.center = [844323.4144380568, 5912480.5748866685];
         this.zoom = this.config.zoom.default;
+
 
         // information text
 
@@ -93,19 +101,20 @@ class MapController {
 
 
         // projection
-        this.projection = this.ol.proj.get(self.config.projection.epsg);
+        // this.projection = this.ol.proj.get(self.config.projection.epsg);
 
         // define view
         this.view = new this.ol.View({
             center: self.center,
             zoom: self.zoom,
-            projection: this.projection
+            // projection: this.projection
         });
 
         this.map = new this.ol.Map({
             layers: Layers.get(),
             view: this.view
         });
+
 
         this.zoomIn = function () {
             this.$log.warn('zoomIn');
@@ -115,7 +124,15 @@ class MapController {
         // permalink
         var shouldUpdate = true;
         var view = this.map.getView();
-        var updatePermalink = function () {
+        var onResizeMap = function () {
+
+            if (view.getZoom() > 9) {
+
+            }
+            console.log(view.getZoom());
+            console.log(view.getCenter());
+            // console.log(view.getZoom() + ' ' + view.getCenter());
+
             return true;
 
             if (!shouldUpdate) {
@@ -139,7 +156,7 @@ class MapController {
             window.history.pushState(state, 'map', hash);
         };
 
-        this.map.on('moveend', updatePermalink);
+        this.map.on('moveend', onResizeMap);
 
         // onload set center from url
         window.addEventListener('popstate', function (event) {
@@ -208,8 +225,12 @@ class MapController {
         }, function (value) {
             if (self.search !== null && typeof self.search === 'object') {
                 // center result
-                self.map.getView().setCenter(self.ol.proj.transform([self.search.attrs.lon, self.search.attrs.lat], 'EPSG:4326', self.config.projection.epsg));
-                self.map.getView().setZoom(self.config.zoom.zoomedIn);
+
+                console.log(self.search.attrs.lon);
+                console.log(self.search.attrs.lat);
+
+                self.map.getView().setCenter(self.transform([self.search.attrs.lon, self.search.attrs.lat]));
+                // self.map.getView().setZoom(self.config.zoom.zoomedIn);
             }
         });
     }
@@ -261,18 +282,19 @@ class MapController {
 
         this.$log.warn('clicked');
         var element = popup.getElement();
-        var coordinate = event.coordinate;
-        /*var hdms = this.ol.coordinate.toStringHDMS(ol.proj.transform(
-         coordinate, 'EPSG:3857', self.config.projection.epsg)); */
+        var hdms = this.ol.coordinate.toStringHDMS(this.transform(event.coordinate));
 
         $(element).hide();
         $(element).show();
 
-        popup.setPosition(coordinate);
+        popup.setPosition(event.coordinate);
 
         this.popup = popup;
 
-        var cords = this.ol.proj.transform(coordinate, self.config.projection.epsg, 'EPSG:4326');
+
+        console.log(event.coordinate);
+        var cords = this.transform(event.coordinate);
+        console.log(cords);
 
         this.egrids = [];
         this.infoboxLoading = true;
@@ -327,8 +349,16 @@ class MapController {
         }
     }
 
-    test() {
-        this.$log.warn('wtf');
+    transform(coordinate) {
+        // return ol.proj.transform(coordinate, this.config.projection.epsg, 'EPSG:4326');
 
+        // source
+        var epsg21781 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
+        var epsg2056 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
+
+        // target
+        var epsg4326 = '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees';
+
+        return proj4(epsg2056,epsg4326,coordinate);
     }
 }

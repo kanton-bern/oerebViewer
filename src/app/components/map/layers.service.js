@@ -86,13 +86,14 @@ export class LayersService {
                 'TILED': true,
                 'VERSION': '1.3.0',
                 'FORMAT': 'image/png',
-                'CRS': 'EPSG:21781'
+                // 'CRS': 'EPSG:21781'
+                'CRS' : 'EPSG:2056',
             },
             serverType: 'geoserver'
         }));
 
         let wmsOEREB = new this.ol.layer.Tile({
-            preload: Infinity,
+            /*preload: Infinity,*/
             visible: true,
             source: oerebSource
         });
@@ -112,7 +113,9 @@ export class LayersService {
         let cantoneCadestral = new this.ol.layer.Tile({
             preload: Infinity,
             visible: true,
-            source: wmsCantoneCadestral
+            source: wmsCantoneCadestral,
+            minResolution: 0.001,
+            maxResolution: 100,
         });
 
         // http://openlayers.org/en/v3.3.0/examples/vector-wfs.js
