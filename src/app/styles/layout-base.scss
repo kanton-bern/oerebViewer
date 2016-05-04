@@ -1,8 +1,7 @@
 // Base Layout for all widths
 // Disabling Buttons for swisstopo maps
 .ol-control {
-  visibility: hidden;
-  display: none;
+
 }
 
 
@@ -367,11 +366,14 @@ body {
           background-blend-mode: multiply;
           height:40px;
         }
+        .copy-clipboard {
+         //  padding:0px 5px 0px 5px;
+        }
         .history-date {
           font-size:$fontSizeBase * 0.8;
           color:$colorLightGrey;
           display:block;
-          margin-top:0.5em;
+          margin-top:0em;
         }
       }
     }
@@ -400,7 +402,7 @@ body {
     position:absolute;
     left:5%;
     top:10%;
-    z-index:4;
+    z-index:3;
 
 
     .button {

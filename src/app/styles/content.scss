@@ -7,6 +7,10 @@
 
 // Typography
 .article {
+  strong {
+    @include fontBold;
+  }
+
   // Links
   p, table {
     @include contentLinks;

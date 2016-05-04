@@ -135,9 +135,12 @@
                         <ul class="menu vertical-nested">
 
                             <li ng-repeat="hextract in main.history  track by $index" ng-click="main.setCurrentExtract(hextract.egrid)">
+                              <!--[BS][todo] Einfügen Link auf die Abfrage -->
+                              <a href="" title="Link auf Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}}">
                                 <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}"
                                      class="logo-gemeinde"></div>
                                 Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span class="history-date">{{main.extract.data.CreationDate}}</span>
+                              </a>
                             </li>
 
                             <li><a href="#" class="copy-clipboard">
