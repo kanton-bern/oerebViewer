@@ -35,15 +35,8 @@ class MapController {
                 zoomedIn: 20
             },
             projection: {
-                epsg: 'EPSG:2056',
-                // extend: [5.9700, 45.8300, 10.4900, 47.8100]
-
-
-                /*
-                    old epsg:
-                        extent: [420000, 30000, 900000, 350000],
-                        epsg: 'EPSG:21781',
-                */
+                extent: [420000, 30000, 900000, 350000],
+                epsg: 'EPSG:21781',
             }
         }
 
@@ -101,13 +94,15 @@ class MapController {
 
 
         // projection
-        // this.projection = this.ol.proj.get(self.config.projection.epsg);
+        this.projection = this.ol.proj.get(self.config.projection.epsg);
+
+
 
         // define view
         this.view = new this.ol.View({
             center: self.center,
             zoom: self.zoom,
-            // projection: this.projection
+            projection: this.projection
         });
 
         this.map = new this.ol.Map({
@@ -226,10 +221,13 @@ class MapController {
             if (self.search !== null && typeof self.search === 'object') {
                 // center result
 
-                console.log(self.search.attrs.lon);
-                console.log(self.search.attrs.lat);
+                let coordinates = [self.search.attrs.lon, self.search.attrs.lat];
+                console.log(coordinates);
 
-                self.map.getView().setCenter(self.transform([self.search.attrs.lon, self.search.attrs.lat]));
+                let transformed = self.transform(coordinates, true);
+                console.log(transformed);
+
+                self.map.getView().setCenter(transformed);
                 // self.map.getView().setZoom(self.config.zoom.zoomedIn);
             }
         });
@@ -282,7 +280,6 @@ class MapController {
 
         this.$log.warn('clicked');
         var element = popup.getElement();
-        var hdms = this.ol.coordinate.toStringHDMS(this.transform(event.coordinate));
 
         $(element).hide();
         $(element).show();
@@ -349,8 +346,11 @@ class MapController {
         }
     }
 
-    transform(coordinate) {
-        // return ol.proj.transform(coordinate, this.config.projection.epsg, 'EPSG:4326');
+    transform(coordinate, inverse = false) {
+        if (inverse)
+            return ol.proj.transform(coordinate, 'EPSG:4326', this.config.projection.epsg);
+        return ol.proj.transform(coordinate, this.config.projection.epsg, 'EPSG:4326');
+
 
         // source
         var epsg21781 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
@@ -359,6 +359,9 @@ class MapController {
         // target
         var epsg4326 = '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees';
 
-        return proj4(epsg2056,epsg4326,coordinate);
+        if (inverse)
+            return proj4(epsg4326,epsg21781,coordinate);
+
+        return proj4(epsg21781,epsg4326,coordinate);
     }
 }

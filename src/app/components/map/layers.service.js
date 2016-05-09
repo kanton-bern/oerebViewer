@@ -86,8 +86,7 @@ export class LayersService {
                 'TILED': true,
                 'VERSION': '1.3.0',
                 'FORMAT': 'image/png',
-                // 'CRS': 'EPSG:21781'
-                'CRS' : 'EPSG:2056',
+                'CRS': 'EPSG:21781'
             },
             serverType: 'geoserver'
         }));
