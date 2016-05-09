@@ -42,16 +42,25 @@
             <use xlink:href="#icon-location-2"></use>
         </svg>
     </button>
-    <button ngeo-zoom="1" class="button svg-icon btnZoomIn hide-for-small-only">
+    <!-- [BS][todo]
+    Tobi: könntest du die beiden Zoom-Buttons noch funktionsfähig machen? Also so, dass wenn man auf [+] klickt zoomIn funktioniert und [-] zoomOut
+    -->
+    <button ngeo-zoom="10" class="button svg-icon btnZoomIn hide-for-small-only ol-zoom-in">
         <svg class="icon icon-plus">
             <use xlink:href="#icon-plus"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnZoomOut hide-for-small-only">
+    <button ngeo-zoom="-10" type="button" class="button svg-icon btnZoomOut hide-for-small-only ol-zoom-out">
         <svg class="icon icon-minus">
             <use xlink:href="#icon-minus"></use>
         </svg>
     </button>
+    <!-- [BS][todo]
+      Dieser Button sollte das Luftbild zeigen und alternierend mit btMapOrtho funktionieren.
+      Also:
+      - wenn ich btnMapAerial drücke wird das Luftbild gezeigt und btnMapOrtho aktiv
+      - Drücke ich btnMapOrth so wird die normale Kartenansicht gezeigt und btnMapAerial aktiv
+    -->
     <button class="button svg-icon btnMapAerial">
         <svg class="icon icon-aerial">
             <use xlink:href="#icon-aerial"></use>
