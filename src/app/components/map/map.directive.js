@@ -31,8 +31,8 @@ class MapController {
         this.config = {
             zoom: {
 
-                default: 11,
-                zoomedIn: 20
+                default: 4,
+                zoomedIn: 12
             },
             projection: {
                 extent: [420000, 30000, 900000, 350000],
@@ -40,7 +40,7 @@ class MapController {
             }
         }
 
-        this.center = [844323.4144380568, 5912480.5748866685];
+        this.center = [599042.5342280008,185035.77279221092];
         this.zoom = this.config.zoom.default;
 
 
@@ -124,9 +124,8 @@ class MapController {
             if (view.getZoom() > 9) {
 
             }
-            console.log(view.getZoom());
-            console.log(view.getCenter());
-            // console.log(view.getZoom() + ' ' + view.getCenter());
+
+            console.log(view.getZoom() + ' ' + view.getCenter());
 
             return true;
 
@@ -219,16 +218,13 @@ class MapController {
             return self.search;
         }, function (value) {
             if (self.search !== null && typeof self.search === 'object') {
+
                 // center result
-
                 let coordinates = [self.search.attrs.lon, self.search.attrs.lat];
-                console.log(coordinates);
-
                 let transformed = self.transform(coordinates, true);
-                console.log(transformed);
 
                 self.map.getView().setCenter(transformed);
-                // self.map.getView().setZoom(self.config.zoom.zoomedIn);
+                self.map.getView().setZoom(self.config.zoom.zoomedIn);
             }
         });
     }
@@ -314,42 +310,12 @@ class MapController {
         }));
 
         var viewResolution = (this.map.getView().getResolution());
-        var url = wmsCantoneCadestral.getGetFeatureInfoUrl(
-            event.coordinate, viewResolution, this.config.projection.epsg,
-            {'INFO_FORMAT': 'text/xml' /* application/json */}
-        );
-
-
-        if (url) {
-            this.$log.warn(url);
-
-            /*$http({
-             method: 'get',
-             url: url,
-             }).then(function successCallback(response) {
-             console.log(response);
-             }, function errorCallback(response) {
-             console.log(response);
-             });*/
-
-            /*$.ajax({
-
-             url: url,
-             type: 'GET',
-             crossDomain: true,
-             dataType: 'jsonp',
-             success: function() { console.log("Success"); },
-             error: function() { console.log('Failed!'); },
-             beforeSend: setHeader,
-             });*/
-
-        }
     }
 
     transform(coordinate, inverse = false) {
-        if (inverse)
+        /*if (inverse)
             return ol.proj.transform(coordinate, 'EPSG:4326', this.config.projection.epsg);
-        return ol.proj.transform(coordinate, this.config.projection.epsg, 'EPSG:4326');
+        return ol.proj.transform(coordinate, this.config.projection.epsg, 'EPSG:4326');*/
 
 
         // source
