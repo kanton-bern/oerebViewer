@@ -160,14 +160,21 @@
         <div class="content-wrapper">
             <header class="header">
                 <div data-sticky-container class="header-sticky-container">
-                    <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0"
-                         class="header-sticky">
+                    <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
                         <a href="/" title="Zum Eingang" class="mainlogo">
                             <img src="/assets/images/logo_dot_oereb.svg" title="OEREB Logo">
                             <p>
                                 <span class="oereb-title">ÖREB</span> {{ 'subtitle' | translate }}
                             </p>
                         </a>
+                        <div class="menu-nav">
+                            <button id="buttonShowExtract" data-toggle="menuLeftSlider" aria-controls="menuLeftSlider"
+                                    class="button svg-icon btnOpenMenu">
+                                <svg class="icon icon-menu">
+                                    <use xlink:href="#icon-menu"></use>
+                                </svg>
+                            </button>
+                        </div>
                         <div class="provider-logo">
                             <img src="/assets/images/kanton_be.png" title="Der Kanton Bern">
                         </div>

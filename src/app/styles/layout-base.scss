@@ -77,16 +77,29 @@ body {
       @include castShadow();
     }
   }
+  .menu-nav {
+    position:absolute;
+    top:0px;
+    left:5px;
+    .button {
+      background-color:transparent;
+      .icon-menu {
+          fill:$colorContent;
+      }
+
+    }
+  }
+
   .mainlogo {
     color:$colorHeadContent;
     img {
       position:absolute;
-      left:0.5em;
+      left:3em;
       top:0.5em;
       width:1.2em;
     }
     p {
-      margin:0.5em 0em 0em 16px;
+      margin:0.5em 0em 0em 3.5em;
     }
     .oereb-title {
       font-size:$fontSizeBase * 1.4;
