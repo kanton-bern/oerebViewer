@@ -261,7 +261,15 @@ class MapController {
     }
 
     showLayer(name) {
-        this.Layers.showLayer(name);
+        if (name == 'ortho') {
+            this.Layers.show('ortho');
+            this.Layers.hide('aerial');
+        }
+
+        if (name == 'aerial') {
+            this.Layers.show('aerial');
+            this.Layers.hide('ortho');
+        }
     }
 
     isLayerActive(name) {

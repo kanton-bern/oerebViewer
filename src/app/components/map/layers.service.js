@@ -8,18 +8,18 @@ export class LayersService {
 
         // example ImageWMS
         /*let exampleImageWms = new ol.layer.Image({
-            source: new ol.source.ImageWMS({
-                url: 'http://wms.geo.admin.ch/',
-                ratio: 1.0,
-                projection: 'EPSG:21781',
-                params: {
-                    'LAYERS': ['ch.swisstopo.pixelkarte-farbe'],
-                    'FORMAT': 'image/png',
-                    'TILED': false
-                },
-                serverType: 'mapserver'
-            })
-        }); */
+         source: new ol.source.ImageWMS({
+         url: 'http://wms.geo.admin.ch/',
+         ratio: 1.0,
+         projection: 'EPSG:21781',
+         params: {
+         'LAYERS': ['ch.swisstopo.pixelkarte-farbe'],
+         'FORMAT': 'image/png',
+         'TILED': false
+         },
+         serverType: 'mapserver'
+         })
+         }); */
 
         let osmLayer = new this.ol.layer.Tile({
             source: new this.ol.source.OSM(),
@@ -27,8 +27,9 @@ export class LayersService {
         });
 
         let satLayer = new this.ol.layer.Tile({
-           source: new ol.source.MapQuest( { layer: 'sat'} ),
-            name: 'aerial'
+            source: new ol.source.MapQuest({layer: 'sat'}),
+            name: 'aerial',
+            visible: false
         });
 
         let oerebSource = new this.ol.source.TileWMS(({
@@ -75,23 +76,32 @@ export class LayersService {
         // http://www.geoservice2-test.apps.be.ch/geoservice/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/WFSServer?
 
         this.add(osmLayer);
-        // this.add(satLayer);
+        this.add(satLayer);
         this.add(wmsOEREB);
     }
 
     isActive(name) {
-        console.log(this.get());
-
-        return true;
+        for (var i = 0; i < this.layers.length; i++) {
+            if (this.layers[i].M.name == name) {
+                return this.layers[i].visible;
+            }
+        }
+        
+        return false;
     }
 
-    showLayer(name) {
-        console.log(name);
+    hide(name, inverse = false) {
+        for (var i = 0; i < this.layers.length; i++) {
+            if (this.layers[i].M.name == name) {
+                this.layers[i].visible = inverse;
+            }
+        }
 
+        return name;
     }
 
-    remove(name) {
-
+    show(name) {
+        return this.hide(name, true);
     }
 
     get() {
