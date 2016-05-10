@@ -1,7 +1,8 @@
 // Base Layout for all widths
 // Disabling Buttons for swisstopo maps
 .ol-control {
-
+  visibility: hidden;
+  display:none;
 }
 
 
