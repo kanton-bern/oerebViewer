@@ -50,12 +50,12 @@
       - wenn ich btnMapAerial drücke wird das Luftbild gezeigt und btnMapOrtho aktiv
       - Drücke ich btnMapOrth so wird die normale Kartenansicht gezeigt und btnMapAerial aktiv
     -->
-    <button class="button svg-icon btnMapAerial">
+    <button class="button svg-icon btnMapAerial" ng-click="map.showLayer('aerial')" ng-show="map.isLayerActive('aerial')">
         <svg class="icon icon-aerial">
             <use xlink:href="#icon-aerial"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnMapOrtho">
+    <button class="button svg-icon btnMapOrtho" ng-click="map.showLayer('ortho')" ng-show="map.isLayerActive('ortho')">
         <svg class="icon icon-map">
             <use xlink:href="#icon-map"></use>
         </svg>

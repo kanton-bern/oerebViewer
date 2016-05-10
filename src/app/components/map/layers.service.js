@@ -4,80 +4,32 @@ export class LayersService {
 
         this.layers = [];
         this.ol = ol;
+        this.active = 'ortho';
 
-        // define layers
-        /*var attributions = [
-            new this.ol.Attribution({
-                html: '<a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">' +
-                '&copy swisstopo / Amtliche Vermessung Schweiz/FL</a>'
-            })
-        ];
-
-        let wmsCadastre = new this.ol.layer.Tile({
-            extent: [420000, 30000, 900000, 350000],
-            source: new this.ol.source.TileWMS({
+        // example ImageWMS
+        /*let exampleImageWms = new ol.layer.Image({
+            source: new ol.source.ImageWMS({
                 url: 'http://wms.geo.admin.ch/',
-                crossOrigin: 'anonymous',
-                attributions: attributions,
+                ratio: 1.0,
+                projection: 'EPSG:21781',
                 params: {
-                    'LAYERS': 'ch.kantone.cadastralwebmap-farbe',
+                    'LAYERS': ['ch.swisstopo.pixelkarte-farbe'],
                     'FORMAT': 'image/png',
-                    'TILED': true,
-                    'VERSION': '1.1.1'
+                    'TILED': false
                 },
                 serverType: 'mapserver'
             })
-        });*/
-
-        /*let exampleLayer = new this.ol.layer.Tile({
-            source: new this.ol.source.TileWMS({
-                url: 'http://demo.opengeo.org/geoserver/wms',
-                params: {'LAYERS': 'topp:states'},
-                serverType: 'geoserver',
-                extent: [-13884991, 2870341, -7455066, 6338219]
-            })
-        });*/
+        }); */
 
         let osmLayer = new this.ol.layer.Tile({
-            source: new this.ol.source.OSM()
+            source: new this.ol.source.OSM(),
+            name: 'ortho'
         });
 
-
-        /*let myLayer1303 = new this.ol.layer.Tile({
-            extent: [2033814, 6414547, 2037302, 6420952],
-            preload: Infinity,
-            visible: true,
-            source: new this.ol.source.TileWMS(({
-                url: 'http://wms.geo.admin.ch/',
-                params: {
-                    'LAYERS': 'ch.kantone.cadastralwebmap-farbe',
-                    'TILED': true,
-                    'VERSION': '1.1.1',
-                    'FORMAT': 'image/png',
-                    'CRS': 'EPSG:3857'
-                },
-                serverType: 'geoserver'
-            }))
-        });*/
-
-        /*var cantoneCadestral = new ol.layer.Tile({
-         preload: Infinity,
-         visible: true,
-         source: new ol.source.TileWMS(({
-         url: 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_basiswms_d_fk_s/MapServer/WMSServer?',
-         params: {
-         'LAYERS': 'GEODB.UP5_SITU5_MOSAIC',
-         'TILED': true,
-         'VERSION': '1.1.1',
-         'FORMAT': 'image/png',
-         //'CRS': 'EPSG:3857'
-         },
-         serverType: 'geoserver'
-         }))
-         });
-
-         http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer
-         */
+        let satLayer = new this.ol.layer.Tile({
+           source: new ol.source.MapQuest( { layer: 'sat'} ),
+            name: 'aerial'
+        });
 
         let oerebSource = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
@@ -94,7 +46,8 @@ export class LayersService {
         let wmsOEREB = new this.ol.layer.Tile({
             /*preload: Infinity,*/
             visible: true,
-            source: oerebSource
+            source: oerebSource,
+            name: 'oereb'
         });
 
         let wmsCantoneCadestral = new this.ol.source.TileWMS(({
@@ -122,8 +75,23 @@ export class LayersService {
         // http://www.geoservice2-test.apps.be.ch/geoservice/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/WFSServer?
 
         this.add(osmLayer);
+        // this.add(satLayer);
         this.add(wmsOEREB);
-        // this.add(cantoneCadestral);
+    }
+
+    isActive(name) {
+        console.log(this.get());
+
+        return true;
+    }
+
+    showLayer(name) {
+        console.log(name);
+
+    }
+
+    remove(name) {
+
     }
 
     get() {
@@ -133,6 +101,7 @@ export class LayersService {
     add(layer) {
         this.layers.push(layer);
     }
+
 }
 
 

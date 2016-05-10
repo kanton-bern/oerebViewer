@@ -24,6 +24,7 @@ class MapController {
         this.ol = ol;
         this.Oereb = Oereb;
         this.Extracts = Extracts;
+        this.Layers = Layers;
 
 
         var self = this;
@@ -257,6 +258,14 @@ class MapController {
     zoomOut() {
         let self = this;
         self.map.getView().setZoom(self.map.getView().getZoom()-1);
+    }
+
+    showLayer(name) {
+        this.Layers.showLayer(name);
+    }
+
+    isLayerActive(name) {
+        return this.Layers.isActive(name);
     }
 
     addExtract(egrid) {
