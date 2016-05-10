@@ -17,7 +17,7 @@ export class ExtractsService {
     }
 
     add(newExtract) {
-        self = this;
+        let self = this;
         
         this.$log.warn('extract loading: ' + newExtract.egrid);
 
@@ -39,7 +39,7 @@ export class ExtractsService {
 
             self.Loading.hide();
             angular.element('#buttonShowExtract').click();
-        }).catch(function(d) {
+        }).catch(function() {
             self.Notifications.add({
                     message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht.',
                     type: 'alert'
@@ -56,7 +56,7 @@ export class ExtractsService {
     }
 
     setCurrent(egrid) {
-        self = this;
+        let self = this;
 
         for(var i = 0; i < this.extracts.length; i++){
             if(this.extracts[i].egrid == egrid){
@@ -95,7 +95,7 @@ export class ExtractsService {
     }
 
     remove(egrid) {
-        self = this;
+        let self = this;
 
         for(var i = 0; i < this.extracts.length; i++){
             if(this.extracts[i].egrid == egrid){

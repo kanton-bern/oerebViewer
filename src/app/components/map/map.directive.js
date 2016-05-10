@@ -255,10 +255,10 @@ class MapController {
     }
 
     zoomOut() {
-        self = this;
+        let self = this;
         self.map.getView().setZoom(self.map.getView().getZoom()-1);
     }
-    
+
     addExtract(egrid) {
         var element = this.popup.getElement();
         $(element).hide();
@@ -271,7 +271,7 @@ class MapController {
     }
 
     onClickOnMap(event) {
-        self = this;
+        let self = this;
         // Popup showing the position the user clicked
         self.infocords = event.coordinate;
 

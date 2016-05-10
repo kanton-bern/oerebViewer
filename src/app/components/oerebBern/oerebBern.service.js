@@ -35,7 +35,7 @@ export class OerebBernService {
     }
 
     getEGRID(long, lat) {
-
+        let self = this;
         let url = this.base + 'getegrid/?GNSS=' + long + ',' + lat;
 
         var promise = this.$http.get(
