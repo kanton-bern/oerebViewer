@@ -276,17 +276,6 @@ class MapController {
         return this.Layers.isActive(name);
     }
 
-    addExtract(egrid) {
-        var element = this.popup.getElement();
-        $(element).hide();
-
-        this.Extracts.add(
-            {
-                egrid: egrid
-            }
-        )
-    }
-
     onClickOnMap(event) {
         let self = this;
         // Popup showing the position the user clicked

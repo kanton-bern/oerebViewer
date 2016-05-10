@@ -11,7 +11,7 @@
         <div ng-if="map.egrids.length == 0">Kein Resultat</div>
         <ul>
             <li ng-repeat="egrid in map.egrids">
-                <span class="clickable" href="#" ng-click="map.addExtract(egrid)">{{egrid}}</span>
+                <span class="clickable" href="#" ui-sref="home.detail({egrid: egrid})">{{egrid}}</span>
             </li>
         </ul>
     </div>
@@ -33,7 +33,6 @@
             <use xlink:href="#icon-location-2"></use>
         </svg>
     </button>
-
     <button ng-click="map.zoomIn()" class="button svg-icon btnZoomIn hide-for-small-only">
         <svg class="icon icon-plus">
             <use xlink:href="#icon-plus"></use>
@@ -44,12 +43,6 @@
             <use xlink:href="#icon-minus"></use>
         </svg>
     </button>
-    <!-- [BS][todo]
-      Dieser Button sollte das Luftbild zeigen und alternierend mit btnMapOrtho funktionieren.
-      Also:
-      - wenn ich btnMapAerial drücke wird das Luftbild gezeigt und btnMapOrtho aktiv
-      - Drücke ich btnMapOrth so wird die normale Kartenansicht gezeigt und btnMapAerial aktiv
-    -->
     <button class="button svg-icon btnMapAerial" ng-click="map.showLayer('aerial')" ng-show="!map.isLayerActive('aerial')">
         <svg class="icon icon-aerial">
             <use xlink:href="#icon-aerial"></use>

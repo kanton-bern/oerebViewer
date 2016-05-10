@@ -4,6 +4,7 @@ import { config } from './index.config';
 import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
+import { DetailController } from './detail/detail.controller';
 import { LayersService } from '../app/components/map/layers.service';
 import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
 import { ExtractsService } from '../app/components/extracts/extracts.service';
@@ -29,6 +30,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .service('Loading', LoadingService)
 
     .controller('MainController', MainController)
+    .controller('DetailController', DetailController)
 
     .directive('map', MapDirective)
     .directive('extract', ExtractDirective)

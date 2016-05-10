@@ -8,15 +8,24 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
             controller: 'MainController',
             controllerAs: 'main'
         })
-        .state('detail', {
-            url: '/detail/:egrid',
+        .state('home.detail', {
+            url: 'd/:egrid',
             params: {
                 egrid: '',
             },
-            templateUrl: 'app/main/main.html',
-            controller: 'MainController',
-            controllerAs: 'main'
+            templateUrl: 'app/detail/detail.html',
+            controller: 'DetailController',
+            controllerAs: 'detail'
+        })
+        .state('home.detail.restriction', {
+            url: '/:restriction',
+            params: {
+                egrid: '',
+            },
+            templateUrl: 'app/detail/detail.html',
+            controller: 'DetailController',
+            controllerAs: 'detail'
         });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/d/0');
 }
