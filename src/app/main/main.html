@@ -81,7 +81,7 @@
                         Das Grundstück betreffende ÖREB-Themen</a>
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.themes track by $index">
-                                <a href="#">{{theme}}</a>
+                                <a href="#">{{theme.Name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -98,7 +98,7 @@
                         Das Grundstück nicht betreffende ÖREB-Themen</a>
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.ncthemes track by $index">
-                                <a href="#">{{theme}}</a>
+                                <a href="#">{{theme.Name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -115,7 +115,7 @@
                         Nicht vorhandene ÖREB-Themen</a>
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.wdthemes track by $index">
-                                <a href="#">{{theme}}</a>
+                                <a href="#">{{theme.Name}}</a>
                             </li>
                         </ul>
                     </li>
