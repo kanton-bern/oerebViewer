@@ -69,6 +69,8 @@ body {
   z-index: 10;
   position: relative;
 
+
+
   // Sticky Container for the top bar
   .header-sticky-container {
     .header-sticky {
@@ -79,7 +81,7 @@ body {
   }
   .menu-nav {
     position:absolute;
-    top:0px;
+    top:2px;
     left:5px;
     .button {
       background-color:transparent;
@@ -127,9 +129,12 @@ body {
   .top-menu {
     font-size:$fontSizeBase * 1;
     .small-9 {
-      padding:0.5em 15px 15px 15px;
+      padding:0.5em 15px 15px 16px;
       span {
-        margin-right:10px;
+        .is-active {
+          display:none;
+          visibility: hidden;
+        }
       }
     }
   }

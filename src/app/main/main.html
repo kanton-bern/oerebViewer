@@ -8,16 +8,8 @@
 
             <nav id="mainNav" class="mainnav mobile clearfix">
                 <div class="row top-menu">
-                    <div class="small-9"><span> <a ng-click="main.changeLanguage('de')" href="#" class="is-active">Deutsch</a></span><span> <a
-                            ng-click="main.changeLanguage('fr')" href="#">Français</a></span>
-                    </div>
-                    <div class="small-3">
-                        <button type="button" role="button" aria-label="Toggle Navigation" data-toggle="menuLeftSlider"
-                                aria-controls="menuLeftSlider" class="button svg-icon menu-close">
-                            <svg class="icon icon-cross">
-                                <use xlink:href="#icon-cross"></use>
-                            </svg>
-                        </button>
+                    <div class="small-9"><span> <a ng-click="main.changeLanguage('de')" href="#" title="Deutsche Version" class="is-active">Deutsch</a></span><span> <a
+                            ng-click="main.changeLanguage('fr')" title="Version française" href="#">Français</a></span>
                     </div>
                 </div>
                 <ul data-accordion-menu class="menu vertical">
@@ -33,6 +25,7 @@
                         <p class="name">Gemeinde {{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</p>
                         <p class="egrid">{{main.extract.egrid}}</p>
                         <p class="timestamp">{{main.extract.data.CreationDate}}</p></a>
+                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li>
                                 <div class="row">
@@ -84,6 +77,7 @@
                             </svg>
                         </button>
                         Das Grundstück betreffende ÖREB-Themen</a>
+                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.themes track by $index">
                                 <a href="#">{{theme}}</a>
@@ -100,6 +94,7 @@
                             </svg>
                         </button>
                         Das Grundstück nicht betreffende ÖREB-Themen</a>
+                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.ncthemes track by $index">
                                 <a href="#">{{theme}}</a>
@@ -116,12 +111,14 @@
                             </svg>
                         </button>
                         Nicht vorhandene ÖREB-Themen</a>
+                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.wdthemes track by $index">
                                 <a href="#">{{theme}}</a>
                             </li>
                         </ul>
                     </li>
+                    <!-- [BS][todo] Diesen Menüpunkt weglassen, wenn main.history.length =0 ist -->
                     <li class="accordion-navigation history-item"><a href="#">
                         <button class="button submenu svg-icon">
                             <svg class="icon icon-plus">
@@ -133,7 +130,6 @@
                         </button>
                         Letzte betrachtete Grundstücke <span class="secondary badge">{{main.history.length}}</span></a>
                         <ul class="menu vertical-nested">
-
                             <li ng-repeat="hextract in main.history  track by $index" ng-click="main.setCurrentExtract(hextract.egrid)">
                               <!--[BS][todo] Einfügen Link auf die Abfrage -->
                               <a href="" title="Link auf Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}}">
@@ -150,9 +146,9 @@
                                 Grundstücke in die Zwischenablage kopieren</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Themenbereiche</a></li>
-                    <li><a href="">Glossar</a></li>
-                    <li><a href="">Rechtliches und Impressum</a></li>
+                    <li><a href="#content_themes">Themenbereiche</a></li>
+                    <li><a href="#content_glossar">Glossar</a></li>
+                    <li><a href="#content_impressum">Rechtliches und Impressum</a></li>
                 </ul>
             </nav>
         </aside>
@@ -375,6 +371,71 @@
                         </div>
                     </ul>
                 </div>
+
+                <!-- *********** START CONTENT PAGE SECTIONS *********** -->
+                <!-- CONTENT: Impressum -->
+                <section id="content_impressum">
+                  <div class="row">
+                    <div class="columns small-12">
+                      <h1>Impressum und Rechtliches</h1>
+                      <h2>Impressum</h2>
+                      <h3>Inhaltliche Verantwortung</h3>
+                      <address>
+                        Bau-, Verkehrs- und Energiedirektion des Kantons Bern
+                      </address>
+                      <h3>Usability</h3>
+                        <address>
+                          uFive
+                        </address>
+                      <h3>Gestaltung und Screendesign</h3>
+                        <address>
+                          Sturm und Bräm GmbH
+                        </address>
+                      <h3>Technische Realisierung</h3>
+                      <address>
+                        novu GmbH
+                      </address>
+                      <h2>Rechtliches</h2>
+                      <p>Teile dieser Applikation unterliegen den folgenden Lizenzen</p>
+                    </div>
+                  </div>
+                </section>
+                <!-- END CONTENT: Impressum -->
+                <!-- CONTENT: Glossary -->
+                <section id="content_glossar">
+                  <div class="row">
+                    <div class="columns small-12">
+                      <h1>Glossar</h1>
+                      <dl>
+                        <dt>Abgrenzungen</dt>
+                        <dd>Die Abgrenzungen erfolgen immer im Rahmen des kantonalen Richtplanes und stellen verbindliche Parzellengrenzen dar.</dd>
+                        <dt>ÖREB-Kataster</dt>
+                        <dd>Öffentlich-rechtliche Eigentumsbeschränkungen: siehe auch <a href="http://www.cadastre.ch" class="external-link">www.cadastre.ch</a></dd>
+                      </dl>
+                    </div>
+                  </div>
+                </section>
+                <!-- END CONTENT: Glossary -->
+                <!-- CONTENT: Themenbereiche -->
+                <section id="content_themes">
+                  <div class="row">
+                    <div class="columns small-12">
+                    </div>
+                  </div>
+                </section>
+                <!-- END CONTENT: Themenbereiche -->
+                <!-- CONTENT: Other content -->
+                <section id="content_info">
+                  <div class="row">
+                    <div class="columns small-12">
+                      <h1>Was ist die ÖREB?</h1>
+                      <p>Wer in der Schweiz Land besitzt, kann dieses nicht einfach so nutzen, wie er will. Es gilt Rahmenbedingungen einzuhalten, die aufgrund von Entscheidungen des Gesetzgebers oder der Behörden entstanden sind. Diese sogenannten öffentlich-rechtlichen Eigentumsbeschränkungen (kurz ÖREB) sind für Grundeigentümerinnen und Grundeigentümer verpflichtend.</p>
+                      <p>Mit dem sich im Aufbau befindenden Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB-Kataster) werden relevante Informationen über Grundstücke leicht verfügbar. Zudem wird die Rechtssicherheit dank verbindlicher Informationen erhöht. Davon profitieren sowohl Grundstückbesitzer, als auch die verschiedenen Akteure des Immobilienmarktes, Behörden und öffentliche Verwaltungen.</p>
+                    </div>
+                  </div>
+                </section>
+                <!-- END CONTENT: Other content -->
+                <!-- *********** END CONTENT PAGE SECTIONS *********** -->
             </article>
             <footer class="footer"></footer>
 
