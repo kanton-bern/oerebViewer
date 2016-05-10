@@ -33,15 +33,13 @@
             <use xlink:href="#icon-location-2"></use>
         </svg>
     </button>
-    <!-- [BS][todo]
-    Tobi: könntest du die beiden Zoom-Buttons noch funktionsfähig machen? Also so, dass wenn man auf [+] klickt zoomIn funktioniert und [-] zoomOut
-    -->
-    <button ngeo-zoom="10" class="button svg-icon btnZoomIn hide-for-small-only ol-zoom-in">
+
+    <button ng-click="map.zoomIn()" class="button svg-icon btnZoomIn hide-for-small-only">
         <svg class="icon icon-plus">
             <use xlink:href="#icon-plus"></use>
         </svg>
     </button>
-    <button ngeo-zoom="-10" type="button" class="button svg-icon btnZoomOut hide-for-small-only ol-zoom-out">
+    <button ng-click="map.zoomOut()" type="button" class="button svg-icon btnZoomOut hide-for-small-only">
         <svg class="icon icon-minus">
             <use xlink:href="#icon-minus"></use>
         </svg>

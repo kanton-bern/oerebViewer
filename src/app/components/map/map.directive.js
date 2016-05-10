@@ -111,10 +111,10 @@ class MapController {
         });
 
 
-        this.zoomIn = function () {
+        /*this.zoomIn = function () {
             this.$log.warn('zoomIn');
             self.map.zoom = self.map.zoom + 1;
-        };
+        };*/
 
         // permalink
         var shouldUpdate = true;
@@ -249,6 +249,17 @@ class MapController {
             }
         }
     }
+
+    zoomIn() {
+        self = this;
+        self.map.getView().setZoom(self.map.getView().getZoom()+1);
+    }
+
+    zoomOut() {
+        self = this;
+        self.map.getView().setZoom(self.map.getView().getZoom()-1);
+    }
+
 
     addExtract(egrid) {
         var element = this.popup.getElement();
