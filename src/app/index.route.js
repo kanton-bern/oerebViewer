@@ -18,7 +18,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
             controllerAs: 'detail'
         })
         .state('home.detail.restriction', {
-            url: '/:restriction',
+            url: 'r/:restriction',
             params: {
                 egrid: '',
             },

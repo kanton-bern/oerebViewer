@@ -10,10 +10,10 @@
         <ul data-accordion-menu class="menu vertical">
             <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
 
-            <li ng-if="detail.initial" class="top-item accordion-navigation">
+            <li ng-class="{'hidden': detail.noDatas}" class="top-item accordion-navigation">
                 <p class="name">Noch kein Grunstück ausgewählt!</p>
             </li>
-            <li ng-if="!detail.initial" class="top-item accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="top-item accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -68,7 +68,7 @@
                 </ul>
             </li>
             <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
-            <li class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -85,7 +85,7 @@
                 </ul>
             </li>
             <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
-            <li class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -102,7 +102,7 @@
                 </ul>
             </li>
             <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
-            <li class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -130,8 +130,7 @@
                 </button>
                 Letzte betrachtete Grundstücke <span class="secondary badge">{{main.history.length}}</span></a>
                 <ul class="menu vertical-nested">
-                    <li ng-repeat="hextract in main.history  track by $index">
-                        <!--[BS][todo] Einfügen Link auf die Abfrage -->
+                    <li ng-repeat="hextract in main.history track by $index">
                         <a ui-sref="home.detail({egrid: hextract.egrid})" title="Link auf Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}}">
                             <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}"
                                  class="logo-gemeinde"></div>

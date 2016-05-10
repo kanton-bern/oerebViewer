@@ -4,14 +4,15 @@ export class DetailController {
 
         this.Extracts = Extracts;
 
-        this.initial = false;
+
+        this.noDatas = true;
         if ($stateParams.egrid == 0) {
-            this.initial = true;
+            this.noDatas = false;
         } else {
             this.addExtract($stateParams.egrid);
         }
 
-        angular.element(document).foundation();
+        angular.element('aside').foundation();
     }
 
     addExtract(egrid) {

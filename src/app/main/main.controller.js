@@ -13,7 +13,7 @@ export class MainController {
 
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.current;
-            mainCtrl.history = Extracts.get();
+            mainCtrl.history = Extracts.get().slice().reverse();
             console.log(mainCtrl.extract);
         });
 
