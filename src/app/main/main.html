@@ -13,6 +13,7 @@
                     </div>
                 </div>
                 <ul data-accordion-menu class="menu vertical">
+                    <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
                     <li class="top-item accordion-navigation"><a href="#">
                         <button class="button submenu svg-icon">
                             <svg class="icon icon-plus">
@@ -67,6 +68,7 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
                     <li class="accordion-navigation"><a href="#">
                         <button class="button submenu svg-icon">
                             <svg class="icon icon-plus">
@@ -77,14 +79,13 @@
                             </svg>
                         </button>
                         Das Grundstück betreffende ÖREB-Themen</a>
-                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.themes track by $index">
                                 <a href="#">{{theme}}</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="accordion-navigation"><a href="#">
+                    <li ng-if="{main.extract.ncthemes}!=0" class="accordion-navigation"><a href="#">
                         <button class="button submenu svg-icon">
                             <svg class="icon icon-plus">
                                 <use xlink:href="#icon-plus"></use>
@@ -94,13 +95,13 @@
                             </svg>
                         </button>
                         Das Grundstück nicht betreffende ÖREB-Themen</a>
-                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.ncthemes track by $index">
                                 <a href="#">{{theme}}</a>
                             </li>
                         </ul>
                     </li>
+                    <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
                     <li class="accordion-navigation"><a href="#">
                         <button class="button submenu svg-icon">
                             <svg class="icon icon-plus">
@@ -111,14 +112,13 @@
                             </svg>
                         </button>
                         Nicht vorhandene ÖREB-Themen</a>
-                        <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
                         <ul class="menu vertical nested">
                             <li ng-repeat="theme in main.extract.wdthemes track by $index">
                                 <a href="#">{{theme}}</a>
                             </li>
                         </ul>
                     </li>
-                    <!-- [BS][todo] Diesen Menüpunkt weglassen, wenn main.history.length =0 ist -->
+                    <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
                     <li class="accordion-navigation history-item"><a href="#">
                         <button class="button submenu svg-icon">
                             <svg class="icon icon-plus">
