@@ -68,7 +68,6 @@ class MapController {
                     }, {
                         duration:400
                     }
-
                 );
                 // Modifying the title of the theme
                 $themeTitle.css("margin-top","1em");
@@ -251,7 +250,7 @@ class MapController {
     }
 
     zoomIn() {
-        self = this;
+        let self = this;
         self.map.getView().setZoom(self.map.getView().getZoom()+1);
     }
 
@@ -259,8 +258,7 @@ class MapController {
         self = this;
         self.map.getView().setZoom(self.map.getView().getZoom()-1);
     }
-
-
+    
     addExtract(egrid) {
         var element = this.popup.getElement();
         $(element).hide();
