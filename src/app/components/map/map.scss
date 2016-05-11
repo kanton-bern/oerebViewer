@@ -32,3 +32,15 @@
 .hidden {
   display: none !important;
 }
+
+.oereb-marker {
+  z-index:4;
+  position:absolute;
+  /* Positionierung des markers */
+  left:50vw;
+  top:50vh;
+  img {
+    width:32px;
+    height:32px;
+  }
+}

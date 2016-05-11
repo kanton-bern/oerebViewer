@@ -13,6 +13,14 @@ export class DetailController {
         }
 
         angular.element('aside').foundation();
+
+        // Menubutton in header will change to cross [x] if menu is open.
+        var $menuNav = angular.element('.menu-nav');
+        var $panel = angular.element('#menuLeftSlider');
+
+        if ($panel.attr('aria-expanded')=='true') {
+          $log.debug('active');
+        }
     }
 
     addExtract(egrid) {

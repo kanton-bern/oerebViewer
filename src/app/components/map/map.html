@@ -1,5 +1,9 @@
 <div id="map" class="map" ngeo-map="map.map"></div>
 
+<div class="oereb-marker">
+  <img src="assets/images/oereb_marker.svg" alt="Markiertes Grundstück" />
+</div>
+
 <div class="infobox" id="infobox">
     <div ng-if="infoboxLoading">
         Loading
@@ -11,7 +15,8 @@
         <div ng-if="map.egrids.length == 0">Kein Resultat</div>
         <ul>
             <li ng-repeat="egrid in map.egrids">
-                <span class="clickable" href="#" ui-sref="home.detail({egrid: egrid})">{{egrid}}</span>
+              <!-- [bs][todo] Anstelle der angezeigten EGRID wäre es auch möglich, die GrundstückNr und GrundstückArt anzuzeigen, da offenbar beide Infos zusammen mit der EGRID vorhanden sein müssten -->
+                <span class="clickable" href="#" ui-sref="home.detail({egrid: egrid})">{{egrid}} ([GrundstückNr], [GrundstückArt])</span>
             </li>
         </ul>
     </div>
