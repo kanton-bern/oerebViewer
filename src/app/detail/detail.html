@@ -72,7 +72,7 @@
                 </ul>
             </li>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': main.extract.themes.length == 0}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -84,12 +84,12 @@
                 Das Grundstück betreffende ÖREB-Themen</a>
                 <ul class="menu vertical nested">
                     <li ng-repeat="theme in main.extract.themes track by $index">
-                        <a href="#">{{theme.Name}}</a>
+                        <a ui-sref="home.detail.restriction({restriction: theme.Code})">{{theme.Name}}</a>
                     </li>
                 </ul>
             </li>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': main.extract.ncthemes.length != 0}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -101,7 +101,7 @@
                 Das Grundstück nicht betreffende ÖREB-Themen</a>
                 <ul class="menu vertical nested">
                     <li ng-repeat="theme in main.extract.ncthemes track by $index">
-                        <a href="#">{{theme.Name}}</a>
+                        <a ui-sref="home.detail.restriction({restriction: theme.Code})">{{theme.Name}}</a>
                     </li>
                 </ul>
             </li>
@@ -118,7 +118,7 @@
                 Nicht vorhandene ÖREB-Themen</a>
                 <ul class="menu vertical nested">
                     <li ng-repeat="theme in main.extract.wdthemes track by $index">
-                        <a href="#">{{theme.Name}}</a>
+                        <a ui-sref="home.detail.restriction({restriction: theme.Code})">{{theme.Name}}</a>
                     </li>
                 </ul>
             </li>
@@ -155,3 +155,6 @@
         </ul>
     </nav>
 </aside>
+
+
+<div ui-view></div>

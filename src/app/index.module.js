@@ -5,6 +5,7 @@ import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { DetailController } from './detail/detail.controller';
+import { RestrictionController } from './restriction/restriction.controller';
 import { LayersService } from '../app/components/map/layers.service';
 import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
 import { ExtractsService } from '../app/components/extracts/extracts.service';
@@ -31,6 +32,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
 
     .controller('MainController', MainController)
     .controller('DetailController', DetailController)
+    .controller('RestrictionController', RestrictionController)
 
     .directive('map', MapDirective)
     .directive('extract', ExtractDirective)

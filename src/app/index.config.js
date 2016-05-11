@@ -17,6 +17,7 @@ export function config ($logProvider, toastrConfig, $translateProvider) {
     suffix: '.json'
   });
 
+  $translateProvider.useSanitizeValueStrategy('escape');
   $translateProvider.preferredLanguage('de');
 
 }
