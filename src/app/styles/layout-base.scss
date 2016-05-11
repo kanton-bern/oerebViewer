@@ -126,6 +126,8 @@ body {
 .mainnav, .theme-list {
   @include contentLinks();
 
+
+
   // Langnav
   .top-menu {
     font-size:$fontSizeBase * 1;
@@ -149,6 +151,7 @@ body {
 
   li {
     background-color: $colorMenuBgnd;
+
     a {
       .badge {
         line-height: 1.5; // badge neeeds this
@@ -171,7 +174,18 @@ body {
         border-top:none !important;
         border-bottom:none !important;
       }
+      p {
+        padding-left: 1rem;
+        padding-bottom:4px;
+        &.name {
+          padding-bottom:1em;
+        }
+      }
       a {
+          p {
+            padding-left:0px;
+            padding-bottom:0px;
+          }
           min-height:40px;
           font-size: $fontSizeBase * 1;
           line-height: $fontLineHeightBase - 20%;

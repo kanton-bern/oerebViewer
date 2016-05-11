@@ -3,12 +3,14 @@ $(function() {
 });
 
 // Menubutton in header will change to cross [x] if menu is open.
-$contentWrapper = $('.content-wrapper');
-$panel = $('#menuLeftSlider');
+var $contentWrapper = $('.content-wrapper');
+var $panel = $('#menuLeftSlider');
 
-if ($panel.is(':visible')) {
+console.log($panel.attr('aria-expanded'));
+
+if ($('#menuLeftSlider').is(':visible')) {
   // Foundation.Motion.animateOut($panel, 'slide-out-left');
-  console.log("Clicked");
+
 };
 
 

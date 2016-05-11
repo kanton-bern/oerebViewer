@@ -8,7 +8,6 @@
             </div>
         </div>
         <ul data-accordion-menu class="menu vertical">
-            <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
 
             <li ng-class="{'hidden': detail.noDatas}" class="top-item accordion-navigation">
                 <p class="name">Noch kein Grunstück ausgewählt!</p>
@@ -25,7 +24,7 @@
                 <p class="name">Gemeinde {{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</p>
                 <p class="egrid">{{main.extract.egrid}}</p>
                 <p class="timestamp">{{main.extract.data.CreationDate}}</p></a>
-                <!-- [BS][todo] Das jeweilige Submenu mit der classe 'nested' muss im DOM sein, wenn tatsächlich Inhalt vorliegt, ansonsten kann man das gleich weglassen -->
+
                 <ul class="menu vertical nested">
                     <li>
                         <div class="row">
@@ -67,7 +66,7 @@
                     </li>
                 </ul>
             </li>
-            <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
+
             <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
@@ -84,7 +83,7 @@
                     </li>
                 </ul>
             </li>
-            <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
+
             <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
@@ -101,7 +100,7 @@
                     </li>
                 </ul>
             </li>
-            <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
+
             <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
@@ -118,8 +117,8 @@
                     </li>
                 </ul>
             </li>
-            <!-- [BS][todo] Das jeweilige Submenu nur darstellen, wenn tatsächlich auch eine Parzelle geladen ist -->
-            <li class="accordion-navigation history-item"><a href="#">
+
+            <li ng-class="{'hidden': !main.history.length}" class="accordion-navigation history-item"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
