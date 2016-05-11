@@ -5,6 +5,7 @@ $(function() {
 // Menubutton in header will change to cross [x] if menu is open.
 $contentWrapper = $('.content-wrapper');
 $panel = $('#menuLeftSlider');
+
 if ($panel.is(':visible')) {
   // Foundation.Motion.animateOut($panel, 'slide-out-left');
   console.log("Clicked");
