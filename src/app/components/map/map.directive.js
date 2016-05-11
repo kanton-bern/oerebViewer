@@ -299,15 +299,12 @@ class MapController {
 
         this.popup = popup;
 
-
-        console.log(event.coordinate);
         var cords = this.transform(event.coordinate);
-        console.log(cords);
 
-        this.egrids = [];
+        this.selectedPoint = [];
         this.infoboxLoading = true;
         this.Oereb.getEGRID(cords[1], cords[0]).then(function (d) {
-            self.egrids = d.data;
+            self.selectedPoint = d.data;
             self.infoboxLoading = false;
         });
 

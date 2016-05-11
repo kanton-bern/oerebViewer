@@ -3,14 +3,19 @@
 
     <nav id="mainNav" class="mainnav mobile clearfix">
         <div class="row top-menu">
-            <div class="small-9"><span> <a ng-click="main.changeLanguage('de')" href="#" title="Deutsche Version" class="is-active">Deutsch</a></span><span> <a
-                    ng-click="main.changeLanguage('fr')" title="Version française" href="#">Français</a></span>
+            <div class="small-9">
+                <span>
+                    <a ng-click="main.changeLanguage('de')" href="#" title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
+                </span>
+                <span>
+                    <a ng-click="main.changeLanguage('fr')" title="Version française" href="#" ng-class="{'is-active': main.isCurrentLanguage('fr')}">Français</a>
+                </span>
             </div>
         </div>
         <ul data-accordion-menu class="menu vertical">
 
             <li ng-class="{'hidden': detail.noDatas}" class="top-item accordion-navigation">
-                <p class="name">Noch kein Grunstück ausgewählt!</p>
+                <p class="name">{{ 'no_property_loaded' | translate }}</p>
             </li>
             <li ng-class="{'hidden': !detail.noDatas}" class="top-item accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">

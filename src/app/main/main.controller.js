@@ -29,4 +29,8 @@ export class MainController {
     changeLanguage(langKey) {
         this.$translate.use(langKey);
     }
+
+    isCurrentLanguage(langKey) {
+        return langKey == this.$translate.use();
+    }
 }
