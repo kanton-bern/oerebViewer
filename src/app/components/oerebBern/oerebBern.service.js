@@ -52,10 +52,16 @@ export class OerebBernService {
                     }
 
                     if (object.GetEGRIDResponse.egrid instanceof Array) {
-                        return object.GetEGRIDResponse.egrid;
+                        return {
+                            'egrid': object.GetEGRIDResponse.egrid,
+                            'number': object.GetEGRIDResponse.number
+                        };
                     }
 
-                    return [object.GetEGRIDResponse.egrid];
+                    return [{
+                        'egrid': object.GetEGRIDResponse.egrid,
+                        'number': object.GetEGRIDResponse.number
+                    }];
                 }
             }
         );
