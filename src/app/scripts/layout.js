@@ -8,7 +8,7 @@ $panel = $('#menuLeftSlider');
 if ($panel.is(':visible')) {
   // Foundation.Motion.animateOut($panel, 'slide-out-left');
   console.log("Clicked");
-}
+};
 
 
 $(window).on('load resize', function() {
