@@ -14,6 +14,8 @@ export class MainController {
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.current;
             mainCtrl.history = Extracts.get().slice().reverse();
+            
+            console.log('mainCtrl');
             console.log(mainCtrl.extract);
         });
 

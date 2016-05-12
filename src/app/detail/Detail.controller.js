@@ -1,9 +1,10 @@
 export class DetailController {
-    constructor($log, $translate, Extracts, $stateParams) {
+    constructor($log, $translate, Extracts, $stateParams, $location, $scope) {
         'ngInject';
 
+        let self = this;
         this.Extracts = Extracts;
-
+        this.$location = $location;
 
         this.noDatas = true;
         if ($stateParams.egrid == 0) {
@@ -11,6 +12,15 @@ export class DetailController {
         } else {
             this.addExtract($stateParams.egrid);
         }
+
+        // triggers restriction changed at startup
+        this.restrictionChanged();
+
+        // if location searchpath is changed, restrictionchanges
+        $scope.$on('$locationChangeSuccess', function () {
+            self.restrictionChanged();
+        });
+
 
         angular.element('aside').foundation();
 
@@ -21,6 +31,12 @@ export class DetailController {
         if ($panel.attr('aria-expanded')=='true') {
           $log.debug('active');
         }
+    }
+
+    restrictionChanged() {
+        this.Extracts.setRestriction(
+            this.$location.search().restriction
+        );
     }
 
     addExtract(egrid) {

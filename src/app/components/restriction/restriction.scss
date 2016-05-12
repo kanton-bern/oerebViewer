@@ -1,0 +1,36 @@
+ul.restriction-carousel {
+  height: 100vh;
+  width: 100%;
+
+  margin: 0;
+
+  background-color: $colorMenuTop;
+}
+
+restriction {
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  z-index: 10000;
+  position: absolute;
+  top: 95vh;
+
+  &.opened {
+    top: 5vh;
+  }
+
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.restriction-toggler {
+
+  position: absolute;
+  top: 0;
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+
+  transform: translate(-50%, -50%);
+}

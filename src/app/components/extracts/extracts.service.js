@@ -10,6 +10,7 @@ export class ExtractsService {
 
         this.extracts = [];
         this.observers = [];
+        this.restrictionObservers = [];
     }
 
     reset() {
@@ -28,11 +29,8 @@ export class ExtractsService {
         newExtract.remove = function() { self.remove(this.egrid); };
 
         this.Oereb.getExtractById(newExtract.egrid).then(function (d) {
-            newExtract.data = d.data;
 
-            newExtract.themes = (d.data.ConcernedTheme instanceof Array) ? d.data.ConcernedTheme : [d.data.ConcernedTheme];
-            newExtract.ncthemes = (d.data.NotConcernedTheme instanceof Array) ? d.data.NotConcernedTheme : [d.data.NotConcernedTheme];
-            newExtract.wdthemes = (d.data.ThemeWithoutData instanceof Array) ? d.data.ThemeWithoutData : [d.data.ThemeWithoutData];
+            newExtract = self.wrap(newExtract, d.data);
 
             self.current = newExtract;
             self.extracts.push(newExtract);
@@ -53,8 +51,29 @@ export class ExtractsService {
     }
 
     wrap(newExtract, data) {
+        newExtract.data = data;
 
+        newExtract.themes = (data.ConcernedTheme instanceof Array) ? data.ConcernedTheme : [data.ConcernedTheme];
+        newExtract.ncthemes = (data.NotConcernedTheme instanceof Array) ? data.NotConcernedTheme : [data.NotConcernedTheme];
+        newExtract.wdthemes = (data.ThemeWithoutData instanceof Array) ? data.ThemeWithoutData : [data.ThemeWithoutData];
 
+        let restrictions = {};
+        angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function(d){
+
+            if (angular.isUndefined(d.Theme))
+                return false;
+
+            if (!angular.isArray(restrictions[d.Theme.Code])) {
+                restrictions[d.Theme.Code] = {};
+                restrictions[d.Theme.Code].name = d.Theme.Name;
+                restrictions[d.Theme.Code].code = d.Theme.Code;
+                restrictions[d.Theme.Code].values = [];
+            }
+
+            restrictions[d.Theme.Code].values.push(d);
+        });
+
+        newExtract.restrictions = restrictions;
 
         return newExtract;
     }
@@ -69,7 +88,6 @@ export class ExtractsService {
 
             }
         }
-
     }
 
     current() {
@@ -83,6 +101,7 @@ export class ExtractsService {
         return this.currentExtract;
     }
 
+
     registerCurrentObserverCallback(callback) {
         this.observers.push(callback);
     }
@@ -91,8 +110,28 @@ export class ExtractsService {
         angular.forEach(this.observers, function(callback){
             callback();
         });
+
+        this.notifyRestrictionObservers();
     }
 
+    setRestriction(code) {
+        this.currentRestrictionCode = code;
+        this.notifyRestrictionObservers();
+    }
+    
+    getRestriction() {
+        return this.currentRestrictionCode;
+    }
+    
+    registerRestrictionObserverCallback(callback) {
+        this.restrictionObservers.push(callback);
+    }
+
+    notifyRestrictionObservers() {
+        angular.forEach(this.restrictionObservers, function(callback){
+            callback();
+        });
+    }
 
     count() {
         return this.extracts.length;

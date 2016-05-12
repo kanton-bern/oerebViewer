@@ -5,18 +5,17 @@ import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { DetailController } from './detail/detail.controller';
-import { RestrictionController } from './restriction/restriction.controller';
 import { LayersService } from '../app/components/map/layers.service';
 import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
 import { ExtractsService } from '../app/components/extracts/extracts.service';
 import { NotificationsService } from '../app/components/notifications/notifications.service';
 import { LoadingService } from '../app/components/loading/loading.service';
 import { MapDirective } from '../app/components/map/map.directive';
-import { ExtractDirective } from '../app/components/extract/extract.directive';
+import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 
-angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'toastr', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate'])
+angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'toastr', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
 
     .config(config)
@@ -32,9 +31,8 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
 
     .controller('MainController', MainController)
     .controller('DetailController', DetailController)
-    .controller('RestrictionController', RestrictionController)
 
     .directive('map', MapDirective)
-    .directive('extract', ExtractDirective)
     .directive('notifications', NotificationsDirective)
-    .directive('loading', LoadingDirective);
+    .directive('loading', LoadingDirective)
+    .directive('restriction', RestrictionDirective);

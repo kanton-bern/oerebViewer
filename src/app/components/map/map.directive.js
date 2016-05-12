@@ -25,8 +25,7 @@ class MapController {
         this.Oereb = Oereb;
         this.Extracts = Extracts;
         this.Layers = Layers;
-
-
+        
         var self = this;
 
         this.config = {
@@ -47,7 +46,7 @@ class MapController {
 
         // information text
 
-        this.restore();
+        // this.restore();
 
         $log.warn(Layers.get());
 
