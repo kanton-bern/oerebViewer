@@ -19,15 +19,6 @@ class RestrictionController {
         this.Extracts = Extracts;
 
         var self = this;
-        Extracts.registerRestrictionObserverCallback(function() {
-            console.log('restrictionReloadTriggered');
-
-            // move the slider to the right position here, thats all
-
-            console.log(self.Extracts.current.restrictions);
-        });
-
-        angular.element('restriction').foundation();
 
 
     }

@@ -120,6 +120,8 @@ export class ExtractsService {
     }
     
     getRestriction() {
+        if (angular.isUndefined(this.currentRestrictionCode))
+            return false;
         return this.currentRestrictionCode;
     }
     

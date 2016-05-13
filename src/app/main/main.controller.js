@@ -19,6 +19,22 @@ export class MainController {
             console.log(mainCtrl.extract);
         });
 
+        Extracts.registerRestrictionObserverCallback(function() {
+
+
+            console.log('restrictionReloadTriggered');
+            // move the slider to the right position here, thats all
+
+            if (!mainCtrl.Extracts.getRestriction()) {
+                mainCtrl.toggleRestriction = false;
+            } else {
+                mainCtrl.toggleRestriction = true;
+                console.log(mainCtrl.Extracts.current.restrictions);
+            }
+
+        });
+
+
         this.history = Extracts.get();
     }
 
