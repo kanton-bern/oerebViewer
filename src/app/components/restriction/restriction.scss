@@ -5,6 +5,10 @@ ul.restriction-carousel {
   margin: 0;
 
   background-color: $colorMenuTop;
+
+  > li {
+    overflow: scroll;
+  }
 }
 
 restriction {

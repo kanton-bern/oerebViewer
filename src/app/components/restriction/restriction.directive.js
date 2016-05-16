@@ -17,8 +17,8 @@ class RestrictionController {
         'ngInject';
 
         this.Extracts = Extracts;
-
-        var self = this;
+        
+        
 
 
     }

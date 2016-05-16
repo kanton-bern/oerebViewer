@@ -37,24 +37,22 @@
                         </div>
                         <div class="row">
                             <div class="small-6 oereb-label">EGRID:</div>
-                            <div class="small-6 oereb-value">CH299978329106</div>
+                            <div class="small-6 oereb-value">{{main.extract.egrid}}</div>
                         </div>
                         <div class="row">
                             <div class="small-6 oereb-label">Geneinde:</div>
-                            <div class="small-6 oereb-value">Bern (841)</div>
+                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</div>
                         </div>
                         <div class="row">
                             <div class="small-6 oereb-label">Auszugsnummer:</div>
-                            <div class="small-6 oereb-value">eb78b1b7-57fc-4ba7-b133-839d43d76111
-                            </div>
+                            <div class="small-6 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
                         </div>
                         <div class="row more-info">
                             <div class="small-12">
                                 <svg class="icon icon-file">
                                     <use xlink:href="#icon-file"></use>
                                 </svg>
-                                <a href="#" target="_blank" title="PDF herunterladen">Auszug als PDF herunterladen
-                                    (PDF, 4MB)</a>
+                                <a href="#" target="_blank" title="PDF herunterladen">Auszug als PDF herunterladen (PDF, 4MB)</a>
                             </div>
                         </div>
                         <div class="row more-info">
@@ -62,20 +60,20 @@
                                 <svg class="icon icon-map">
                                     <use xlink:href="#icon-map"></use>
                                 </svg>
-                                <a href="#" target="_blank" title="Karte im Geoportal">Grundstück im
-                                    Kartenportal</a>
+                                <a href="#" target="_blank" title="Karte im Geoportal">Grundstück im Kartenportal</a>
                             </div>
                         </div>
                     </li>
                 </ul>
             </li>
-            <li><
+            <li>
                 Typ (Fläche, Anteil)
                 <ul class="menu vertical nested is-active">
                     <li>
                         <div class="row theme-key">
-                            <h3>Legende</h3><img src="/assets/images/key/laerm_bsp.png"
-                                                 alt="Legende zu den Lärmempflindlichkeitsstufen">
+                            <h3>Legende</h3><img ng-src="{{r.values[0].Map.LegendAtWeb}}" alt="Legende zu den Lärmempflindlichkeitsstufen">
+
+                            <img ng-src="{{r.values[0].Map.ReferenceWMS}}" alt="Legende zu den Lärmempflindlichkeitsstufen">
                         </div>
                         <div class="row">
                             <div class="small-6 oereb-label"> Charakteristik:</div>
@@ -85,15 +83,16 @@
                     </li>
                 </ul>
             </li>
-            <li class="accordion-navigation">
-                Rechtsvorschriften
+            <li ng-repeat="v in r.values" class="accordion-navigation">
                 <ul class="menu vertical nested">
                     <li>
                         <div class="row">
+                            <div class="small-6 oereb-label">Fläche:</div>
+                            <div class="small-6 oereb-value">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
+                        </div>
+                        <div class="row">
                             <div class="small-6 oereb-label">Rechtsstatus:</div>
-                            <div class="small-6 oereb-value">Die Eigentumsbeschränkung ist in
-                                Kraft
-                            </div>
+                            <div class="small-6 oereb-value">{{v.Lawstatus.Name}}</div>
                         </div>
                         <div class="row pdf-list">
                             <svg class="icon">
@@ -130,7 +129,7 @@
         <use xlink:href="#icon-arrow-left"></use>
     </svg>
 </button>
-<button ng-click="slideIndex = slideIndex+1" id="themeNext" class="orbit-next svg-icon">
+<button ng-click="slideIndex = slideIndex+1" ng-show="slideIndex < main.extract.restrictionLength - 1"  id="themeNext" class="orbit-next svg-icon">
     <svg class="icon icon-arrow-right">
         <use xlink:href="#icon-arrow-right"></use>
     </svg>

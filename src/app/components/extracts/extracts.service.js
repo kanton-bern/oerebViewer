@@ -74,6 +74,7 @@ export class ExtractsService {
         });
 
         newExtract.restrictions = restrictions;
+        newExtract.restrictionLength = Object.keys(restrictions).length;
 
         return newExtract;
     }
