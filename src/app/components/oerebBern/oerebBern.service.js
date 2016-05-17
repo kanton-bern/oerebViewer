@@ -2,15 +2,26 @@ export class OerebBernService {
     constructor($http, $log) {
         'ngInject';
 
+        this.qnapOffline = true;
+
         this.$http = $http;
         this.$log = $log;
 
         this.base = 'http://adue03.myqnapcloud.com/oereb/OerbverSVC.svc/';
+        this.reducedExtractPath = 'extract/reduced/xml/';
 
+        if (this.qnapOffline) {
+            this.base = 'http://oereb.plum.novu.ch/server/'
+            this.reducedExtractPath = 'reduced/';
+        }
     }
 
     getExtractById(egrid) {
-        let url = this.base + 'extract/reduced/xml/' + egrid;
+        let url = this.base + this.reducedExtractPath + egrid;
+
+        if (this.qnapOffline) {
+            url = this.base + this.reducedExtractPath + egrid + '.xml';
+        }
 
         var promise = this.$http.get(url,
             {
