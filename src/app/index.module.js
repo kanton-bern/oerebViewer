@@ -12,6 +12,7 @@ import { NotificationsService } from '../app/components/notifications/notificati
 import { LoadingService } from '../app/components/loading/loading.service';
 import { MapDirective } from '../app/components/map/map.directive';
 import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
+import { ExtractDirective } from '../app/components/extract/extract.directive';
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 
@@ -35,4 +36,5 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .directive('map', MapDirective)
     .directive('notifications', NotificationsDirective)
     .directive('loading', LoadingDirective)
-    .directive('restriction', RestrictionDirective);
+    .directive('restriction', RestrictionDirective)
+    .directive('extract', ExtractDirective);

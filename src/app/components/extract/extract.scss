@@ -1,0 +1,19 @@
+.extract-view {
+  position: absolute;
+  background-color: white;
+  top: 20px;
+  height: 100%;
+  width: 100%;
+
+
+  .layer {
+    position: absolute;
+    top: 20px;
+
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+  }
+}
