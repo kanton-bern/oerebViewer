@@ -57,20 +57,31 @@ export class ExtractsService {
         newExtract.ncthemes = (data.NotConcernedTheme instanceof Array) ? data.NotConcernedTheme : [data.NotConcernedTheme];
         newExtract.wdthemes = (data.ThemeWithoutData instanceof Array) ? data.ThemeWithoutData : [data.ThemeWithoutData];
 
-        let restrictions = {};
+        let restrictions = [];
         angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function(d){
 
             if (angular.isUndefined(d.Theme))
                 return false;
 
-            if (!angular.isArray(restrictions[d.Theme.Code])) {
-                restrictions[d.Theme.Code] = {};
-                restrictions[d.Theme.Code].name = d.Theme.Name;
-                restrictions[d.Theme.Code].code = d.Theme.Code;
-                restrictions[d.Theme.Code].values = [];
+            var doesRestrictionTypeExist = false;
+
+            angular.forEach(restrictions, function(value, key) {
+                if (value.code == d.Theme.Code) {
+                    value.values.push(d);
+                    doesRestrictionTypeExist = true;
+                }
+            });
+
+            if (!doesRestrictionTypeExist) {
+                var theme = {};
+                theme.name = d.Theme.Name;
+                theme.code = d.Theme.Code;
+                theme.values = [];
+                theme.values.push(d);
+
+                restrictions.push(theme);
             }
 
-            restrictions[d.Theme.Code].values.push(d);
         });
 
         newExtract.restrictions = restrictions;
