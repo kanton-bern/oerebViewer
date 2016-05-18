@@ -15,6 +15,7 @@ import { RestrictionDirective } from '../app/components/restriction/restriction.
 import { ExtractDirective } from '../app/components/extract/extract.directive';
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
+import { BackgroundImageDirective } from '../app/components/backgroundImage/backgroundImage.directive';
 
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'toastr', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
@@ -37,4 +38,5 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .directive('notifications', NotificationsDirective)
     .directive('loading', LoadingDirective)
     .directive('restriction', RestrictionDirective)
-    .directive('extract', ExtractDirective);
+    .directive('extract', ExtractDirective)
+    .directive('background', BackgroundImageDirective);

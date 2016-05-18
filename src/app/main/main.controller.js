@@ -5,6 +5,8 @@ export class MainController {
         this.$translate = $translate;
         this.Extracts = Extracts;
 
+        this.isDetailMode = true;
+
         angular.element(document).foundation();
 
         this.extract = Extracts.current;
@@ -14,28 +16,25 @@ export class MainController {
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.current;
             mainCtrl.history = Extracts.get().slice().reverse();
-            
-            console.log('mainCtrl');
-            console.log(mainCtrl.extract);
+
         });
 
         Extracts.registerRestrictionObserverCallback(function() {
-
-
-            console.log('restrictionReloadTriggered');
-            // move the slider to the right position here, thats all
-
             if (!mainCtrl.Extracts.getRestriction()) {
-                mainCtrl.toggleRestriction = false;
+                // mainCtrl.toggleRestriction = false;
             } else {
-                mainCtrl.toggleRestriction = true;
+                // angular.element('#buttonShowExtract').click();
+                //mainCtrl.toggleRestriction = true;
                 console.log(mainCtrl.Extracts.current.restrictions);
             }
-
         });
 
 
         this.history = Extracts.get();
+    }
+
+    toggleMode() {
+        this.isDetailMode = !this.isDetailMode;
     }
 
     setCurrentExtract(egrid) {

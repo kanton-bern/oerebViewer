@@ -1,9 +1,10 @@
 export class ExtractsService {
-    constructor ($log, Loading, Oereb, Notifications) {
+    constructor($log, $location, Loading, Oereb, Notifications) {
 
         'ngInject';
 
         this.$log = $log;
+        this.$location = $location;
         this.Loading = Loading;
         this.Oereb = Oereb;
         this.Notifications = Notifications;
@@ -21,12 +22,14 @@ export class ExtractsService {
         let self = this;
 
         this.remove(newExtract.egrid);
-        
+
         this.$log.warn('extract loading: ' + newExtract.egrid);
 
         this.Loading.show();
 
-        newExtract.remove = function() { self.remove(this.egrid); };
+        newExtract.remove = function () {
+            self.remove(this.egrid);
+        };
 
         this.Oereb.getExtractById(newExtract.egrid).then(function (d) {
 
@@ -41,10 +44,10 @@ export class ExtractsService {
             if (!angular.element("menuLeftSlider").attr('aria-expanded'))
                 angular.element('#buttonShowExtract').click();
 
-        }).catch(function() {
+        }).catch(function () {
             self.Notifications.add({
-                    message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht.',
-                    type: 'alert'
+                message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht.',
+                type: 'alert'
             });
             self.Loading.hide();
         });
@@ -56,16 +59,18 @@ export class ExtractsService {
         newExtract.themes = (data.ConcernedTheme instanceof Array) ? data.ConcernedTheme : [data.ConcernedTheme];
         newExtract.ncthemes = (data.NotConcernedTheme instanceof Array) ? data.NotConcernedTheme : [data.NotConcernedTheme];
         newExtract.wdthemes = (data.ThemeWithoutData instanceof Array) ? data.ThemeWithoutData : [data.ThemeWithoutData];
+        newExtract.layers = [];
 
         let restrictions = [];
-        angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function(d){
+        let count = 0;
+        angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function (d) {
 
             if (angular.isUndefined(d.Theme))
                 return false;
 
             var doesRestrictionTypeExist = false;
 
-            angular.forEach(restrictions, function(value, key) {
+            angular.forEach(restrictions, function (value, key) {
                 if (value.code == d.Theme.Code) {
                     value.values.push(d);
                     doesRestrictionTypeExist = true;
@@ -78,10 +83,10 @@ export class ExtractsService {
                 theme.code = d.Theme.Code;
                 theme.values = [];
                 theme.values.push(d);
+                theme.index = count++;
 
                 restrictions.push(theme);
             }
-
         });
 
         newExtract.restrictions = restrictions;
@@ -93,8 +98,8 @@ export class ExtractsService {
     setCurrent(egrid) {
         let self = this;
 
-        for(var i = 0; i < this.extracts.length; i++){
-            if(this.extracts[i].egrid == egrid){
+        for (var i = 0; i < this.extracts.length; i++) {
+            if (this.extracts[i].egrid == egrid) {
                 self.currentExtract = self.extracts[i];
                 self.notifyCurrentObservers();
 
@@ -102,13 +107,10 @@ export class ExtractsService {
         }
     }
 
-    current() {
-        if (typeof this.currentExtract === 'undefined') {
+    getCurrent() {
+        if (angular.isUndefined(this.currentExtract)) {
             this.currentExtract = this.extracts[0];
         }
-
-        this.$log.warn('Current: ');
-        this.$log.warn(this.currentExtract);
 
         return this.currentExtract;
     }
@@ -119,30 +121,55 @@ export class ExtractsService {
     }
 
     notifyCurrentObservers() {
-        angular.forEach(this.observers, function(callback){
+        angular.forEach(this.observers, function (callback) {
             callback();
         });
 
         this.notifyRestrictionObservers();
     }
 
-    setRestriction(code) {
+    setRestrictionByCode(code, notify = true) {
+        this.currentRestrictionChanged = true;
         this.currentRestrictionCode = code;
-        this.notifyRestrictionObservers();
+
+        this.$location.search('restriction', code);
+
+        if (notify)
+            this.notifyRestrictionObservers();
     }
-    
+
+    getRestrictionByCode() {
+        let result = false;
+        let self = this;
+
+        angular.forEach(this.getCurrent().restrictions, function (r) {
+            if (r.code == self.currentRestrictionCode) {
+                result = r;
+            }
+        });
+
+        return result;
+    }
+
     getRestriction() {
-        if (angular.isUndefined(this.currentRestrictionCode))
-            return false;
-        return this.currentRestrictionCode;
+        if (this.currentRestrictionChanged) {
+            this.currentRestriction = this.getRestrictionByCode();
+            this.currentRestrictionChanged = false;
+        }
+
+        if (angular.isUndefined(this.currentRestriction)) {
+            this.currentRestriction = this.current.restrictions[0];
+        }
+
+        return this.currentRestriction;
     }
-    
+
     registerRestrictionObserverCallback(callback) {
         this.restrictionObservers.push(callback);
     }
 
     notifyRestrictionObservers() {
-        angular.forEach(this.restrictionObservers, function(callback){
+        angular.forEach(this.restrictionObservers, function (callback) {
             callback();
         });
     }
@@ -154,9 +181,9 @@ export class ExtractsService {
     remove(egrid) {
         let self = this;
 
-        for(var i = 0; i < this.extracts.length; i++){
-            if(this.extracts[i].egrid == egrid){
-                self.extracts.splice(i,1);
+        for (var i = 0; i < this.extracts.length; i++) {
+            if (this.extracts[i].egrid == egrid) {
+                self.extracts.splice(i, 1);
             }
         }
 

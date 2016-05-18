@@ -2,7 +2,7 @@ export class OerebBernService {
     constructor($http, $log) {
         'ngInject';
 
-        this.qnapOffline = true;
+        this.qnapOffline = false;
 
         this.$http = $http;
         this.$log = $log;

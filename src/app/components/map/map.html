@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="map-nav" ngeo-recenter ngeo-recenter-map="::map.map">
+<div class="map-nav" ngeo-recenter ngeo-recenter-map="::map.map" ng-show="!main.isDetailMode">
     <button class="button svg-icon btnSearch" ng-click="map.searchDialog = !map.searchDialog">
         <svg class="icon icon-search">
             <use xlink:href="#icon-search"></use>
@@ -60,4 +60,19 @@
             <use xlink:href="#icon-map"></use>
         </svg>
     </button>
+    <button class="button svg-icon btnMapAerial" ng-click="main.toggleMode()">
+        <svg class="icon icon-aerial">
+            Zeige Detail
+        </svg>
+    </button>
 </div>
+
+
+<div class="map-nav detail-nav" ng-show="main.isDetailMode">
+    <button class="button svg-icon btnMapAerial" ng-click="main.toggleMode()" ng-show="main.isDetailMode">
+        <svg class="icon icon-aerial">
+            Zeige Karte
+        </svg>
+    </button>
+</div>
+

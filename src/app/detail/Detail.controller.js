@@ -14,11 +14,11 @@ export class DetailController {
         }
 
         // triggers restriction changed at startup
-        this.restrictionChanged();
+        this.restrictionChanged(false);
 
         // if location searchpath is changed, restrictionchanges
         $scope.$on('$locationChangeSuccess', function () {
-            self.restrictionChanged();
+            self.restrictionChanged(true);
         });
 
 
@@ -33,9 +33,10 @@ export class DetailController {
         }
     }
 
-    restrictionChanged() {
-        this.Extracts.setRestriction(
-            this.$location.search().restriction
+    restrictionChanged(notify) {
+        this.Extracts.setRestrictionByCode(
+            this.$location.search().restriction,
+            notify
         );
     }
 
