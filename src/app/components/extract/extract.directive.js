@@ -13,7 +13,7 @@ export function ExtractDirective() {
 }
 
 class ExtractController {
-    constructor(Extracts) {
+    constructor(Extracts, Helpers) {
         'ngInject';
 
         this.Extracts = Extracts;
@@ -26,11 +26,10 @@ class ExtractController {
             self.layers = [];
 
             var bbox = '';
+            console.log(bbox);
 
             angular.forEach(self.Extracts.getRestriction().values, function(v) {
-
-                bbox = self.getParameterByName('bbox', v.Map.ReferenceWMS);
-
+                bbox = Helpers.getParameterByName('bbox', v.Map.ReferenceWMS);
 
                 self.layers.push({
                     name: 'restriction',
@@ -52,15 +51,5 @@ class ExtractController {
         });
 
 
-    }
-
-    getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 }

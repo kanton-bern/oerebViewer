@@ -28,7 +28,6 @@ class RestrictionController {
             self.slideIndex = self.Extracts.getRestriction().index;
         });
 
-
         // watch for slides
         $scope.$watch(function () {
             return self.slideIndex;
@@ -51,13 +50,16 @@ class RestrictionController {
         if (angular.isUndefined(this.Extracts.current))
             return false;
 
-        console.log(this.Extracts);
+        console.log(this.Extracts.getCurrent().restrictions);
 
-
-        this.Extracts.setRestrictionByCode(
-            this.Extracts.current.restrictions[this.slideIndex].code,
-            false
-        );
+        let restrictions = this.Extracts.getCurrent().restrictions;
+        if (restrictions && restrictions.length > 0)
+            this.Extracts.setRestrictionByCode(
+                restrictions[this.slideIndex].code,
+                false
+            );
+        else
+            return false;
 
         return true;
     }

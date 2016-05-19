@@ -142,6 +142,8 @@ export class ExtractsService {
         let result = false;
         let self = this;
 
+        console.log(this.getCurrent());
+
         angular.forEach(this.getCurrent().restrictions, function (r) {
             if (r.code == self.currentRestrictionCode) {
                 result = r;
@@ -158,7 +160,10 @@ export class ExtractsService {
         }
 
         if (angular.isUndefined(this.currentRestriction)) {
-            this.currentRestriction = this.current.restrictions[0];
+            if (this.getCurrent().restrictions.length > 0)
+                this.currentRestriction = this.getCurrent().restrictions[0];
+            else
+                this.currentRestriction = false;
         }
 
         return this.currentRestriction;

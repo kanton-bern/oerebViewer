@@ -17,8 +17,8 @@
         <div ng-if="map.egrids.length == 0">Kein Resultat</div>
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
-              <!-- [bs][todo] Anstelle der angezeigten EGRID wäre es auch möglich, die GrundstückNr und GrundstückArt anzuzeigen, da offenbar beide Infos zusammen mit der EGRID vorhanden sein müssten -->
-                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid})">{{ele.egrid}} ({{ele.number}}, [GrundstückArt])</span>
+              <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
+                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid})">{{ele.egrid}} ({{ele.number}})</span>
             </li>
         </ul>
     </div>

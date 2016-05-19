@@ -10,6 +10,7 @@ import { OerebBernService } from '../app/components/oerebBern/oerebBern.service'
 import { ExtractsService } from '../app/components/extracts/extracts.service';
 import { NotificationsService } from '../app/components/notifications/notifications.service';
 import { LoadingService } from '../app/components/loading/loading.service';
+import { HelpersService } from '../app/components/helpers/helpers.service';
 import { MapDirective } from '../app/components/map/map.directive';
 import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
 import { ExtractDirective } from '../app/components/extract/extract.directive';
@@ -25,6 +26,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
 
     .run(runBlock)
 
+    .service('Helpers', HelpersService)
     .service('Oereb', OerebBernService)
     .service('Layers', LayersService)
     .service('Extracts', ExtractsService)

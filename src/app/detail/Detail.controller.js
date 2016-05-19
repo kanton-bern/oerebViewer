@@ -34,6 +34,10 @@ export class DetailController {
     }
 
     restrictionChanged(notify) {
+        if (angular.isUndefined(this.$location.search().restriction))
+            return;
+
+
         this.Extracts.setRestrictionByCode(
             this.$location.search().restriction,
             notify
