@@ -24,15 +24,18 @@ class ExtractController {
 
         this.Extracts.registerRestrictionObserverCallback(function() {
             console.log('RELOADED EXTRACT');
-            
+
 
             self.layers = [];
 
             var bbox = '';
-            console.log(bbox);
+
+            console.log(self.Extracts.getRestriction());
 
             angular.forEach(self.Extracts.getRestriction().values, function(v) {
                 bbox = Helpers.getParameterByName('bbox', v.Map.ReferenceWMS);
+                console.log('length');
+                console.log(bbox.length);
 
                 self.layers.push({
                     name: 'restriction',
@@ -41,10 +44,9 @@ class ExtractController {
             });
 
             var mainLayerMap = self.Extracts.getCurrent().data.RealEstate.PlanForLandRegister.ReferenceWMS;
-            mainLayerMap = mainLayerMap.replace(/(bbox=).*?(&)/,'$1' + bbox + '$2');
 
-            console.log(mainLayerMap);
-
+            if (bbox.length != 0)
+                mainLayerMap = mainLayerMap.replace(/(bbox=).*?(&)/,'$1' + bbox + '$2');
 
             self.layers.push({
                 name: 'main',

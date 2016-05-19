@@ -160,7 +160,10 @@ export class ExtractsService {
             this.currentRestrictionChanged = false;
         }
 
-        if (angular.isUndefined(this.currentRestriction)) {
+        if (angular.isUndefined(this.currentRestriction) || this.currentRestriction == false) {
+
+            console.log(this.getCurrent());
+
             if (this.getCurrent().restrictions.length > 0)
                 this.currentRestriction = this.getCurrent().restrictions[0];
             else
