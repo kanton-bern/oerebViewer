@@ -1,5 +1,5 @@
 export class MainController {
-    constructor($log, $translate, Extracts) {
+    constructor($log, $translate, Extracts, Helpers) {
         'ngInject';
 
         this.$translate = $translate;
@@ -14,9 +14,8 @@ export class MainController {
         var mainCtrl = this;
 
         Extracts.registerCurrentObserverCallback(function() {
-            mainCtrl.extract = mainCtrl.Extracts.current;
+            mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
-
         });
 
         Extracts.registerRestrictionObserverCallback(function() {
@@ -25,7 +24,6 @@ export class MainController {
             } else {
                 // angular.element('#buttonShowExtract').click();
                 //mainCtrl.toggleRestriction = true;
-                console.log(mainCtrl.Extracts.current.restrictions);
             }
         });
 

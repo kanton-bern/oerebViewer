@@ -15,4 +15,13 @@ export class HelpersService {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
+    getCenterOfBBBOX(bbox) {
+        var parts = bbox.split(',');
+
+        return [
+            (parseFloat(parts[0])+parseFloat(parts[2]))/2,
+            (parseFloat(parts[1])+parseFloat(parts[3]))/2
+        ];
+    }
+
 }

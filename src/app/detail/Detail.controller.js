@@ -1,5 +1,5 @@
 export class DetailController {
-    constructor($log, $translate, Extracts, $stateParams, $location, $scope) {
+    constructor($log, $translate, Extracts, Helpers, Map, $stateParams, $location, $scope) {
         'ngInject';
 
         let self = this;
@@ -20,6 +20,19 @@ export class DetailController {
         $scope.$on('$locationChangeSuccess', function () {
             self.restrictionChanged(true);
         });
+
+        // set map position
+        // Map.setPosition()
+        Extracts.registerCurrentObserverCallback(function() {
+            // reset position on map
+            var wmsLink = self.Extracts.getCurrent().data.RealEstate.PlanForLandRegister.ReferenceWMS;
+            var bbox = Helpers.getParameterByName('bbox', wmsLink);
+
+            var coords = Map.transformFrom2056(Helpers.getCenterOfBBBOX(bbox));
+
+            Map.setPosition(coords[0], coords[1]);
+        });
+
 
 
         angular.element('aside').foundation();

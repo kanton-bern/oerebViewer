@@ -23,6 +23,9 @@ class ExtractController {
         let self = this;
 
         this.Extracts.registerRestrictionObserverCallback(function() {
+            console.log('RELOADED EXTRACT');
+            
+
             self.layers = [];
 
             var bbox = '';

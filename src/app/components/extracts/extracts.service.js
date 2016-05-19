@@ -35,8 +35,9 @@ export class ExtractsService {
 
             newExtract = self.wrap(newExtract, d.data);
 
-            self.current = newExtract;
             self.extracts.push(newExtract);
+            self.setCurrent(newExtract.egrid);
+
             self.notifyCurrentObservers();
 
             self.Loading.hide();
