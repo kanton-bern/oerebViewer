@@ -5,6 +5,7 @@ export class MapService {
         let self = this;
         this.ol = ol;
         this.Oereb = Oereb;
+        this.Layers = Layers;
 
         this.clickObservers = [];
 
@@ -48,8 +49,10 @@ export class MapService {
         var view = this.map.getView();
         var onResizeMap = function () {
 
-            if (view.getZoom() > 9) {
-
+            if (view.getZoom() > 8) {
+                self.Layers.show('oereb');
+            } else {
+                self.Layers.hide('oereb');
             }
 
             console.log(view.getZoom() + ' ' + view.getCenter());
@@ -183,5 +186,13 @@ export class MapService {
             return proj4(epsg21781,epsg2056,coordinate);
 
         return proj4(epsg2056,epsg21781,coordinate);
+    }
+
+    get() {
+        return this.map;
+    }
+
+    getView() {
+        return this.map.getView();
     }
 }
