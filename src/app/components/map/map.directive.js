@@ -29,6 +29,11 @@ class MapController {
         var self = this;
 
         Map.registerClickObserver(function(event) {
+
+            if (self.Map.getView().getZoom() < 13) {
+                return;
+            }
+            
             self.infocords = event.coordinate;
 
             var popup = new Map.ol.Overlay({
