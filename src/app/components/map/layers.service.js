@@ -26,16 +26,24 @@ export class LayersService {
             name: 'ortho'
         });
 
-        let satLayer = new this.ol.layer.Tile({
+        /*let satLayer = new this.ol.layer.Tile({
             source: new ol.source.MapQuest({layer: 'sat'}),
             name: 'aerial',
             visible: false
-        });
+        }); */
 
-        /*let wmsSat = new this.ol.source.TileWMS(({
-            url: 'https://wms.swisstopo.admin.ch/wss/httpauth/swisstopowms/?LAYERS=ch.swisstopo.pixelkarte-grau&TRANSPARENT=true&FORMAT=image/png&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&EXCEPTIONS=application/vnd.ogc.se_inimage&SRS=EPSG:21781&BBOX=258000,41500,1062000,346000',
+        let wmsSat = new this.ol.source.TileWMS(({
+            url: 'https://wms.swisstopo.admin.ch/wss/httpauth/swisstopowms/?',
             params: {
-                //'CRS': 'EPSG:3857'
+                'LAYERS': 'ch.swisstopo.pixelkarte-grau',
+                'TRANSPARENT': true,
+                'FORMAT': 'image/png',
+                'SERVICE': 'WMS',
+                'VERSION': '1.1.1',
+                'REQUEST': 'GetMap',
+                'EXCEPTIONS': 'application/vnd.ogc.se_inimage',
+                'BBOX': '258000,41500,1062000,346000',
+                'SRS': 'EPSG:21781'
             },
             serverType: 'geoserver'
         }));
@@ -44,7 +52,7 @@ export class LayersService {
             preload: Infinity,
             visible: true,
             source: wmsSat,
-        });*/
+        });
 
         let oerebSource = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
