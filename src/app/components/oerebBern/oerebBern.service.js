@@ -29,6 +29,9 @@ export class OerebBernService {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
 
+                    if (!angular.isObject(object))
+                        return false;
+
                     if (object.GetExtractByIdResponse) {
                         return object.GetExtractByIdResponse.Extract;
                     }
@@ -38,7 +41,7 @@ export class OerebBernService {
                         return object;
                     }
 
-                    return object.GetExtractByIdResponse.Extract;
+                    return object.GetExtractByIdResponse.Extract; // TODO
                 }
             });
 

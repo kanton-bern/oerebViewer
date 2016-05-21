@@ -5,17 +5,16 @@ export class MainController {
         this.$translate = $translate;
         this.Extracts = Extracts;
 
-        this.isDetailMode = true;
+        this.isDetailMode = false;
 
         angular.element(document).foundation();
-
-        this.extract = Extracts.current;
-
+        
         var mainCtrl = this;
 
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
+            this.isDetailMode = true;
         });
 
         Extracts.registerRestrictionObserverCallback(function() {
