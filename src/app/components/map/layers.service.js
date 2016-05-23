@@ -26,11 +26,11 @@ export class LayersService {
             name: 'ortho'
         });
 
-        /*let satLayer = new this.ol.layer.Tile({
+        let satLayer = new this.ol.layer.Tile({
             source: new ol.source.MapQuest({layer: 'sat'}),
             name: 'aerial',
             visible: false
-        }); */
+        });
 
         let wmsSat = new this.ol.source.TileWMS(({
             url: 'https://wms.swisstopo.admin.ch/wss/httpauth/swisstopowms/?',
@@ -48,11 +48,11 @@ export class LayersService {
             serverType: 'geoserver'
         }));
 
-        let satLayer = new this.ol.layer.Tile({
+        /*let satLayer = new this.ol.layer.Tile({
             preload: Infinity,
             visible: true,
             source: wmsSat,
-        });
+        });*/
 
         let oerebSource = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',

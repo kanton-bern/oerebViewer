@@ -1,11 +1,14 @@
 export class MainController {
-    constructor($log, $translate, Extracts, Helpers) {
+    constructor($log, $translate, Extracts, Helpers, Map) {
         'ngInject';
 
         this.$translate = $translate;
         this.Extracts = Extracts;
+        this.Map = Map;
 
-        this.isDetailMode = false;
+        this.isDetailMode = Map.isDetailMode();
+
+        Map.setMapMode();
 
         angular.element(document).foundation();
         
@@ -14,7 +17,8 @@ export class MainController {
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
-            this.isDetailMode = true;
+            console.log('detail Mode: ');
+            mainCtrl.Map.setDetailMode();
         });
 
         Extracts.registerRestrictionObserverCallback(function() {
@@ -26,12 +30,15 @@ export class MainController {
             }
         });
 
+        Map.registerModeChanged(function(isDetailMode) {
+            mainCtrl.isDetailMode = isDetailMode;
+        });
 
         this.history = Extracts.get();
     }
 
     toggleMode() {
-        this.isDetailMode = !this.isDetailMode;
+        this.Map.toggleMode();
     }
 
     setCurrentExtract(egrid) {

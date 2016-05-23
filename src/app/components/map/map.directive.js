@@ -15,7 +15,7 @@ export function MapDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class MapController {
-    constructor(Layers, $log, $http, $scope, $base64, $window, Oereb, Extracts, Map) {
+    constructor(Layers, $log, $scope, $base64, $window, Oereb, Extracts, Map) {
         'ngInject';
 
         this.$window = $window;
