@@ -143,6 +143,7 @@ export class ExtractsService {
         let result = false;
         let self = this;
 
+        console.log('GetRestriction');
         console.log(this.getCurrent());
 
         angular.forEach(this.getCurrent().restrictions, function (r) {
@@ -150,6 +151,12 @@ export class ExtractsService {
                 result = r;
             }
         });
+
+        if (!result)
+            this.Notifications.add({
+                message: 'Es gibt keine weiteren Informationen zu diesem ÖREB Thema.',
+                type: 'warning',
+            });
 
         return result;
     }
