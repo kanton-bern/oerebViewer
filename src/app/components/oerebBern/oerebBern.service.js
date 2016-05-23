@@ -25,6 +25,7 @@ export class OerebBernService {
 
         var promise = this.$http.get(url,
             {
+                cache: true,
                 transformResponse: function (data) {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
@@ -55,6 +56,7 @@ export class OerebBernService {
         var promise = this.$http.get(
             url,
             {
+                cache: true,
                 transformResponse: function (data) {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
