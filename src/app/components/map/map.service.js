@@ -132,6 +132,10 @@ export class MapService {
         this.map.addOverlay(overlay);
     }
 
+    removeOverlay(overlay) {
+        this.map.removeOverlay(overlay);
+    }
+
     zoomIn() {
         let self = this;
         self.map.getView().setZoom(self.map.getView().getZoom()+1);
@@ -156,7 +160,7 @@ export class MapService {
         });
     }
 
-    registerModeChanged(callback) {
+    onModeChanged(callback) {
         this.modeChangedObservers.push(callback);
     }
 

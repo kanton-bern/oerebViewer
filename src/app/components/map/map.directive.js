@@ -28,6 +28,15 @@ class MapController {
         
         var self = this;
 
+        Map.onModeChanged(function(isDetailMode) {
+            console.log('onModeChanged');
+             if (isDetailMode) {
+                 self.removeOverlay();
+             } else {
+                 self.showOverlay();
+             }
+        });
+
         Map.registerClickObserver(function(event) {
 
             if (self.Map.getView().getZoom() < 13) {
@@ -40,6 +49,7 @@ class MapController {
                 element: document.getElementById('infobox')
             });
 
+            self.lastOverlay = popup;
             Map.addOverlay(popup);
 
             $('#object-information').hide();
@@ -148,6 +158,7 @@ class MapController {
                 let transformed = self.Map.transform(coordinates, true);
 
                 self.Map.setPosition(transformed[0], transformed[1]);
+                self.Map.setMapMode();
             }
         });
     }
@@ -175,6 +186,17 @@ class MapController {
 
     zoomIn() {
         this.Map.zoomIn();
+    }
+
+    removeOverlay() {
+        if (angular.isDefined(this.lastOverlay))
+            return this.Map.removeOverlay(this.lastOverlay);
+        return false;
+    }
+
+    showOverlay() {
+        if (angular.isDefined(this.lastOverlay))
+            return this.Map.addOverlay(this.lastOverlay);
     }
 
     zoomOut() {

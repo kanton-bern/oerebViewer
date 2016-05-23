@@ -30,7 +30,7 @@ export class MainController {
             }
         });
 
-        Map.registerModeChanged(function(isDetailMode) {
+        Map.onModeChanged(function(isDetailMode) {
             mainCtrl.isDetailMode = isDetailMode;
         });
 
