@@ -67,16 +67,10 @@
                 </ul>
             </li>
             <li>
-                Typ (Fläche, Anteil)
                 <ul class="menu vertical nested is-active">
                     <li>
                         <div class="row theme-key">
                             <h3>Legende</h3><img ng-src="{{r.values[0].Map.LegendAtWeb}}" alt="Legende zu den Lärmempflindlichkeitsstufen">
-                        </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label"> Charakteristik:</div>
-                            <div class="small-6 oereb-value"> Lärmempfindlichkeitsstufe II (265m2)
-                            </div>
                         </div>
                     </li>
                 </ul>
@@ -84,6 +78,11 @@
             <li ng-repeat="v in r.values" class="accordion-navigation">
                 <ul class="menu vertical nested">
                     <li>
+                        <div class="row">
+                            <div class="small-6 oereb-label">Charakteristik:</div>
+                            <div class="small-6 oereb-value">{{v.Information.LocalisedText.Text}}</div>
+                        </div>
+
                         <div class="row">
                             <div class="small-6 oereb-label">Fläche:</div>
                             <div class="small-6 oereb-value">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
