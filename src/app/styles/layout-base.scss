@@ -10,6 +10,11 @@
 body {
   @include fontNormal();
   z-index:10;
+  // Accessibility goes down the drain...
+  button {
+    outline:0 !important; // this might be an accessibility issue!
+  }
+
 }
 
 // changed global foundation styles
@@ -57,6 +62,7 @@ body {
 // end left slider
 
 // SVG-Icons
+// Default behaviour
 .button {
   @include button_svg();
 }
@@ -535,7 +541,9 @@ body {
 }
 
 
-// Start orbit
+
+
+/* [BS] Eventuell wird dieser gar nicht mehr verwendet, da jetzt restriction.pulse den container dazu darstellt */
 .position-bottom {
   .toggler-center {
     position:absolute;

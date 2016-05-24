@@ -38,6 +38,23 @@
   border-radius: $radius;
 }
 
+// Transform
+@mixin transform($val) {
+  -webkit-transform: $val;
+  -moz-transform: $val;
+  -ms-transform: $val;
+  transform: $val;
+}
+
+// Rotate
+@mixin rotate( $val: -2deg ) {
+  -webkit-transform: rotate($val);
+  -moz-transform: rotate($val);
+  -ms-transform: rotate($val);
+  -o-transform: rotate($val);
+  transform: rotate($val);
+}
+
 @mixin icon_svg {
   display: inline-block;
   width: 1.5em;
@@ -57,11 +74,12 @@
     transition: all 200ms ease-in;
     transform: scale(1);
   }
-  // Hover
+  // Link
   &:link, &:visited {
 
 
   }
+  // Hover
   &:hover,&:active {
   z-index: 2;
   -webkit-transition: all 200ms ease-in;

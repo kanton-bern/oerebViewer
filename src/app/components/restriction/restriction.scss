@@ -1,41 +1,108 @@
-ul.restriction-carousel {
-  height: 100vh;
+/**
+[BS]
+Restriction Styles
+[todo] Eventuell gibt diese modulare Aufteilung Probleme bei dem Setzen der Breakpoints. Breakpoint-Handling dann innerhalb der SCSS-Module vornehmen und mit Breakpoint-Variabeln arbeiten.
+
+**/
+
+// Start orbit
+.pulse {
   width: 100%;
-
-  margin: 0;
-
-  background-color: $colorMenuTop;
-
-  > li {
-    overflow: scroll;
-  }
-}
-
-restriction {
-  width: 100%;
-
   margin: 0;
   padding: 0;
-
   z-index: 10000;
   position: absolute;
   top: 93vh;
 
-  @include castShadowTop;
-
-  &.opened {
-    top: 5vh;
-  }
-
+  // Animation
   transition-property: all;
   transition-duration: .5s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-}
 
-.restriction-toggler {
+  @include castShadowTop;
 
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+  // All buttons in the pulse
+  .button {
+    background-color: transparent;
+
+    // Defaults for restriction toggler
+    &.restriction-toggler {
+      position: absolute;
+      top: 0;
+      left: calc(50% - 1em);
+      @include transform(translate(-50%, 50%));
+      @include transform(scale(2));
+      transition-duration:0.5s;
+    }
+  }
+
+  // Header title
+  .slide-title {
+    margin:2rem 0em 0em 0em;
+    line-height:$fontLineHeightBase;
+  }
+
+  // Carousel
+  ul.restriction-carousel {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding-bottom:3rem;
+    background-color: $colorMenuTop;
+
+    > li {
+      overflow: scroll;
+    }
+
+    .theme-list {
+      margin-left:0px;
+      .top-item {
+        background-color: $colorMenuTop;
+      }
+      > li {
+        padding-left:1em;
+        padding-right:1em;
+        &:last-child {
+          padding-bottom:2rem;
+        }
+      }
+      ul {
+        margin-left:0px;
+      }
+    }
+
+    // PDFs
+    .pdf-list {
+      padding-top:1em;
+      margin:0;
+      .icon {
+        height:$fontSizeBase * 1;
+        margin-right:5px;
+        fill:$colorContent;
+      }
+      a {
+        padding:0;
+        display:block;
+        width:80%;
+        font-size:$fontSizeBase * 1;
+      }
+    }
+  }
+
+  // Start open pulse
+  &.opened {
+    top: 5vh;
+    .restriction-toggler {
+      // rotate the arrow 180
+
+
+      @include transform(rotate(180deg) scale(1.5));
+      transition-duration: 1s;
+    }
+
+
+  }
+  // end open pulse
 }
+// End orbit
