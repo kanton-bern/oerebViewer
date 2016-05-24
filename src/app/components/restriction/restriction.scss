@@ -85,6 +85,7 @@ Restriction Styles
         padding:0;
         display:block;
         width:80%;
+        @include dontBreakOut;
         font-size:$fontSizeBase * 1;
       }
     }
