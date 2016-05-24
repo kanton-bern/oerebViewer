@@ -91,28 +91,19 @@
                             <div class="small-6 oereb-label">Rechtsstatus:</div>
                             <div class="small-6 oereb-value">{{v.Lawstatus.Name}}</div>
                         </div>
-                        <div class="row pdf-list">
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-repeat="v in r.values" class="accordion-navigation">
+                <ul class="menu vertical nested">
+                    <li>
+                        <div ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row pdf-list">
                             <svg class="icon">
                                 <use xlink:href="#icon-file"></use>
                             </svg>
-                            <a target="_blank" href="http://files.be.ch/bve/agi/oereb/94201/NPL61/204.pdf"
-                               title="PDF">Zonenplan der Stadt Thun 1986 mit Bauordnung vom
-                                30.09.1987</a>
-                        </div>
-                        <div class="row pdf-list">
-                            <svg class="icon icon-file">
-                                <use xlink:href="#icon-file"></use>
-                            </svg>
-                            <a target="_blank" href="http://files.be.ch/bve/agi/oereb/94201/NPL61/219.pdf"
-                               title="PDF">Bauordnung 1986, Änderung Art. 40, Abs. 4 Zone für
-                                militärische Bauten und Anlagen M vom 21.02.1994</a>
-                        </div>
-                        <div class="row pdf-list">
-                            <svg class="icon icon-file">
-                                <use xlink:href="#icon-file"></use>
-                            </svg>
-                            <a target="_blank" href="http://files.be.ch/bve/agi/oereb/94201/NPL61/233.pdf "
-                               title="PDF">Plan der Lärmempfindlichkeitsstufen vom 28.09.2000 </a>
+                            <a target="_blank" href="{{document.TextAtWeb.LocalisedText.Text}}"
+                               title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
                         </div>
                     </li>
                 </ul>
@@ -136,15 +127,3 @@
         <use xlink:href="#icon-arrow-up"></use>
     </svg>
 </button>
-<div class="row theme-bullets collapse">
-    <div class="align-justify column">
-        <nav class="orbit-bullets">
-            <button data-slide="0"><span class="show-for-sr">Lärmempflindlichkeitsstufen (in Nutzungszonen)</span>
-            </button>
-            <button data-slide="1"><span class="show-for-sr">Zonenplan - Grundnutzungen</span>
-            </button>
-            <button data-slide="2"><span class="show-for-sr">Zonenplan - Überlagernde Nutzungsplaninhalt</span>
-            </button>
-        </nav>
-    </div>
-</div>
