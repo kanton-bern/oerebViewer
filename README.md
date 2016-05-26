@@ -11,10 +11,10 @@ OEREB-App Repository.
 ### Installationsanleitung ###
 
 1. Die aktuelle Version herunterladen
-2. bower install
-3. gulp install
-4. gulp build
-
+2. npm install
+3. bower install
+4. gulp install
+5. gulp build
 
 ### Verantwortlichkeiten ###
 
