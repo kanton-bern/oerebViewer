@@ -6,70 +6,116 @@ export class LayersService {
         this.ol = ol;
         this.active = 'ortho';
 
-        // example ImageWMS
-        /*let exampleImageWms = new ol.layer.Image({
-         source: new ol.source.ImageWMS({
-         url: 'http://wms.geo.admin.ch/',
-         ratio: 1.0,
-         projection: 'EPSG:21781',
-         params: {
-         'LAYERS': ['ch.swisstopo.pixelkarte-farbe'],
-         'FORMAT': 'image/png',
-         'TILED': false
-         },
-         serverType: 'mapserver'
-         })
-         }); */
+        var RESOLUTIONS = [
+            4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000, 1750, 1500, 1250,
+            1000, 750, 650, 500, 250, 100, 50, 20, 10, 5, 2.5, 2, 1.5, 1, 0.5
+        ];
+        var extent = [2420000, 130000, 2900000, 1350000];
+        var projection = ol.proj.get('EPSG:2056');
+        projection.setExtent(extent);
+
+
+        var matrixIds = [];
+        for (var i = 0; i < RESOLUTIONS.length; i++) {
+            matrixIds.push(i);
+        }
+
+        let wmtsSource = function(layerConfig) {
+            var resolutions = layerConfig.resolutions || RESOLUTIONS;
+            var tileGrid = new ol.tilegrid.WMTS({
+                origin: [extent[0], extent[3]],
+                resolutions: resolutions,
+                matrixIds: matrixIds
+            });
+            var extension = layerConfig.format || 'png';
+            var timestamp = layerConfig['timestamps'][0];
+            return new ol.source.WMTS(({
+                url: '//wmts10.geo.admin.ch/1.0.0/{Layer}/default/' + timestamp + '/2056/{TileMatrix}/{TileCol}/{TileRow}.'+ extension,
+                tileGrid: tileGrid,
+                projection: projection,
+                layer: layerConfig.serverLayerName,
+                requestEncoding: 'REST'
+            }));
+        };
+
+        var wmtsSat = new this.ol.layer.Tile({
+            name: 'aerial',
+            visible: false,
+            source: wmtsSource({
+                "format": "jpeg",
+                "serverLayerName": "ch.swisstopo.swissimage",
+                "label": "SWISSIMAGE",
+                "timestamps": [
+                    "20140620",
+                    "20131107",
+                    "20130916",
+                    "20130422",
+                    "20120809",
+                    "20120225",
+                    "20110914",
+                    "20110228"
+                ]
+            })
+        });
+
+
+
+        var wmtsOrtho = new this.ol.layer.Tile({
+            name: 'ortho',
+            visible: true,
+            source: wmtsSource({
+                "format": "jpeg",
+                "serverLayerName": "ch.swisstopo.pixelkarte-farbe",
+                "label": "SWISSIMAGE",
+                "timestamps": [
+                    "20140620",
+                    "20131107",
+                    "20130916",
+                    "20130422",
+                    "20120809",
+                    "20120225",
+                    "20110914",
+                    "20110228"
+                ]
+            })
+        });
+
+        var wmsOrtho =   new ol.layer.Tile({
+            name: 'ortho',
+            visible: true,
+            source: new ol.source.TileWMS({
+                attributions: '© <a href="http://www.geo.admin.ch/internet/geoportal/' +
+                'en/home.html">Pixelmap 1:1000000 / geo.admin.ch</a>',
+                crossOrigin: 'anonymous',
+                params: {
+                    'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
+                    'FORMAT': 'image/jpeg'
+                },
+                url: 'http://wms.geo.admin.ch/'
+            })
+        });
+
 
         let osmLayer = new this.ol.layer.Tile({
             source: new this.ol.source.OSM(),
             name: 'ortho'
         });
 
-        let satLayer = new this.ol.layer.Tile({
-            source: new ol.source.MapQuest({layer: 'sat'}),
-            name: 'aerial',
-            visible: false
-        });
-
-        let wmsSat = new this.ol.source.TileWMS(({
-            url: 'https://wms.swisstopo.admin.ch/wss/httpauth/swisstopowms/?',
-            params: {
-                'LAYERS': 'ch.swisstopo.pixelkarte-grau',
-                'TRANSPARENT': true,
-                'FORMAT': 'image/png',
-                'SERVICE': 'WMS',
-                'VERSION': '1.1.1',
-                'REQUEST': 'GetMap',
-                'EXCEPTIONS': 'application/vnd.ogc.se_inimage',
-                'BBOX': '258000,41500,1062000,346000',
-                'SRS': 'EPSG:21781'
-            },
-            serverType: 'geoserver'
-        }));
-
-        /*let satLayer = new this.ol.layer.Tile({
-            preload: Infinity,
-            visible: true,
-            source: wmsSat,
-        });*/
-
-        let oerebSource = new this.ol.source.TileWMS(({
-            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
-            params: {
-                'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
-                'TILED': true,
-                'VERSION': '1.3.0',
-                'FORMAT': 'image/png',
-                'CRS': 'EPSG:21781'
-            },
-            serverType: 'geoserver'
-        }));
 
         let wmsOEREB = new this.ol.layer.Tile({
             /*preload: Infinity,*/
             visible: true,
-            source: oerebSource,
+            source: new this.ol.source.TileWMS(({
+                    url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
+                    params: {
+                        'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
+                        'TILED': true,
+                        'VERSION': '1.3.0',
+                        'FORMAT': 'image/png',
+                        'CRS': 'EPSG:21781'
+                    },
+                    serverType: 'geoserver'
+                })),
             name: 'oereb'
         });
 
@@ -93,38 +139,18 @@ export class LayersService {
         });
 
 
-        let wmsCantoneCadestral = new this.ol.source.TileWMS(({
-            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_planungwms_d_fk_s/MapServer/WMSServer?',
-            params: {
-                'LAYERS': 'GEODB.UZP_BAU_det',
-                'TILED': true,
-                'VERSION': '1.1.1',
-                'FORMAT': 'image/png'
-                //'CRS': 'EPSG:3857'
-            },
-            serverType: 'geoserver'
-        }));
-
-        let cantoneCadestral = new this.ol.layer.Tile({
-            preload: Infinity,
-            visible: true,
-            source: wmsCantoneCadestral,
-            minResolution: 0.001,
-            maxResolution: 100,
-        });
-
-        // http://openlayers.org/en/v3.3.0/examples/vector-wfs.js
-        //  WFS: http://www.geoservice2-test.apps.be.ch/geoservice/rest/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/4
-        // http://www.geoservice2-test.apps.be.ch/geoservice/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/WFSServer?
-
-        this.add(osmLayer);
-        this.add(satLayer);
+        // this.add(osmLayer);
+        this.add(wmsOrtho);
+        this.add(wmtsSat);
         this.add(wmsOEREBStatus);
         this.add(wmsOEREB);
     }
 
     isActive(name) {
+        console.log('round:');
         for (var i = 0; i < this.layers.length; i++) {
+            console.log(this.layers[i].M.name);
+            console.log(this.layers[i].visible);
             if (this.layers[i].M.name == name) {
                 return this.layers[i].visible;
             }
