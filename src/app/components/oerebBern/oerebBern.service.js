@@ -66,13 +66,18 @@ export class OerebBernService {
                         return false;
                     }
 
-                    if (object.GetEGRIDResponse.egrid instanceof Array) {
-                        return {
-                            'egrid': object.GetEGRIDResponse.egrid,
-                            'number': object.GetEGRIDResponse.number
-                        };
-                    }
 
+                    if (angular.isArray(object.GetEGRIDResponse.egrid)) {
+                        let results = [];
+                        for (var i = 0; i < object.GetEGRIDResponse.egrid.length; i++) {
+                            results[i] = {
+                                'egrid': object.GetEGRIDResponse.egrid[i],
+                                'number': object.GetEGRIDResponse.number[i]
+                            }
+                        }
+                        return results;
+                    }
+                    
                     return [{
                         'egrid': object.GetEGRIDResponse.egrid,
                         'number': object.GetEGRIDResponse.number
