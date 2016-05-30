@@ -39,7 +39,7 @@ class MapController {
 
         Map.registerClickObserver(function(event) {
 
-            if (self.Map.getView().getZoom() < 13) {
+            if (self.Map.getView().getZoom() < 12) {
                 return;
             }
             

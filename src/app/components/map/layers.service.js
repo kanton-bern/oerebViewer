@@ -139,8 +139,8 @@ export class LayersService {
         });
 
 
-        // this.add(osmLayer);
-        this.add(wmsOrtho);
+        this.add(osmLayer);
+        // this.add(wmsOrtho);
         this.add(wmtsSat);
         this.add(wmsOEREBStatus);
         this.add(wmsOEREB);

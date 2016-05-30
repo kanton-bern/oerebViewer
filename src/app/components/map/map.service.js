@@ -51,7 +51,7 @@ export class MapService {
         var view = this.map.getView();
         var onResizeMap = function () {
 
-            if (view.getZoom() > 8) {
+            if (view.getZoom() > 11) {
                 self.Layers.show('oereb');
             } else {
                 self.Layers.hide('oereb');
