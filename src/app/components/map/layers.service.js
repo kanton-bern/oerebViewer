@@ -6,7 +6,7 @@ export class LayersService {
         this.ol = ol;
         this.active = 'ortho';
 
-        var RESOLUTIONS = [
+        this.resolutions = [
             4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000, 1750, 1500, 1250,
             1000, 750, 650, 500, 250, 100, 50, 20, 10, 5, 2.5, 2, 1.5, 1, 0.5
         ];
@@ -16,12 +16,14 @@ export class LayersService {
 
 
         var matrixIds = [];
-        for (var i = 0; i < RESOLUTIONS.length; i++) {
+        for (var i = 0; i < this.resolutions.length; i++) {
             matrixIds.push(i);
         }
 
+        let self = this;
+
         let wmtsSource = function(layerConfig) {
-            var resolutions = layerConfig.resolutions || RESOLUTIONS;
+            var resolutions = layerConfig.resolutions || self.resolutions;
             var tileGrid = new ol.tilegrid.WMTS({
                 origin: [extent[0], extent[3]],
                 resolutions: resolutions,
@@ -102,20 +104,22 @@ export class LayersService {
         });
 
 
+        this.wmsOerebSource = new this.ol.source.TileWMS(({
+            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
+            params: {
+                'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
+                'TILED': true,
+                'VERSION': '1.3.0',
+                'FORMAT': 'image/png',
+                'CRS': 'EPSG:21781'
+            },
+            serverType: 'geoserver'
+        }));
+
         let wmsOEREB = new this.ol.layer.Tile({
             /*preload: Infinity,*/
             visible: true,
-            source: new this.ol.source.TileWMS(({
-                    url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
-                    params: {
-                        'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
-                        'TILED': true,
-                        'VERSION': '1.3.0',
-                        'FORMAT': 'image/png',
-                        'CRS': 'EPSG:21781'
-                    },
-                    serverType: 'geoserver'
-                })),
+            source: this.wmsOerebSource,
             name: 'oereb'
         });
 
@@ -147,10 +151,7 @@ export class LayersService {
     }
 
     isActive(name) {
-        console.log('round:');
         for (var i = 0; i < this.layers.length; i++) {
-            console.log(this.layers[i].M.name);
-            console.log(this.layers[i].visible);
             if (this.layers[i].M.name == name) {
                 return this.layers[i].visible;
             }
@@ -173,7 +174,15 @@ export class LayersService {
         return this.hide(name, true);
     }
 
-    get() {
+    get(name = false) {
+        if (angular.isString(name)) {
+            for (var i = 0; i < this.layers.length; i++) {
+                if (this.layers[i].M.name == name) {
+                    return this.layers[i];
+                }
+            }
+        }
+
         return this.layers;
     }
 

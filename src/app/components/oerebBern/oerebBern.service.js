@@ -33,7 +33,7 @@ export class OerebBernService {
                     if (!angular.isObject(object))
                         return false;
 
-                    if (object.GetExtractByIdResponse) {
+                    if (angular.isDefined(object.GetExtractByIdResponse)) {
                         return object.GetExtractByIdResponse.Extract;
                     }
                     
@@ -42,7 +42,7 @@ export class OerebBernService {
                         return object;
                     }
 
-                    return object.GetExtractByIdResponse.Extract; // TODO
+                    return false;
                 }
             });
 
@@ -60,7 +60,6 @@ export class OerebBernService {
                 transformResponse: function (data) {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
-
                     self.$log.info(object);
 
                     if (!object || !object.GetEGRIDResponse) {

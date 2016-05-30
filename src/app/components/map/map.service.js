@@ -176,10 +176,10 @@ export class MapService {
 
     transform(coordinate, inverse = false) {
         // source
-        var epsg4326 = '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees';
+        var epsg21781 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
 
         // target
-        var epsg21781 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
+        var epsg4326 = '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees';
 
         if (inverse)
             return proj4(epsg4326,epsg21781,coordinate);
@@ -198,8 +198,6 @@ export class MapService {
 
         return proj4(epsg2056,epsg21781,coordinate);
     }
-
-
 
     toggleMode() {
         this.detailMode = !this.detailMode;
