@@ -21,7 +21,6 @@ class RestrictionController {
         
         this.slideIndex = 0;
 
-
         var self = this;
 
         Extracts.registerRestrictionObserverCallback(function() {
@@ -47,10 +46,8 @@ class RestrictionController {
     }
 
     setRestrictionByIndex() {
-        if (angular.isUndefined(this.Extracts.current))
+        if (angular.isUndefined(this.Extracts.getCurrent()))
             return false;
-
-        console.log(this.Extracts.getCurrent().restrictions);
 
         let restrictions = this.Extracts.getCurrent().restrictions;
         if (restrictions && restrictions.length > 0)

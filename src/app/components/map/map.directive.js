@@ -28,16 +28,12 @@ class MapController {
         
         var self = this;
 
-        Map.onModeChanged(function(isDetailMode) {
-            console.log('onModeChanged');
-             if (isDetailMode) {
-                 self.removeOverlay();
-             } else {
-                 self.showOverlay();
-             }
-        });
-
         Map.registerClickObserver(function(event) {
+
+            console.log('wfs:');
+            /*self.Oereb.getDataFromWFS(0, 0).then(function (d) {
+               console.log(d);
+            });*/
 
             if (self.Map.getView().getZoom() < 12) {
                 return;

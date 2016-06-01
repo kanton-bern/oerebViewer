@@ -14,7 +14,6 @@ import { HelpersService } from '../app/components/helpers/helpers.service';
 import { MapService } from '../app/components/map/map.service';
 import { MapDirective } from '../app/components/map/map.directive';
 import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
-import { ExtractDirective } from '../app/components/extract/extract.directive';
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 import { BackgroundImageDirective } from '../app/components/backgroundImage/backgroundImage.directive';
@@ -42,7 +41,6 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .directive('notifications', NotificationsDirective)
     .directive('loading', LoadingDirective)
     .directive('restriction', RestrictionDirective)
-    .directive('extract', ExtractDirective)
     .directive('background', BackgroundImageDirective)
 
     .filter('unique', function() {

@@ -7,10 +7,9 @@ export class MapService {
         this.Oereb = Oereb;
         this.Layers = Layers;
 
+        this.tempLayers = [];
         this.clickObservers = [];
         this.modeChangedObservers = [];
-
-        this.detailMode = false;
 
         this.config = {
             zoom: {
@@ -128,6 +127,10 @@ export class MapService {
         this.map.getView().setZoom(zoom);
     }
 
+    setZoom(zoom) {
+        this.map.getView().setZoom(zoom);
+    }
+
     addOverlay(overlay) {
         this.map.addOverlay(overlay);
     }
@@ -160,16 +163,6 @@ export class MapService {
         });
     }
 
-    onModeChanged(callback) {
-        this.modeChangedObservers.push(callback);
-    }
-
-    notifyModeChangedObservers(isDetailMode) {
-        angular.forEach(this.modeChangedObservers, function (callback) {
-            callback(isDetailMode);
-        });
-    }
-
     onClickOnMap(event) {
         this.notifyClickObservers(event);
     }
@@ -199,25 +192,28 @@ export class MapService {
         return proj4(epsg2056,epsg21781,coordinate);
     }
 
-    toggleMode() {
-        this.detailMode = !this.detailMode;
-        this.notifyModeChangedObservers(this.detailMode);
-    }
+    /*
+     Adds Temporary Layers. Everytime new temporary Layers are added. The old one gets removed.
+     */
+    addTempLayers(layers) {
+        let self = this;
 
-    setDetailMode() {
-        this.detailMode = true;
-        this.notifyModeChangedObservers(this.detailMode);
-    }
+        // remove old temp layers
+        angular.forEach(self.tempLayers, function(layer) {
+            self.map.removeLayer(layer);
+        });
 
-    setMapMode() {
-        this.detailMode = false;
-        this.notifyModeChangedObservers(this.detailMode);
-    }
+        // clean array
+        self.tempLayers = [];
 
-    isDetailMode() {
-        return this.detailMode;
+        // add new temp layers
+        angular.forEach(layers, function(layer) {
+            // saves layer, so we can remove them again
+            self.tempLayers.push(layer);
+            self.map.addLayer(layer);
+        });
     }
-
+    
     get() {
         return this.map;
     }

@@ -2,14 +2,17 @@ export class LayersService {
     constructor() {
         'ngInject';
 
-        this.layers = [];
         this.ol = ol;
+        this.Map = Map;
+
         this.active = 'ortho';
+        this.layers = [];
 
         this.resolutions = [
             4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000, 1750, 1500, 1250,
             1000, 750, 650, 500, 250, 100, 50, 20, 10, 5, 2.5, 2, 1.5, 1, 0.5
         ];
+
         var extent = [2420000, 130000, 2900000, 1350000];
         var projection = ol.proj.get('EPSG:2056');
         projection.setExtent(extent);
@@ -86,8 +89,6 @@ export class LayersService {
             name: 'ortho',
             visible: true,
             source: new ol.source.TileWMS({
-                attributions: '© <a href="http://www.geo.admin.ch/internet/geoportal/' +
-                'en/home.html">Pixelmap 1:1000000 / geo.admin.ch</a>',
                 crossOrigin: 'anonymous',
                 params: {
                     'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
@@ -96,6 +97,42 @@ export class LayersService {
                 url: 'http://wms.geo.admin.ch/'
             })
         });
+
+
+        /*
+            Vector Layer Example
+
+        var vectorSource = new ol.source.Vector({
+            //format: new ol.format.GeoJSON(),
+            format: new ol.format.WFS(),
+            loader: function(extent, resolution, projection) {
+
+                var url = 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/WFSServer?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF%20&Filter=%3Cogc:Filter%3E%20%3Cogc:Intersects%3E%20%3Cogc:PropertyName%3ESHAPE%3C/ogc:PropertyName%3E%20%3Cgml:Point%3E%20%3Cgml:coordinates%3E2603179.2831421704,%201203520.3550739398%3C/gml:coordinates%3E%20%3C/gml:Point%3E%20%3C/ogc:Intersects%3E%20%3C/ogc:Filter%3E';
+
+
+                $.ajax({
+                    url: url,
+                    dataType: 'xml',
+                });
+            },
+            projection: 'EPSG:2056'
+        });
+
+        var loadFeatures = function(response) {
+            vectorSource.addFeatures(vectorSource.readFeatures(response));
+        };
+
+        var vector = new ol.layer.Vector({
+            source: vectorSource,
+            style: new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: 'rgba(0, 0, 255, 1.0)',
+                    width: 2
+                })
+            })
+        });
+
+        this.add(vector); */
 
 
         let osmLayer = new this.ol.layer.Tile({
@@ -122,6 +159,9 @@ export class LayersService {
             source: this.wmsOerebSource,
             name: 'oereb'
         });
+
+        wmsOEREB.setZIndex(100);
+
 
         let oerebStatusSource = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_wms_d_fk_s/MapServer/WMSServer?',
@@ -186,10 +226,12 @@ export class LayersService {
         return this.layers;
     }
 
+    /*
+        only works before map initialization, after that use Map.addTempLayer()
+     */
     add(layer) {
         this.layers.push(layer);
     }
-
 }
 
 
