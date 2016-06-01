@@ -42,6 +42,11 @@ export class ExtractsService {
             newExtract = self.wrap(newExtract, d.data);
 
             self.extracts.push(newExtract);
+
+            console.log(self.extracts.length);
+            while (self.extracts.length > 10)
+                self.extracts.shift();
+
             self.setCurrent(newExtract.egrid);
             self.localStorageService.set('extracts', self.extracts);
 

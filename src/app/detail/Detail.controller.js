@@ -26,6 +26,7 @@ export class DetailController {
         // on restriction reload add layer to map
         this.Extracts.registerRestrictionObserverCallback(function() {
 
+            console.log('execute register restriction observer');
             self.tempLayers = [];
 
             let bbox = '';
@@ -56,6 +57,7 @@ export class DetailController {
 
                 self.tempLayers.push(wmsTemp);
             });
+
 
             self.Map.addTempLayers(self.tempLayers);
 
