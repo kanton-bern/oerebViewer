@@ -10,6 +10,8 @@ export class MainController {
         
         var mainCtrl = this;
 
+
+
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();

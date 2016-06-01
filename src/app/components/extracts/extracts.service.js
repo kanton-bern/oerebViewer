@@ -1,5 +1,5 @@
 export class ExtractsService {
-    constructor($log, $location, Loading, Oereb, Notifications) {
+    constructor($log, $location, Loading, Oereb, Notifications, localStorageService) {
 
         'ngInject';
 
@@ -8,10 +8,16 @@ export class ExtractsService {
         this.Loading = Loading;
         this.Oereb = Oereb;
         this.Notifications = Notifications;
+        this.localStorageService = localStorageService;
 
         this.extracts = [];
         this.observers = [];
         this.restrictionObservers = [];
+
+        // load extracts from storage if exists
+        let extractsFromStorage = localStorageService.get('extracts');
+        if (extractsFromStorage != null)
+            this.extracts = extractsFromStorage;
     }
 
     reset() {
@@ -37,6 +43,7 @@ export class ExtractsService {
 
             self.extracts.push(newExtract);
             self.setCurrent(newExtract.egrid);
+            self.localStorageService.set('extracts', self.extracts);
 
             self.notifyCurrentObservers();
 

@@ -26,7 +26,8 @@
     "angular-translate-loader-static-files": "^2.11.0",
     "abdmob/x2js": "^1.2.0",
     "proj4": "^2.3.14",
-    "angular-carousel": "^1.0.1"
+    "angular-carousel": "^1.0.1",
+    "angular-local-storage": "^0.2.7"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.3"

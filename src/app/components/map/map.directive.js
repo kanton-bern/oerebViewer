@@ -154,7 +154,6 @@ class MapController {
                 let transformed = self.Map.transform(coordinates, true);
 
                 self.Map.setPosition(transformed[0], transformed[1]);
-                self.Map.setMapMode();
             }
         });
     }
