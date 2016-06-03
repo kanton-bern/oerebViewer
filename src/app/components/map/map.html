@@ -16,7 +16,7 @@
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
-                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: null})">{{ele.egrid}} ({{ele.number}})</span>
+                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: null})">Parzelle {{ele.number}}</span>
             </li>
         </ul>
     </div>
