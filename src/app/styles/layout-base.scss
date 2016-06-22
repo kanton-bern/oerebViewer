@@ -115,15 +115,31 @@ body {
     }
   }
 
-  // Provider Logo (Kanton)
-  .provider-logo {
+  // Logos im header
+  .header-logo {
     position:absolute;
     right:8%;
     top:5px;
-    img {
+
+    // Logos in header
+    .logo-bund, .logo-kanton, .logo-gemeinde {
+      display:inline-block;
+      width:35px;
       height:35px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-color: $colorMenuBgnd;
+      margin-right:10px;
+      float:right;
+
 
     }
+    .logo-bund {
+      height:30px;
+      width:30px;
+    }
+
   }
 
 }

@@ -6,6 +6,10 @@
   },
 
   "subtitle": "",
-  "no_property_loaded": "Noch kein Grundstück ausgewählt!"
+  "no_property_loaded": "Noch kein Grundstück ausgewählt!",
+  "bundlogo": "Logo der Schweizerischen Eidgenossenschaft",
+  "kantonlogo": "Logo des Kantons Bern",
+  "jump_content": "Zum Inhalt springen",
+  "jump_menu": "Zum Menü springen"
 
 }

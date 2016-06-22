@@ -1,6 +1,7 @@
-<p class="show-for-sr"><a href="#mainContent" class="show-on-focus"></a>Zum Inhalt springen<a href="#mainNav"
-                                                                                              class="show-on-focus"></a>Zur
-    Navigation springen</p>
+<p class="show-for-sr">
+  <a href="#mainContent" class="show-on-focus">{{ 'jump_content' | translate }}</a>
+  <a href="#mainNav"  class="show-on-focus">{{ 'jump_menu' | translate }}</a>
+</p>
 <div id="site-container" class="site-wrapper">
     <div class="wrapper-inner">
 
@@ -25,8 +26,13 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="provider-logo">
-                            <img src="/assets/images/kanton_be.png" title="Der Kanton Bern">
+                        <div class="header-logo">
+                          <div style="background-image:url('{{main.extract.data.RealEstate.MunicipalityLogo}}')"
+                               class="logo-gemeinde"></div>
+                          <div style="background-image:url('/assets/images/kanton_be.png')"
+                               class="logo-kanton"></div>
+                          <div style="background-image:url('/assets/images/bund_wappen.png')"
+                               class="logo-bund"></div>
                         </div>
                     </div>
                 </div>
