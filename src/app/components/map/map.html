@@ -6,13 +6,13 @@
     </div>
 
     <div ng-if="infoboxLoading">
-        Loading
+        {{'infobox_loading' | translate}}
     </div>
 
     <div ng-if="!infoboxLoading">
         <strong>Grundstücke</strong>
 
-        <div ng-if="map.egrids.length == 0">Kein Resultat</div>
+        <div ng-if="map.egrids.length == 0">{{'no_propery_found' | translate}}</div>
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
@@ -33,7 +33,8 @@
     </div>
     <button class="button svg-icon btnGetLocation" ngeo-mobile-geolocation="map.map"
             ngeo-mobile-geolocation-map="map.map"
-            ngeo-mobile-geolocation-options="map.mobileGeolocationOptions">
+            ngeo-mobile-geolocation-options="map.mobileGeolocationOptions"
+            ng-click="map.GetLocation()">
         <svg class="icon icon-location-2">
             <use xlink:href="#icon-location-2"></use>
         </svg>
@@ -59,4 +60,3 @@
         </svg>
     </button>
 </div>
-

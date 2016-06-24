@@ -7,7 +7,7 @@ export class MainController {
         this.Map = Map;
 
         angular.element(document).foundation();
-        
+
         var mainCtrl = this;
 
 
@@ -18,7 +18,9 @@ export class MainController {
         });
 
         this.history = Extracts.get();
+
     }
+
 
     setCurrentExtract(egrid) {
         if (egrid != this.extract.egrid) {

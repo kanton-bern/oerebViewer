@@ -15,7 +15,7 @@
                         <a href="/" title="Zum Eingang" class="mainlogo">
                             <img src="/assets/images/logo_dot_oereb.svg" title="OEREB Logo">
                             <p>
-                                <span class="oereb-title">ÖREB</span> {{ 'subtitle' | translate }}
+                                <span class="oereb-title">ÖREB</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span>
                             </p>
                         </a>
                         <div class="menu-nav">
@@ -27,7 +27,12 @@
                             </button>
                         </div>
                         <div class="header-logo">
-                          <div style="background-image:url('{{main.extract.data.RealEstate.MunicipalityLogo}}')"
+                          <!-- TODO[BS]: Falls eine Gemeinde gewählt wurde, soll das Gemeinde Logo angezeigt werden, ansonsten ein dummy-logo
+                            background-image:url('{{main.extract.data.MunicipalityLogo}}')
+                            oder
+                            background-image:url('/assets/images/gde_dummy.png')
+                        -->
+                          <div style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
                                class="logo-gemeinde"></div>
                           <div style="background-image:url('/assets/images/kanton_be.png')"
                                class="logo-kanton"></div>

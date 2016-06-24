@@ -95,6 +95,11 @@ export class MapService {
 
         // click event listener
         this.map.on('singleclick', function (event) {
+            // Close main menu if open
+            if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
+              angular.element('#buttonShowExtract').click();
+            }
+
             self.onClickOnMap(event);
         });
 
@@ -213,7 +218,7 @@ export class MapService {
             self.map.addLayer(layer);
         });
     }
-    
+
     get() {
         return this.map;
     }

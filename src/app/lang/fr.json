@@ -5,10 +5,13 @@
     "french": "Français"
   },
 
-  "subtitle": "",
-  "no_property_loaded": "Aucune propriété trouvée!",
+  "subtitle": "-Cadastre",
+  "no_property_loaded": "Aucune propriété chargée",
+  "no_property_found": "Aucune propriété trouvée",
   "bundlogo": "Logo de la Confédération suisse",
   "kantonlogo": "Logo du canton de Berne",
   "jump_content": "Aller au contenu",
-  "jump_menu": "Aller au menu"
+  "jump_menu": "Aller au menu",
+  "notification_close": "Fermer",
+  "infobox_loading": "Chargement en cours ..."
 }

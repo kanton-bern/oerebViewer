@@ -1,7 +1,11 @@
 // Small Layout
 @media screen and (max-width: $widthSmall)  {
 
-
+  // Notifications
+  .notification-wrapper {
+    width:100%;
+  }
+  // Ende Notfications
 
 
  } // END Medium Layout

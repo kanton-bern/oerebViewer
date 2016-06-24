@@ -118,7 +118,7 @@ body {
   // Logos im header
   .header-logo {
     position:absolute;
-    right:8%;
+    right:5%;
     top:5px;
 
     // Logos in header
@@ -787,10 +787,10 @@ body {
 .notification-wrapper {
   @include opacityTransition;
   position:absolute;
-  z-index:5000;
-  bottom:0px;
-  width:100%;
-  left:0px;
+  z-index:10000;
+  top:0;
+  width:50%;
+  right:0px;
 
   .callout {
     position:relative;

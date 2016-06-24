@@ -5,11 +5,15 @@
     "french": "Français"
   },
 
-  "subtitle": "",
+  "subtitle": "-Kataster",
   "no_property_loaded": "Noch kein Grundstück ausgewählt!",
+  "no_property_found": "Kein Grundstück gefunden",
   "bundlogo": "Logo der Schweizerischen Eidgenossenschaft",
   "kantonlogo": "Logo des Kantons Bern",
   "jump_content": "Zum Inhalt springen",
-  "jump_menu": "Zum Menü springen"
+  "jump_menu": "Zum Menü springen",
+  "notification_close": "Schliessen",
+  "infobox_loading": "Wird geladen..."
+
 
 }

@@ -25,10 +25,11 @@ class MapController {
         this.Extracts = Extracts;
         this.Layers = Layers;
         this.Map = Map;
-        
+
         var self = this;
 
         Map.registerClickObserver(function(event) {
+
 
             console.log('wfs:');
             /*self.Oereb.getDataFromWFS(0, 0).then(function (d) {
@@ -38,7 +39,7 @@ class MapController {
             if (self.Map.getView().getZoom() < 12) {
                 return;
             }
-            
+
             self.infocords = event.coordinate;
 
             var popup = new Map.ol.Overlay({
@@ -79,6 +80,7 @@ class MapController {
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
 
         $btnOpenTheme.click(function() {
+
             var topBarHeight = $('.header-sticky-container').height();
             if(bottomSlider.hasClass("slider-active")) {
                 bottomSlider.animate({
@@ -179,23 +181,49 @@ class MapController {
         }
     }
 
+
+
+    GetLocation() {
+      // Close main menu if open
+      if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
+        angular.element('#buttonShowExtract').click();
+      }
+    }
+
     zoomIn() {
         this.Map.zoomIn();
+        // Close main menu if open
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
+          angular.element('#buttonShowExtract').click();
+        }
+
     }
 
     removeOverlay() {
         if (angular.isDefined(this.lastOverlay))
             return this.Map.removeOverlay(this.lastOverlay);
         return false;
+
+        // Close main menu if open
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
+          angular.element('#buttonShowExtract').click();
     }
 
     showOverlay() {
         if (angular.isDefined(this.lastOverlay))
             return this.Map.addOverlay(this.lastOverlay);
+
+        // Close main menu if open
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
+            angular.element('#buttonShowExtract').click();
     }
 
     zoomOut() {
         this.Map.zoomOut();
+
+        // Close main menu if open
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
+            angular.element('#buttonShowExtract').click();
     }
 
     showLayer(name) {
@@ -208,6 +236,8 @@ class MapController {
             this.Layers.show('aerial');
             this.Layers.hide('ortho');
         }
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
+            angular.element('#buttonShowExtract').click();
     }
 
     isLayerActive(name) {

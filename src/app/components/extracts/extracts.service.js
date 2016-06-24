@@ -54,11 +54,25 @@ export class ExtractsService {
 
             self.Loading.hide();
 
-            if (!angular.element("menuLeftSlider").attr('aria-expanded'))
-                angular.element('#buttonShowExtract').click();
+            self.Notifications.add({
+                // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
+                message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' wurden geladen.',
+                type: 'success'
+            });
+
+            // Notification success fade out after 3 seconds
+            setTimeout(function(){
+                $('.notification-wrapper .success .notification-close').click();
+            }, 3000);
+
+
+            // BS: Falls eine erfolgreiche Auflösung stattgefunden hat, so wird das Hauptmenü nicht eingeschoben.
+            //if (!angular.element("menuLeftSlider").attr('aria-expanded'))
+            //    angular.element('#buttonShowExtract').click();
 
         }).catch(function () {
             self.Notifications.add({
+                // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
                 message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht.',
                 type: 'alert'
             });
