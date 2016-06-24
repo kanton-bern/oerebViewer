@@ -4,6 +4,7 @@ OEREB-App Repository.
 
 ## TESTS ##
 Für Tests können die folgenden Parzellen verwendet werden:
+
 * 741 in Ittigen (Grauholzstrasse 50, 3063 Ittigen)
 * 1169 in Brügg (Portstrasse 38, 2555 Brügg)
 
