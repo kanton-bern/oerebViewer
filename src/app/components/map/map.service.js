@@ -1,5 +1,5 @@
 export class MapService {
-    constructor(ngeoDecorateLayer, Layers, Oereb) {
+    constructor(ngeoDecorateLayer, Layers, Oereb, Helpers) {
         'ngInject';
 
         let self = this;

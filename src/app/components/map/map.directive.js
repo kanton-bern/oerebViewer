@@ -182,21 +182,15 @@ class MapController {
         }
     }
 
-
-
-    GetLocation() {
-      // Close main menu if open
-      if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
-        angular.element('#buttonShowExtract').click();
-      }
+    getLocation() {
+        // Close main menu if open
+        this.Helpers.closeMenu();
     }
 
     zoomIn() {
         this.Map.zoomIn();
         // Close main menu if open
-        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
-          angular.element('#buttonShowExtract').click();
-        }
+        this.Helpers.closeMenu();
 
     }
 
@@ -206,8 +200,7 @@ class MapController {
         return false;
 
         // Close main menu if open
-        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
-          angular.element('#buttonShowExtract').click();
+        this.Helpers.closeMenu();
     }
 
     showOverlay() {
@@ -215,16 +208,14 @@ class MapController {
             return this.Map.addOverlay(this.lastOverlay);
 
         // Close main menu if open
-        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
-            angular.element('#buttonShowExtract').click();
+        this.Helpers.closeMenu();
     }
 
     zoomOut() {
         this.Map.zoomOut();
 
         // Close main menu if open
-        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
-            angular.element('#buttonShowExtract').click();
+        this.Helpers.closeMenu();
     }
 
     showLayer(name) {
@@ -237,8 +228,8 @@ class MapController {
             this.Layers.show('aerial');
             this.Layers.hide('ortho');
         }
-        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true')
-            angular.element('#buttonShowExtract').click();
+
+        this.Helpers.closeMenu();
     }
 
     isLayerActive(name) {
@@ -249,7 +240,7 @@ class MapController {
         this.searchDialog = !this.searchDialog;
 
         if (this.searchDialog) {
-            this.Helpers.closeMenu(); 
+            this.Helpers.closeMenu();
         }
     }
 }
