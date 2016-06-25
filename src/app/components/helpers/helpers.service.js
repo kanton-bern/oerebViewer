@@ -5,6 +5,16 @@ export class HelpersService {
 
     }
 
+    closeMenu() {
+        if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'true')
+            $('#menuLeftSlider').foundation('toggle');
+    }
+
+    openMenu() {
+        if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'false')
+            $('#menuLeftSlider').foundation('toggle');
+    }
+
     getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");

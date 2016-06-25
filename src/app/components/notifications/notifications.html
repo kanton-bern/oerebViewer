@@ -1,6 +1,6 @@
 <div class="notification-wrapper">
     <div ng-repeat="element in notifications.elements"  data-closable="scale-out-down fast" class="callout" ng-class="element.type">
-        <p>{{element.message}}</p>
+        <p>{{element.message | translate}}</p>
         <button type="button" role="button" aria-label="{{'notification_close' | translate}}" data-close
                 class="button svg-icon notification-close">
             <svg class="icon icon-cross">
@@ -9,7 +9,7 @@
         </button>
         <button ng-repeat="button in element.buttons" type="button" role="button" aria-label="Ja" data-close
                 ng-click="button.callback()" class="button svg-icon success notification-button hollow">
-                {{button.label}}
+                {{button.label | translate}}
         </button>
     </div>
 </div>

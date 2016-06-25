@@ -15,7 +15,7 @@ export function MapDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class MapController {
-    constructor(Layers, $log, $scope, $base64, $window, Oereb, Extracts, Map) {
+    constructor(Layers, $log, $scope, $base64, $window, Oereb, Extracts, Map, Helpers) {
         'ngInject';
 
         this.$window = $window;
@@ -25,6 +25,7 @@ class MapController {
         this.Extracts = Extracts;
         this.Layers = Layers;
         this.Map = Map;
+        this.Helpers = Helpers;
 
         var self = this;
 
@@ -244,5 +245,11 @@ class MapController {
         return this.Layers.isActive(name);
     }
 
+    openSearchDialog() {
+        this.searchDialog = !this.searchDialog;
 
+        if (this.searchDialog) {
+            this.Helpers.closeMenu(); 
+        }
+    }
 }

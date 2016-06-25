@@ -1,9 +1,10 @@
 export class ExtractsService {
-    constructor($log, $location, Loading, Oereb, Notifications, localStorageService) {
+    constructor($log, $location, Loading, Oereb, Notifications, localStorageService, Helpers) {
 
         'ngInject';
 
         this.$log = $log;
+        this.Helpers = Helpers;
         this.$location = $location;
         this.Loading = Loading;
         this.Oereb = Oereb;
@@ -69,6 +70,7 @@ export class ExtractsService {
             // BS: Falls eine erfolgreiche Auflösung stattgefunden hat, so wird das Hauptmenü nicht eingeschoben.
             //if (!angular.element("menuLeftSlider").attr('aria-expanded'))
             //    angular.element('#buttonShowExtract').click();
+            self.Helpers.openMenu();
 
         }).catch(function () {
             self.Notifications.add({
