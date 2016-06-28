@@ -499,6 +499,23 @@ body {
       .twitter-typeahead {
         width: 100%;
       }
+      .delete-search {
+        display:block;
+        top:18px;
+        right:18px;
+        position: absolute;
+        border-radius:0px;
+        margin:0px 0px 0px 6px;
+        padding:0;
+        background-color:transparent;
+
+        svg {
+            width:20px;
+            height:20px;
+            fill:$colorWhite;
+        }
+
+      }
 
       input { /* important, cause of typeahead */
         border:none !important;

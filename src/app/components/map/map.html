@@ -29,7 +29,12 @@
         </svg>
     </button>
     <div ng-show="map.searchDialog" class="search-input search-open">
-        <input type="text" class="typeahead searchbox" sf-typeahead datasets="map.places" ng-model="map.search">
+        <input type="text" id="search-me" class="typeahead searchbox" sf-typeahead datasets="map.places" ng-model="map.search">
+        <button class="button svg-icon delete-search" ng-click="map.deleteSearchInput()">
+            <svg class="icon icon-cross">
+              <use xlink:href="#icon-cross"></use>
+            </svg>
+        </button>
     </div>
     <button class="button svg-icon btnGetLocation" ngeo-mobile-geolocation="map.map"
             ngeo-mobile-geolocation-map="map.map"

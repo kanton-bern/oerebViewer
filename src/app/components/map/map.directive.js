@@ -32,6 +32,7 @@ class MapController {
         Map.registerClickObserver(function(event) {
 
 
+            Helpers.closeSearch();
             console.log('wfs:');
             /*self.Oereb.getDataFromWFS(0, 0).then(function (d) {
                console.log(d);
@@ -69,49 +70,14 @@ class MapController {
             });
         });
 
-        let bottomSlider = $('.position-bottom');
-        let $themeTitle = $('.slide-title');
-        var vHeight = $(window).height() - 40;
-        var $btnOpenTheme = $('#themeBottomToggler');
+
 
         // load map
         this.map = Map.map;
 
         // load geoloaction parameters
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
-
-        $btnOpenTheme.click(function() {
-
-            var topBarHeight = $('.header-sticky-container').height();
-            if(bottomSlider.hasClass("slider-active")) {
-                bottomSlider.animate({
-                        top: vHeight
-                    }, {
-                        duration:400
-                    }
-                );
-                // Modifying the title of the theme
-                $themeTitle.css("margin-top","1em");
-                $themeTitle.css("opacity","0.5");
-
-            }
-            if(bottomSlider.hasClass("slider-inactive")) {
-                bottomSlider.animate({
-                        top: 50
-                    }, {
-                        duration:400
-                    }
-                );
-                // Modifying the title of the theme
-                $themeTitle.css("margin-top","3em");
-                $themeTitle.css("opacity","1");
-            }
-            bottomSlider.toggleClass("slider-active");
-            bottomSlider.toggleClass("slider-inactive");
-
-        });
-
-
+      
         /*this.zoomIn = function () {
             this.$log.warn('zoomIn');
             self.map.zoom = self.map.zoom + 1;
@@ -236,11 +202,18 @@ class MapController {
         return this.Layers.isActive(name);
     }
 
+    // Button for search box
     openSearchDialog() {
         this.searchDialog = !this.searchDialog;
-
+        this.Helpers.closeMenu();
+        // [bs][todo] Hier sollte der Focus auf this.search gesetzt werden. Also, wenn der Suchbutton gedrückt wurde. Wie mache ich das?
         if (this.searchDialog) {
-            this.Helpers.closeMenu();
+          alert ("Focus auf Input");
         }
+    }
+
+    // Delete content in search box
+    deleteSearchInput() {
+      this.search = "";
     }
 }

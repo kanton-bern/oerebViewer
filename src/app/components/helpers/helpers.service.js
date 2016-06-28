@@ -5,6 +5,15 @@ export class HelpersService {
 
     }
 
+    // Close the search box
+    closeSearch() {
+      //if(angular.element('.search-input').attr('aria-hidden') == 'false')
+        //$('.search-input').hide();
+      // [bs][todo] Hier sollte ein Helper zum öffnen und schliessen der Sucheingabe kommen.
+      alert("Schliessen von .search-input");
+
+    }
+
     closeMenu() {
         if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'true')
             $('#menuLeftSlider').foundation('toggle');

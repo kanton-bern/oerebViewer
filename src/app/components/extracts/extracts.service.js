@@ -55,6 +55,9 @@ export class ExtractsService {
 
             self.Loading.hide();
 
+
+
+
             self.Notifications.add({
                 // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
                 message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' wurden geladen.',
@@ -67,10 +70,8 @@ export class ExtractsService {
             }, 3000);
 
 
-            // BS: Falls eine erfolgreiche Auflösung stattgefunden hat, so wird das Hauptmenü nicht eingeschoben.
-            //if (!angular.element("menuLeftSlider").attr('aria-expanded'))
-            //    angular.element('#buttonShowExtract').click();
-            self.Helpers.openMenu();
+            // [bs][todo]: Falls eine erfolgreiche Auflösung stattgefunden hat, so wird das Hauptmenü nicht eingeschoben.
+            //self.Helpers.openMenu();
 
         }).catch(function () {
             self.Notifications.add({
@@ -177,6 +178,7 @@ export class ExtractsService {
             }
         });
 
+        // [bs][todo] Das müsste noch übersetzt werden. Kann ich hier auch {{ | translate}} verwenden?
         if (!result)
             this.Notifications.add({
                 message: 'Es gibt keine weiteren Informationen zu diesem ÖREB Thema.',
