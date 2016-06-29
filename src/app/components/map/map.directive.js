@@ -77,7 +77,7 @@ class MapController {
 
         // load geoloaction parameters
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
-      
+
         /*this.zoomIn = function () {
             this.$log.warn('zoomIn');
             self.map.zoom = self.map.zoom + 1;
@@ -107,7 +107,11 @@ class MapController {
         // load places into the typeahead directive
         this.places = {
             displayKey: function (location) {
-                return location.attrs.label.replace('<b>', '').replace('</b>', '');
+                // let's remove some unwanted markup in the returned locations
+                let returnLocation = location.attrs.label.replace('<b>', '').replace('</b>', '');
+                returnLocation =  returnLocation.replace('<i>', '').replace('</i>', '');
+
+                return returnLocation;
             },
             source: placesSource.ttAdapter()
         };
@@ -208,7 +212,7 @@ class MapController {
         this.Helpers.closeMenu();
         // [bs][todo] Hier sollte der Focus auf this.search gesetzt werden. Also, wenn der Suchbutton gedrückt wurde. Wie mache ich das?
         if (this.searchDialog) {
-          alert ("Focus auf Input");
+          alert ("TODO: Jetzt den Focus auf Input setzen.");
         }
     }
 

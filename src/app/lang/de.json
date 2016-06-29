@@ -6,6 +6,7 @@
   },
 
   "subtitle": "-Kataster",
+  "title": "ÖREB",
   "no_property_loaded": "Noch kein Grundstück ausgewählt!",
   "no_property_found": "Kein Grundstück gefunden",
   "bundlogo": "Logo der Schweizerischen Eidgenossenschaft",
@@ -13,7 +14,11 @@
   "jump_content": "Zum Inhalt springen",
   "jump_menu": "Zum Menü springen",
   "notification_close": "Schliessen",
-  "infobox_loading": "Wird geladen..."
+  "notification_loadsuccess1": "Die Kataster-Daten zum Grundstück ",
+  "notification_loadsuccess2": "wurden erfolgreich geladen.",
+  "infobox_loading": "Wird geladen...",
+  "infobox_property": "Grundstücke",
+  "infobox_plot": "Parzelle"
 
 
 }

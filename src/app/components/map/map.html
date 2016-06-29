@@ -10,13 +10,13 @@
     </div>
 
     <div ng-if="!infoboxLoading">
-        <strong>Grundstücke</strong>
+        <strong>{{ 'infobox_property' | translate }}</strong>
 
         <div ng-if="map.egrids.length == 0">{{'no_propery_found' | translate}}</div>
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
-                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: null})">Parzelle {{ele.number}}</span>
+                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: null})">{{'infobox_plot' | translate}} {{ele.number}}</span>
             </li>
         </ul>
     </div>

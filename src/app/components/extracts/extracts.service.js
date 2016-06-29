@@ -60,7 +60,7 @@ export class ExtractsService {
 
             self.Notifications.add({
                 // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
-                message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' wurden geladen.',
+                message: '{{ "notification_loadsuccess1" | translate }}' + newExtract.egrid + '\' {{ "notification_loadsuccess2" | translate}}',
                 type: 'success'
             });
 
@@ -70,13 +70,10 @@ export class ExtractsService {
             }, 3000);
 
 
-            // [bs][todo]: Falls eine erfolgreiche Auflösung stattgefunden hat, so wird das Hauptmenü nicht eingeschoben.
-            //self.Helpers.openMenu();
-
         }).catch(function () {
             self.Notifications.add({
                 // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
-                message: 'Die Katasterinformationen zum Grundstück \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht.',
+                message: '{{ "Test" | translate}} \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht, oder es ist ein Fehler aufgetreten.',
                 type: 'alert'
             });
             self.Loading.hide();

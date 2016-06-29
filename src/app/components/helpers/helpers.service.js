@@ -10,7 +10,7 @@ export class HelpersService {
       //if(angular.element('.search-input').attr('aria-hidden') == 'false')
         //$('.search-input').hide();
       // [bs][todo] Hier sollte ein Helper zum öffnen und schliessen der Sucheingabe kommen.
-      alert("Schliessen von .search-input");
+      alert("Jetzt müsste .search-input geschlossen werden.");
 
     }
 
