@@ -59,8 +59,7 @@ export class ExtractsService {
 
 
             self.Notifications.add({
-                // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
-                message: '{{ "notification_loadsuccess1" | translate }}' + newExtract.egrid + '\' {{ "notification_loadsuccess2" | translate}}',
+                message: '{{ "notification_loadsuccess1" | translate }} ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ')' + ' {{ "notification_loadsuccess2" | translate}}',
                 type: 'success'
             });
 
@@ -72,8 +71,7 @@ export class ExtractsService {
 
         }).catch(function () {
             self.Notifications.add({
-                // [bs][todo] Müsste noch übersetzt werden. Geht das hier auch mit {translate}?
-                message: '{{ "Test" | translate}} \'' + newExtract.egrid + '\' existieren in unserer Datenbank nicht, oder es ist ein Fehler aufgetreten.',
+                message: '{{ "notification_failed1" | translate}} '  + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ')' + ' {{"notification_failed2" | translate }}',
                 type: 'alert'
             });
             self.Loading.hide();
@@ -175,10 +173,9 @@ export class ExtractsService {
             }
         });
 
-        // [bs][todo] Das müsste noch übersetzt werden. Kann ich hier auch {{ | translate}} verwenden?
         if (!result)
             this.Notifications.add({
-                message: 'Es gibt keine weiteren Informationen zu diesem ÖREB Thema.',
+                message: '{{"notification_nothemeavailable" | translate }}',
                 type: 'warning',
             });
 

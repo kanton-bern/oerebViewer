@@ -14,9 +14,10 @@
         </div>
         <ul data-accordion-menu class="menu vertical">
 
-            <li ng-class="{'hidden': detail.noDatas}" class="top-item accordion-navigation">
-                <p class="name">{{ 'no_property_loaded' | translate }}</p>
-            </li>
+            <div ng-class="{'hidden': detail.noDatas}" class="no-property">
+                <p class="hint">{{ 'no_property_loaded' | translate }}</p>
+            </div>
+            <h1>{{"mainTitle" | translate}}</h1>
             <li ng-class="{'hidden': !detail.noDatas}" class="top-item accordion-navigation"><a href="#">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
@@ -26,19 +27,17 @@
                         <use xlink:href="#icon-minus"></use>
                     </svg>
                 </button>
-                <p class="name">Gemeinde {{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</p>
-                <p class="egrid">{{main.extract.egrid}}</p>
-                <p class="timestamp">{{main.extract.data.CreationDate}}</p></a>
 
+                <p class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</p>
                 <ul class="menu vertical nested">
                     <li>
                         <div class="row">
-                            <div class="small-6 oereb-label">Grundstück-Nr:</div>
+                            <div class="small-6 oereb-label">{{"detailRealEstateNr" | translate}}</div>
                             <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
                         </div>
                         <div class="row">
                             <div class="small-6 oereb-label">Fläche des Grundstücks:</div>
-                            <div class="small-6 oereb-value">[nicht im Auszug]</div>
+                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}} m<sup>2</sup></div>
                         </div>
                         <div class="row">
                             <div class="small-6 oereb-label">EGRID:</div>
@@ -68,6 +67,7 @@
                                 <a href="#" title="Karte im Geoportal">Grundstück im Kartenportal</a>
                             </div>
                         </div>
+                          <p class="timestamp">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}} / {{main.extract.data.ExtractIdentifier}}</p></a>
                     </li>
                 </ul>
             </li>
@@ -81,10 +81,11 @@
                         <use xlink:href="#icon-minus"></use>
                     </svg>
                 </button>
-                Das Grundstück betreffende ÖREB-Themen</a>
-                <ul class="menu vertical nested">
+                {{"detailConcernedThemes1" | translate}}{{main.extract.data.RealEstate.Number}} {{"detailConcernedThemes2" | translate}} {{main.extract.data.RealEstate.Municipality}} {{"detailConcernedThemes3" | translate}}</a>
+                <ul class="menu vertical nested is-active">
                     <li ng-repeat="theme in main.extract.themes track by $index">
-                        <a ui-sref="home.detail({restriction: theme.Code})">{{theme.Name}}</a>
+                        <!-- [bs][todo] Den current badge nur für das aktive thema setzen -->
+                        <a ui-sref="home.detail({restriction: theme.Code})">{{theme.Name}}<span class="current badge float-right">&nbsp;</span></a>
                     </li>
                 </ul>
             </li>
@@ -138,7 +139,7 @@
                         <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})" title="Link auf Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}}">
                             <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}"
                                  class="logo-gemeinde"></div>
-                            Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span class="history-date">{{main.extract.data.CreationDate}}</span>
+                            Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span class="history-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</span>
                         </a>
                     </li>
 

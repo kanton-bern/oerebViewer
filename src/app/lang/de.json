@@ -7,7 +7,8 @@
 
   "subtitle": "-Kataster",
   "title": "ÖREB",
-  "no_property_loaded": "Noch kein Grundstück ausgewählt!",
+  "mainTitle": "Auszug aus dem Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREBKataster)",
+  "no_property_loaded": "Es wurde noch kein Grundstück ausgewählt.",
   "no_property_found": "Kein Grundstück gefunden",
   "bundlogo": "Logo der Schweizerischen Eidgenossenschaft",
   "kantonlogo": "Logo des Kantons Bern",
@@ -16,9 +17,17 @@
   "notification_close": "Schliessen",
   "notification_loadsuccess1": "Die Kataster-Daten zum Grundstück ",
   "notification_loadsuccess2": "wurden erfolgreich geladen.",
+  "notification_failed1": "Die Kataster-Daten zum Grundstück",
+  "notification_failed2": "konnten nicht geladen werden, oder es liegt ein Fehler in der Verbindung zum ÖREB-Dienst vor. Versuchen Sie es später noch einmal.",
+  "notification_nothemeavailable": "Zu diesem Grundstück existiert keine bekannte Beschränkung.",
   "infobox_loading": "Wird geladen...",
   "infobox_property": "Grundstücke",
-  "infobox_plot": "Parzelle"
+  "infobox_plot": "Parzelle",
+  "detailConcernedThemes1": "Eigentumsbeschränkungen, welche das Grundstück ",
+  "detailConcernedThemes2": "in",
+  "detailConcernedThemes3": "betreffen.",
+  "detailRealEstateNr": "Grundstück-Nr.",
+  "detailProperty": "Grundstück"
 
 
 }

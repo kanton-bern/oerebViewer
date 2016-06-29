@@ -7,6 +7,7 @@
 
   "subtitle": "-Cadastre",
   "title": "RDPPF",
+  "mainTitle": "FR Auszug aus dem Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREBKataster)",
   "no_property_loaded": "Aucune propriété chargée",
   "no_property_found": "Aucune propriété trouvée",
   "bundlogo": "Logo de la Confédération suisse",
@@ -14,7 +15,17 @@
   "jump_content": "Aller au contenu",
   "jump_menu": "Aller au menu",
   "notification_close": "Fermer",
+  "notification_loadsuccess1": "FR Die Kataster-Daten zum Grundstück ",
+  "notification_loadsuccess2": "FR wurden erfolgreich geladen.",
+  "notification_failed1": "FR Die Kataster-Daten zum Grundstück",
+  "notification_failed2": "FR konnten nicht geladen werden, oder es liegt ein Fehler in der Verbindung zum ÖREB-Dienst vor. Versuchen Sie es später noch einmal.",
+  "notification_nothemeavailable": "FR Zu diesem Grundstück existiert keine bekannte Beschränkung.",
   "infobox_loading": "Chargement en cours ...",
   "infobox_property": "Parcelles",
-  "infobox_plot": "Bien-fonds"
+  "infobox_plot": "Bien-fonds",
+  "detailConcernedThemes1": "FR Eigentumsbeschränkungen, welche das Grundstück ",
+  "detailConcernedThemes2": "FR in",
+  "detailConcernedThemes3": "FR betreffen.",
+  "detailRealEstateNr": "FR Grundstück-Nr",
+  "detailProperty": "Bien-fonds"
 }

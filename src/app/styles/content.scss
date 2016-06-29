@@ -54,6 +54,21 @@
 
 }
 
+// Typography not within article-tag
+.mainnav {
+  h1 {
+    @include contentLinks;
+    @include fontNormal;
+    color:$colorWhite;
+    font-size:$fontSizeBase * 1.2;
+    line-height: $fontLineHeightBase - 0%;
+    margin:0;
+    padding:0px 10px 10px 16px;
+  }
+}
+
+// End typography not withung article-tag
+
 // Nedia Queries for different content sizes
 // Medium
 @media screen and (min-width: $widthMedium) and (max-width: $widthLarge - 1px)  {
@@ -64,7 +79,12 @@
 
 // Small
 @media screen and (max-width: $widthSmall)  {
-
-
+// Within mainnav
+.mainnav {
+  h1 {
+    font-size: $fontSizeBase * 1.1;
+  }
+}
+// end within mainnav
 
 }

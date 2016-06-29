@@ -149,6 +149,18 @@ body {
   @include contentLinks();
 
 
+  .no-property {
+    background-color: $colorWarning;
+    margin:16px;
+    p {
+      color:$colorWhite;
+      padding:10px;
+      text-align: center;
+      line-height: $fontLineHeightBase - 20%;
+      margin:0;
+    }
+  }
+
 
   // Langnav
   .top-menu {
@@ -200,7 +212,8 @@ body {
         padding-left: 1rem;
         padding-bottom:4px;
         &.name {
-          padding-bottom:1em;
+          padding-bottom:0em;
+          padding-top:0.5em;
         }
       }
       a {
@@ -210,7 +223,7 @@ body {
           }
           min-height:40px;
           font-size: $fontSizeBase * 1;
-          line-height: $fontLineHeightBase - 20%;
+          line-height: $fontLineHeightBase;
       }
 
     }
@@ -229,12 +242,14 @@ body {
 
       // Badge
       .badge {
-        color:$colorContentGrey;
+        background-color: $colorContentGrey;
         padding-right:5px;
         position:absolute;
-        right:0px;
+        right:16px;
+        top:25%;
+
         // Success badge -> current theme
-        &.success {
+        &.current{
           font-size:$fontSizeBase * 0.5;
         }
       }
@@ -303,17 +318,21 @@ body {
   .top-item {
     @include menuLinks;
     font-size:$fontSizeBase * 1;
+
     p, a {
       &.name, &.egrid {
         @include fontBold();
-        font-size: $fontSizeBase * 1.2;
+        font-size: $fontSizeBase * 1.1;
       }
 
+
       margin:0;
+      padding-top:0px;
       line-height: $fontLineHeightBase - 10%;
 
       &.timestamp {
         margin-top:8px;
+        padding:16px 0px 8px 0px;
         color:$colorContentBgnd;
         font-size: $fontSizeBase * 0.8;
       }
@@ -388,10 +407,19 @@ body {
 
     ul { // second level
       li {
+        padding-top:10px;
+        min-height:40px;
+        padding-bottom:10px;
         background-color:$colorContentBgnd;
+        line-height:1.2;
         &:first-child {
           border-top:1px solid $colorLightGrey;
         }
+        a {
+          min-height: 0px !important;
+          padding:0;
+        }
+
       }
 
       ul { // third level
@@ -414,6 +442,7 @@ body {
           display:inline-block;
           float:left;
           margin-right:10px;
+          margin-left:16px;
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center center;
@@ -422,11 +451,11 @@ body {
           height:40px;
         }
         .copy-clipboard {
-         //  padding:0px 5px 0px 5px;
+         padding:0px 16px 0px 16px;
         }
         .history-date {
           font-size:$fontSizeBase * 0.8;
-          color:$colorLightGrey;
+          color:$colorContentGrey;
           display:block;
           margin-top:0em;
         }
@@ -496,9 +525,15 @@ body {
       padding:10px;
       @include rounded;
 
+      // Typeahead suggestions
       .twitter-typeahead {
         width: 100%;
+        .tt-selectable {
+          cursor:pointer;
+        }
       }
+      // End typeahead suggestions
+
       .delete-search {
         display:block;
         top:18px;
