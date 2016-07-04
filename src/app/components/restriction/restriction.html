@@ -1,71 +1,12 @@
 <ul class="restriction-carousel" rn-carousel rn-carousel-control rn-carousel-index="restriction.slideIndex">
-    <li ng-repeat="r in main.extract.restrictions">
-        <h3 class="text-center slide-title">{{r.name}}</h3>
-        <ul class="menu vertical theme-list">
-            <li class="top-item">
-                <div class="row">
-                    <div class="small-6">
-                        <p class="name">{{main.extract.data.RealEstate.Municipality}}
 
-                            {{restriction.slideIndex}}
-                            ({{main.extract.data.RealEstate.FosNr}})</p>
-                        <p class="egrid">{{main.extract.egrid}}</p>
-                    </div>
-                    <div class="small-6 clearfix">
-                        <div style="background-image:url('{{main.extract.data.RealEstate.MunicipalityLogo}}')"
-                             class="logo-gemeinde"></div>
-                        <div style="background-image:url('/assets/images/kanton_be.png')"
-                             class="logo-kanton"></div>
-                        <div style="background-image:url('/assets/images/bund_wappen.png')"
-                             class="logo-bund"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="small-12">
-                        <p class="timestamp">15. März 2016 15:05:16</p>
-                    </div>
-                </div>
-                <ul class="menu vertical nested">
-                    <li>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Grundstück-Nr:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Fläche des Grundstücks:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}} m<sup>2</sup></div>
-                        </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">EGRID:</div>
-                            <div class="small-6 oereb-value">{{main.extract.egrid}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Geneinde:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</div>
-                        </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Auszugsnummer:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
-                        </div>
-                        <div class="row more-info">
-                            <div class="small-12">
-                                <svg class="icon icon-file">
-                                    <use xlink:href="#icon-file"></use>
-                                </svg>
-                                <a href="#" target="_blank" title="PDF herunterladen">Auszug als PDF herunterladen (PDF, 4MB)</a>
-                            </div>
-                        </div>
-                        <div class="row more-info">
-                            <div class="small-12">
-                                <svg class="icon icon-map">
-                                    <use xlink:href="#icon-map"></use>
-                                </svg>
-                                <a href="#" target="_blank" title="Karte im Geoportal">Grundstück im Kartenportal</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
+    <li ng-repeat="r in main.extract.restrictions">
+      <div class="sticky-carousel-header">
+          <h3 class="text-center slide-title">{{r.name}}</h3>
+      </div>
+
+        <ul class="menu vertical theme-list">
+
             <li>
                 <ul class="menu vertical nested is-active">
                     <li>

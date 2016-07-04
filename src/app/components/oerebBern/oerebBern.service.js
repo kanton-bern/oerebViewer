@@ -36,7 +36,7 @@ export class OerebBernService {
                     if (angular.isDefined(object.GetExtractByIdResponse)) {
                         return object.GetExtractByIdResponse.Extract;
                     }
-                    
+
                     if (!object.GetEGRIDResponse) {
                         object.error = true;
                         return object;
@@ -77,7 +77,7 @@ export class OerebBernService {
                         }
                         return results;
                     }
-                    
+
                     return [{
                         'egrid': object.GetEGRIDResponse.egrid,
                         'number': object.GetEGRIDResponse.number

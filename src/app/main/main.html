@@ -26,6 +26,9 @@
                                 </svg>
                             </button>
                         </div>
+                        <div class="show-for-medium header-title">
+                          <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
+                        </div>
                         <div class="header-logo">
                           <div ng-if="main.extract.data.MunicipalityLogo" style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
                                class="logo-gemeinde"></div>
@@ -47,7 +50,7 @@
 
                     </div>
                 </div>
-                <div class="theme-map theme-1" style="display:none"><img src="/assets/images/theme_example.png"></div>
+              
 
                 <!-- [bs][todo] Beim Click auf den Restriction slider, sollte das Hauptmenü verschwinden, eventuell auch gleich die Suchbox -->
                 <restriction class="animated pulse" ng-show="main.extract.restrictionLength > 0" ng-class="{'opened animated slideInUp': main.toggleRestriction}"></restriction>

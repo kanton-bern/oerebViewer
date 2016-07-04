@@ -98,6 +98,19 @@ body {
 
     }
   }
+  .header-title {
+    width:50%;
+    position:absolute;
+    top:0.5em;
+    text-align: center;
+    left:25%;
+    right:25%;
+    h2 {
+      color:$colorHeadContent;
+      @include fontNormal;
+      font-size:$fontSizeBase * 1.4;
+    }
+  }
 
   .mainlogo {
     color:$colorHeadContent;
@@ -338,22 +351,51 @@ body {
       }
     }
     .row {
-      line-height:$fontLineHeightBase - 20%;
+      line-height:$fontLineHeightBase;
       padding-bottom:0.5em;
+      padding-top:0.5em;
+      cursor:default;
+      .oereb-label {
+        padding-right:10px;
+        font-weight:bold;
+      }
+
+
       .oereb-value {
-        color:$colorContentBgnd;
+
+
+      }
+      &.property-info {
+        border-bottom:1px solid $colorHeadContent;
+
       }
       &.more-info {
-        margin-top:1em;
+
         .icon {
-          height:$fontSizeBase * 1;
-          margin-right:5px;
+          height:$fontSizeBase * 1.3;
+          cursor:default;
+          width:32px;
+          display:inline-block;
+          float:left;
+          padding-right:10px;
         }
+
         a {
+          margin:0 !important;
+          padding:0 !important;
+        }
+        .external-link {
+
+          vertical-align:top;
           padding:0;
-          width:80%;
+          width:auto;
+          display: inline-block;
           font-size:$fontSizeBase * 1;
         }
+
+      }
+      &.pdf-download {
+        margin-top:2em;
       }
     }
   }
@@ -437,6 +479,7 @@ body {
     ul {
       li {
         display:block;
+        min-height:60px;
         .logo-gemeinde {
           width:32px;
           display:inline-block;

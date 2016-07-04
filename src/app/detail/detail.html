@@ -18,7 +18,7 @@
                 <p class="hint">{{ 'no_property_loaded' | translate }}</p>
             </div>
             <h1>{{"mainTitle" | translate}}</h1>
-            <li ng-class="{'hidden': !detail.noDatas}" class="top-item accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="top-item accordion-navigation"><a href="">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -31,48 +31,70 @@
                 <p class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</p>
                 <ul class="menu vertical nested">
                     <li>
-                        <div class="row">
-                            <div class="small-6 oereb-label">{{"detailRealEstateNr" | translate}}</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
                         </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Fläche des Grundstücks:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}} m<sup>2</sup></div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailEGRID" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.egrid}}</div>
                         </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">EGRID:</div>
-                            <div class="small-6 oereb-value">{{main.extract.egrid}}</div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailCommunityBFS" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</div>
                         </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Gemeinde:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.RealEstate.Municipality}} ({{main.extract.data.RealEstate.FosNr}})</div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitofLandRegister}}</div>
                         </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Auszugsnummer:</div>
-                            <div class="small-6 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}} m<sup>2</sup></div>
                         </div>
-                        <div class="row more-info">
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailExtractIdentifier" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
+
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailExtractDate" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailResponsible" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}, {{main.extract.data.PLRCadastreAuthority.Street}}&nbsp;{{main.extract.data.PLRCadastreAuthority.Number}}, {{main.extract.data.PLRCadastreAuthority.PostalCode}}&nbsp;{{main.extract.data.PLRCadastreAuthority.City}}</div>
+                        </div>
+                        <div class="row more-info clearfix pdf-download">
                             <div class="small-12">
-                                <svg class="icon icon-file">
+                              <svg class="icon icon-file">
                                     <use xlink:href="#icon-file"></use>
                                 </svg>
-                                <a href="#" title="PDF herunterladen">Auszug als PDF herunterladen (PDF, 4MB)</a>
-                            </div>
+                                <!-- [bs][todo] Hier noch der Link zum Auszug als PDF integrieren -->
+                                <a class="external-link" href="linktopdf.pdf" title="PDF herunterladen">{{"detailDownloadPDF" | translate}} ({{"detailDownloadPDFExt" | translate}}, 4MB)</a>
+                              </div>
                         </div>
-                        <div class="row more-info">
+                        <div class="row more-info clearfix">
                             <div class="small-12">
                                 <svg class="icon icon-map">
                                     <use xlink:href="#icon-map"></use>
                                 </svg>
-                                <a href="#" title="Karte im Geoportal">Grundstück im Kartenportal</a>
+                                <a class="external-link" href="#" title="Karte im Geoportal">{{"detailPropertyGISMap" | translate}}</a>
                             </div>
                         </div>
-                          <p class="timestamp">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}} / {{main.extract.data.ExtractIdentifier}}</p></a>
+                      </a>
                     </li>
                 </ul>
             </li>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -90,7 +112,7 @@
                 </ul>
             </li>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -99,7 +121,7 @@
                         <use xlink:href="#icon-minus"></use>
                     </svg>
                 </button>
-                Das Grundstück nicht betreffende ÖREB-Themen</a>
+                {{"detailNoRestrictions" | translate}}</a>
                 <ul class="menu vertical nested">
                     <li ng-repeat="theme in main.extract.ncthemes track by $index">
                         {{theme.Name}}
@@ -107,7 +129,7 @@
                 </ul>
             </li>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="#">
+            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -116,7 +138,7 @@
                         <use xlink:href="#icon-minus"></use>
                     </svg>
                 </button>
-                Nicht vorhandene ÖREB-Themen</a>
+              {{"detailMissingRestrictions" | translate}}</a>
                 <ul class="menu vertical nested">
                     <li ng-repeat="theme in main.extract.wdthemes track by $index">
                         {{theme.Name}}
@@ -124,7 +146,7 @@
                 </ul>
             </li>
 
-            <li ng-class="{'hidden': !main.history.length}" class="accordion-navigation history-item"><a href="#">
+            <li ng-class="{'hidden': !main.history.length}" class="accordion-navigation history-item"><a href="">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
                         <use xlink:href="#icon-plus"></use>
@@ -133,7 +155,7 @@
                         <use xlink:href="#icon-minus"></use>
                     </svg>
                 </button>
-                Letzte betrachtete Grundstücke <span class="secondary badge">{{main.history.length}}</span></a>
+                {{"detailPropertyHistory" | translate}} <span class="secondary badge">{{main.history.length}}</span></a>
                 <ul class="menu vertical-nested">
                     <li ng-repeat="hextract in main.history track by $index">
                         <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})" title="Link auf Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}}">

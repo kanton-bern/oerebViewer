@@ -27,5 +27,18 @@
   "detailConcernedThemes2": "FR in",
   "detailConcernedThemes3": "FR betreffen.",
   "detailRealEstateNr": "FR Grundstück-Nr",
+  "detailRealEstateArea": "FR Liegenschaftsfläche",
+  "detailEGRID": "FR E-GRID",
+  "detailCommunityBFS": "FR Gemeinde (BFS-Nr.)",
+  "detailSubUnitOfLandRegister": "FR Grundbuchkreis",
+  "detailExtractIdentifier": "FR Auszugsnummer",
+  "detailExtractDate": "FR Erstellungsdatum des Auszugs",
+  "detailResponsible": "FR Katasterführende Stelle",
+  "detailDownloadPDF": "FR Auszug als PDF herunterladen",
+  "detailDownloadPDFExt": "PDF",
+  "detailPropertyGISMap": "FR Grundstück im Kartenportal ansehen (extern)",
+  "detailNoRestrictions": "FR Das Grundstück nicht betreffende ÖREB-Themen",
+  "detailMissingRestrictions": "FR Nicht vorhandene ÖREB-Themen",
+  "detailPropertyHistory": "FR Letzte betrachtete Grundstücke",
   "detailProperty": "Bien-fonds"
 }

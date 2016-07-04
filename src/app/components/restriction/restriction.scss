@@ -12,7 +12,7 @@ Restriction Styles
   padding: 0;
   z-index: 10000;
   position: absolute;
-  top: 93vh;
+  top: 95vh;
 
   // Animation
   transition-property: all;
@@ -45,10 +45,10 @@ Restriction Styles
 
   // Carousel
   ul.restriction-carousel {
-    height: 100vh;
+    height: 50vh;
     width: 100%;
     margin: 0;
-    padding-bottom:3rem;
+    padding-bottom:2rem;
     background-color: $colorMenuTop;
 
     > li {
@@ -93,7 +93,7 @@ Restriction Styles
 
   // Start open pulse
   &.opened {
-    top: 5vh;
+    top: 50vh;
     .restriction-toggler {
       // rotate the arrow 180
 

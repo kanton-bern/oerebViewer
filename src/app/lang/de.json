@@ -27,6 +27,17 @@
   "detailConcernedThemes2": "in",
   "detailConcernedThemes3": "betreffen.",
   "detailRealEstateNr": "Grundstück-Nr.",
+  "detailRealEstateArea": "Liegenschaftsfläche",
+  "detailEGRID": "E-GRID",
+  "detailCommunityBFS": "Gemeinde (BFS-Nr.)",
+  "detailSubUnitOfLandRegister": "Grundbuchkreis",
+  "detailExtractIdentifier": "Auszugsnummer",
+  "detailExtractDate": "Erstellungsdatum des Auszugs",
+  "detailResponsible": "Katasterführende Stelle",
+  "detailDownloadPDF": "Auszug als PDF herunterladen",
+  "detailDownloadPDFExt": "PDF",
+  "detailPropertyGISMap": "Grundstück im Kartenportal ansehen (extern)",
+  "detailNoRestrictions": "Das Grundstück nicht betreffende ÖREB-Themen",
   "detailProperty": "Grundstück"
 
 
