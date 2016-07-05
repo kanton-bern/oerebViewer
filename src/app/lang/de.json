@@ -38,6 +38,8 @@
   "detailDownloadPDFExt": "PDF",
   "detailPropertyGISMap": "Grundstück im Kartenportal ansehen (extern)",
   "detailNoRestrictions": "Das Grundstück nicht betreffende ÖREB-Themen",
+  "detailMissingRestrictions": " Nicht vorhandene ÖREB-Themen",
+  "detailPropertyHistory": "Letzte betrachtete Grundstücke",
   "detailProperty": "Grundstück"
 
 

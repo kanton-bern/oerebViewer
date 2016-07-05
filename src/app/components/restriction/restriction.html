@@ -1,9 +1,13 @@
 <ul class="restriction-carousel" rn-carousel rn-carousel-control rn-carousel-index="restriction.slideIndex">
+  <!-- [bs][todo] Hier müssten die SubThemes angezeigt werden
+  ich habe das ng.repeat angepasst, eventuell stimmt das jetzt nicht mehr mit dem controller überein!
+  -->
+    <div  class="sticky-carousel-header">
+      <h3 class="text-center slide-title">{{main.extract.data.ConcernedTheme[restriction.slideIndex].Name}}</h3>
+    </div>
 
     <li ng-repeat="r in main.extract.restrictions">
-      <div class="sticky-carousel-header">
-          <h3 class="text-center slide-title">{{r.name}}</h3>
-      </div>
+
 
         <ul class="menu vertical theme-list">
 

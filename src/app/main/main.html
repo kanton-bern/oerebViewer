@@ -12,7 +12,9 @@
             <header class="header">
                 <div data-sticky-container class="header-sticky-container">
                     <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
-                        <a href="/" title="Zum Eingang" class="mainlogo">
+                      <!-- [bs][todo] Wie könnte man den Link so formulieren, dass quasi eine Default-Ansicht generiert würde (ein Home ohne geladenes Grundstück)?
+                      -->
+                        <a href="/#" title="Zum Eingang" class="mainlogo">
                             <img src="/assets/images/logo_dot_oereb.svg" title="OEREB Logo">
                             <p>
                                 <span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span>
@@ -26,7 +28,10 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="show-for-medium header-title">
+                        <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
+                          <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
+                        </div>
+                        <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
                           <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
                         </div>
                         <div class="header-logo">
@@ -50,7 +55,7 @@
 
                     </div>
                 </div>
-              
+
 
                 <!-- [bs][todo] Beim Click auf den Restriction slider, sollte das Hauptmenü verschwinden, eventuell auch gleich die Suchbox -->
                 <restriction class="animated pulse" ng-show="main.extract.restrictionLength > 0" ng-class="{'opened animated slideInUp': main.toggleRestriction}"></restriction>
