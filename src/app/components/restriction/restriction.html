@@ -1,46 +1,41 @@
 <ul class="restriction-carousel" rn-carousel rn-carousel-control rn-carousel-index="restriction.slideIndex">
-  <!-- [bs][todo] Hier müssten die SubThemes angezeigt werden
-  ich habe das ng.repeat angepasst, eventuell stimmt das jetzt nicht mehr mit dem controller überein!
-  -->
     <div  class="sticky-carousel-header">
       <h3 class="text-center slide-title">{{main.extract.data.ConcernedTheme[restriction.slideIndex].Name}}</h3>
     </div>
 
-    <li ng-repeat="r in main.extract.restrictions">
+    <li class="restriction-container" ng-repeat="r in main.extract.restrictions">
+        <!-- [bs][todo] Indicators für die Slides einbauen. Ich habe das von https://github.com/revolunet/angular-carousel eventuell habe ich es nicht richtig eingebaut -->
+        <div class="slide-indicators" rn-carousel-indicators ng-if="slides.length > 1" slides="r in main.extract.restrictions" rn-carousel-index="carouselIndex"></div>
+
+        <div class="row theme-key">
+            <h3>{{"restrictionConcernedKey" | translate}}</h3>
+        </div>
+        <div ng-repeat="v in r.values" class="accordion-navigation">
+          <div class="row restriction-info">
+              <div class="small-1 oereb-label"><div class="legend-symbol" style="background-image:url('{{v.Symbol}}')"></div></div>
+              <div class="small-11 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
+              <!-- [bs][todo] ACHTUNG: Falls typecodelist = polyline dann ist die Einheit m, fall typecodelist = polygon dann ist die Einheit m2 -->
+              <div class="small-1 show-for-small-only"></div>
+              <div class="small-11 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
+          </div>
+        </div>
 
 
-        <ul class="menu vertical theme-list">
+        <!-- Legende als externer Link -->
+        <div class="row more-info">
+          <div class="small-12">
+            <svg class="icon icon-layers">
+                <use xlink:href="#icon-layers"></use>
+            </svg>
+            <a class="external-link" href="{{r.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{r.name}})</a>
+          </div>
+        </div>
 
-            <li>
-                <ul class="menu vertical nested is-active">
-                    <li>
-                        <div class="row theme-key">
-                            <h3>Legende</h3><img ng-src="{{r.values[0].Map.LegendAtWeb}}" alt="Legende zu den Lärmempflindlichkeitsstufen">
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li ng-repeat="v in r.values" class="accordion-navigation">
-                <ul class="menu vertical nested">
-                    <li>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Charakteristik:</div>
-                            <div class="small-6 oereb-value">{{v.Information.LocalisedText.Text}}</div>
-                        </div>
+        <div class="row">
+          <h3 class="theme-heading">Rechtsvorschrift</h3>
+        </div>
 
-                        <div class="row">
-                            <div class="small-6 oereb-label">Fläche:</div>
-                            <div class="small-6 oereb-value">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
-                        </div>
-                        <div class="row">
-                            <div class="small-6 oereb-label">Rechtsstatus:</div>
-                            <div class="small-6 oereb-value">{{v.Lawstatus.Name}}</div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-
-            <li ng-repeat="v in r.values" class="accordion-navigation">
+            <div ng-repeat="v in r.values" class="accordion-navigation">
                 <ul class="menu vertical nested">
                     <li>
                         <div ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row pdf-list">
@@ -52,8 +47,9 @@
                         </div>
                     </li>
                 </ul>
-            </li>
-        </ul>
+            </div>
+
+
     </li>
 </ul>
 

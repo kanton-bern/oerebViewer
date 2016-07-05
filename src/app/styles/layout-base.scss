@@ -160,6 +160,7 @@ body {
 // Start Mainmenu / theme list
 .mainnav, .theme-list {
   @include contentLinks();
+  padding-bottom:5rem;
 
 
   .no-property {
@@ -389,7 +390,7 @@ body {
           vertical-align:top;
           padding:0;
           width:auto;
-          display: inline-block;
+          display:inline;
           font-size:$fontSizeBase * 1;
         }
 

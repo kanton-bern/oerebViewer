@@ -40,5 +40,7 @@
   "detailNoRestrictions": "FR Das Grundstück nicht betreffende ÖREB-Themen",
   "detailMissingRestrictions": "FR Nicht vorhandene ÖREB-Themen",
   "detailPropertyHistory": "FR Letzte betrachtete Grundstücke",
-  "detailProperty": "Bien-fonds"
+  "detailProperty": "Bien-fonds",
+  "restrictionConcernedKeyS": "FR Legende beteiligter Objekte",
+  "restrictionKeyDownload": "FR Vollständige Legende herunterladen"
 }
