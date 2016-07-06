@@ -42,6 +42,8 @@
   "detailPropertyHistory": "Letzte betrachtete Grundstücke",
   "detailProperty": "Grundstück",
   "restrictionConcernedKey": "Legende beteiligter Objekte",
+  "restrictionLegalProvision": "Rechtsvorschrift",
+  "restrictionAuthority": "Zuständige Stelle",
   "restrictionKeyDownload": "Vollständige Legende herunterladen"
 
 

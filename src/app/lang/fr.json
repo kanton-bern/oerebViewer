@@ -42,5 +42,7 @@
   "detailPropertyHistory": "FR Letzte betrachtete Grundstücke",
   "detailProperty": "Bien-fonds",
   "restrictionConcernedKeyS": "FR Legende beteiligter Objekte",
+  "restrictionLegalProvision": "FR Rechtsvorschrift",
+  "restrictionAuthority": "FR Zuständige Stelle",
   "restrictionKeyDownload": "FR Vollständige Legende herunterladen"
 }

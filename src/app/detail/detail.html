@@ -3,7 +3,11 @@
 
     <nav id="mainNav" class="mainnav mobile clearfix">
         <div class="row top-menu">
-            <div class="small-9">
+            <div class="small-9 lang-selector">
+                <svg class="icon icon-globe">
+                  <use xlink:href="#icon-globe"></use>
+                </svg>
+              
                 <span ng-click="main.changeLanguage('de')" >
                     <a title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
                 </span>
@@ -77,7 +81,7 @@
                               <svg class="icon icon-file">
                                     <use xlink:href="#icon-file"></use>
                                 </svg>
-                                <!-- [bs][todo] Hier noch der Link zum Auszug als PDF integrieren -->
+                                <!-- [bs][todo] Hier noch den Link zum Auszug als PDF integrieren -->
                                 <a class="external-link" href="linktopdf.pdf" title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}} ({{"detailDownloadPDFExt" | translate}}, 4MB)</a>
                               </div>
                         </div>

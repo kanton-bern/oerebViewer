@@ -109,6 +109,15 @@ body {
       color:$colorHeadContent;
       @include fontNormal;
       font-size:$fontSizeBase * 1.4;
+
+      &.hint {
+        font-size: $fontSizeBase * 1;
+        margin-top:-4px;
+        padding:5px;
+        background-color: $colorWarning;
+        color:$colorWhite;
+      }
+
     }
   }
 
@@ -179,10 +188,20 @@ body {
   // Langnav
   .top-menu {
     font-size:$fontSizeBase * 1;
-    .small-9 {
+    .lang-selector {
       padding:0.5em 15px 15px 16px;
+      .svg-icon {
+
+      }
       span {
+        a {
+          color:$colorWhite;
+          vertical-align: top;
+        }
+
+        @include menuLinks;
         .is-active {
+
           display:none;
           visibility: hidden;
         }

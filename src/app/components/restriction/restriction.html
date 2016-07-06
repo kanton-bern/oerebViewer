@@ -14,7 +14,8 @@
           <div class="row restriction-info">
               <div class="small-1 oereb-label"><div class="legend-symbol" style="background-image:url('{{v.Symbol}}')"></div></div>
               <div class="small-11 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
-              <!-- [bs][todo] ACHTUNG: Falls typecodelist = polyline dann ist die Einheit m, fall typecodelist = polygon dann ist die Einheit m2 -->
+              <!-- [bs][todo] ACHTUNG: Falls typecodelist = polyline dann ist die Einheit 'm', falls typecodelist = polygon, dann ist die Einheit 'm2',
+                  falls typecodelist = point, dann ist die Einheit 'Anzahl'-->
               <div class="small-1 show-for-small-only"></div>
               <div class="small-11 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
           </div>
@@ -32,35 +33,43 @@
         </div>
 
         <div class="row">
-          <h3 class="theme-heading">Rechtsvorschrift</h3>
+          <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
         </div>
+        <div ng-repeat="v in r.values" class="accordion-navigation">
+          <div ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
 
-            <div ng-repeat="v in r.values" class="accordion-navigation">
-                <ul class="menu vertical nested">
-                    <li>
-                        <div ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row pdf-list">
-                            <svg class="icon">
-                                <use xlink:href="#icon-file"></use>
-                            </svg>
-                            <a target="_blank" href="{{document.TextAtWeb.LocalisedText.Text}}"
-                               title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+              <div class="small-12">
+                <svg class="icon icon-file">
+                  <use xlink:href="#icon-file"></use>
+                </svg>
+                <a class="external-link" target="_blank" href="{{document.TextAtWeb.LocalisedText.Text}}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
+        </div>
+        <div class="row more-info pdf-list">
+          <div class="small-12">
+            <svg class="icon icon-open">
+              <use xlink:href="#icon-open"></use>
+            </svg>
+            <a class="external-link" target="_blank" href="{{r.values[0].LegalProvisions[0].ResponsibleOffice.Name.LocalisedText.Text}}" title="Link">{{r.values[0].LegalProvisions[0].ResponsibleOffice.Name.LocalisedText.Text}}</a>
+          </div>
+        </div>
 
 
     </li>
 </ul>
 
 <button ng-click="restriction.back()" ng-show="restriction.slideIndex > 0" id="themePrev" class="orbit-previous svg-icon">
-    <svg class="icon icon-arrow-left">
-        <use xlink:href="#icon-arrow-left"></use>
+    <svg class="icon icon-keyboard_arrow_left">
+        <use xlink:href="#icon-keyboard_arrow_left"></use>
     </svg>
 </button>
 <button ng-click="restriction.next()" ng-show="restriction.slideIndex < main.extract.restrictionLength - 1"  id="themeNext" class="orbit-next svg-icon">
-    <svg class="icon icon-arrow-right">
-        <use xlink:href="#icon-arrow-right"></use>
+    <svg class="icon icon-keyboard_arrow_right">
+        <use xlink:href="#icon-keyboard_arrow_right"></use>
     </svg>
 </button>
 <button class="button svg-icon restriction-toggler" ng-click="main.toggleRestriction = !main.toggleRestriction">
