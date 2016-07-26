@@ -17,6 +17,7 @@ import { RestrictionDirective } from '../app/components/restriction/restriction.
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 import { BackgroundImageDirective } from '../app/components/backgroundImage/backgroundImage.directive';
+import { AutofocusDirective } from '../app/components/autofocus/autofocus.directive';
 
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'toastr', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
@@ -40,6 +41,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .directive('map', MapDirective)
     .directive('notifications', NotificationsDirective)
     .directive('loading', LoadingDirective)
+    .directive('autofocus', AutofocusDirective)
     .directive('restriction', RestrictionDirective)
     .directive('background', BackgroundImageDirective)
 
@@ -59,3 +61,4 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
             return output;
         };
     });
+
