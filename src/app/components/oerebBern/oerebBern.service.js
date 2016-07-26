@@ -3,15 +3,20 @@ export class OerebBernService {
         'ngInject';
 
         this.qnapOffline = false;
+        this.ssl = true;
 
         this.$http = $http;
         this.$log = $log;
 
         this.base = 'http://adue03.myqnapcloud.com/oereb/OerbverSVC.svc/';
+
+        if (this.ssl)
+            this.base = 'https://adue03.myqnapcloud.com/OerbverSVC.svc/';
+
         this.reducedExtractPath = 'extract/reduced/xml/';
 
         if (this.qnapOffline) {
-            this.base = 'http://oereb.plum.novu.ch/server/'
+            this.base = 'https://oereb.plum.novu.ch/server/'
             this.reducedExtractPath = 'reduced/';
         }
     }
