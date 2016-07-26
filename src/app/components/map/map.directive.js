@@ -31,12 +31,9 @@ class MapController {
 
         Map.registerClickObserver(function(event) {
 
+            self.Map.closeSearch();
 
-            Helpers.closeSearch();
             console.log('wfs:');
-            /*self.Oereb.getDataFromWFS(0, 0).then(function (d) {
-               console.log(d);
-            });*/
 
             if (self.Map.getView().getZoom() < 12) {
                 return;
@@ -206,14 +203,12 @@ class MapController {
         return this.Layers.isActive(name);
     }
 
-    // Button for search box
-    openSearchDialog() {
-        this.searchDialog = !this.searchDialog;
-        this.Helpers.closeMenu();
-        // [bs][todo] Hier sollte der Focus auf this.search gesetzt werden. Also, wenn der Suchbutton gedrückt wurde. Wie mache ich das?
-        if (this.searchDialog) {
-          alert ("TODO: Jetzt den Focus auf Input setzen.");
-        }
+    toggleSearch() {
+        this.Map.toggleSearch();
+    }
+
+    isSearchOpen() {
+        return this.Map.isSearchOpen;
     }
 
     // Delete content in search box

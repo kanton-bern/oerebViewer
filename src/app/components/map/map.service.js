@@ -11,6 +11,8 @@ export class MapService {
         this.clickObservers = [];
         this.modeChangedObservers = [];
 
+        this.isSearchOpen = false;
+
         this.config = {
             zoom: {
 
@@ -121,6 +123,27 @@ export class MapService {
             accuracyFeatureStyle: accuracyFeatureStyle,
             zoom: this.config.zoom.zoomedIn,
         };
+    }
+
+    openSearch() {
+        // [todo] focus on open search-me
+        console.log('[todo] focus');
+        angular.element("#search-me").trigger('focus');
+
+        this.isSearchOpen = true;
+        return this.isSearchOpen;
+    }
+
+    closeSearch() {
+        this.isSearchOpen = false;
+        return this.isSearchOpen;
+    }
+
+    toggleSearch() {
+        if (this.isSearchOpen)
+            return this.closeSearch();
+
+        return this.openSearch();
     }
 
     setPosition(lat, lon, zoom = this.config.zoom.zoomedIn) {

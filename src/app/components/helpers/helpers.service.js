@@ -1,17 +1,6 @@
 export class HelpersService {
     constructor() {
-
         'ngInject';
-
-    }
-
-    // Close the search box
-    closeSearch() {
-      //if(angular.element('.search-input').attr('aria-hidden') == 'false')
-        //$('.search-input').hide();
-      // [bs][todo] Hier sollte ein Helper zum öffnen und schliessen der Sucheingabe kommen.
-      alert("Jetzt müsste .search-input geschlossen werden.");
-
     }
 
     closeMenu() {

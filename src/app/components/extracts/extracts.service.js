@@ -55,9 +55,6 @@ export class ExtractsService {
 
             self.Loading.hide();
 
-
-
-
             self.Notifications.add({
                 message: '{{ "notification_loadsuccess1" | translate }} ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ')' + ' {{ "notification_loadsuccess2" | translate}}',
                 type: 'success'
