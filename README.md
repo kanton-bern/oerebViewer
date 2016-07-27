@@ -18,9 +18,11 @@ Für Tests können die folgenden Parzellen verwendet werden:
 
 1. Die aktuelle Version herunterladen
 2. npm install
-3. bower install
-4. gulp install
-5. gulp build
+3. npm install -g bower
+4. bower install
+5. npm install gulp
+6. gulp install
+7. gulp build
 
 ### Verantwortlichkeiten ###
 
