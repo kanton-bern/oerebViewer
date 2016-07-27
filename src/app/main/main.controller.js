@@ -5,16 +5,17 @@ export class MainController {
         this.$translate = $translate;
         this.Extracts = Extracts;
         this.Map = Map;
+        this.Helpers = Helpers;
 
         angular.element(document).foundation();
 
         var mainCtrl = this;
 
-
-
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
+
+            console.log(mainCtrl.extract);
         });
 
         this.history = Extracts.get();
@@ -34,5 +35,16 @@ export class MainController {
 
     isCurrentLanguage(langKey) {
         return langKey == this.$translate.use();
+    }
+
+    toggleRestriction() {
+        this.isRestrictionOpen = !this.isRestrictionOpen;
+
+        if (this.isRestrictionOpen) {
+            this.Helpers.closeMenu();
+            this.Map.closeSearch();
+        }
+
+        return this.isRestrictionOpen;
     }
 }
