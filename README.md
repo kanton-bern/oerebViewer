@@ -21,7 +21,7 @@ Für Tests können die folgenden Parzellen verwendet werden:
 3. npm install -g bower
 4. bower install
 5. npm install -g gulp
-6. gulp install
+6. gulp
 7. gulp build
 
 ### Verantwortlichkeiten ###
