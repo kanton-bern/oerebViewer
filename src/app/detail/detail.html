@@ -7,7 +7,7 @@
                 <svg class="icon icon-globe">
                   <use xlink:href="#icon-globe"></use>
                 </svg>
-              
+
                 <span ng-click="main.changeLanguage('de')" >
                     <a title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
                 </span>
@@ -95,6 +95,7 @@
                       </a>
                     </li>
                 </ul>
+              </a>
             </li>
 
             <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
@@ -114,6 +115,7 @@
                         </a>
                     </li>
                 </ul>
+              </a>
             </li>
 
             <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
@@ -131,6 +133,7 @@
                         {{theme.Name}}
                     </li>
                 </ul>
+              </a>
             </li>
 
             <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
@@ -148,6 +151,7 @@
                         {{theme.Name}}
                     </li>
                 </ul>
+              </a>
             </li>
             <li ng-class="{'hidden': !main.history.length}" class="accordion-navigation history-item"><a href="">
                 <button class="button submenu svg-icon">
@@ -174,6 +178,7 @@
                         </svg>
                         Grundstücke in die Zwischenablage kopieren</a></li>
                 </ul>
+              </a>
             </li>
             <li><a href="#content_themes">Themenbereiche</a></li>
             <li><a href="#content_glossar">Glossar</a></li>
