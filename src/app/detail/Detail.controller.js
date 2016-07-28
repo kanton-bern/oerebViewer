@@ -91,11 +91,19 @@ export class DetailController {
         if (angular.isUndefined(this.$location.search().restriction))
             return;
 
-
         this.Extracts.setRestrictionByCode(
             this.$location.search().restriction,
             notify
         );
+    }
+
+    isRestrictionActive(code) {
+        var restriction = this.Extracts.getRestriction();
+        if (restriction) {
+            return restriction.code == code;
+        }
+
+        return false;
     }
 
     addExtract(egrid) {
