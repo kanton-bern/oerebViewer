@@ -7,6 +7,7 @@
 
   "subtitle": "-Cadastre",
   "title": "RDPPF",
+  "mainAppTitle": "RDPPF-App",
   "mainTitle": "FR Auszug aus dem Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREBKataster)",
   "no_property_loaded": "Aucune propriété chargée",
   "no_property_found": "Aucune propriété trouvée",
@@ -44,5 +45,6 @@
   "restrictionConcernedKeyS": "FR Legende beteiligter Objekte",
   "restrictionLegalProvision": "FR Rechtsvorschrift",
   "restrictionAuthority": "FR Zuständige Stelle",
-  "restrictionKeyDownload": "FR Vollständige Legende herunterladen"
+  "restrictionKeyDownload": "FR Vollständige Legende herunterladen",
+  "contentTitleGlossary": "Glossaire"
 }

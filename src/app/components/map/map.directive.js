@@ -205,6 +205,8 @@ class MapController {
 
     toggleSearch() {
         this.Map.toggleSearch();
+        // Close main menu if open
+        this.Helpers.closeMenu();
     }
 
     isSearchOpen() {

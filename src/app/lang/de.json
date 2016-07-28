@@ -7,6 +7,7 @@
 
   "subtitle": "-Kataster",
   "title": "ÖREB",
+  "mainAppTitle": "ÖREB-App",
   "mainTitle": "Auszug aus dem Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREBKataster)",
   "no_property_loaded": "Es wurde noch kein Grundstück ausgewählt.",
   "no_property_found": "Kein Grundstück gefunden",
@@ -44,7 +45,8 @@
   "restrictionConcernedKey": "Legende beteiligter Objekte",
   "restrictionLegalProvision": "Rechtsvorschrift",
   "restrictionAuthority": "Zuständige Stelle",
-  "restrictionKeyDownload": "Vollständige Legende herunterladen"
+  "restrictionKeyDownload": "Vollständige Legende herunterladen",
+  "contentTitleGlossary": "Glossar"
 
 
 }
