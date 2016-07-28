@@ -6,6 +6,7 @@ export class MapService {
         this.ol = ol;
         this.Oereb = Oereb;
         this.Layers = Layers;
+        this.Helpers = Helpers;
 
         this.tempLayers = [];
         this.clickObservers = [];
@@ -129,6 +130,8 @@ export class MapService {
         // [todo] focus on open search-me
         console.log('[todo] focus');
         angular.element("#search-me").trigger('focus');
+
+        this.Helpers.closeMenu(); 
 
         this.isSearchOpen = true;
         return this.isSearchOpen;
