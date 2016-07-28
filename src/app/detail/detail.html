@@ -109,8 +109,9 @@
                 {{"detailConcernedThemes1" | translate}}{{main.extract.data.RealEstate.Number}} {{"detailConcernedThemes2" | translate}} {{main.extract.data.RealEstate.Municipality}} {{"detailConcernedThemes3" | translate}}</a>
                 <ul class="menu vertical nested is-active">
                     <li ng-repeat="theme in main.extract.themes track by $index">
-                        <!-- [bs][todo] Den current badge nur für das aktive thema setzen -->
-                        <a ui-sref="home.detail({restriction: theme.Code})">{{theme.Name}}<span class="current badge float-right">&nbsp;</span></a>
+                        <a ui-sref="home.detail({restriction: theme.Code})">{{theme.Name}}
+                            <span ng-class="{'current': detail.isRestrictionActive(theme.Code)}" class="badge float-right">&nbsp;</span>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -148,7 +149,6 @@
                     </li>
                 </ul>
             </li>
-
             <li ng-class="{'hidden': !main.history.length}" class="accordion-navigation history-item"><a href="">
                 <button class="button submenu svg-icon">
                     <svg class="icon icon-plus">
