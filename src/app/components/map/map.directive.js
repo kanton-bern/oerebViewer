@@ -33,7 +33,7 @@ class MapController {
 
             self.Map.closeSearch();
 
-            console.log('wfs:');
+
 
             if (self.Map.getView().getZoom() < 12) {
                 return;
@@ -65,6 +65,13 @@ class MapController {
                 self.selectedPoint = d.data;
                 self.infoboxLoading = false;
             });
+
+
+            self.Oereb.getDataFromWFS(cords[1], cords[0]).then(function (d) {
+                console.log('wfs - :');
+                console.log(d);
+            });
+
         });
 
 
