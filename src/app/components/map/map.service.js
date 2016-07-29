@@ -127,13 +127,14 @@ export class MapService {
     }
 
     openSearch() {
-        // [todo] focus on open search-me
-        console.log('[todo] focus');
-        angular.element("#search-me").trigger('focus');
-
         this.Helpers.closeMenu(); 
 
         this.isSearchOpen = true;
+
+        setTimeout(function() {
+            $('#search-me').trigger('focus')
+        }, 100);
+
         return this.isSearchOpen;
     }
 
