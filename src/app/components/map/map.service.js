@@ -98,12 +98,7 @@ export class MapService {
 
         // click event listener
         this.map.on('singleclick', function (event) {
-            // Close main menu if open
-            if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
-              angular.element('#buttonShowExtract').click();
-            }
-
-            self.onClickOnMap(event);
+            self.notifyClickObservers(event.coordinate);
         });
 
         var positionFeatureStyle = new this.ol.style.Style({
@@ -124,6 +119,10 @@ export class MapService {
             accuracyFeatureStyle: accuracyFeatureStyle,
             zoom: this.config.zoom.zoomedIn,
         };
+    }
+
+    click(coordinates) {
+        this.notifyClickObservers(coordinates);
     }
 
     openSearch() {
@@ -189,14 +188,15 @@ export class MapService {
         this.clickObservers.push(callback);
     }
 
-    notifyClickObservers(event) {
-        angular.forEach(this.clickObservers, function (callback) {
-            callback(event);
-        });
-    }
+    notifyClickObservers(coordinates) {
+        // Close main menu if open
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
+            angular.element('#buttonShowExtract').click();
+        }
 
-    onClickOnMap(event) {
-        this.notifyClickObservers(event);
+        angular.forEach(this.clickObservers, function (callback) {
+            callback(coordinates);
+        });
     }
 
     transform(coordinate, inverse = false) {

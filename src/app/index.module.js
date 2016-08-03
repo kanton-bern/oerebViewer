@@ -16,6 +16,8 @@ import { MapDirective } from '../app/components/map/map.directive';
 import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
 import { NotificationsDirective } from '../app/components/notifications/notifications.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
+// import { SearchSwisstopoDirective } from '../app/components/search/searchSwisstopo.directive';
+import { SearchMapboxDirective } from '../app/components/search/searchMapbox.directive';
 import { BackgroundImageDirective } from '../app/components/backgroundImage/backgroundImage.directive';
 import { AutofocusDirective } from '../app/components/autofocus/autofocus.directive';
 
@@ -41,6 +43,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .directive('map', MapDirective)
     .directive('notifications', NotificationsDirective)
     .directive('loading', LoadingDirective)
+    .directive('search', SearchMapboxDirective)
     .directive('autofocus', AutofocusDirective)
     .directive('restriction', RestrictionDirective)
     .directive('background', BackgroundImageDirective)

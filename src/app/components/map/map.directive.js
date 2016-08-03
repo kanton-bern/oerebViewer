@@ -29,23 +29,30 @@ class MapController {
 
         var self = this;
 
-        Map.registerClickObserver(function(event) {
+        // adds observer for clicks on the map
+        Map.registerClickObserver(function(coordinates) {
 
+            // close map
             self.Map.closeSearch();
 
-
-
+            // if zoom is smaller than 12 don't add an infobox
             if (self.Map.getView().getZoom() < 12) {
                 return;
             }
 
-            self.infocords = event.coordinate;
+            // get coordinations from click event
+            self.infocords = coordinates;
 
+            console.log(self.infocords);
+
+            // creates an overlay over the openlayers api
             var popup = new Map.ol.Overlay({
                 element: document.getElementById('infobox')
             });
 
             self.lastOverlay = popup;
+
+            // add the overlay 'popup' to the map
             Map.addOverlay(popup);
 
             $('#object-information').hide();
@@ -55,9 +62,9 @@ class MapController {
             $(element).hide();
             $(element).show();
 
-            popup.setPosition(event.coordinate);
+            popup.setPosition(coordinates);
 
-            var cords = Map.transform(event.coordinate);
+            var cords = Map.transform(coordinates);
 
             self.selectedPoint = [];
             self.infoboxLoading = true;
@@ -75,64 +82,11 @@ class MapController {
         });
 
 
-
         // load map
         this.map = Map.map;
 
         // load geoloaction parameters
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
-
-        /*this.zoomIn = function () {
-            this.$log.warn('zoomIn');
-            self.map.zoom = self.map.zoom + 1;
-        };*/
-
-        // permalink
-
-        /*
-         TYPEAHEAD SEARCH
-         */
-
-        // Initialize the suggestion engine
-        var placesSource = new Bloodhound({
-            limit: 30,
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: 'https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=%QUERY&type=locations',
-                wildcard: '%QUERY',
-                filter: function (locations) {
-                    return locations.results;
-                }
-            }
-        });
-        placesSource.initialize();
-
-        // load places into the typeahead directive
-        this.places = {
-            displayKey: function (location) {
-                // let's remove some unwanted markup in the returned locations
-                let returnLocation = location.attrs.label.replace('<b>', '').replace('</b>', '');
-                returnLocation =  returnLocation.replace('<i>', '').replace('</i>', '');
-
-                return returnLocation;
-            },
-            source: placesSource.ttAdapter()
-        };
-
-        // watch the home.search model for changes
-        $scope.$watch(function () {
-            return self.search;
-        }, function (value) {
-            if (self.search !== null && typeof self.search === 'object') {
-
-                // center result
-                let coordinates = [self.search.attrs.lon, self.search.attrs.lat];
-                let transformed = self.Map.transform(coordinates, true);
-
-                self.Map.setPosition(transformed[0], transformed[1]);
-            }
-        });
     }
 
     // restore permalink
@@ -220,8 +174,4 @@ class MapController {
         return this.Map.isSearchOpen;
     }
 
-    // Delete content in search box
-    deleteSearchInput() {
-      this.search = "";
-    }
 }
