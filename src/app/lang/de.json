@@ -46,7 +46,15 @@
   "restrictionLegalProvision": "Rechtsvorschrift",
   "restrictionAuthority": "Zuständige Stelle",
   "restrictionKeyDownload": "Vollständige Legende herunterladen",
-  "contentTitleGlossary": "Glossar"
+  "contentTitleGlossary": "Glossar",
 
+
+  "gstart" : {
+    "0": "Liegenschaft",
+    "1": "Baurecht",
+    "2": "Quellrecht",
+    "3": "Konzessionsrecht",
+    "4": "übrige Rechte"
+  }
 
 }

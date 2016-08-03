@@ -219,13 +219,17 @@ export class MapService {
         angular.forEach(layers, function(layer) {
             // saves layer, so we can remove them again
             self.tempLayers.push(layer);
-            self.map.addLayer(layer);
+            self.addLayer(layer);
         });
+    }
+
+    addLayer(layer) {
+        this.map.addLayer(layer);
     }
 
     get() {
         return this.map;
-    }
+}
 
     getView() {
         return this.map.getView();

@@ -60,18 +60,59 @@ class MapController {
 
             popup.setPosition(coordinates[21781]);
 
-            var gnss = coordinates[4326];
-
             self.selectedPoint = [];
             self.infoboxLoading = true;
-            self.Oereb.getEGRID(gnss[1], gnss[0]).then(function (d) {
+            self.Oereb.getEGRID(coordinates).then(function (d) {
                 self.selectedPoint = d.data;
                 self.infoboxLoading = false;
             });
 
-            self.Oereb.getDataFromWFS(coordinates[2056][1], coordinates[2056][0]).then(function (d) {
-                console.log('wfs - :');
-                console.log(d);
+            self.Oereb.getDataFromWFS(coordinates[2056][0], coordinates[2056][1]).then(function (d) {
+                // var dipanuf = d.data.FeatureCollection.featureMember.DIPANU_DIPANUF;
+                // console.log(dipanuf);
+
+                var long = coordinates[2056][0];
+                var lat = coordinates[2056][1];
+
+                console.log('wfs:');
+                console.log(d.data);
+
+
+                console.log('wfs - shape:');
+                var polygon = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
+                console.log(polygon.toString());
+
+                console.log('wfs - gstart :');
+                console.log(d.data.GSTART);
+
+
+
+                var vectorSource = new self.Map.ol.source.Vector({
+                    format: new self.Map.ol.format.GML3(),
+                    url: function(extent) {
+                        return 'https://gs.novu.io/proxy/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF&Filter=%3Cogc:Filter%3E%3Cogc:Contains%3E%3Cogc:PropertyName%3EShape%3C/ogc:PropertyName%3E%3Cgml:Point%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E%3Cgml:pos%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E' + long + '%20' + lat + '%3C/gml:pos%3E%3C/gml:Point%3E%3C/ogc:Contains%3E%3C/ogc:Filter%3E';
+                    }
+                });
+
+                console.log(vectorSource);
+
+                var vector = new self.Map.ol.layer.Vector({
+                    visible: true,
+                    name: 'marked-on-map',
+                    source: vectorSource,
+                    style: new self.Map.ol.style.Style({
+                        stroke: new self.Map.ol.style.Stroke({
+                            color: 'rgba(0, 0, 255, 1.0)',
+                            width: 2
+                        })
+                    })
+                });
+
+                console.log(vector);
+
+
+                self.Map.addLayer(vector);
+
             });
 
         });

@@ -58,8 +58,12 @@ export class OerebBernService {
         return promise;
     }
 
-    getEGRID(long, lat) {
+    getEGRID(coordinates) {
         let self = this;
+
+        var long = coordinates[4326][1];
+        var lat = coordinates[4326][0];
+
         let url = this.base + 'getegrid/?GNSS=' + long + ',' + lat;
 
         var promise = this.$http.get(
@@ -103,6 +107,8 @@ export class OerebBernService {
         var geoserviceNew = 'http://www.geoservice2-test.apps.be.ch/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF&Filter=%3Cogc:Filter%3E%3Cogc:Contains%3E%3Cogc:PropertyName%3EShape%3C/ogc:PropertyName%3E%3Cgml:Point%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E%3Cgml:pos%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E2600000%201200000%3C/gml:pos%3E%3C/gml:Point%3E%3C/ogc:Contains%3E%3C/ogc:Filter%3E';
         var geoserviceProxy = 'https://gs.novu.io/proxy/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF&Filter=%3Cogc:Filter%3E%3Cogc:Contains%3E%3Cogc:PropertyName%3EShape%3C/ogc:PropertyName%3E%3Cgml:Point%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E%3Cgml:pos%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E' + long + '%20' + lat + '%3C/gml:pos%3E%3C/gml:Point%3E%3C/ogc:Contains%3E%3C/ogc:Filter%3E';
 
+        // 2631749.2199999988 1169800.1409999989 2631739.5379999988 1169814.8480000012 2631719.6000000015 1169801.6140000001 2631729.1209999993 1169787.050999999 2631749.2199999988 1169800.1409999989
+
         let self = this;
         var promise =  this.$http.get(
             geoserviceProxy,
@@ -112,7 +118,7 @@ export class OerebBernService {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
 
-                    return object;
+                    return object.FeatureCollection.featureMember.DIPANU_DIPANUF;
                 }
             }
         );

@@ -56,10 +56,11 @@ class SearchSwisstopoController {
             if (self.search !== null && typeof self.search === 'object') {
 
                 // center result
-                let coordinates = [self.search.attrs.lon, self.search.attrs.lat];
-                let transformed = self.Map.transform(coordinates, true);
+                var coordinates = Coordinates.set('search', Coordinates.System[21781], [self.search.attrs.lon, self.search.attrs.lat]);
 
-                self.Map.setPosition(transformed[0], transformed[1]);
+                self.Map.setPosition(coordinates);
+                self.Map.click(coordinates);
+
             }
         });
 
