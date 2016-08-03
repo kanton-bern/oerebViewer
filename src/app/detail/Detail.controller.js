@@ -1,5 +1,5 @@
 export class DetailController {
-    constructor($log, $translate, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope) {
+    constructor($log, $translate, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates) {
         'ngInject';
 
         let self = this;
@@ -7,6 +7,7 @@ export class DetailController {
         this.$location = $location;
         this.Map = Map;
         this.Layers = Layers;
+        this.Coordinates = Coordinates;
 
         this.noDatas = true;
         if ($stateParams.egrid == 0) {
@@ -70,9 +71,10 @@ export class DetailController {
             var wmsLink = self.Extracts.getCurrent().data.RealEstate.PlanForLandRegister.ReferenceWMS;
             var bbox = Helpers.getParameterByName('bbox', wmsLink);
 
-            var coords = Map.transformFrom2056(Helpers.getCenterOfBBBOX(bbox));
 
-            Map.setPosition(coords[0], coords[1]);
+            var coordinates = self.Coordinates.set('center', Coordinates.System[2056], Helpers.getCenterOfBBBOX(bbox));
+
+            Map.setPosition(coordinates);
             Map.setZoom(15);
         });
 

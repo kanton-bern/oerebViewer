@@ -1,11 +1,12 @@
 export class MapService {
-    constructor(ngeoDecorateLayer, Layers, Oereb, Helpers) {
+    constructor(ngeoDecorateLayer, Layers, Oereb, Helpers, Coordinates) {
         'ngInject';
 
         let self = this;
         this.ol = ol;
         this.Oereb = Oereb;
         this.Layers = Layers;
+        this.Coordinates = Coordinates;
         this.Helpers = Helpers;
 
         this.tempLayers = [];
@@ -98,7 +99,8 @@ export class MapService {
 
         // click event listener
         this.map.on('singleclick', function (event) {
-            self.notifyClickObservers(event.coordinate);
+            var coordinates = self.Coordinates.set('lastClick', Coordinates.System[21781], event.coordinate);
+            self.notifyClickObservers(coordinates);
         });
 
         var positionFeatureStyle = new this.ol.style.Style({
@@ -149,10 +151,10 @@ export class MapService {
         return this.openSearch();
     }
 
-    setPosition(lat, lon, zoom = this.config.zoom.zoomedIn) {
+    setPosition(coordinates, zoom = this.config.zoom.zoomedIn) {
         this.map.getView().setCenter([
-            parseFloat(lat),
-            parseFloat(lon)
+            parseFloat(coordinates[21781][0]),
+            parseFloat(coordinates[21781][1])
         ]);
 
         this.map.getView().setZoom(zoom);
@@ -197,31 +199,6 @@ export class MapService {
         angular.forEach(this.clickObservers, function (callback) {
             callback(coordinates);
         });
-    }
-
-    transform(coordinate, inverse = false) {
-        // source
-        var epsg21781 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
-
-        // target
-        var epsg4326 = '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees';
-
-        if (inverse)
-            return proj4(epsg4326,epsg21781,coordinate);
-
-        return proj4(epsg21781,epsg4326,coordinate);
-    }
-
-    transformFrom2056(coordinate, inverse = false) {
-        // source
-        var epsg2056 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
-        // target
-        var epsg21781 = '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
-
-        if (inverse)
-            return proj4(epsg21781,epsg2056,coordinate);
-
-        return proj4(epsg2056,epsg21781,coordinate);
     }
 
     /*

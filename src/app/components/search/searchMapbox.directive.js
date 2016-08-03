@@ -14,7 +14,7 @@ export function SearchMapboxDirective() {
 
 class SearchMapboxController {
 
-    constructor($scope, Map) {
+    constructor($scope, Map, Coordinates) {
         'ngInject';
 
         this.Map = Map;
@@ -61,11 +61,10 @@ class SearchMapboxController {
             if (self.search !== null && typeof self.search === 'object') {
 
                 // center result
-                let coordinates = [self.search.longitude, self.search.latitude];
-                let transformed = self.Map.transform(coordinates, true);
+                var coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.longitude, self.search.latitude]);
 
-                self.Map.setPosition(transformed[0], transformed[1]);
-                self.Map.click(transformed);
+                self.Map.setPosition(coordinates);
+                self.Map.click(coordinates);
             }
         });
 

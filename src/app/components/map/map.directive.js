@@ -15,8 +15,9 @@ export function MapDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class MapController {
-    constructor(Layers, $log, $scope, $base64, $window, Oereb, Extracts, Map, Helpers) {
+    constructor(Layers, $log, $scope, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates) {
         'ngInject';
+
 
         this.$window = $window;
         this.$log = $log;
@@ -40,11 +41,6 @@ class MapController {
                 return;
             }
 
-            // get coordinations from click event
-            self.infocords = coordinates;
-
-            console.log(self.infocords);
-
             // creates an overlay over the openlayers api
             var popup = new Map.ol.Overlay({
                 element: document.getElementById('infobox')
@@ -62,19 +58,18 @@ class MapController {
             $(element).hide();
             $(element).show();
 
-            popup.setPosition(coordinates);
+            popup.setPosition(coordinates[21781]);
 
-            var cords = Map.transform(coordinates);
+            var gnss = coordinates[4326];
 
             self.selectedPoint = [];
             self.infoboxLoading = true;
-            self.Oereb.getEGRID(cords[1], cords[0]).then(function (d) {
+            self.Oereb.getEGRID(gnss[1], gnss[0]).then(function (d) {
                 self.selectedPoint = d.data;
                 self.infoboxLoading = false;
             });
 
-
-            self.Oereb.getDataFromWFS(cords[1], cords[0]).then(function (d) {
+            self.Oereb.getDataFromWFS(coordinates[2056][1], coordinates[2056][0]).then(function (d) {
                 console.log('wfs - :');
                 console.log(d);
             });
