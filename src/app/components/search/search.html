@@ -1,6 +1,6 @@
 <div ng-show="map.isSearchOpen()" class="search-input search-open">
     <input type="text" id="search-me" class="typeahead searchbox" sf-typeahead datasets="search.places" ng-model="search.search" name="search_input">
-    <button class="button svg-icon delete-search" ng-click="search.deleteSearchInput()">
+    <button class="button svg-icon delete-search" ng-click="search.search = ''">
         <svg class="icon icon-cross">
             <use xlink:href="#icon-cross"></use>
         </svg>
