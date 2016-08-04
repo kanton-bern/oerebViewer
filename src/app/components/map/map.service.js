@@ -224,13 +224,47 @@ export class MapService {
         });
     }
 
-    addSelectedLayer(layer) {
+    addSelectedLayer(posList) {
+        var self = this;
+        var ring = [];
+
+        for (var i = 0; i < posList.length; i=i+2) {
+            var temporary = self.Coordinates.create(self.Coordinates.System[2056], [posList[i], posList[i+1]]);
+            ring.push([temporary[21781][0], temporary[21781][1]]);
+        }
+
+
+        var polygon = new self.ol.geom.Polygon([ring]);
+
+        // Create feature with polygon.
+        var feature = new self.ol.Feature(polygon);
+
+        // Create vector source and the feature to it.
+        var vectorSource = new self.ol.source.Vector();
+        vectorSource.addFeature(feature);
+
+        // Create vector layer attached to the vector source.
+        var vectorLayer = new self.ol.layer.Vector({
+            source: vectorSource,
+            style: new self.ol.style.Style({
+                stroke: new self.ol.style.Stroke({
+                    color: 'rgba(255, 0, 0, 1.0)',
+                    width: 1
+                }),
+                fill: new self.ol.style.Fill({
+                    color: 'rgba(255, 0, 0, 0.3)',
+                })
+            })
+        });
+
+        vectorLayer.setZIndex(5000);
+
         if (this.selectedLayer != undefined)
             this.map.removeLayer(this.selectedLayer);
 
-        this.selectedLayer = layer;
+        this.selectedLayer = vectorLayer;
 
-        this.addLayer(layer)
+        this.addLayer(vectorLayer)
     }
 
     addLayer(layer) {

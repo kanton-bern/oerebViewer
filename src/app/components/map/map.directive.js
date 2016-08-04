@@ -27,6 +27,7 @@ class MapController {
         this.Layers = Layers;
         this.Map = Map;
         this.Helpers = Helpers;
+        this.Coordinates = Coordinates;
 
         var self = this;
 
@@ -67,43 +68,11 @@ class MapController {
                 self.infoboxLoading = false;
             });
 
-            self.Oereb.getDataFromWFS(coordinates[2056][0], coordinates[2056][1]).then(function (d) {
+            self.Oereb.getDataFromWFS(coordinates).then(function (d) {
                 // var dipanuf = d.data.FeatureCollection.featureMember.DIPANU_DIPANUF;
                 // console.log(dipanuf);
 
-                var long = coordinates[2056][0];
-                var lat = coordinates[2056][1];
-
-
-                var posList = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
-                var posList = posList.toString().split(" ");
-
-                var ring = [];
-
-                for (var i = 0; i < posList.length; i=i+2) {
-                    var temporary = Coordinates.create(Coordinates.System[2056], [posList[i], posList[i+1]]);
-                    ring.push([temporary[21781][0], temporary[21781][1]]);
-                }
-
-
-                var polygon = new ol.geom.Polygon([ring]);
-
-                // Create feature with polygon.
-                var feature = new ol.Feature(polygon);
-
-                // Create vector source and the feature to it.
-                var vectorSource = new ol.source.Vector();
-                vectorSource.addFeature(feature);
-
-                // Create vector layer attached to the vector source.
-                var vectorLayer = new ol.layer.Vector({
-                    source: vectorSource
-                });
-
-                vectorLayer.setZIndex(5000);
-                // Add the vector layer to the map.
-                self.Map.addSelectedLayer(vectorLayer);
-
+                self.drawByWFS(d);
             });
 
         });
@@ -114,6 +83,15 @@ class MapController {
 
         // load geoloaction parameters
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
+    }
+
+    drawByWFS(d) {
+        var self = this;
+
+        var posList = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
+        var posList = posList.toString().split(" ");
+
+        self.Map.addSelectedLayer(posList);
     }
 
     // restore permalink
