@@ -1,6 +1,6 @@
 {
   "name": "oerebAppV2",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "dependencies": {
     "angular-animate": "~1.5.3",
     "angular-cookies": "~1.5.3",
@@ -20,7 +20,7 @@
     "angular": "~1.5.3",
     "angular-base64": "^2.0.5",
     "angular-gettext": "^2.2.1",
-    "typeahead.js": "^0.11.1",
+    "typeahead.js": "git://github.com/novu-web/typeahead.js.git#94440a1b1bbcb4aa5efa35b08b4976fe5e8c9460",
     "angular-typeahead": "^0.3.1",
     "angular-translate": "^2.11.0",
     "angular-translate-loader-static-files": "^2.11.0",
