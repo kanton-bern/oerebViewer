@@ -74,44 +74,35 @@ class MapController {
                 var long = coordinates[2056][0];
                 var lat = coordinates[2056][1];
 
-                console.log('wfs:');
-                console.log(d.data);
+
+                var posList = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
+                var posList = posList.toString().split(" ");
+
+                var ring = [];
+
+                for (var i = 0; i < posList.length; i=i+2) {
+                    var temporary = Coordinates.create(Coordinates.System[2056], [posList[i], posList[i+1]]);
+                    ring.push([temporary[21781][0], temporary[21781][1]]);
+                }
 
 
-                console.log('wfs - shape:');
-                var polygon = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
-                console.log(polygon.toString());
+                var polygon = new ol.geom.Polygon([ring]);
 
-                console.log('wfs - gstart :');
-                console.log(d.data.GSTART);
+                // Create feature with polygon.
+                var feature = new ol.Feature(polygon);
 
+                // Create vector source and the feature to it.
+                var vectorSource = new ol.source.Vector();
+                vectorSource.addFeature(feature);
 
-
-                var vectorSource = new self.Map.ol.source.Vector({
-                    format: new self.Map.ol.format.GML3(),
-                    url: function(extent) {
-                        return 'https://gs.novu.io/proxy/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF&Filter=%3Cogc:Filter%3E%3Cogc:Contains%3E%3Cogc:PropertyName%3EShape%3C/ogc:PropertyName%3E%3Cgml:Point%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E%3Cgml:pos%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E' + long + '%20' + lat + '%3C/gml:pos%3E%3C/gml:Point%3E%3C/ogc:Contains%3E%3C/ogc:Filter%3E';
-                    }
+                // Create vector layer attached to the vector source.
+                var vectorLayer = new ol.layer.Vector({
+                    source: vectorSource
                 });
 
-                console.log(vectorSource);
-
-                var vector = new self.Map.ol.layer.Vector({
-                    visible: true,
-                    name: 'marked-on-map',
-                    source: vectorSource,
-                    style: new self.Map.ol.style.Style({
-                        stroke: new self.Map.ol.style.Stroke({
-                            color: 'rgba(0, 0, 255, 1.0)',
-                            width: 2
-                        })
-                    })
-                });
-
-                console.log(vector);
-
-
-                self.Map.addLayer(vector);
+                vectorLayer.setZIndex(5000);
+                // Add the vector layer to the map.
+                self.Map.addSelectedLayer(vectorLayer);
 
             });
 

@@ -29,6 +29,32 @@ export class CoordinatesService {
         }
     }
 
+    create(system, coordinates) {
+        var self = this;
+
+        // declare new coordinate
+        var current = {};
+
+        var coordinates4326 = coordinates;
+
+        // lets get 4326 (international coordinates first) - if not already
+        if (system != this.System[4326])
+            coordinates4326 =  this.transform(coordinates, system, this.System[4326]);
+
+        current[4326] = coordinates4326;
+
+        angular.forEach(self.System, function(currentSystem) {
+            // skip 4326
+            if (currentSystem != self.System[4326]) {
+
+                current[currentSystem.type] = self.transform(coordinates4326, self.System[4326], currentSystem);
+
+            }
+        });
+
+        return current;
+    }
+
     set(name, system, coordinates) {
         var self = this;
 
@@ -46,9 +72,7 @@ export class CoordinatesService {
         angular.forEach(self.System, function(currentSystem) {
             // skip 4326
             if (currentSystem != self.System[4326]) {
-
                 self.coordinates[name][currentSystem.type] = self.transform(coordinates4326, self.System[4326], currentSystem);
-
             }
         });
 

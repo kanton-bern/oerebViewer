@@ -102,37 +102,9 @@ export class LayersService {
         /*
             Vector Layer Example
 
-        var vectorSource = new ol.source.Vector({
-            //format: new ol.format.GeoJSON(),
-            format: new ol.format.WFS(),
-            loader: function(extent, resolution, projection) {
-
-                var url = 'http://www.geoservice.apps.be.ch/geoservice/services/a4p/a4p_ortsangabenwfs_d_fk_x/MapServer/WFSServer?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF%20&Filter=%3Cogc:Filter%3E%20%3Cogc:Intersects%3E%20%3Cogc:PropertyName%3ESHAPE%3C/ogc:PropertyName%3E%20%3Cgml:Point%3E%20%3Cgml:coordinates%3E2603179.2831421704,%201203520.3550739398%3C/gml:coordinates%3E%20%3C/gml:Point%3E%20%3C/ogc:Intersects%3E%20%3C/ogc:Filter%3E';
+        */
 
 
-                $.ajax({
-                    url: url,
-                    dataType: 'xml',
-                });
-            },
-            projection: 'EPSG:2056'
-        });
-
-        var loadFeatures = function(response) {
-            vectorSource.addFeatures(vectorSource.readFeatures(response));
-        };
-
-        var vector = new ol.layer.Vector({
-            source: vectorSource,
-            style: new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                    color: 'rgba(0, 0, 255, 1.0)',
-                    width: 2
-                })
-            })
-        });
-
-        this.add(vector); */
 
 
         let osmLayer = new this.ol.layer.Tile({
@@ -231,6 +203,8 @@ export class LayersService {
      */
     add(layer) {
         this.layers.push(layer);
+
+        console.log(this.layers);
     }
 }
 

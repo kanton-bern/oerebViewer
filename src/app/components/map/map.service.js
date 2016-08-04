@@ -10,6 +10,7 @@ export class MapService {
         this.Helpers = Helpers;
 
         this.tempLayers = [];
+        this.selectedLayer = undefined;
         this.clickObservers = [];
         this.modeChangedObservers = [];
 
@@ -221,6 +222,15 @@ export class MapService {
             self.tempLayers.push(layer);
             self.addLayer(layer);
         });
+    }
+
+    addSelectedLayer(layer) {
+        if (this.selectedLayer != undefined)
+            this.map.removeLayer(this.selectedLayer);
+
+        this.selectedLayer = layer;
+
+        this.addLayer(layer)
     }
 
     addLayer(layer) {
