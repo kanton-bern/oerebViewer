@@ -14,7 +14,7 @@ export function SearchSwisstopoDirective() {
 
 class SearchSwisstopoController {
 
-    constructor($scope, Map) {
+    constructor($scope, Map, Coordinates) {
         'ngInject';
 
         this.Map = Map;
@@ -56,7 +56,7 @@ class SearchSwisstopoController {
             if (self.search !== null && typeof self.search === 'object') {
 
                 // center result
-                var coordinates = Coordinates.set('search', Coordinates.System[21781], [self.search.attrs.lon, self.search.attrs.lat]);
+                var coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.attrs.lon, self.search.attrs.lat]);
 
                 self.Map.setPosition(coordinates);
                 self.Map.click(coordinates);

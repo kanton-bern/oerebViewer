@@ -35,8 +35,6 @@ class SearchMapboxController {
                     console.log(response.features);
 
                     var mapped = $.map(response.features, function(city) {
-                        // console.log(city);
-
                         return {
                             id:  city.id,
                             name: city.place_name,
@@ -49,7 +47,6 @@ class SearchMapboxController {
                     });
 
                     console.log(mapped);
-
                     return mapped;
                 }
             }
