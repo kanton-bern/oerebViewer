@@ -23,11 +23,17 @@ body {
 }
 // stop changed global foundation styles
 
+
+
 // Left slider
 .wrapper-inner {
   overflow:hidden;
   height:100vh;
   position:relative;
+
+
+
+
   .position-left {
     padding-top:3em;
     position:absolute;
@@ -963,3 +969,33 @@ body {
     }
   }
 }
+
+
+// *******************************************   ios workaround for vh-bugs
+.no-vh-support {
+  .wrapper-inner { // fixes the 100vh
+    /**
+     * iPad with portrait orientation.
+     */
+    @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
+      height: 930px !important; // was 1024px;
+    }
+
+    /**
+     * iPad with landscape orientation.
+     */
+    @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape){
+      height: 674px !important; // was 768px;
+    }
+
+    /**
+     * iPhone 5
+     * You can also target devices with aspect ratio.
+     */
+    @media screen and (device-aspect-ratio: 40/71) and (orientation:portrait) {
+      height: 500px !important; // was 500px;
+    }
+  }
+}
+
+// *******************************************   end ios workarounds
