@@ -10,6 +10,7 @@
 body {
   @include fontNormal();
   z-index:10;
+  background-color: $colorMenuTop;
   // Accessibility goes down the drain...
   button {
     outline:0 !important; // this might be an accessibility issue!
@@ -993,8 +994,14 @@ body {
      * You can also target devices with aspect ratio.
      */
     @media screen and (device-aspect-ratio: 40/71) and (orientation:portrait) {
-      height: 500px !important; // was 500px;
+      height: 460px !important; // was 500px;
+
     }
+    @media screen and (device-aspect-ratio: 40/71) and (orientation:landscape) {
+      height: 232px !important; // was 500px;
+
+    }
+
   }
 }
 
