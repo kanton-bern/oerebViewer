@@ -252,7 +252,7 @@ export class MapService {
                     width: 1
                 }),
                 fill: new self.ol.style.Fill({
-                    color: 'rgba(255, 0, 0, 0.3)',
+                    color: 'rgba(255, 0, 0, 0)',
                 })
             })
         });
