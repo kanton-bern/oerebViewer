@@ -107,7 +107,7 @@ export class MapService {
         var positionFeatureStyle = new this.ol.style.Style({
             image: new this.ol.style.Circle({
                 radius: 6,
-                fill: new this.ol.style.Fill({color: 'rgba(230, 100, 100, 1)'}),
+                fill: new this.ol.style.Fill({color: 'rgba(230, 100, 100, 0)'}),
                 stroke: new this.ol.style.Stroke({color: 'rgba(230, 40, 40, 1)', width: 2})
             })
         });
@@ -129,7 +129,7 @@ export class MapService {
     }
 
     openSearch() {
-        this.Helpers.closeMenu(); 
+        this.Helpers.closeMenu();
 
         this.isSearchOpen = true;
 
