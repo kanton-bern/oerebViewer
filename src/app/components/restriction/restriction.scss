@@ -12,7 +12,7 @@ Restriction Styles
   padding: 0;
   z-index: 10000;
   position: absolute;
-  top: calc(100vh - 60px);
+  top: calc(100% - 60px);
 
   // Animation
   transition-property: all;
@@ -20,6 +20,11 @@ Restriction Styles
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
   @include castShadowTop;
+
+  // Test
+  &.ng-hide {
+    display:block !important;
+  }
 
 
   // All buttons in the pulse

@@ -249,7 +249,7 @@ export class MapService {
             style: new self.ol.style.Style({
                 stroke: new self.ol.style.Stroke({
                     color: 'rgba(255, 0, 0, 1.0)',
-                    width: 1
+                    width: 2
                 }),
                 fill: new self.ol.style.Fill({
                     color: 'rgba(255, 0, 0, 0)',
