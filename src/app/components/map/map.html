@@ -16,10 +16,7 @@
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
-                <svg class="icon icon-square-plus">
-                    <use xlink:href="#icon-square-plus"></use>
-                </svg>
-                <span class="clickable" ng-class="{'selectable-egrid-first': $index == 0}" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: null})">{{'infobox_plot' | translate}} {{ele.number}}</span>
+                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: null})">{{'infobox_plot' | translate}} {{ele.number}}</span>
             </li>
         </ul>
     </div>
