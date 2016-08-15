@@ -93,12 +93,14 @@
                     <div class="columns small-12">
                       <h1>{{"contentTitleGlossary" | translate}}  (<a ng-click="main.showMain()">Close</a>)</h1>
                       <!-- [bs][todo] Das Glossar kommt aus diesem XML-Node: Glossary:Title und muss entsprechend repetiert werden -->
-                      <dl>
-                        <dt>Glossary:Title:Text</dt>
-                        <dd>Glossary:Content:Text</dd>
-                        <dt>ÖREB-Kataster</dt>
-                        <dd>Öffentlich-rechtliche Eigentumsbeschränkungen: siehe auch <a href="http://www.cadastre.ch" class="external-link">www.cadastre.ch</a></dd>
-                      </dl>
+                        <dl ng-repeat="element in main.extract.data.Glossary">
+                            <dt>{{element.Title.LocalisedText.Text}}</dt>
+                            <dd>{{element.Content.LocalisedText.Text}}</dd>
+                        </dl>
+                        <dl>
+                            <dt>ÖREB-Kataster</dt>
+                            <dd>Öffentlich-rechtliche Eigentumsbeschränkungen: siehe auch <a href="http://www.cadastre.ch" class="external-link">www.cadastre.ch</a></dd>
+                        </dl>
                     </div>
                   </div>
                 </section>
