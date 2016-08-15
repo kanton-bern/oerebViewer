@@ -81,8 +81,18 @@ class MapController {
             var egrid = self.Extracts.getCurrent().egrid;
 
             self.Oereb.getDataFromWFS(egrid).then(function (d) {
-                self.drawByWFS(d);
+                var posList = self.getPoslistFromWFS(d);
+                var polygon = Map.createPolygon(posList);
+
+                self.drawByPolygon(polygon);
+
+                var size = Map.map.getSize();
+                Map.map.getView()
+                    .fit(polygon, size, {padding: [200, 200, 200, 200], constrainResolution: false});
             });
+
+
+            Helpers.openMenu();
 
         });
 
@@ -95,12 +105,21 @@ class MapController {
     }
 
     drawByWFS(d) {
-        var self = this;
+        var posList = this.getPoslistFromWFS(d);
+        var polygon = this.Map.createPolygon(posList);
 
+        this.Map.addSelectedLayer(polygon);
+    }
+
+    drawByPolygon(polygon) {
+        this.Map.addSelectedLayer(polygon);
+    }
+
+    getPoslistFromWFS(d) {
         var posList = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
-        var posList = posList.toString().split(" ");
+        posList = posList.toString().split(" ");
 
-        self.Map.addSelectedLayer(posList);
+        return posList;
     }
 
     // restore permalink

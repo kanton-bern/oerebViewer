@@ -65,17 +65,9 @@ export class DetailController {
         });
 
 
-        // set map position
+        // open detail menu on load
         Extracts.registerCurrentObserverCallback(function() {
-            // reset position on map
-            var wmsLink = self.Extracts.getCurrent().data.RealEstate.PlanForLandRegister.ReferenceWMS;
-            var bbox = Helpers.getParameterByName('bbox', wmsLink);
-
-
-            var coordinates = self.Coordinates.set('center', Coordinates.System[2056], Helpers.getCenterOfBBBOX(bbox));
-
-            Map.setPosition(coordinates);
-            Map.setZoom(15);
+            Helpers.openMenu();
         });
 
         angular.element('aside').foundation();

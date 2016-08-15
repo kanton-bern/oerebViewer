@@ -224,8 +224,9 @@ export class MapService {
         });
     }
 
-    addSelectedLayer(posList) {
+    createPolygon(posList) {
         var self = this;
+
         var ring = [];
 
         for (var i = 0; i < posList.length; i=i+2) {
@@ -233,7 +234,11 @@ export class MapService {
             ring.push([temporary[21781][0], temporary[21781][1]]);
         }
 
-        var polygon = new self.ol.geom.Polygon([ring]);
+        return new self.ol.geom.Polygon([ring]);
+    }
+
+    addSelectedLayer(polygon) {
+        var self = this;
 
         // Create feature with polygon.
         var feature = new self.ol.Feature(polygon);
