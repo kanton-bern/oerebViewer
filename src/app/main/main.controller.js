@@ -6,6 +6,7 @@ export class MainController {
         this.Extracts = Extracts;
         this.Map = Map;
         this.Helpers = Helpers;
+        this.visibleContent = 'main';
 
         angular.element(document).foundation();
 
@@ -21,7 +22,6 @@ export class MainController {
         this.history = Extracts.get();
 
     }
-
 
     setCurrentExtract(egrid) {
         if (egrid != this.extract.egrid) {
@@ -47,4 +47,25 @@ export class MainController {
 
         return this.isRestrictionOpen;
     }
+
+    showImprint() {
+        this.visibleContent = 'imprint';
+        this.Helpers.closeMenu();
+    }
+
+    showMain() {
+        this.visibleContent = 'main';
+        this.Helpers.openMenu();
+    }
+
+    showGlossary() {
+        this.visibleContent = 'glossary';
+        this.Helpers.closeMenu();
+    }
+
+    showThemes() {
+        this.visibleContent = 'themes';
+        this.Helpers.closeMenu();
+    }
+
 }

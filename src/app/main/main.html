@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="small-12">
 
-                        <map></map>
+                        <map ng-class="{'hidden': main.visibleContent != 'main'}"></map>
 
                     </div>
                 </div>
@@ -60,10 +60,10 @@
 
                 <!-- *********** START CONTENT PAGE SECTIONS *********** -->
                 <!-- CONTENT: Impressum -->
-                <section class="contentpage contentimpressum">
+                <section class="contentpage contentimpressum" ng-class="{'current': main.visibleContent == 'imprint'}">
                   <div class="row">
                     <div class="columns small-12">
-                      <h1>Impressum und Rechtliches</h1>
+                      <h1>Impressum und Rechtliches (<a ng-click="main.showMain()">Close</a>)</h1>
                       <h2>Impressum</h2>
                       <h3>Inhaltliche Verantwortung</h3>
                       <address>
@@ -88,10 +88,10 @@
                 </section>
                 <!-- END CONTENT: Impressum -->
                 <!-- CONTENT: Glossary -->
-                <section class="contentpage contentglossary">
+                <section class="contentpage contentglossary" ng-class="{'current': main.visibleContent == 'glossary'}">
                   <div class="row">
                     <div class="columns small-12">
-                      <h1>{{"contentTitleGlossary" | translate}}</h1>
+                      <h1>{{"contentTitleGlossary" | translate}}  (<a ng-click="main.showMain()">Close</a>)</h1>
                       <!-- [bs][todo] Das Glossar kommt aus diesem XML-Node: Glossary:Title und muss entsprechend repetiert werden -->
                       <dl>
                         <dt>Glossary:Title:Text</dt>
@@ -104,15 +104,17 @@
                 </section>
                 <!-- END CONTENT: Glossary -->
                 <!-- CONTENT: Themenbereiche -->
-                <section class="contentpage contentthemes">
+                <section class="contentpage contentthemes" ng-class="{'current': main.visibleContent == 'themes'}">
                   <div class="row">
                     <div class="columns small-12">
+                        Themenbereiche
+                        (<a ng-click="main.showMain()">Close</a>)
                     </div>
                   </div>
                 </section>
                 <!-- END CONTENT: Themenbereiche -->
                 <!-- CONTENT: Other content -->
-                <section class="contentpage contentinfo current">
+                <section class="contentpage contentinfo" ng-class="{'current': main.visibleContent == 'other'}">
                   <div class="row">
                     <div class="columns small-12">
                       <h1>Was ist die ÖREB?</h1>

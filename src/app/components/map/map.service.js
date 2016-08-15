@@ -233,7 +233,6 @@ export class MapService {
             ring.push([temporary[21781][0], temporary[21781][1]]);
         }
 
-
         var polygon = new self.ol.geom.Polygon([ring]);
 
         // Create feature with polygon.

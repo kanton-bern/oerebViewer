@@ -77,6 +77,15 @@ class MapController {
 
         });
 
+        Extracts.registerCurrentObserverCallback(function() {
+            var egrid = self.Extracts.getCurrent().egrid;
+
+            self.Oereb.getDataFromWFS(egrid).then(function (d) {
+                self.drawByWFS(d);
+            });
+
+        });
+
 
         // load map
         this.map = Map.map;
