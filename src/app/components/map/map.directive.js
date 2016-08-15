@@ -69,9 +69,6 @@ class MapController {
             });
 
             self.Oereb.getDataFromWFS(coordinates).then(function (d) {
-                // var dipanuf = d.data.FeatureCollection.featureMember.DIPANU_DIPANUF;
-                // console.log(dipanuf);
-
                 self.drawByWFS(d);
             });
 
@@ -116,8 +113,12 @@ class MapController {
     }
 
     getPoslistFromWFS(d) {
-        var posList = d.data.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
-        posList = posList.toString().split(" ");
+        var posList = [];
+        angular.forEach(d.data, function (data) {
+            var cPosList = data.DIPANU_DIPANUF.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
+            cPosList = cPosList.toString().split(" ");
+            angular.extend(posList, cPosList);
+        });
 
         return posList;
     }

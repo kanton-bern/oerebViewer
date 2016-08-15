@@ -123,7 +123,13 @@ export class OerebBernService {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
 
-                    return object.FeatureCollection.featureMember.DIPANU_DIPANUF;
+
+                    if (angular.isArray(object.FeatureCollection.featureMember)) {
+                        return object.FeatureCollection.featureMember;
+                    }
+
+                    var dipanuf = object.FeatureCollection.featureMember;
+                    return [dipanuf];
                 }
             }
         );
