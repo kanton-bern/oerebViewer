@@ -10,19 +10,7 @@ Für Tests können die folgenden Parzellen verwendet werden:
 
 ## EINSCHRÄNKUNGEN ##
 ### SSL-Zertifikate ###
-Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden. Diese Dienste müssen manuell hinzugefügt werden:
-
-* https://adue03.myqnapcloud.com/
-
-### Manuelles anfügen von SSL-Zertifikaten ###
-1. Link des Dienstes im Browser aufrufen (https://adue03.myqnapcloud.com/)
-2. Es erscheint ein Warnung, dass dies keine sichere Verbindung sei:
-![ssl_ausnahme_1.png](https://bitbucket.org/repo/kbojGq/images/832371156-ssl_ausnahme_1.png)
-3. Auf "ERWEITERT" klicken. Danach den Link "Weiter zu [Website] (unsicher)" klicken:
-![ssl_ausnahme_2.png](https://bitbucket.org/repo/kbojGq/images/3186890283-ssl_ausnahme_2.png)
-4. Jetzt erscheint unter Umständen noch eine 403-Fehlerseite. Diese ist jedoch nicht relevant:
-![ssl_ausnahme_3.png](https://bitbucket.org/repo/kbojGq/images/1727280335-ssl_ausnahme_3.png) 
-5. Nun kann die ÖREB-App normal aufgerufen werden.
+Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden. 
 
 ## ZUM REPOSITORY ##
 ### Für was ist dieses Repository? ###
