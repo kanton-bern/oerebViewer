@@ -29,6 +29,10 @@ Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL
 6. gulp
 7. gulp build
 
+## Anmerkung ##
+Mit **gulp serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
+Mit **gulp build** wird eine produktive Version der App gebaut. Externe Ressourcen werden minified und zusammengefasst. Die produktive Version befindet sich im Verzeichnis /dist/. Das gesamte **/dist/** Verzeichnis muss ins Root der produktiven Umgebung kopiert werden, damit die Applikation lauffähig ist.
+
 ### Verantwortlichkeiten ###
 
 * Owner und Projektmanagement OEREB-App: Bernhard Sturm (bs@sturmundbreaem.ch)
