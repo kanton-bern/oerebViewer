@@ -47,4 +47,12 @@
   "restrictionAuthority": "FR Zuständige Stelle",
   "restrictionKeyDownload": "FR Vollständige Legende herunterladen",
   "contentTitleGlossary": "Glossaire"
+
+  "gstart" : {
+    "0": "FR Liegenschaft",
+    "1": "FR Baurecht",
+    "2": "FR Quellrecht",
+    "3": "FR Konzessionsrecht",
+    "4": "FR übrige Rechte"
+  }
 }
