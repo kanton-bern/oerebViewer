@@ -8,13 +8,12 @@ export class OerebBernService {
         this.$http = $http;
         this.$log = $log;
 
-        this.base = 'http://adue03.myqnapcloud.com/oereb/OerbverSVC.svc/';
+        this.base = 'https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/';
 
         if (this.ssl) {
-            this.base = 'https://adue03.myqnapcloud.com/OerbverSVC.svc/';
 
             // temporary proxy over novu
-            this.base = 'https://adue03.novu.io/oereb/OerbverSVC.svc/';
+            // this.base = 'https://adue03.novu.io/oereb/OerbverSVC.svc/';
         }
 
         this.reducedExtractPath = 'extract/reduced/xml/';

@@ -25,141 +25,31 @@ export class LayersService {
 
         let self = this;
 
-        let wmtsSource = function(layerConfig) {
-            var resolutions = layerConfig.resolutions || self.resolutions;
-            var tileGrid = new ol.tilegrid.WMTS({
-                origin: [extent[0], extent[3]],
-                resolutions: resolutions,
-                matrixIds: matrixIds
-            });
-            var extension = layerConfig.format || 'png';
-            var timestamp = layerConfig['timestamps'][0];
-            return new ol.source.WMTS(({
-                url: '//wmts10.geo.admin.ch/1.0.0/{Layer}/default/' + timestamp + '/2056/{TileMatrix}/{TileCol}/{TileRow}.'+ extension,
-                tileGrid: tileGrid,
-                projection: projection,
-                layer: layerConfig.serverLayerName,
-                requestEncoding: 'REST'
-            }));
-        };
 
-        var wmtsSat = new this.ol.layer.Tile({
-            name: 'aerial',
-            visible: false,
-            source: wmtsSource({
-                "format": "jpeg",
-                "serverLayerName": "ch.swisstopo.swissimage",
-                "label": "SWISSIMAGE",
-                "timestamps": [
-                    "20140620",
-                    "20131107",
-                    "20130916",
-                    "20130422",
-                    "20120809",
-                    "20120225",
-                    "20110914",
-                    "20110228"
-                ]
-            })
-        });
-
-
-
-        var wmtsOrtho = new this.ol.layer.Tile({
-            name: 'ortho',
+        let arcgisOrtho = new ol.layer.Tile({
             visible: true,
-            source: wmtsSource({
-                "format": "jpeg",
-                "serverLayerName": "ch.swisstopo.pixelkarte-farbe",
-                "label": "SWISSIMAGE",
-                "timestamps": [
-                    "20140620",
-                    "20131107",
-                    "20130916",
-                    "20130422",
-                    "20120809",
-                    "20120225",
-                    "20110914",
-                    "20110228"
-                ]
-            })
-        });
-
-        var wmsOrtho =   new ol.layer.Tile({
-            name: 'ortho',
-            visible: true,
-            source: new ol.source.TileWMS({
-                crossOrigin: 'anonymous',
+            name: 'oereb',
+            extent: extent,
+            source: new ol.source.TileArcGISRest({
                 params: {
-                    'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
-                    'FORMAT': 'image/jpeg'
+                    'TILED': true,
+                    'VERSION': '1.3.0',
+                    'FORMAT': 'image/jpeg',
+                    'CRS': 'EPSG:2056'
                 },
-                url: 'http://wms.geo.admin.ch/'
+                url: 'http://www.geoservice2-test.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer'
             })
         });
 
 
-        /*
-            Vector Layer Example
 
-        */
+        this.add(arcgisOrtho);
 
-
-
-
-        let osmLayer = new this.ol.layer.Tile({
-            source: new this.ol.source.OSM(),
-            name: 'ortho'
-        });
-
-
-        this.wmsOerebSource = new this.ol.source.TileWMS(({
-            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
-            params: {
-                'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
-                'TILED': true,
-                'VERSION': '1.3.0',
-                'FORMAT': 'image/png',
-                'CRS': 'EPSG:21781'
-            },
-            serverType: 'geoserver'
-        }));
-
-        let wmsOEREB = new this.ol.layer.Tile({
-            /*preload: Infinity,*/
-            visible: true,
-            source: this.wmsOerebSource,
-            name: 'oereb'
-        });
-
-        wmsOEREB.setZIndex(100);
-
-
-        let oerebStatusSource = new this.ol.source.TileWMS(({
-            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_wms_d_fk_s/MapServer/WMSServer?',
-            params: {
-                'LAYERS': 'GEODB.OEREBST_OESTATUS',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
-                'TILED': true,
-                'VERSION': '1.3.0',
-                'FORMAT': 'image/png',
-                'CRS': 'EPSG:21781'
-            },
-            serverType: 'geoserver'
-        }));
-
-        let wmsOEREBStatus = new this.ol.layer.Tile({
-            /*preload: Infinity,*/
-            visible: true,
-            source: oerebStatusSource,
-            name: 'oereb'
-        });
-
-
-        this.add(osmLayer);
+        // this.add(osmLayer);
         // this.add(wmsOrtho);
-        this.add(wmtsSat);
-        this.add(wmsOEREBStatus);
-        this.add(wmsOEREB);
+        //this.add(wmtsSat);
+        /*this.add(wmsOEREBStatus);
+        this.add(wmsOEREB);*/
     }
 
     isActive(name) {
