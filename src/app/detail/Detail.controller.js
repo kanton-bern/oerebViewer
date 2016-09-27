@@ -70,7 +70,9 @@ export class DetailController {
             Helpers.openMenu();
         });
 
-        angular.element('aside').foundation();
+
+      // todo new-menu
+      // angular.element('aside').foundation();
 
         // Menubutton in header will change to cross [x] if menu is open.
         var $menuNav = angular.element('.menu-nav');

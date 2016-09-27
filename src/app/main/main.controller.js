@@ -8,7 +8,8 @@ export class MainController {
         this.Helpers = Helpers;
         this.visibleContent = 'main';
 
-        angular.element(document).foundation();
+        // todo new-menu
+        // angular.element(document).foundation();
 
         var mainCtrl = this;
 
