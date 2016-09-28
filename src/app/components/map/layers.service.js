@@ -25,6 +25,11 @@ export class LayersService {
 
         let self = this;
 
+        let osmLayer = new this.ol.layer.Tile({
+            source: new this.ol.source.OSM(),
+            name: 'ortho'
+        });
+
 
         let arcgisOrtho = new ol.layer.Tile({
             visible: true,
@@ -42,14 +47,13 @@ export class LayersService {
         });
 
 
-
         this.add(arcgisOrtho);
 
-        // this.add(osmLayer);
+        this.add(osmLayer);
         // this.add(wmsOrtho);
         //this.add(wmtsSat);
         /*this.add(wmsOEREBStatus);
-        this.add(wmsOEREB);*/
+         this.add(wmsOEREB);*/
     }
 
     isActive(name) {
@@ -58,7 +62,7 @@ export class LayersService {
                 return this.layers[i].visible;
             }
         }
-        
+
         return false;
     }
 
@@ -89,7 +93,7 @@ export class LayersService {
     }
 
     /*
-        only works before map initialization, after that use Map.addTempLayer()
+     only works before map initialization, after that use Map.addTempLayer()
      */
     add(layer) {
         this.layers.push(layer);
