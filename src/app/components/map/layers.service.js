@@ -5,8 +5,11 @@ export class LayersService {
         this.ol = ol;
         this.Map = Map;
 
-        this.active = 'ortho';
+        this.activeLayerNames = ['ortho'];
+
         this.layers = [];
+        this.resolvedLayers = [];
+        this.parser = new ol.format.WMTSCapabilities();
 
         this.resolutions = [
             4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000, 1750, 1500, 1250,
@@ -21,102 +24,94 @@ export class LayersService {
         var projection = ol.proj.get('EPSG:2056');
         projection.setExtent(extent);
 
-
         var matrixIds = [];
         for (var i = 0; i < this.resolutions.length; i++) {
             matrixIds.push(i);
         }
 
+        // addLayers
+        this.add(this.asyncOrthoLayer());
+        this.add(this.asyncAerialLayer());
+    }
+
+    asyncOrthoLayer() {
         let self = this;
 
+        return fetch('/app/components/map/capabilities/orthoWMTS.xml').then(function (response) {
+            return response.text();
+        }).then(function (text) {
+            var result = self.parser.read(text);
+            var options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_hintergrund_grau_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+
+            var wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: new ol.source.WMTS(options),
+                visible: false,
+                name: 'ortho'
+            });
+
+            return wmtsLayer;
+        });
+    }
+
+    asyncAerialLayer() {
+        let self = this;
+
+        return fetch('/app/components/map/capabilities/aerialWMTS.xml').then(function (response) {
+            return response.text();
+        }).then(function (text) {
+            var result = self.parser.read(text);
+            var options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_orthofoto_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+
+            var wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: new ol.source.WMTS(options),
+                visible: true,
+                name: 'aerial'
+            });
+
+            return wmtsLayer;
+        });
+    }
+
+
+    osmLayer() {
         let osmLayer = new this.ol.layer.Tile({
             source: new this.ol.source.OSM(),
             name: 'ortho'
         });
 
-
-        /*let arcgisOrtho = new ol.layer.Tile({
-            visible: true,
-            name: 'oereb',
-            extent: extent,
-            source: new ol.source.TileArcGISRest({
-                params: {
-                    'TILED': true,
-                    'VERSION': '1.0.0',
-                    'FORMAT': 'image/jpeg',
-                    'CRS': 'EPSG:2056'
-                },
-                url: 'http://www.geoservice2-test.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer'
-            })
-        }); */
-
-        let arcgisOrtho = new ol.layer.Tile({
-            opacity: 0.7,
-            source: new ol.source.WMTS({
-                attributions: 'Tiles © <a href="http://services.arcgisonline.com/arcgis/rest/' +
-                'services/Demographics/USA_Population_Density/MapServer/">ArcGIS</a>',
-                url: 'http://www.geoservice2-test.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer/WMTS/',
-                layer: '0',
-                matrixSet: 'EPSG:2056',
-                format: 'image/jpeg',
-                projection: projection,
-                tileGrid: new ol.tilegrid.WMTS({
-                    origin: [extent[0], extent[3]],
-                    resolutions: this.resolutions,
-                    matrixIds: matrixIds
-                }),
-                style: 'default',
-                wrapX: true
-            })
-        });
-
-
-        this.wmsOerebSource = new this.ol.source.TileWMS(({
-            url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
-            params: {
-                'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
-                'TILED': true,
-                'VERSION': '1.3.0',
-                'FORMAT': 'image/png',
-                'CRS': 'EPSG:21781',
-                'TRANSPARENT': false
-            },
-            serverType: 'geoserver'
-        }));
-
-        let wmsOEREB = new this.ol.layer.Tile({
-            /*preload: Infinity,*/
-            visible: true,
-            source: this.wmsOerebSource,
-            name: 'oereb'
-        });
-
-        wmsOEREB.setZIndex(100);
-
-
-        this.add(arcgisOrtho);
-
-        // this.add(osmLayer);
-        // this.add(wmsOrtho);
-        //this.add(wmtsSat);
-        /*this.add(wmsOEREBStatus); */
-        this.add(wmsOEREB);
+        return osmLayer;
     }
 
     isActive(name) {
-        for (var i = 0; i < this.layers.length; i++) {
+        /*for (var i = 0; i < this.layers.length; i++) {
             if (this.layers[i].M.name == name) {
                 return this.layers[i].visible;
             }
         }
 
-        return false;
+        return false;*/
+
+        console.log('isactive');
+
+        console.log(this.activeLayerNames);
+
+        console.log(name);
+        console.log(this.activeLayerNames.includes(name));
+        return (this.active == name);
     }
 
     hide(name, inverse = false) {
-        for (var i = 0; i < this.layers.length; i++) {
-            if (this.layers[i].M.name == name) {
-                this.layers[i].visible = inverse;
+        for (var i = 0; i < this.resolvedLayers.length; i++) {
+            if (this.resolvedLayers[i].M.name == name) {
+                this.resolvedLayers[i].visible = inverse;
             }
         }
 
@@ -127,16 +122,27 @@ export class LayersService {
         return this.hide(name, true);
     }
 
-    get(name = false) {
-        if (angular.isString(name)) {
-            for (var i = 0; i < this.layers.length; i++) {
-                if (this.layers[i].M.name == name) {
-                    return this.layers[i];
-                }
-            }
-        }
 
-        return this.layers;
+    get(callback) {
+        var layerService = this;
+
+        let requests = this.layers.map((layer) => {
+            return new Promise((resolve) => {
+                if (layer instanceof Promise) {
+                    layer.then(function (value) {
+                        layerService.resolvedLayers.push(value);
+                        console.log('resolved');
+                        resolve();
+                    });
+                } else {
+                    layerService.resolvedLayers.push(layers)
+                    resolve();
+                }
+
+            });
+        })
+
+        Promise.all(requests).then(() => callback(layerService.resolvedLayers));
     }
 
     /*
@@ -144,8 +150,6 @@ export class LayersService {
      */
     add(layer) {
         this.layers.push(layer);
-
-        console.log(this.layers);
     }
 }
 

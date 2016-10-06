@@ -31,10 +31,6 @@ export class MapService {
         this.center = [599042.5342280008,185035.77279221092];
         this.zoom = this.config.zoom.default;
 
-        Layers.get().forEach(function (layer) {
-            ngeoDecorateLayer(layer);
-        });
-
         // projection
         this.projection = this.ol.proj.get(self.config.projection.epsg);
 
@@ -46,7 +42,6 @@ export class MapService {
         });
 
         this.map = new this.ol.Map({
-            layers: Layers.get(),
             view: this.view
         });
 
@@ -122,6 +117,27 @@ export class MapService {
             accuracyFeatureStyle: accuracyFeatureStyle,
             zoom: this.config.zoom.zoomedIn,
         };
+
+
+        // async layers
+        /*Layers.get().forEach(function (layer) {
+            if (layer instanceof Promise) {
+                layer.then(function (value) {
+                    ngeoDecorateLayer(value);
+                    self.map.addLayer(value);
+                });
+            } else {
+                ngeoDecorateLayer(layer);
+                self.map.addLayer(layer);
+            }
+        });*/
+
+        Layers.get(function(layers) {
+            layers.forEach(function(layer) {
+                ngeoDecorateLayer(layer);
+                self.map.addLayer(layer);
+            });
+        });
     }
 
     click(coordinates) {
@@ -277,7 +293,7 @@ export class MapService {
 
     get() {
         return this.map;
-}
+    }
 
     getView() {
         return this.map.getView();
