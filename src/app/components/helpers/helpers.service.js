@@ -1,20 +1,24 @@
 export class HelpersService {
     constructor() {
         'ngInject';
+
+        this.menuStatus = false;
     }
 
     closeMenu() {
-        /*
-         todo new-menu
-         if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'true')
-            $('#menuLeftSlider').foundation('toggle');*/
+        this.menuStatus = false;
     }
 
     openMenu() {
-        /*
-          todo new-menu
-          if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'false')
-            $('#menuLeftSlider').foundation('toggle');*/
+        this.menuStatus = true;
+    }
+
+    toggleMenu() {
+        this.menuStatus = !this.menuStatus;
+    }
+
+    getMenuStatus() {
+        return this.menuStatus;
     }
 
     getParameterByName(name, url) {

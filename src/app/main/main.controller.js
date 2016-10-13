@@ -38,6 +38,14 @@ export class MainController {
         return langKey == this.$translate.use();
     }
 
+    getMenuStatus() {
+        return this.Helpers.getMenuStatus();
+    }
+
+    toggleMenu() {
+        return this.Helpers.toggleMenu();
+    }
+
     toggleRestriction() {
         this.isRestrictionOpen = !this.isRestrictionOpen;
 

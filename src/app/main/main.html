@@ -15,7 +15,8 @@
                       <!-- [bs][todo] Wie könnte man den Link so formulieren, dass quasi eine Default-Ansicht generiert würde (ein Home ohne geladenes Grundstück)? Also: man klickt auf Home und es gibt einen Reset.
                       -->
                         <div class="menu-nav">
-                            <button id="buttonShowExtract" data-toggle="menuLeftSlider" aria-controls="menuLeftSlider"
+                            <button id="buttonShowExtract" aria-controls="menuLeftSlider"
+                                    ng-click="main.toggleMenu()"
                                     class="button svg-icon btnOpenMenu">
                                 <svg class="icon icon-menu">
                                     <use xlink:href="#icon-menu"></use>
