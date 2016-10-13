@@ -15,9 +15,8 @@ export function MapDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class MapController {
-    constructor(Layers, $log, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates) {
+    constructor(Layers, $log, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates, Notification) {
         'ngInject';
-
 
         this.$window = $window;
         this.$log = $log;
@@ -28,6 +27,7 @@ class MapController {
         this.Map = Map;
         this.Helpers = Helpers;
         this.Coordinates = Coordinates;
+        this.Notification = Notification;
 
         var self = this;
 
@@ -70,10 +70,15 @@ class MapController {
 
             self.selectedPoint = [];
             self.infoboxLoading = true;
-            self.Oereb.getEGRID(coordinates).then(function (d) {
-                self.selectedPoint = d.data;
-                self.infoboxLoading = false;
-            });
+            self.Oereb.getEGRID(coordinates).then(
+                function (d) {
+                    self.selectedPoint = d.data;
+                    self.infoboxLoading = false;
+                },
+                function(data) {
+                    self.Notification.error('In diesem ÖREB Kataster sind keine Informationen zu diesem Grundstück vorhanden.');
+                }
+            );
 
             self.Oereb.getDataFromWFS(coordinates).then(function (d) {
                 self.drawByWFS(d);
@@ -122,6 +127,10 @@ class MapController {
     getPoslistFromWFS(d) {
         var posList = [];
         angular.forEach(d.data, function (data) {
+
+            if (angular.isUndefined(data))
+                return;
+
             var cPosList = data.DIPANU_DIPANUF.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
             cPosList = cPosList.toString().split(" ");
             angular.extend(posList, cPosList);

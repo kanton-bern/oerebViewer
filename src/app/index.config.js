@@ -1,15 +1,7 @@
-export function config($logProvider, toastrConfig, $translateProvider, localStorageServiceProvider) {
+export function config($logProvider, $translateProvider, localStorageServiceProvider, NotificationProvider) {
     'ngInject';
-    // Enable log
+    // enable log
     $logProvider.debugEnabled(true);
-
-    // Set options third-party lib
-    toastrConfig.allowHtml = true;
-    toastrConfig.timeOut = 3000;
-    toastrConfig.positionClass = 'toast-top-right';
-    toastrConfig.preventDuplicates = true;
-    toastrConfig.progressBar = true;
-
 
     // language
     $translateProvider.useStaticFilesLoader({
@@ -23,4 +15,15 @@ export function config($logProvider, toastrConfig, $translateProvider, localStor
     // storage configuration
     localStorageServiceProvider.setPrefix('oerebApp');
     localStorageServiceProvider.setStorageType('localStorage');
+
+    // notification configuration
+    NotificationProvider.setOptions({
+        delay: 10000,
+        startTop: 20,
+        startRight: 10,
+        verticalSpacing: 20,
+        horizontalSpacing: 20,
+        positionX: 'right',
+        positionY: 'top'
+    });
 }
