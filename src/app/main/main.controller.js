@@ -21,7 +21,6 @@ export class MainController {
         });
 
         this.history = Extracts.get();
-
     }
 
     setCurrentExtract(egrid) {
@@ -36,10 +35,6 @@ export class MainController {
 
     isCurrentLanguage(langKey) {
         return langKey == this.$translate.use();
-    }
-
-    getMenuStatus() {
-        return this.Helpers.getMenuStatus();
     }
 
     toggleMenu() {

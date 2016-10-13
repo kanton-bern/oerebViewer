@@ -3,18 +3,24 @@ export class HelpersService {
         'ngInject';
 
         this.menuStatus = false;
+        this.menuStatusObserver = [];
     }
 
     closeMenu() {
         this.menuStatus = false;
+        this.notifyMenuStatusObservers();
     }
 
     openMenu() {
         this.menuStatus = true;
+        this.notifyMenuStatusObservers();
     }
 
     toggleMenu() {
-        this.menuStatus = !this.menuStatus;
+        if (this.menuStatus)
+            this.closeMenu();
+        else
+            this.openMenu();
     }
 
     getMenuStatus() {
@@ -35,9 +41,18 @@ export class HelpersService {
         var parts = bbox.split(',');
 
         return [
-            (parseFloat(parts[0])+parseFloat(parts[2]))/2,
+            (parseFloat(parts[0])+parseFloat (parts[2]))/2,
             (parseFloat(parts[1])+parseFloat(parts[3]))/2
         ];
     }
 
+    registerMenuStatusObserver(callback) {
+        this.menuStatusObserver.push(callback);
+    }
+
+    notifyMenuStatusObservers() {
+        angular.forEach(this.menuStatusObserver, function (callback) {
+            callback();
+        });
+    }
 }

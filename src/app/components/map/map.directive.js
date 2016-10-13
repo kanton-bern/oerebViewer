@@ -15,7 +15,7 @@ export function MapDirective() {
 // use: WGS84 bzw. EPSG:4326
 
 class MapController {
-    constructor(Layers, $log, $scope, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates) {
+    constructor(Layers, $log, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates) {
         'ngInject';
 
 
@@ -34,11 +34,18 @@ class MapController {
         // adds observer for clicks on the map
         Map.registerClickObserver(function(coordinates) {
 
+            // close menu
+            var menuStatus = self.Helpers.getMenuStatus();
+
+            if (menuStatus)
+                self.Helpers.closeMenu();
+
+
             // close map
             self.Map.closeSearch();
 
             // if zoom is smaller than 12 don't add an infobox
-            if (self.Map.getView().getZoom() < 12) {
+            if (self.Map.getView().getZoom() < 12 || menuStatus) {
                 return;
             }
 

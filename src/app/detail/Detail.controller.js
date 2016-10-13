@@ -1,5 +1,5 @@
 export class DetailController {
-    constructor($log, $translate, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates) {
+    constructor($log, $translate, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, $rootScope) {
         'ngInject';
 
         let self = this;
@@ -8,6 +8,16 @@ export class DetailController {
         this.Map = Map;
         this.Layers = Layers;
         this.Coordinates = Coordinates;
+        this.Helpers = Helpers;
+        this.$scope = $scope;
+
+        Helpers.registerMenuStatusObserver(function() {
+            self.menuStatus = self.Helpers.getMenuStatus();
+
+            if(!self.$scope.$$phase) {
+                self.$scope.$apply();
+            }
+        });
 
         this.noDatas = true;
         if ($stateParams.egrid == 0) {
@@ -18,6 +28,7 @@ export class DetailController {
 
         // triggers restriction changed at startup
         this.restrictionChanged(false);
+
 
         // if location searchpath is changed, restrictionchanges
         $scope.$on('$locationChangeSuccess', function () {
