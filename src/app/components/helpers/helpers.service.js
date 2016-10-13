@@ -7,11 +7,13 @@ export class HelpersService {
     }
 
     closeMenu() {
+        console.log('closed');
         this.menuStatus = false;
         this.notifyMenuStatusObservers();
     }
 
     openMenu() {
+        console.log('opened');
         this.menuStatus = true;
         this.notifyMenuStatusObservers();
     }

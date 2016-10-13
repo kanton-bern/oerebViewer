@@ -167,7 +167,7 @@ export class ExtractsService {
         });
 
         if (!result)
-            this.Notification.success('{{"notification_nothemeavailable" | translate }}');
+            this.Notification.warning('{{"notification_nothemeavailable" | translate }}');
 
         return result;
     }

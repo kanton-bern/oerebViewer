@@ -20,7 +20,7 @@ import { SearchSwisstopoDirective } from '../app/components/search/searchSwissto
 import { BackgroundImageDirective } from '../app/components/backgroundImage/backgroundImage.directive';
 import { AutofocusDirective } from '../app/components/autofocus/autofocus.directive';
 
-angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
+angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
 
     .config(config)

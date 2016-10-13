@@ -25,10 +25,10 @@
                             <span>Hauptmenü</span>
                         </div>
                         <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
-                          <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
+                            <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
                         </div>
                         <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
-                          <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
+                            <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
                         </div>
                         <a href="/#" title="Zum Eingang" class="mainlogo">
                             <p><span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span></p>
@@ -45,8 +45,6 @@
 
                     </div>
                 </div>
-
-                <restriction class="animated pulse" ng-show="main.extract.restrictionLength > 0" ng-class="{'opened animated slideInUp': main.isRestrictionOpen}"></restriction>
 
                 <!-- *********** START CONTENT PAGE SECTIONS *********** -->
                 <!-- CONTENT: Impressum -->

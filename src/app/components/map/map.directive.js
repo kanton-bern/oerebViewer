@@ -101,7 +101,7 @@ class MapController {
             });
 
 
-            Helpers.openMenu();
+            // Helpers.openMenu();
 
         });
 
