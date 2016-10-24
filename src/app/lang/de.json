@@ -44,6 +44,8 @@
   "detailMissingRestrictions": " Nicht vorhandene ÖREB-Themen",
   "detailPropertyHistory": "Letzte betrachtete Grundstücke",
   "detailProperty": "Grundstück",
+  "detailLinkRealEstate": "Link auf Liegenschaft Nr.",
+  "detailCommunity": "Gemeinde",
   "restrictionConcernedKey": "Legende beteiligter Objekte",
   "restrictionLegalProvision": "Rechtsvorschrift",
   "restrictionAuthority": "Zuständige Stelle",

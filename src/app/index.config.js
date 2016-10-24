@@ -19,11 +19,12 @@ export function config($logProvider, $translateProvider, localStorageServiceProv
     // notification configuration
     NotificationProvider.setOptions({
         delay: 10000,
-        startTop: 20,
-        startRight: 10,
+        startTop: 0,
+        startRight: 0,
         verticalSpacing: 20,
         horizontalSpacing: 20,
         positionX: 'right',
-        positionY: 'top'
+        positionY: 'top',
+        templateUrl: 'app/ui-notification.html'
     });
 }

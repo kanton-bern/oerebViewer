@@ -11,7 +11,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
         .state('home.detail', {
             url: 'd/:egrid?restriction',
             params: {
-                egrid: '',
+                egrid: ''
             },
             reloadOnSearch: false,
             templateUrl: 'app/detail/detail.html',

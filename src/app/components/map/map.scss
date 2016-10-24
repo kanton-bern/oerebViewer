@@ -20,13 +20,16 @@
     border-bottom: 1px solid $colorWhite;
     @include fontNormal;
   }
+
+  .clickable {
+    cursor: pointer;
+    color: white;
+    @include underline_mix(1px,2px,$colorDarkGrey,$colorWhite);
+  }
+
+
 }
 
-.clickable {
-  cursor: pointer;
-  color: white;
-  @include underline_mix(1px,2px,$colorDarkGrey,$colorWhite);
-}
 
 .hidden {
   display: none !important;
