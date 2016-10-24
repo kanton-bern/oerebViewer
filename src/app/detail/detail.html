@@ -1,5 +1,31 @@
-<aside id="menuLeftSlider" data-toggler data-animate="slide-in-left slide-out-left"
-       class="position-left ease-in-out">
+<aside id="menuLeftSlider" class="ease-in-out position-left" ng-class="{'active-menu': detail.menuStatus}">
+
+    <!-- add `multiple` attribute to allow multiple sections to open at once -->
+    <v-accordion class="vAccordion--default" multiple>
+
+        <!-- add expanded attribute to open the section -->
+        <v-pane expanded>
+            <v-pane-header>
+                Pane header #1
+            </v-pane-header>
+
+            <v-pane-content>
+                Pane content #1
+            </v-pane-content>
+        </v-pane>
+
+        <v-pane>
+            <v-pane-header>
+                Pane header #2
+            </v-pane-header>
+
+            <v-pane-content>
+                Pane content #2
+            </v-pane-content>
+        </v-pane>
+
+    </v-accordion>
+
 
     <nav id="mainNav" class="mainnav mobile clearfix">
         <div class="row top-menu">

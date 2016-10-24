@@ -56,6 +56,8 @@ export class MapService {
                 self.Layers.hide('oereb');
             }
 
+            // self.Helpers.closeMenu();
+
             console.log(view.getZoom() + ' ' + view.getCenter());
 
             return true;

@@ -12,5 +12,5 @@ if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
 $(window).on('load resize', function() {
         // Create breakpoint body.class
         // https://github.com/zurb/foundation/issues/5139
-        console.log(Foundation.MediaQuery.current);
+        //console.log(Foundation.MediaQuery.current);
 });

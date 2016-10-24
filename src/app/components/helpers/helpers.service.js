@@ -1,16 +1,32 @@
 export class HelpersService {
     constructor() {
         'ngInject';
+
+        this.menuStatus = false;
+        this.menuStatusObserver = [];
     }
 
     closeMenu() {
-        if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'true')
-            $('#menuLeftSlider').foundation('toggle');
+        console.log('closed');
+        this.menuStatus = false;
+        this.notifyMenuStatusObservers();
     }
 
     openMenu() {
-        if (angular.element('#menuLeftSlider').attr('aria-expanded') == 'false')
-            $('#menuLeftSlider').foundation('toggle');
+        console.log('opened');
+        this.menuStatus = true;
+        this.notifyMenuStatusObservers();
+    }
+
+    toggleMenu() {
+        if (this.menuStatus)
+            this.closeMenu();
+        else
+            this.openMenu();
+    }
+
+    getMenuStatus() {
+        return this.menuStatus;
     }
 
     getParameterByName(name, url) {
@@ -27,9 +43,18 @@ export class HelpersService {
         var parts = bbox.split(',');
 
         return [
-            (parseFloat(parts[0])+parseFloat(parts[2]))/2,
+            (parseFloat(parts[0])+parseFloat (parts[2]))/2,
             (parseFloat(parts[1])+parseFloat(parts[3]))/2
         ];
     }
 
+    registerMenuStatusObserver(callback) {
+        this.menuStatusObserver.push(callback);
+    }
+
+    notifyMenuStatusObservers() {
+        angular.forEach(this.menuStatusObserver, function (callback) {
+            callback();
+        });
+    }
 }

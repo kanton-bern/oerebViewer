@@ -8,7 +8,8 @@ export class MainController {
         this.Helpers = Helpers;
         this.visibleContent = 'main';
 
-        angular.element(document).foundation();
+        // todo new-menu
+        // angular.element(document).foundation();
 
         var mainCtrl = this;
 
@@ -20,7 +21,6 @@ export class MainController {
         });
 
         this.history = Extracts.get();
-
     }
 
     setCurrentExtract(egrid) {
@@ -35,6 +35,10 @@ export class MainController {
 
     isCurrentLanguage(langKey) {
         return langKey == this.$translate.use();
+    }
+
+    toggleMenu() {
+        return this.Helpers.toggleMenu();
     }
 
     toggleRestriction() {

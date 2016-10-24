@@ -14,36 +14,26 @@
                     <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
                       <!-- [bs][todo] Wie könnte man den Link so formulieren, dass quasi eine Default-Ansicht generiert würde (ein Home ohne geladenes Grundstück)? Also: man klickt auf Home und es gibt einen Reset.
                       -->
-                        <a href="/#" title="Zum Eingang" class="mainlogo">
-                            <img src="/assets/images/logo_dot_oereb.svg" title="OEREB Logo">
-                            <p>
-                                <span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span>
-                            </p>
-                        </a>
                         <div class="menu-nav">
-                            <button id="buttonShowExtract" data-toggle="menuLeftSlider" aria-controls="menuLeftSlider"
+                            <button id="buttonShowExtract" aria-controls="menuLeftSlider"
+                                    ng-click="main.toggleMenu()"
                                     class="button svg-icon btnOpenMenu">
                                 <svg class="icon icon-menu">
                                     <use xlink:href="#icon-menu"></use>
                                 </svg>
                             </button>
+                            <span>Hauptmenü</span>
                         </div>
                         <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
-                          <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
+                            <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
                         </div>
                         <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
-                          <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
+                            <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
                         </div>
-                        <div class="header-logo">
-                          <div ng-if="main.extract.data.MunicipalityLogo" style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
-                               class="logo-gemeinde"></div>
-                          <div ng-if="!main.extract.data.MunicipalityLogo" style="background-image:url('/assets/images/gde_dummy.png')"
-                                    class="logo-gemeinde"></div>
-                          <div style="background-image:url('/assets/images/kanton_be.png')"
-                               class="logo-kanton"></div>
-                          <div style="background-image:url('/assets/images/bund_wappen.png')"
-                               class="logo-bund"></div>
-                        </div>
+                        <a href="/#" title="Zum Eingang" class="mainlogo">
+                            <p><span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span></p>
+                        </a>
+
                     </div>
                 </div>
             </header>
@@ -56,14 +46,32 @@
                     </div>
                 </div>
 
-                <restriction class="animated pulse" ng-show="main.extract.restrictionLength > 0" ng-class="{'opened animated slideInUp': main.isRestrictionOpen}"></restriction>
-
                 <!-- *********** START CONTENT PAGE SECTIONS *********** -->
                 <!-- CONTENT: Impressum -->
                 <section class="contentpage contentimpressum" ng-class="{'current': main.visibleContent == 'imprint'}">
                   <div class="row">
                     <div class="columns small-12">
                       <h1>Impressum und Rechtliches (<a ng-click="main.showMain()">Close</a>)</h1>
+                      <p>An diesem Auszug sind beteiligt:</p>
+                      <div class="partner-logo">
+                        <div style="background-image:url('/assets/images/bund_wappen.png')"
+                             class="logo-bund">
+
+                           </div><p class="clearfix">{{"bundText" | translate}}</p>
+                        <div style="background-image:url('/assets/images/kanton_be.png')"
+                                  class="logo-kanton">
+
+                        </div><p class="clearfix">{{"kantonText" | translate}}</p>
+
+                       <div ng-if="main.extract.data.MunicipalityLogo" style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
+                            class="logo-gemeinde">
+
+                          </div><p class="clearfix">{{main.extract.data.RealEstate.Municipality}}</p>
+                       <div ng-if="!main.extract.data.MunicipalityLogo" style="background-image:url('/assets/images/gde_dummy.png')"
+                                 class="logo-gemeinde">
+
+                       </div><p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">Es ist kein aktiver Auszug geladen, deshalb fehlt die Gemeinde.</p>
+                      </div>
                       <h2>Impressum</h2>
                       <h3>Inhaltliche Verantwortung</h3>
                       <address>
@@ -130,7 +138,7 @@
             </article>
             <footer class="footer"></footer>
 
-            <notifications></notifications>
+            <!--<notifications></notifications>-->
 
             <loading></loading>
         </div>

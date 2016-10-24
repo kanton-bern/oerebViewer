@@ -1,14 +1,15 @@
 export class ExtractsService {
-    constructor($log, $location, Loading, Oereb, Notifications, localStorageService, Helpers) {
+    constructor($log, $location, Loading, Oereb, Notification, localStorageService, Helpers, $filter) {
 
         'ngInject';
 
         this.$log = $log;
+        this.$filter = $filter;
         this.Helpers = Helpers;
         this.$location = $location;
         this.Loading = Loading;
         this.Oereb = Oereb;
-        this.Notifications = Notifications;
+        this.Notification = Notification;
         this.localStorageService = localStorageService;
 
         this.extracts = [];
@@ -55,22 +56,17 @@ export class ExtractsService {
 
             self.Loading.hide();
 
-            self.Notifications.add({
-                message: '{{ "notification_loadsuccess1" | translate }} ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ')' + ' {{ "notification_loadsuccess2" | translate}}',
-                type: 'success'
-            });
+            var loadSuccess1 = self.$filter('translate')('notification_loadsuccess1');
+            var loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
 
-            // Notification success fade out after 3 seconds
-            setTimeout(function(){
-                $('.notification-wrapper .success .notification-close').click();
-            }, 3000);
-
+            self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
 
         }).catch(function () {
-            self.Notifications.add({
-                message: '{{ "notification_failed1" | translate}} '  + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ')' + ' {{"notification_failed2" | translate }}',
-                type: 'alert'
-            });
+
+            var loadFailed1 = self.$filter('translate')('notification_failed1');
+            var loadFailed2 = self.$filter('translate')('notification_failed2');
+
+            self.Notification.error(loadFailed1 + ' '  + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
             self.Loading.hide();
         });
     }
@@ -171,10 +167,7 @@ export class ExtractsService {
         });
 
         if (!result)
-            this.Notifications.add({
-                message: '{{"notification_nothemeavailable" | translate }}',
-                type: 'warning',
-            });
+            this.Notification.warning('{{"notification_nothemeavailable" | translate }}');
 
         return result;
     }

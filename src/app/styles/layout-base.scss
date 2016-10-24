@@ -149,33 +149,6 @@ body {
     }
   }
 
-  // Logos im header
-  .header-logo {
-    position:absolute;
-    right:5%;
-    top:5px;
-
-    // Logos in header
-    .logo-bund, .logo-kanton, .logo-gemeinde {
-      display:inline-block;
-      width:35px;
-      height:35px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-color: $colorMenuBgnd;
-      margin-right:10px;
-      float:right;
-
-
-    }
-    .logo-bund {
-      height:30px;
-      width:30px;
-    }
-
-  }
-
 }
 
 // Start Mainmenu / theme list
@@ -671,6 +644,33 @@ body {
   // ordinary content pages
   .contentpage {
     display:none;
+    background-color: $colorMenuBgnd;
+
+    // Logos im header
+    .partner-logo {
+
+      // Logos in header
+      .logo-bund, .logo-kanton, .logo-gemeinde {
+        display:block;
+        float:left;
+        width:50px;
+        height:50px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-color: $colorMenuBgnd;
+        margin-bottom:20px;
+        margin-right:20px;
+
+      }
+      p {
+        display:block;
+        margin-left:20px;
+      }
+
+    }
+
+
     &.current {
       display:block;
     }
