@@ -19,7 +19,7 @@ export class MapService {
         this.config = {
             zoom: {
 
-                default: 4,
+                default: 6,
                 zoomedIn: 13
             },
             projection: {
@@ -38,11 +38,12 @@ export class MapService {
         this.view = new this.ol.View({
             center: self.center,
             zoom: self.zoom,
-            projection: this.projection
+            projection: this.projection,
+            minZoom: 4
         });
 
         this.map = new this.ol.Map({
-            view: this.view
+            view: this.view,
         });
 
 
