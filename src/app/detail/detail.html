@@ -1,32 +1,5 @@
 <aside id="menuLeftSlider" class="ease-in-out position-left" ng-class="{'active-menu': detail.menuStatus}">
 
-    <!-- add `multiple` attribute to allow multiple sections to open at once -->
-    <v-accordion class="vAccordion--default" multiple>
-
-        <!-- add expanded attribute to open the section -->
-        <v-pane expanded>
-            <v-pane-header>
-                Pane header #1
-            </v-pane-header>
-
-            <v-pane-content>
-                Pane content #1
-            </v-pane-content>
-        </v-pane>
-
-        <v-pane>
-            <v-pane-header>
-                Pane header #2
-            </v-pane-header>
-
-            <v-pane-content>
-                Pane content #2
-            </v-pane-content>
-        </v-pane>
-
-    </v-accordion>
-
-
     <nav id="mainNav" class="mainnav mobile clearfix">
         <div class="row top-menu">
             <div class="small-9 lang-selector">
@@ -43,194 +16,197 @@
                 </span>
             </div>
         </div>
-        <ul data-accordion-menu class="menu vertical">
+
+
+
+        <div class="menu vertical">
 
             <div ng-class="{'hidden': detail.noDatas}" class="no-property">
                 <p class="hint">{{ 'no_property_loaded' | translate }}</p>
             </div>
+
             <h1>{{"mainTitle" | translate}}</h1>
-            <li ng-class="{'hidden': !detail.noDatas}" class="top-item accordion-navigation">
-                <a href="">
-                    <button class="button submenu svg-icon">
-                        <svg class="icon icon-plus">
-                            <use xlink:href="#icon-plus"></use>
-                        </svg>
-                        <svg class="icon icon-minus">
-                            <use xlink:href="#icon-minus"></use>
-                        </svg>
-                    </button>
 
-                    <p class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}}
-                        ({{main.extract.data.RealEstate.Municipality}})</p>
-                    <ul class="menu vertical nested">
-                        <li>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailEGRID" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.egrid}}</div>
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailCommunityBFS" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Municipality}}
-                                    ({{main.extract.data.RealEstate.FosNr}})
-                                </div>
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitofLandRegister}}
-                                </div>
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}}
-                                    m<sup>2</sup></div>
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailExtractIdentifier" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
+            <v-accordion class="vAccordion--default">
 
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailExtractDate" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">{{main.extract.data.CreationDate | date:'dd.MM.yyyy
-                                    HH:mm:ss'}}
-                                </div>
-                            </div>
-                            <div class="row property-info">
-                                <div class="medium-4 oereb-label">{{"detailResponsible" | translate}}</div>
-                                <div class="medium-1"></div>
-                                <div class="medium-7 oereb-value">
-                                    {{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}},
-                                    {{main.extract.data.PLRCadastreAuthority.Street}}&nbsp;{{main.extract.data.PLRCadastreAuthority.Number}},
-                                    {{main.extract.data.PLRCadastreAuthority.PostalCode}}&nbsp;{{main.extract.data.PLRCadastreAuthority.City}}
-                                </div>
-                            </div>
-                            <div class="row more-info clearfix pdf-download">
-                                <div class="small-12">
-                                    <svg class="icon icon-file">
-                                        <use xlink:href="#icon-file"></use>
-                                    </svg>
-                                    <a class="external-link"
-                                       href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
-                                       title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}
-                                        ({{"detailDownloadPDFExt" | translate}})</a>
-                                </div>
-                            </div>
-                            <div class="row more-info clearfix">
-                                <div class="small-12">
-                                    <svg class="icon icon-map">
-                                        <use xlink:href="#icon-map"></use>
-                                    </svg>
-                                    <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap"
-                                        | translate}}</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </a>
-            </li>
+                <!-- General Information -->
+                <v-pane expanded>
+                    <v-pane-header>
+                        <p class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}}
+                            ({{main.extract.data.RealEstate.Municipality}})
+                        </p>
+                    </v-pane-header>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
-                <button class="button submenu svg-icon">
-                    <svg class="icon icon-plus">
-                        <use xlink:href="#icon-plus"></use>
-                    </svg>
-                    <svg class="icon icon-minus">
-                        <use xlink:href="#icon-minus"></use>
-                    </svg>
-                </button>
-                {{"detailConcernedThemes1" | translate}}{{main.extract.data.RealEstate.Number}}
-                {{"detailConcernedThemes2" |
-                translate}} {{main.extract.data.RealEstate.Municipality}} {{"detailConcernedThemes3" | translate}}</a>
-                <ul class="menu vertical nested is-active">
-                    <li ng-repeat="theme in main.extract.themes track by $index">
-                        <a ui-sref="home.detail({restriction: theme.Code})">{{theme.Name}}
-                            <span ng-class="{'current': detail.isRestrictionActive(theme.Code)}"
-                                  class="badge float-right">&nbsp;</span>
-                        </a>
-                    </li>
-                </ul>
-                </a>
-            </li>
+                    <v-pane-content>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailEGRID" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.egrid}}</div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailCommunityBFS" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Municipality}}
+                                ({{main.extract.data.RealEstate.FosNr}})
+                            </div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitofLandRegister}}
+                            </div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}}
+                                m<sup>2</sup></div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailExtractIdentifier" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
-                <button class="button submenu svg-icon">
-                    <svg class="icon icon-plus">
-                        <use xlink:href="#icon-plus"></use>
-                    </svg>
-                    <svg class="icon icon-minus">
-                        <use xlink:href="#icon-minus"></use>
-                    </svg>
-                </button>
-                {{"detailNoRestrictions" | translate}}</a>
-                <ul class="menu vertical nested">
-                    <li ng-repeat="theme in main.extract.ncthemes track by $index">
-                        {{theme.Name}}
-                    </li>
-                </ul>
-                </a>
-            </li>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailExtractDate" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
+                            </div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailResponsible" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">
+                                {{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}},
+                                {{main.extract.data.PLRCadastreAuthority.Street}}&nbsp;{{main.extract.data.PLRCadastreAuthority.Number}},
+                                {{main.extract.data.PLRCadastreAuthority.PostalCode}}&nbsp;{{main.extract.data.PLRCadastreAuthority.City}}
+                            </div>
+                        </div>
+                        <div class="row more-info clearfix pdf-download">
+                            <div class="small-12">
+                                <svg class="icon icon-file">
+                                    <use xlink:href="#icon-file"></use>
+                                </svg>
+                                <a class="external-link"
+                                   href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
+                                   title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}
+                                    ({{"detailDownloadPDFExt" | translate}})</a>
+                            </div>
+                        </div>
+                        <div class="row more-info clearfix">
+                            <div class="small-12">
+                                <svg class="icon icon-map">
+                                    <use xlink:href="#icon-map"></use>
+                                </svg>
+                                <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap"
+                                    | translate}}</a>
+                            </div>
+                        </div>
+                    </v-pane-content>
+                </v-pane>
+                <!-- / General Information -->
 
-            <li ng-class="{'hidden': !detail.noDatas}" class="accordion-navigation"><a href="">
-                <button class="button submenu svg-icon">
-                    <svg class="icon icon-plus">
-                        <use xlink:href="#icon-plus"></use>
-                    </svg>
-                    <svg class="icon icon-minus">
-                        <use xlink:href="#icon-minus"></use>
-                    </svg>
-                </button>
-                {{"detailMissingRestrictions" | translate}}</a>
-                <ul class="menu vertical nested">
-                    <li ng-repeat="theme in main.extract.wdthemes track by $index">
-                        {{theme.Name}}
-                    </li>
-                </ul>
-                </a>
-            </li>
-            <li ng-class="{'hidden': !main.history.length}" class="accordion-navigation history-item"><a href="">
-                <button class="button submenu svg-icon">
-                    <svg class="icon icon-plus">
-                        <use xlink:href="#icon-plus"></use>
-                    </svg>
-                    <svg class="icon icon-minus">
-                        <use xlink:href="#icon-minus"></use>
-                    </svg>
-                </button>
-                {{"detailPropertyHistory" | translate}} <span class="secondary badge">{{main.history.length}}</span></a>
-                <ul class="menu vertical-nested">
-                    <li ng-repeat="hextract in main.history track by $index">
-                        <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
-                           title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}">
-                            <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}"
-                                 class="logo-gemeinde"></div>
-                            Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde
-                            {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span
-                                class="history-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</span>
-                        </a>
-                    </li>
 
-                    <li><a href="#" class="copy-clipboard">
-                        <svg class="icon icon-inbox listicon">
-                            <use xlink:href="#icon-inbox"></use>
-                        </svg>
-                        Grundstücke in die Zwischenablage kopieren</a></li>
-                </ul>
-                </a>
-            </li>
-            <li><a ng-click="main.showThemes()">Themenbereiche</a></li>
-            <li><a ng-click="main.showGlossary()">Glossar</a></li>
-            <li><a ng-click="main.showImprint()">Rechtliches und Impressum</a></li>
-        </ul>
+                <!-- Restrictions -->
+                <v-pane>
+                    <v-pane-header>
+                        {{"detailConcernedThemes1" | translate}}{{main.extract.data.RealEstate.Number}}
+                        {{"detailConcernedThemes2" |
+                        translate}} {{main.extract.data.RealEstate.Municipality}} {{"detailConcernedThemes3" | translate}}
+                    </v-pane-header>
+
+                    <v-pane-content>
+                        <!-- nested accordion -->
+                        <v-accordion>
+                            <v-pane ng-repeat="theme in main.extract.themes track by $index">
+                                <v-pane-header>
+                                    {{ ::theme.Name }}
+                                </v-pane-header>
+                                <v-pane-content>
+                                    {{ ::theme.Code }}
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
+
+
+                    </v-pane-content>
+                </v-pane>
+                <!-- / Restrictions -->
+
+
+                <!-- NoRestrictions -->
+                <v-pane>
+                    <v-pane-header>
+                        {{"detailNoRestrictions" | translate}}
+                    </v-pane-header>
+
+                    <v-pane-content>
+                        <!-- nested accordion -->
+                        <ul>
+                            <li ng-repeat="theme in main.extract.ncthemes track by $index">
+                                {{ ::theme.Name }}
+                            </li>
+                        </ul>
+                    </v-pane-content>
+                </v-pane>
+                <!-- / NoRestrictions -->
+
+                <!-- Missing Restrictions -->
+                <v-pane>
+                    <v-pane-header>
+                        {{"detailMissingRestrictions" | translate}}
+                    </v-pane-header>
+
+                    <v-pane-content>
+                        <!-- nested accordion -->
+                        <ul>
+                            <li ng-repeat="theme in main.extract.wdthemes track by $index">
+                                {{ ::theme.Name }}
+                            </li>
+                        </ul>
+                    </v-pane-content>
+                </v-pane>
+                <!-- / Missing Restrictions -->
+
+
+                <!-- History -->
+                <v-pane>
+                    <v-pane-header>
+                        {{"detailPropertyHistory" | translate}} <span class="secondary badge">{{main.history.length}}</span>
+                    </v-pane-header>
+
+                    <v-pane-content>
+                        <!-- nested accordion -->
+                        <ul>
+                            <li ng-repeat="hextract in main.history track by $index">
+                                <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
+                                   title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}">
+                                    <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
+                                    Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})
+                                    <span class="history-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </v-pane-content>
+                </v-pane>
+                <!-- / History -->
+
+
+            </v-accordion>
+
+
+            <ul>
+                <li><a ng-click="main.showThemes()">Themenbereiche</a></li>
+                <li><a ng-click="main.showGlossary()">Glossar</a></li>
+                <li><a ng-click="main.showImprint()">Rechtliches und Impressum</a></li>
+            </ul>
+            
+        </div>
     </nav>
 </aside>
