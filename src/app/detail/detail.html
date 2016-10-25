@@ -124,12 +124,67 @@
                     <v-pane-content>
                         <!-- nested accordion -->
                         <v-accordion>
-                            <v-pane ng-repeat="theme in main.extract.themes track by $index">
+                            <v-pane ng-repeat="restriction in main.extract.restrictions track by $index">
                                 <v-pane-header>
-                                    {{ ::theme.Name }}
+                                    {{ ::restriction.name }}
                                 </v-pane-header>
                                 <v-pane-content>
-                                    {{ ::theme.Code }}
+
+                                    <div class="row theme-key">
+                                        <h3>{{"restrictionConcernedKey" | translate}}</h3>
+                                    </div>
+
+
+                                    <div ng-repeat="v in restriction.values" class="accordion-navigation">
+                                        <div class="row restriction-info">
+                                            <div class="small-1 oereb-label"><div class="legend-symbol" style="background-image:url('{{v.Symbol}}')"></div></div>
+                                            <div class="small-11 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
+                                            <div class="small-1 show-for-small-only"></div>
+                                            <div ng-if="v.TypeCodelist == 'Polygon'" class="small-11 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
+                                            <div ng-if="v.TypeCodelist == 'Polyline'" class="small-11 medium-4 oereb-area">{{v.Area}}m</div>
+                                            <div ng-if="v.TypeCodelist == 'Point'" class="small-11 medium-4 oereb-area">{{v.Area}} Anzahl</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row more-info">
+                                        <div class="small-12">
+                                            <svg class="icon icon-layers">
+                                                <use xlink:href="#icon-layers"></use>
+                                            </svg>
+                                            <a class="external-link" target="_blank" href="{{restriction.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{restriction.name}})</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
+                                    </div>
+                                    <div ng-repeat="v in restriction.values" class="accordion-navigation">
+                                        <div ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
+
+                                            <div class="small-12">
+                                                <svg class="icon icon-file">
+                                                    <use xlink:href="#icon-file"></use>
+                                                </svg>
+                                                <a class="external-link" target="_blank" href="{{document.TextAtWeb.LocalisedText.Text}}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
+                                    </div>
+                                    <div class="row more-info pdf-list">
+                                        <div class="small-12">
+                                            <svg class="icon icon-open">
+                                                <use xlink:href="#icon-open"></use>
+                                            </svg>
+                                            <a class="external-link" target="_blank" href="{{restriction.values[0].LegalProvisions[0].ResponsibleOffice.Name.LocalisedText.Text}}" title="Link">{{restriction.values[0].LegalProvisions[0].ResponsibleOffice.Name.LocalisedText.Text}}</a>
+                                        </div>
+                                    </div>
+
+
+
+
+
                                 </v-pane-content>
                             </v-pane>
                         </v-accordion>
@@ -189,7 +244,9 @@
                                    title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}">
                                     <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
                                     Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})
-                                    <span class="history-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</span>
+                                    <span class="history-date">
+                                        {{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
+                                    </span>
                                 </a>
                             </li>
                         </ul>
@@ -206,7 +263,7 @@
                 <li><a ng-click="main.showGlossary()">Glossar</a></li>
                 <li><a ng-click="main.showImprint()">Rechtliches und Impressum</a></li>
             </ul>
-            
+
         </div>
     </nav>
 </aside>
