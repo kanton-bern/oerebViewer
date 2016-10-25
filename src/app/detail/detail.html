@@ -27,7 +27,8 @@
 
             <h1>{{"mainTitle" | translate}}</h1>
 
-            <v-accordion class="vAccordion--default">
+
+            <v-accordion class="vAccordion--default" ng-if="!detail.noDatas">
 
                 <!-- General Information -->
                 <v-pane expanded>
@@ -122,8 +123,21 @@
                     </v-pane-header>
 
                     <v-pane-content>
-                        <!-- nested accordion -->
-                        <v-accordion>
+
+                        <!-- sometimes there are themes but no restrictions -->
+                        <ul ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length > 0">
+                            <li ng-repeat="theme in main.extract.themes track by $index">
+                                {{ ::theme.Name }}
+                            </li>
+                        </ul>
+
+                        <!-- neither restrictions nor themes -->
+                        <div ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length == 0">
+                            Keine Beschränkungen vorhanden.
+                        </div>
+
+                        <!-- if restrictions -->
+                        <v-accordion ng-if="main.extract.restrictions.length > 0">
                             <v-pane ng-repeat="restriction in main.extract.restrictions track by $index">
                                 <v-pane-header>
                                     {{ ::restriction.name }}
@@ -133,7 +147,6 @@
                                     <div class="row theme-key">
                                         <h3>{{"restrictionConcernedKey" | translate}}</h3>
                                     </div>
-
 
                                     <div ng-repeat="v in restriction.values" class="accordion-navigation">
                                         <div class="row restriction-info">
@@ -181,10 +194,6 @@
                                         </div>
                                     </div>
 
-
-
-
-
                                 </v-pane-content>
                             </v-pane>
                         </v-accordion>
@@ -230,6 +239,14 @@
                 <!-- / Missing Restrictions -->
 
 
+
+
+
+            </v-accordion>
+
+            <!-- Seperatly Accordion for history -->
+            <v-accordion class="vAccordion--default">
+
                 <!-- History -->
                 <v-pane>
                     <v-pane-header>
@@ -253,7 +270,6 @@
                     </v-pane-content>
                 </v-pane>
                 <!-- / History -->
-
 
             </v-accordion>
 

@@ -21,9 +21,10 @@ export class DetailController {
 
         this.noDatas = true;
         if ($stateParams.egrid == 0) {
-            this.noDatas = false;
+            this.noDatas = true;
         } else {
             this.addExtract($stateParams.egrid);
+            this.noDatas = false;
         }
 
         // triggers restriction changed at startup
