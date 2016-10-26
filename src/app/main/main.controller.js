@@ -1,7 +1,9 @@
 export class MainController {
-    constructor($log, $translate, Extracts, Helpers, Map) {
+    constructor($log, $translate, Extracts, Helpers, Map, $scope) {
         'ngInject';
 
+        var self = this;
+        this.$scope = $scope;
         this.$translate = $translate;
         this.Extracts = Extracts;
         this.Map = Map;
@@ -17,6 +19,14 @@ export class MainController {
             mainCtrl.history = Extracts.get().slice().reverse();
 
             console.log(mainCtrl.extract);
+        });
+
+        Helpers.registerMenuStatusObserver(function() {
+            self.menuStatus = self.Helpers.getMenuStatus();
+
+            if(!self.$scope.$$phase) {
+                self.$scope.$apply();
+            }
         });
 
         this.history = Extracts.get();

@@ -10,14 +10,7 @@ export class DetailController {
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
         this.$scope = $scope;
-
-        Helpers.registerMenuStatusObserver(function() {
-            self.menuStatus = self.Helpers.getMenuStatus();
-
-            if(!self.$scope.$$phase) {
-                self.$scope.$apply();
-            }
-        });
+        
 
         this.noDatas = true;
         if ($stateParams.egrid == 0) {
