@@ -10,7 +10,6 @@ export class MainController {
 
         // todo new-menu
         // angular.element(document).foundation();
-
         var mainCtrl = this;
 
         Extracts.registerCurrentObserverCallback(function() {

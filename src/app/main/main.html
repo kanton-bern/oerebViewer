@@ -2,6 +2,37 @@
   <a href="#mainContent" class="show-on-focus">{{ 'jump_content' | translate }}</a>
   <a href="#mainNav"  class="show-on-focus">{{ 'jump_menu' | translate }}</a>
 </p>
+<header class="header">
+    <div data-sticky-container class="header-sticky-container">
+        <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
+
+            <div class="menu-nav">
+                <button id="buttonShowExtract" aria-controls="menuLeftSlider"
+                        ng-click="main.toggleMenu()"
+                        ng-class="{'menu-open': main.menuStatus}"
+                        class="button svg-icon btnOpenMenu">
+                    <svg class="icon icon-menu">
+                        <use xlink:href="#icon-menu"></use>
+                    </svg>
+                </button>
+                <!-- [ts] habe ich auskommentiert - ist der text notwendig? @bs
+                [bs] Ja, leider. Es hat sich gezeigt, dass die wenigsten User wissen was ein Hamburger ist.
+              -->
+                <span>Hauptmenü</span>
+            </div>
+            <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
+                <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
+            </div>
+            <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
+                <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
+            </div>
+            <a href="/#" title="Zum Eingang" class="mainlogo">
+                <p><span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span></p>
+            </a>
+
+        </div>
+    </div>
+</header>
 <div id="site-container" class="site-wrapper">
     <div class="wrapper-inner">
 
@@ -9,35 +40,6 @@
 
 
         <div class="content-wrapper">
-            <header class="header">
-                <div data-sticky-container class="header-sticky-container">
-                    <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
-                      <!-- [bs][todo] Wie könnte man den Link so formulieren, dass quasi eine Default-Ansicht generiert würde (ein Home ohne geladenes Grundstück)? Also: man klickt auf Home und es gibt einen Reset.
-                      -->
-                        <div class="menu-nav">
-                            <button id="buttonShowExtract" aria-controls="menuLeftSlider"
-                                    ng-click="main.toggleMenu()"
-                                    class="button svg-icon btnOpenMenu">
-                                <svg class="icon icon-menu">
-                                    <use xlink:href="#icon-menu"></use>
-                                </svg>
-                            </button>
-                            <!-- [ts] habe ich auskommentiert - ist der text notwendig? @bs -->
-                            <!--<span>Hauptmenü</span>-->
-                        </div>
-                        <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
-                            <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
-                        </div>
-                        <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
-                            <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
-                        </div>
-                        <a href="/#" title="Zum Eingang" class="mainlogo">
-                            <p><span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span></p>
-                        </a>
-
-                    </div>
-                </div>
-            </header>
             <article class="article">
                 <div class="row">
                     <div class="small-12">

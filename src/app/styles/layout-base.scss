@@ -43,33 +43,26 @@ body {
   .position-left {
     padding-top:3em;
     position:absolute;
-    display:none;
     height:100vh;
-    width:75%;
+    left:-75vw;
+    width:75vw;
     max-width: 680px;
     z-index:5;
     overflow-y:auto;
     @include castShadowRight;
     background-color: $colorMenuTop;
+    transition: all ease 1s;
+
+    // Menu is open
+    &.active-menu {
+      transition: all ease 1s;
+      left:0px;
+    }
   }
 
-  // Bottom slider
-  .position-bottom {
-    @include castShadowTop;
-    width:100%;
-    height:100vh;
-    padding-top:0em;
-    top:calc(100% - 40px);
-    position:absolute;
-    background-color: $colorMenuBgnd;
-    z-index:4;
-  }
 
 }
 
-#themeBottomSlider {
-  z-index: 200;
-}
 
 // end left slider
 
@@ -142,7 +135,7 @@ body {
       width:1.2em;
     }
     p {
-      margin:0.5em 0em 0em 3.5em;
+      padding:0.5em 0em 0em 3.5em;
     }
     .oereb-title {
       font-size:$fontSizeBase * 1.4;
@@ -953,24 +946,6 @@ body {
       width:80%;
     }
 
-
-    &.error {
-      .success {
-        border-left:15px solid $colorAlertDark;
-        background-color: $colorAlert;
-      }
-
-    }
-    &.warning {
-      .success {
-        border-left:15px solid $colorWarningDark;
-        background-color: $colorWarning;
-      }
-
-
-    }
-
-
     button {
       background-color: transparent;
       position:absolute;
@@ -991,4 +966,20 @@ body {
       }
     }
   }
+
+  // Other types of notifications
+
+  &.error {
+    .callout {
+      border-left:15px solid $colorAlertDark;
+      background-color: $colorAlert;
+    }
+  }
+  &.warning {
+    .callout {
+      border-left:15px solid $colorWarningDark;
+      background-color: $colorWarning;
+    }
+  }
+
 }
