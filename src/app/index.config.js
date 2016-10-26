@@ -21,8 +21,8 @@ export function config($logProvider, $translateProvider, localStorageServiceProv
         delay: 10000,
         startTop: 0,
         startRight: 0,
-        verticalSpacing: 20,
-        horizontalSpacing: 20,
+        verticalSpacing: 1,
+        horizontalSpacing: 0,
         positionX: 'right',
         positionY: 'top',
         templateUrl: 'app/ui-notification.html'

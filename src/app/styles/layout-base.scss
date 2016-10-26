@@ -924,39 +924,53 @@ body {
 // END Spinners and loaders
 
 // Notifications
+
+
 .notification-wrapper {
-  @include opacityTransition;
+  -webkit-transition: all ease .5s;
+     -o-transition: all ease .5s;
+        transition: all ease .5s;
   position:absolute;
   z-index:10000;
   top:0;
   width:50%;
   right:0px;
 
+  // notification destroyed
+  &.killed {
+    opacity: 0;
+  }
+
   .callout {
     position:relative;
     border:none;
     color:$colorWhite;
     border-left:15px solid $colorSuccessDark;
+    background-color: $colorSuccess;
     margin-bottom:0px;
 
     p {
       width:80%;
     }
-    &.success {
-      background-color: $colorSuccess;
 
-    }
-    &.alert {
-      border-left:15px solid $colorAlertDark;
-      background-color: $colorAlert;
 
+    &.error {
+      .success {
+        border-left:15px solid $colorAlertDark;
+        background-color: $colorAlert;
+      }
 
     }
     &.warning {
-      border-left:15px solid $colorWarningDark;
-      background-color: $colorWarning;
+      .success {
+        border-left:15px solid $colorWarningDark;
+        background-color: $colorWarning;
+      }
+
 
     }
+
+
     button {
       background-color: transparent;
       position:absolute;
