@@ -2,7 +2,7 @@
 
     <nav id="mainNav" class="mainnav mobile clearfix">
         <div class="row top-menu">
-            <div class="small-9 lang-selector">
+            <div class="span-12 lang-selector">
                 <svg class="icon icon-globe">
                     <use xlink:href="#icon-globe"></use>
                 </svg>
@@ -25,17 +25,14 @@
                 <p class="hint">{{ 'no_property_loaded' | translate }}</p>
             </div>
 
-            <h1>{{"mainTitle" | translate}}</h1>
-
-
             <v-accordion class="vAccordion--default" ng-if="!detail.noDatas">
 
                 <!-- General Information -->
                 <v-pane expanded>
                     <v-pane-header>
-                        <p class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}}
+                        <h1 class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}}
                             ({{main.extract.data.RealEstate.Municipality}})
-                        </p>
+                        </h1>
                     </v-pane-header>
 
                     <v-pane-content>
@@ -205,7 +202,7 @@
 
 
                 <!-- NoRestrictions -->
-                <v-pane>
+                <v-pane class="norestrictions">
                     <v-pane-header>
                         {{"detailNoRestrictions" | translate}}
                     </v-pane-header>
@@ -222,7 +219,7 @@
                 <!-- / NoRestrictions -->
 
                 <!-- Missing Restrictions -->
-                <v-pane>
+                <v-pane class="missingrestrictions">
                     <v-pane-header>
                         {{"detailMissingRestrictions" | translate}}
                     </v-pane-header>
@@ -248,7 +245,7 @@
             <v-accordion class="vAccordion--default">
 
                 <!-- History -->
-                <v-pane>
+                <v-pane class="history">
                     <v-pane-header>
                         {{"detailPropertyHistory" | translate}} <span class="secondary badge">{{main.history.length}}</span>
                     </v-pane-header>
@@ -274,7 +271,7 @@
             </v-accordion>
 
 
-            <ul>
+            <ul class="contentLinks">
                 <li><a ng-click="main.showThemes()">Themenbereiche</a></li>
                 <li><a ng-click="main.showGlossary()">Glossar</a></li>
                 <li><a ng-click="main.showImprint()">Rechtliches und Impressum</a></li>

@@ -148,8 +148,106 @@ body {
 
 }
 
+// Start mainnav
+.mainnav {
+    font-size:$fontSizeBase * 1.2;
+    @include contentLinks();
+
+    // top-bar with language
+    .top-menu {
+      padding:12px 12px 8px 12px;
+      margin-top:-4px;
+      background-color:$colorHeadContent;
+      .lang-selector {
+
+        text-align: right;
+        width:100%;
+        .icon {
+            font-size:$fontSizeBase * 0.8;
+        }
+        span {
+          vertical-align: text-bottom;
+          @include menuLinks();
+          a {
+
+          }
+          .is-active {
+            display:none;
+            visibility: hidden;
+          }
+        }
+      }
+    }
+
+
+    .no-property {
+      background-color: $colorWarning;
+      margin:16px;
+      p {
+        color:$colorWhite;
+        padding:8px;
+        text-align: center;
+        line-height: $fontLineHeightBase - 20%;
+        margin:0;
+      }
+    }
+
+    // accordion-navigation
+    v-accordion[class^='vAccordion'] {
+      v-pane {
+        // Header
+        v-pane-header::after,
+        v-pane-header::before {
+          background-color:$colorDarkGrey;
+          width:20px;
+          margin-right:12px;
+        }
+        v-pane-header {
+          border-bottom:1px solid $colorHeadContent;
+          margin-bottom:0px;
+          div {
+            padding:0px 12px 0px 12px;
+            h1 {
+              margin:0;
+              padding:0;
+            }
+          }
+        }
+        &.is-expanded { // open
+          v-pane-header {
+            border-bottom:1px solid $colorLightGrey;
+          }
+        }
+        // Content
+        v-pane-content {
+          padding-left:12px;
+          padding-right:12px;
+        }
+      }
+    }
+
+
+    ul {
+      list-style: none;
+      margin:0;
+      padding:0;
+
+      &.contentLinks {
+        padding:12px;
+      }
+
+      li {
+        margin:0;
+        padding:0;
+      }
+    }
+}
+
+/*
+AB HIER WIRD NICHT MEHR BENUTZT
+*/
 // Start Mainmenu / theme list
-.mainnav, .theme-list {
+.mainnav-old {
   @include contentLinks();
   padding-bottom:5rem;
 
@@ -168,28 +266,7 @@ body {
 
 
   // Langnav
-  .top-menu {
-    font-size:$fontSizeBase * 1;
-    .lang-selector {
-      padding:0.5em 15px 15px 16px;
-      .svg-icon {
 
-      }
-      span {
-        a {
-          color:$colorWhite;
-          vertical-align: top;
-        }
-
-        @include menuLinks;
-        .is-active {
-
-          display:none;
-          visibility: hidden;
-        }
-      }
-    }
-  }
 
   .button {
     &.menu-close {

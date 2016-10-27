@@ -15,6 +15,7 @@
 }
 
 
+
 // Hover-Transitions
 @mixin hoverTransition {
   transition:color .2s ease-out, background .5s ease-in;
@@ -333,13 +334,14 @@
 
 @mixin menuLinks {
   a {
+    color:$colorWhite;
     &:link, &:visited {
-      color:$colorWhite;
+      color:$colorWhite !important;
     }
 
     &:hover, &:active {
-      color:$colorContent;
-      text-decoration:none;
+      color:$colorWhite;
+      @include underline_mix(1px,2px,$colorHeadContent,$colorWhite);
     }
 
   }

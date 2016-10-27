@@ -8,7 +8,7 @@
   "subtitle": "-Cadastre",
   "title": "RDPPF",
   "mainAppTitle": "RDPPF-App",
-  "mainTitle": "FR Auszug aus dem Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREBKataster)",
+  "mainTitle": "FR Auszug aus dem ÖREB-Kataster",
   "titleMainMenu": "Menu",
   "titleMainMenuClose": "Fermer menu",
   "no_property_loaded": "Aucune propriété chargée",
@@ -27,7 +27,7 @@
   "notification_failed2": "FR konnten nicht geladen werden, oder es liegt ein Fehler in der Verbindung zum ÖREB-Dienst vor. Versuchen Sie es später noch einmal.",
   "notification_nothemeavailable": "FR Zu diesem Grundstück existiert keine bekannte Beschränkung.",
   "infobox_loading": "Chargement en cours ...",
-  "infobox_property": "Parcelles",
+  "infobox_property": "FR Auswertung starten:",
   "infobox_plot": "Bien-fonds",
   "detailConcernedThemes1": "FR Eigentumsbeschränkungen, welche das Grundstück ",
   "detailConcernedThemes2": "FR in",
@@ -53,7 +53,7 @@
   "restrictionLegalProvision": "FR Rechtsvorschrift",
   "restrictionAuthority": "FR Zuständige Stelle",
   "restrictionKeyDownload": "FR Vollständige Legende herunterladen",
-  "contentTitleGlossary": "Glossaire"
+  "contentTitleGlossary": "Glossaire",
 
   "gstart" : {
     "0": "FR Liegenschaft",
