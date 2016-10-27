@@ -60,7 +60,6 @@ export class ExtractsService {
             var loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
 
             self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
-
         }).catch(function () {
 
             var loadFailed1 = self.$filter('translate')('notification_failed1');

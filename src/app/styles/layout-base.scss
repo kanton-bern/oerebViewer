@@ -50,7 +50,7 @@ body {
     z-index:5;
     overflow-y:auto;
     @include castShadowRight;
-    background-color: $colorMenuTop;
+    background-color: $colorMenuBgnd;
     transition: all ease 1s;
 
     // Menu is open
@@ -80,27 +80,32 @@ body {
   height: 44px;
   z-index: 10;
   position: relative;
+  background-color: $colorDarkGrey;
+  @include castShadow();
+  width:100%;
 
-
-
-  // Sticky Container for the top bar
-  .header-sticky-container {
-    .header-sticky {
-      width:100%;
-      background-color: $colorMenuBgnd;
-      @include castShadow();
-    }
-  }
   .menu-nav {
     position:absolute;
     top:2px;
     left:5px;
+    width:50%;
     .button {
       background-color:transparent;
-      .icon-menu {
-          fill:$colorContent;
+      .icon-menu, .icon-cross {
+          fill:$colorWhite;
       }
 
+    }
+    p {
+      color:$colorWhite;
+      position:absolute;
+      width:auto;
+      top:0px;
+      left:2rem;
+      line-height: 1;
+      font-size:$fontSizeBase * 1.2;
+      padding:0.5em;
+      cursor: pointer;
     }
   }
   .header-title {
@@ -111,9 +116,9 @@ body {
     left:25%;
     right:25%;
     h2 {
-      color:$colorHeadContent;
+      color:$colorWhite;
       @include fontNormal;
-      font-size:$fontSizeBase * 1.4;
+      font-size:$fontSizeBase * 1.2;
 
       &.hint {
         font-size: $fontSizeBase * 1;
@@ -127,18 +132,17 @@ body {
   }
 
   .mainlogo {
-    color:$colorHeadContent;
-    img {
-      position:absolute;
-      left:3em;
-      top:0.5em;
-      width:1.2em;
-    }
+    right:1em;
+    display:block;
+    position:absolute;
+    color:$colorWhite;
     p {
       padding:0.5em 0em 0em 3.5em;
+      font-size:$fontSizeBase * 1.4;
+      line-height:1;
     }
     .oereb-title {
-      font-size:$fontSizeBase * 1.4;
+
     }
   }
 
@@ -689,218 +693,6 @@ body {
   display:none !important;
 }
 
-
-
-
-/* [BS] Eventuell wird dieser gar nicht mehr verwendet, da jetzt restriction.pulse den container dazu darstellt */
-.position-bottom {
-  .toggler-center {
-    position:absolute;
-    top:0px;
-    left:calc(50% - 22px);
-
-
-  }
-  &.slider-active {
-    #themeBottomToggler {
-      .icon {
-          transform:rotate(180deg);
-          -ms-transform:rotate(180deg);
-          -webkit-transform:rotate(180deg);
-      }
-    }
-  }
-  #themeBottomToggler {
-    margin:0 auto 0 auto;
-  }
-  .svg-icon {
-    background-color:transparent;
-    .icon {
-        fill:$colorDarkGrey;
-    }
-
-  }
-
-
-
-  .row-theme-nav {
-    .button {
-      margin:0;
-
-    }
-    span {
-      font-size:$fontSizeBase * 1;
-      line-height:1;
-      vertical-align: middle;
-      margin:0px 0px 16px 0px;
-    }
-  }
-
-  // Orbit
-  &.orbit {
-    .orbit-container {
-      height:100%;
-      margin-left:0px;
-
-      // Slider Navigation
-      .orbit-previous, .orbit-next {
-        top:1.2rem;
-      }
-      .orbit-slide {
-        height:100%;
-        overflow-y:auto; // Scroll the entire slider if necessary
-        padding-bottom:4rem;
-
-        border-left:1px solid $colorContent;
-        h3 {
-          font-size:$fontSizeBase * 1;
-          @include fontBold();
-          margin:1em 0em 0em 0em;
-          opacity:0.5;
-        }
-
-        // Lists
-        .theme-list {
-          margin-left:0;
-          margin-top:1em;
-
-          .top-item, .top-item * {
-            background-color: $colorMenuBgnd;
-            color:$colorContent;
-            .menu {
-              margin-left:1rem;
-            }
-
-            .name, .egrid {
-              font-size:$fontSizeBase * 1;
-              color: $colorHeader;
-            }
-            .icon {
-              fill:$colorContent;
-            }
-          }
-
-          li {
-            .menu {
-              margin-left:0;
-            }
-          }
-
-
-          // ul hierarchy
-          li { // first level
-            border-top:1px solid $colorLightGrey;
-            border-bottom:none;
-            background-color: $colorContentBgnd;
-            .button {
-              &.submenu {
-                border-left:1px solid $colorLightGrey;
-                //border-bottom:1px solid $colorLightGrey;
-                height:100%;
-                .icon {
-                  fill:$colorDarkGrey;
-                }
-              }
-            }
-            &.top-item {
-              background-color: $colorMenuBgnd;
-              border-top:none;
-              li {
-                border-top:none;
-                padding:0;
-              }
-              .button {
-                &.submenu {
-                  height:auto;
-                  border-top:1px solid $colorLightGrey;
-                  border-bottom:1px solid $colorLightGrey;
-
-
-                }
-
-              }
-
-            }
-
-            ul { // second level
-
-              li {
-                padding:1rem;
-                background-color:$colorContentBgnd;
-                &:first-child {
-
-                }
-              }
-
-              ul { // third level
-
-              }
-
-            }
-
-          }
-          // end ul hierarchy
-
-
-          // Legende in den Themen (key)
-          .theme-key {
-            display:block;
-            h3 {
-              margin:0em 0em 1em 0em;
-              font-size:$fontSizeBase * 1.2;
-            }
-            img {
-              display:block;
-              max-width:100%;
-            }
-            margin-bottom: 10px;
-          }
-          // Ende Legende in den Themen (key)
-
-          // Start Logos in theme list
-          .logo-bund, .logo-kanton, .logo-gemeinde {
-            display:inline-block;
-            width:30px;
-            height:30px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-color: $colorMenuBgnd;
-            margin-right:10px;
-            float:right;
-
-          }
-
-          .logo-gemeinde {
-            background-blend-mode: multiply;
-          }
-
-          // End logo in theme list
-
-
-        }
-        // End List
-      }
-      // Bullets
-      .theme-bullets {
-        width:100%;
-        position:absolute;
-        bottom:2rem;
-        .orbit-bullets {
-          button {
-            width:0.8rem;
-            height:0.8rem;
-          }
-
-        }
-      }
-
-    }
-  }
-
-
-}
-// End theme navigation
 
 // Spinners and Loaders
 .spinner-wrapper {

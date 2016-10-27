@@ -5,20 +5,16 @@
 <header class="header">
     <div data-sticky-container class="header-sticky-container">
         <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
-
             <div class="menu-nav">
                 <button id="buttonShowExtract" aria-controls="menuLeftSlider"
                         ng-click="main.toggleMenu()"
-                        ng-class="{'menu-open': main.menuStatus}"
                         class="button svg-icon btnOpenMenu">
-                    <svg class="icon icon-menu">
-                        <use xlink:href="#icon-menu"></use>
+                    <svg class="icon" ng-class="{'icon-menu': !main.menuStatus, 'icon-cross': main.menuStatus}">
+                        <use xlink:href="{{main.menuStatus ? '#icon-cross' : '#icon-menu'}}"></use>
                     </svg>
                 </button>
-                <!-- [ts] habe ich auskommentiert - ist der text notwendig? @bs
-                [bs] Ja, leider. Es hat sich gezeigt, dass die wenigsten User wissen was ein Hamburger ist.
-              -->
-                <span>Hauptmenü</span>
+                <p ng-if="!main.menuStatus" ng-click="main.toggleMenu()">{{'titleMainMenu' | translate }}</p>
+                <p ng-if="main.menuStatus" ng-click="main.toggleMenu()">{{'titleMainMenuClose' | translate }}</p>
             </div>
             <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
                 <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>
@@ -29,7 +25,6 @@
             <a href="/#" title="Zum Eingang" class="mainlogo">
                 <p><span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span></p>
             </a>
-
         </div>
     </div>
 </header>
@@ -73,7 +68,7 @@
                        <div ng-if="!main.extract.data.MunicipalityLogo" style="background-image:url('/assets/images/gde_dummy.png')"
                                  class="logo-gemeinde">
 
-                       </div><p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">Es ist kein aktiver Auszug geladen, deshalb fehlt die Gemeinde.</p>
+                       </div><p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">{{"notification_noCommunity" | translate}}</p>
                       </div>
                       <h2>Impressum</h2>
                       <h3>Inhaltliche Verantwortung</h3>
@@ -140,8 +135,6 @@
                 <!-- *********** END CONTENT PAGE SECTIONS *********** -->
             </article>
             <footer class="footer"></footer>
-
-            <!--<notifications></notifications>-->
 
             <loading></loading>
         </div>
