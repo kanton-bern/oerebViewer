@@ -319,14 +319,16 @@
 // Ordinary content links
 @mixin contentLinks {
   a {
-
+    color:$colorContent;
     &:link, &:visited {
       color:$colorContent;
+      @include underline_mix(1px,2px,$colorMenuBgnd,$colorHeadContent);
     }
 
     &:hover, &:active {
       color:$colorContent;
-      text-decoration:none;
+      @include underline_mix(1px,2px,$colorMenuBgnd,$colorMenuBgnd);
+
     }
 
   }
@@ -336,7 +338,8 @@
   a {
     color:$colorWhite;
     &:link, &:visited {
-      color:$colorWhite !important;
+      color:$colorWhite;
+      @include underline_mix(1px,2px,$colorHeadContent,$colorHeadContent);
     }
 
     &:hover, &:active {

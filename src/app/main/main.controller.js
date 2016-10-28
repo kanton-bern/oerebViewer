@@ -29,7 +29,10 @@ export class MainController {
             }
         });
 
+
         this.history = Extracts.get();
+
+
     }
 
     setCurrentExtract(egrid) {

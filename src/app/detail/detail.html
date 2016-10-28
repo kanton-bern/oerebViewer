@@ -2,7 +2,9 @@
 
     <nav id="mainNav" class="mainnav mobile clearfix">
         <div class="row top-menu">
-            <div class="span-12 lang-selector">
+          <div class="small-8">
+          </div>
+            <div class="small-4 lang-selector">
                 <svg class="icon icon-globe">
                     <use xlink:href="#icon-globe"></use>
                 </svg>
@@ -20,8 +22,25 @@
 
 
         <div class="menu vertical">
+          <div class="row intro-row">
+            <div class="small-12">
+              <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.data.RealEstate.Number}}
+                  ({{main.extract.data.RealEstate.Municipality}})
+              </h1>
+              <div class="pdf-download" ng-class="{'hidden': detail.noDatas}">
+                  <div class="small-12">
+                      <svg class="icon icon-file">
+                          <use xlink:href="#icon-file"></use>
+                      </svg>
+                      <a class="external-link"
+                         href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
+                         title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
+                  </div>
+              </div>
+            </div>
+          </div>
 
-            <div ng-class="{'hidden': detail.noDatas}" class="no-property">
+            <div ng-class="{'hidden': !detail.noDatas}" class="no-property">
                 <p class="hint">{{ 'no_property_loaded' | translate }}</p>
             </div>
 
@@ -30,9 +49,9 @@
                 <!-- General Information -->
                 <v-pane expanded>
                     <v-pane-header>
-                        <h1 class="name">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}}
+                        {{"propertyDetail" | translate}} {{main.extract.data.RealEstate.Number}}
                             ({{main.extract.data.RealEstate.Municipality}})
-                        </h1>
+
                     </v-pane-header>
 
                     <v-pane-content>
@@ -93,8 +112,7 @@
                                 </svg>
                                 <a class="external-link"
                                    href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
-                                   title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}
-                                    ({{"detailDownloadPDFExt" | translate}})</a>
+                                   title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
                             </div>
                         </div>
                         <div class="row more-info clearfix">
@@ -112,11 +130,9 @@
 
 
                 <!-- Restrictions -->
-                <v-pane>
+                <v-pane class="restrictions">
                     <v-pane-header>
-                        {{"detailConcernedThemes1" | translate}}{{main.extract.data.RealEstate.Number}}
-                        {{"detailConcernedThemes2" |
-                        translate}} {{main.extract.data.RealEstate.Municipality}} {{"detailConcernedThemes3" | translate}}
+                        {{"detailConcernedThemes1" | translate}}
                     </v-pane-header>
 
                     <v-pane-content>
@@ -130,7 +146,7 @@
 
                         <!-- neither restrictions nor themes -->
                         <div ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length == 0">
-                            Keine Beschränkungen vorhanden.
+                            {{"noRestrictions" | translate}}
                         </div>
 
                         <!-- if restrictions -->
@@ -242,15 +258,15 @@
             </v-accordion>
 
             <!-- Seperatly Accordion for history -->
-            <v-accordion class="vAccordion--default">
+            <v-accordion class="vAccordion--default history">
 
                 <!-- History -->
-                <v-pane class="history">
+                <v-pane>
                     <v-pane-header>
                         {{"detailPropertyHistory" | translate}} <span class="secondary badge">{{main.history.length}}</span>
                     </v-pane-header>
 
-                    <v-pane-content>
+                    <v-pane-content class="history-item">
                         <!-- nested accordion -->
                         <ul>
                             <li ng-repeat="hextract in main.history track by $index">
@@ -264,6 +280,7 @@
                                 </a>
                             </li>
                         </ul>
+                        <!-- copy to clipboard -->
                     </v-pane-content>
                 </v-pane>
                 <!-- / History -->
@@ -272,8 +289,7 @@
 
 
             <ul class="contentLinks">
-                <li><a ng-click="main.showThemes()">Themenbereiche</a></li>
-                <li><a ng-click="main.showGlossary()">Glossar</a></li>
+                <li ng-if="!detail.noDatas"><a ng-click="main.showGlossary()">Glossar</a></li>
                 <li><a ng-click="main.showImprint()">Rechtliches und Impressum</a></li>
             </ul>
 
