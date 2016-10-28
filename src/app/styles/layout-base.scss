@@ -264,6 +264,17 @@ body {
         &.restrictions {
           v-pane-content {
 
+
+            .icon {
+              height:$fontSizeBase *1;
+            }
+            h3 {
+              font-size:$fontSizeBase * 1;
+              @include fontBold;
+              margin:30px 0px 0px 0px;
+
+            }
+
             > div {
               padding-left:0px;
               padding-right:0px;
@@ -274,6 +285,12 @@ body {
                 v-pane {
                   v-pane-header {
                     padding-left:20px;
+                  }
+                  v-pane-content {
+                    padding-left:32px;
+                    padding-right:32px;
+                    font-size:$fontSizeBase * 1;
+
                   }
                 }
               }
@@ -293,6 +310,29 @@ body {
           .pdf-download {
             margin-top:2em;
           }
+
+          .row {
+            line-height:$fontLineHeightBase;
+            padding-bottom:0.5em;
+            padding-top:0.5em;
+            cursor:default;
+            .oereb-label {
+              padding-right:10px;
+              font-weight:bold;
+            }
+
+
+            .oereb-value {
+
+
+            }
+            &.property-info {
+              border-bottom:1px dotted $colorMenuTop;
+
+            }
+
+          }
+
         }
       }
     }
@@ -550,27 +590,7 @@ AB HIER WIRD NICHT MEHR BENUTZT
         font-size: $fontSizeBase * 0.8;
       }
     }
-    .row {
-      line-height:$fontLineHeightBase;
-      padding-bottom:0.5em;
-      padding-top:0.5em;
-      cursor:default;
-      .oereb-label {
-        padding-right:10px;
-        font-weight:bold;
-      }
 
-
-      .oereb-value {
-
-
-      }
-      &.property-info {
-        border-bottom:1px solid $colorHeadContent;
-
-      }
-
-    }
   }
 
   // Row with pdf

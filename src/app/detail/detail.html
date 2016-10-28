@@ -163,7 +163,7 @@
 
                                     <div ng-repeat="v in restriction.values" class="accordion-navigation">
                                         <div class="row restriction-info">
-                                            <div class="small-1 oereb-label"><div class="legend-symbol" style="background-image:url('{{v.Symbol}}')"></div></div>
+                                            <div class="small-1 oereb-label"><img class="legend-symbol" src="{{v.Symbol}}" /></div>
                                             <div class="small-11 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
                                             <div class="small-1 show-for-small-only"></div>
                                             <div ng-if="v.TypeCodelist == 'Polygon'" class="small-11 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
