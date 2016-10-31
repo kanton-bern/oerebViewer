@@ -10,7 +10,7 @@ export class DetailController {
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
         this.$scope = $scope;
-        
+
 
         this.noDatas = true;
         if ($stateParams.egrid == 0) {
@@ -32,37 +32,40 @@ export class DetailController {
         // on restriction reload add layer to map
         this.Extracts.registerRestrictionObserverCallback(function() {
 
+
+
             console.log('execute register restriction observer');
             self.tempLayers = [];
 
             let bbox = '';
 
-            angular.forEach(self.Extracts.getRestriction().values, function (v) {
-                bbox = Helpers.getParameterByName('bbox', v.Map.ReferenceWMS);
+            if (angular.isDefined(self.Extracts.getRestriction()))
+                angular.forEach(self.Extracts.getRestriction().values, function (v) {
+                    bbox = Helpers.getParameterByName('bbox', v.Map.ReferenceWMS);
 
-                var url = v.Map.ReferenceWMS.substr(0, v.Map.ReferenceWMS.indexOf('WMSServer?')) + 'WMSServer?';
+                    var url = v.Map.ReferenceWMS.substr(0, v.Map.ReferenceWMS.indexOf('WMSServer?')) + 'WMSServer?';
 
-                var wmsTempSource = new self.Map.ol.source.TileWMS(({
-                    url: url,
-                    params: {
-                        'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
-                        'TILED': true,
-                        'VERSION': Helpers.getParameterByName('VERSION', v.Map.ReferenceWMS),
-                        'FORMAT': Helpers.getParameterByName('FORMAT', v.Map.ReferenceWMS),
-                        'CRS': Helpers.getParameterByName('CRS', v.Map.ReferenceWMS)
-                    },
-                    serverType: 'geoserver'
-                }));
+                    var wmsTempSource = new self.Map.ol.source.TileWMS(({
+                        url: url,
+                        params: {
+                            'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
+                            'TILED': true,
+                            'VERSION': Helpers.getParameterByName('VERSION', v.Map.ReferenceWMS),
+                            'FORMAT': Helpers.getParameterByName('FORMAT', v.Map.ReferenceWMS),
+                            'CRS': Helpers.getParameterByName('CRS', v.Map.ReferenceWMS)
+                        },
+                        serverType: 'geoserver'
+                    }));
 
-                let wmsTemp = new self.Map.ol.layer.Tile({
-                    /*preload: Infinity,*/
-                    visible: true,
-                    source: wmsTempSource,
-                    name: 'restriction-temp'
+                    let wmsTemp = new self.Map.ol.layer.Tile({
+                        /*preload: Infinity,*/
+                        visible: true,
+                        source: wmsTempSource,
+                        name: 'restriction-temp'
+                    });
+
+                    self.tempLayers.push(wmsTemp);
                 });
-
-                self.tempLayers.push(wmsTemp);
-            });
 
 
             self.Map.addTempLayers(self.tempLayers);
@@ -86,6 +89,21 @@ export class DetailController {
         if ($panel.attr('aria-expanded')=='true') {
           $log.debug('active');
         }
+    }
+
+    expand(index, code) {
+        console.debug('expanded');
+        console.debug(code);
+
+        if (angular.isDefined(code))
+            this.Extracts.setRestrictionByCode(code);
+    }
+
+    collapse(index, code) {
+        // just close
+        this.Extracts.setRestrictionByCode(null);
+
+        console.debug('closed');
     }
 
     restrictionChanged(notify) {

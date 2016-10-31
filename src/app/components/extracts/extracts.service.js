@@ -165,9 +165,6 @@ export class ExtractsService {
             }
         });
 
-        if (!result)
-            this.Notification.warning('{{"notification_nothemeavailable" | translate }}');
-
         return result;
     }
 
@@ -175,13 +172,6 @@ export class ExtractsService {
         if (this.currentRestrictionChanged) {
             this.currentRestriction = this.getRestrictionByCode();
             this.currentRestrictionChanged = false;
-        }
-
-        if (angular.isUndefined(this.currentRestriction) || this.currentRestriction == false) {
-            if (this.getCurrent().restrictions.length > 0)
-                this.currentRestriction = this.getCurrent().restrictions[0];
-            else
-                this.currentRestriction = false;
         }
 
         return this.currentRestriction;

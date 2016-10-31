@@ -150,8 +150,11 @@
                         </div>
 
                         <!-- if restrictions -->
-                        <v-accordion ng-if="main.extract.restrictions.length > 0">
-                            <v-pane ng-repeat="restriction in main.extract.restrictions track by $index">
+                        <v-accordion ng-if="main.extract.restrictions.length > 0"
+                                 oncollapse="detail.collapse(index, id)"
+                                 onexpand="detail.expand(index, id)"
+                        >
+                            <v-pane ng-repeat="restriction in main.extract.restrictions track by $index" id="{{ restriction.code }}">
                                 <v-pane-header>
                                     {{ ::restriction.name }}
                                 </v-pane-header>
