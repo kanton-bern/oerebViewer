@@ -23,6 +23,20 @@ import { AutofocusDirective } from '../app/components/autofocus/autofocus.direct
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
 
+    .factory('httpRequestInterceptor', function () {
+        return {
+            request: function (config) {
+
+                if (config.url.indexOf('geodienste.ch') !== -1) {
+                    config.headers['Authorization'] = 'Basic Z2VvZGllbnN0ZV9iZTplZmVtYWlIMA==';
+                    console.debug('is geodienste.ch');
+                }
+
+                return config;
+            }
+        };
+    })
+
     .config(config)
     .config(routerConfig)
 

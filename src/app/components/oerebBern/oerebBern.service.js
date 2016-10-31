@@ -106,26 +106,54 @@ export class OerebBernService {
         // var wfsServer = 'http://www.geoservice2-test.apps.be.ch/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer';
         var wfsServer = 'https://gs.novu.io/proxy/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer';
 
+        // var wfsServer = 'https://geodienste.ch/db/av'; // new service
+
         if (angular.isString(coordinatesOrEGRID)) {
             var egrid = coordinatesOrEGRID;
             var geoserviceProxy = wfsServer + '?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF&Filter=%3Cogc:Filter%3E%3Cogc:PropertyIsEqualTo%20matchCase=%22true%22%20xmlns:ogc=%22http://www.opengis.net/ogc%22%3E%3Cogc:PropertyName%3EEGRID%3C/ogc:PropertyName%3E%3Cogc:Literal%3E' + egrid + '%3C/ogc:Literal%3E%3C/ogc:PropertyIsEqualTo%3E%3C/ogc:Filter%3E';
+
+            // var geoserviceProxy = wfsServer + '?service=WFS&request=GetFeature&version=1.1.0&typename=RESF&Filter=%3Cogc:Filter%3E%3Cogc:PropertyIsEqualTo%20matchCase=%22true%22%20xmlns:ogc=%22http://www.opengis.net/ogc%22%3E%3Cogc:PropertyName%3EEGRIS_EGRID%3C/ogc:PropertyName%3E%3Cogc:Literal%3E' + egrid + '%3C/ogc:Literal%3E%3C/ogc:PropertyIsEqualTo%3E%3C/ogc:Filter%3E'; // newservice
+
         } else {
+
             var long = coordinatesOrEGRID[2056][0];
             var lat = coordinatesOrEGRID[2056][1];
+
             var geoserviceProxy = wfsServer + '?service=WFS&request=GetFeature&version=1.1.0&typename=a4p_a4p_ortsangabenwfs_d_fk_x:DIPANU_DIPANUF&Filter=%3Cogc:Filter%3E%3Cogc:Contains%3E%3Cogc:PropertyName%3EShape%3C/ogc:PropertyName%3E%3Cgml:Point%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E%3Cgml:pos%20srsName=%22urn:x-ogc:def:crs:EPSG:2056%22%3E' + long + '%20' + lat + '%3C/gml:pos%3E%3C/gml:Point%3E%3C/ogc:Contains%3E%3C/ogc:Filter%3E';
+
+            /*var long = coordinatesOrEGRID[21781][0];
+             var lat = coordinatesOrEGRID[21781][1];*/
+
+            //var geoserviceProxy = wfsServer + '?service=WFS&request=GetFeature&version=1.1.0&typename=RESF&Filter=%3Cogc:Filter%3E%3Cogc:Contains%3E%3Cogc:PropertyName%3EShape%3C/ogc:PropertyName%3E%3Cgml:Point%20srsName=%22urn:x-ogc:def:crs:EPSG:21781%22%3E%3Cgml:pos%20srsName=%22urn:x-ogc:def:crs:EPSG:21781%22%3E' + long + '%20' + lat + '%3C/gml:pos%3E%3C/gml:Point%3E%3C/ogc:Contains%3E%3C/ogc:Filter%3E'; // new service
+
+
         }
 
 
-        /*var auth = this.$base64.encode("geodienste_be:efemaiH0"),
-            headers = {"Authorization": "Basic " + auth};*/
+        var auth = this.$base64.encode("geodienste_be:efemaiH0");
 
+        console.log(auth);
+        console.log('wuuut');
+
+        var headers = {
+            'Authorization': "Basic " + auth,
+        };
+
+        console.log(headers);
+
+        // this.$http.defaults.headers.common['Authorization'] = 'Basic ' + auth;
+
+        /* this.$http.defaults.headers.get = {'Authorization' :  'Basic ' + auth};*/
+
+        // console.log(headers);
 
         let self = this;
         var promise =  this.$http.get(
             geoserviceProxy,
             {
                 // headers: headers,
-                // cache: true,
+                // withCredentials: true,
+                cache: false,
                 transformResponse: function (data) {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
