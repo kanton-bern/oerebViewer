@@ -27,7 +27,17 @@
               <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.data.RealEstate.Number}}
                   ({{main.extract.data.RealEstate.Municipality}})
               </h1>
+              <p class="info-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</p>
               <div class="pdf-download" ng-class="{'hidden': detail.noDatas}">
+
+                    <div class="small-12">
+                        <svg class="icon icon-map">
+                            <use xlink:href="#icon-map"></use>
+                        </svg>
+                        <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap"
+                            | translate}}</a>
+                    </div>
+
                   <div class="small-12">
                       <svg class="icon icon-file">
                           <use xlink:href="#icon-file"></use>
@@ -46,91 +56,9 @@
 
             <v-accordion class="vAccordion--default" ng-if="!detail.noDatas">
 
-                <!-- General Information -->
-                <v-pane expanded>
-                    <v-pane-header>
-                        {{"propertyDetail" | translate}} {{main.extract.data.RealEstate.Number}}
-                            ({{main.extract.data.RealEstate.Municipality}})
-
-                    </v-pane-header>
-
-                    <v-pane-content>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailEGRID" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.egrid}}</div>
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailCommunityBFS" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Municipality}}
-                                ({{main.extract.data.RealEstate.FosNr}})
-                            </div>
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitofLandRegister}}
-                            </div>
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}}
-                                m<sup>2</sup></div>
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailExtractIdentifier" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
-
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailExtractDate" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
-                            </div>
-                        </div>
-                        <div class="row property-info">
-                            <div class="medium-4 oereb-label">{{"detailResponsible" | translate}}</div>
-                            <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">
-                                {{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}},
-                                {{main.extract.data.PLRCadastreAuthority.Street}}&nbsp;{{main.extract.data.PLRCadastreAuthority.Number}},
-                                {{main.extract.data.PLRCadastreAuthority.PostalCode}}&nbsp;{{main.extract.data.PLRCadastreAuthority.City}}
-                            </div>
-                        </div>
-                        <div class="row more-info clearfix pdf-download">
-                            <div class="small-12">
-                                <svg class="icon icon-file">
-                                    <use xlink:href="#icon-file"></use>
-                                </svg>
-                                <a class="external-link"
-                                   href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
-                                   title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
-                            </div>
-                        </div>
-                        <div class="row more-info clearfix">
-                            <div class="small-12">
-                                <svg class="icon icon-map">
-                                    <use xlink:href="#icon-map"></use>
-                                </svg>
-                                <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap"
-                                    | translate}}</a>
-                            </div>
-                        </div>
-                    </v-pane-content>
-                </v-pane>
-                <!-- / General Information -->
-
 
                 <!-- Restrictions -->
-                <v-pane class="restrictions">
+                <v-pane expanded class="restrictions">
                     <v-pane-header>
                         {{"detailConcernedThemes1" | translate}}
                     </v-pane-header>
@@ -254,7 +182,78 @@
                 </v-pane>
                 <!-- / Missing Restrictions -->
 
+                <!-- General Information -->
+                <v-pane>
+                    <v-pane-header>
+                        {{"propertyDetail" | translate}} {{main.extract.data.RealEstate.Number}}
+                            ({{main.extract.data.RealEstate.Municipality}})
 
+                    </v-pane-header>
+
+                    <v-pane-content>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailEGRID" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.egrid}}</div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailCommunityBFS" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Municipality}}
+                                ({{main.extract.data.RealEstate.FosNr}})
+                            </div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitofLandRegister}}
+                            </div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}}
+                                m<sup>2</sup></div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailExtractIdentifier" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.ExtractIdentifier}}</div>
+
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailExtractDate" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
+                            </div>
+                        </div>
+                        <div class="row property-info">
+                            <div class="medium-4 oereb-label">{{"detailResponsible" | translate}}</div>
+                            <div class="medium-1"></div>
+                            <div class="medium-7 oereb-value">
+                                {{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}},
+                                {{main.extract.data.PLRCadastreAuthority.Street}}&nbsp;{{main.extract.data.PLRCadastreAuthority.Number}},
+                                {{main.extract.data.PLRCadastreAuthority.PostalCode}}&nbsp;{{main.extract.data.PLRCadastreAuthority.City}}
+                            </div>
+                        </div>
+                        <div class="row more-info clearfix pdf-download">
+                            <div class="small-12">
+                                <svg class="icon icon-file">
+                                    <use xlink:href="#icon-file"></use>
+                                </svg>
+                                <a class="external-link"
+                                   href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
+                                   title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
+                            </div>
+                        </div>
+                    </v-pane-content>
+                </v-pane>
+                <!-- / General Information -->
 
 
 

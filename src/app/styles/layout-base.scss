@@ -166,6 +166,7 @@ body {
           fill:$colorWhite !important;
       }
 
+
       .lang-selector {
 
         text-align: right;
@@ -195,6 +196,17 @@ body {
       .pdf-download {
 
       }
+
+      h1 {
+        margin:0;
+      }
+      .info-date {
+        font-size:$fontSizeBase * 0.9;
+        margin:0px 0px 20px 0px;
+        padding:0;
+        color:$colorHeadContent;
+        line-height:1;
+      }
     }
     .icon {
       height: $fontSizeBase * 1.2;
@@ -203,6 +215,8 @@ body {
       margin-left:-4px;
       vertical-align: text-bottom;
     }
+
+
 
 
     .no-property {
