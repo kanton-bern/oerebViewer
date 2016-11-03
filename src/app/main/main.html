@@ -47,9 +47,19 @@
                 <!-- *********** START CONTENT PAGE SECTIONS *********** -->
                 <!-- CONTENT: Impressum -->
                 <section class="contentpage contentimpressum" ng-class="{'current': main.visibleContent == 'imprint'}">
+                  <div class="nav-close">
+                    <button id="buttonShowExtract" aria-controls="menuLeftSlider"
+                            ng-click="main.showMain()"
+                            class="button svg-icon btnCloseContent">
+                        <svg class="icon icon-cross">
+                            <use xlink:href="#icon-cross"></use>
+                        </svg>
+                    </button>
+                    (<a ng-click="main.showMain()">Close</a>)
+                  </div>
                   <div class="row">
                     <div class="columns small-12">
-                      <h1>Impressum und Rechtliches (<a ng-click="main.showMain()">Close</a>)</h1>
+                      <h1>Impressum und Rechtliches</h1>
                       <p>An diesem Auszug sind beteiligt:</p>
                       <div class="partner-logo">
                         <div style="background-image:url('/assets/images/bund_wappen.png')"
@@ -64,7 +74,7 @@
                        <div ng-if="main.extract.data.MunicipalityLogo" style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
                             class="logo-gemeinde">
 
-                          </div><p class="clearfix">{{main.extract.data.RealEstate.Municipality}}</p>
+                          </div><p class="clearfix">{{"detailCommunity" | translate}} {{main.extract.data.RealEstate.Municipality}}</p>
                        <div ng-if="!main.extract.data.MunicipalityLogo" style="background-image:url('/assets/images/gde_dummy.png')"
                                  class="logo-gemeinde">
 

@@ -10,7 +10,7 @@
 body {
   @include fontNormal();
   z-index:10;
-  background-color: $colorMenuTop;
+  background-color: $colorContentBgnd;
   // Accessibility goes down the drain...
   button {
     outline:0 !important; // this might be an accessibility issue!
@@ -290,6 +290,12 @@ body {
         &.missingrestrictions {
             .ng-binding {
               color:$colorMenuTop;
+          }
+        }
+        &.generalinformation {
+          v-pane-content {
+            // mark it
+            background-color:$colorContentBgnd;
           }
         }
         &.restrictions {
@@ -872,7 +878,7 @@ AB HIER WIRD NICHT MEHR BENUTZT
   // ordinary content pages
   .contentpage {
     display:none;
-    background-color: $colorMenuBgnd;
+    background-color: $colorContentBgnd;
 
     // Logos im header
     .partner-logo {
@@ -886,7 +892,7 @@ AB HIER WIRD NICHT MEHR BENUTZT
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
-        background-color: $colorMenuBgnd;
+        background-color: $colorContentBgnd;
         margin-bottom:20px;
         margin-right:20px;
 
