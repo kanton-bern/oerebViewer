@@ -102,6 +102,12 @@
   }
   // Hover
   &:hover,&:active {
+    @include resizeElement();
+  }
+
+}
+
+@mixin resizeElement() {
   z-index: 2;
   -webkit-transition: all 200ms ease-in;
   -webkit-transform: scale(1.2);
@@ -111,8 +117,6 @@
   -moz-transform: scale(1.2);
   transition: all 200ms ease-in;
   transform: scale(1.2);
-  }
-
 }
 
 
@@ -328,6 +332,24 @@
     &:hover, &:active {
       color:$colorContent;
       @include underline_mix(1px,2px,$colorMenuBgnd,$colorMenuBgnd);
+
+    }
+
+  }
+}
+
+// Lighter content links
+@mixin contentLightLinks {
+  a {
+    color:$colorContent;
+    &:link, &:visited {
+      color:$colorContent;
+      @include underline_mix(1px,2px,$colorContentBgnd,$colorContent);
+    }
+
+    &:hover, &:active {
+      color:$colorContent;
+      @include underline_mix(1px,2px,transparent,transparent);
 
     }
 

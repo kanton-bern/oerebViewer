@@ -96,6 +96,13 @@ body {
       }
 
     }
+
+    &:hover,&:active {
+      .button {
+        @include resizeElement;
+      }
+    }
+
     p {
       color:$colorWhite;
       position:absolute;
@@ -315,6 +322,10 @@ body {
                     padding-right:32px;
                     font-size:$fontSizeBase * 1;
 
+                    // mark it
+                    background-color:$colorContentBgnd;
+
+                    @include contentLightLinks;
                   }
                 }
               }
