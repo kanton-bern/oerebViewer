@@ -10,12 +10,13 @@ export class MainController {
         this.Helpers = Helpers;
         this.$window = $window;
         this.visibleContent = 'main';
-
         var mainCtrl = this;
 
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
+
+            console.debug(mainCtrl.extract);
         });
 
         Helpers.registerMenuStatusObserver(function() {
