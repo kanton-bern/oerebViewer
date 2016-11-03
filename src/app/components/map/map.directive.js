@@ -81,8 +81,20 @@ class MapController {
             );
 
             self.Oereb.getDataFromWFS(coordinates).then(function (d) {
-                self.drawByWFS(d);
+                self.drawByWFS(d, 'selected');
             });
+        });
+
+        Map.registerHoverObserver(function(coordinates) {
+
+            if (self.hoverTimeoutHandle)
+                window.clearTimeout(self.hoverTimeoutHandle);
+
+            self.hoverTimeoutHandle = window.setTimeout(function() {
+                self.Oereb.getDataFromWFS(coordinates).then(function (d) {
+                    self.drawByWFS(d, 'hovered');
+                });
+            }, 500);
 
         });
 
@@ -93,7 +105,7 @@ class MapController {
                 var posList = self.getPoslistFromWFS(d);
                 var polygon = Map.createPolygon(posList);
 
-                self.drawByPolygon(polygon);
+                self.drawByPolygon(polygon, 'selected');
 
                 var size = Map.map.getSize();
                 Map.map.getView()
@@ -113,15 +125,23 @@ class MapController {
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
     }
 
-    drawByWFS(d) {
+    drawByWFS(d, addLayerMethod) {
         var posList = this.getPoslistFromWFS(d);
         var polygon = this.Map.createPolygon(posList);
 
-        this.Map.addSelectedLayer(polygon);
+        if (addLayerMethod == 'hovered')
+            this.Map.addHoverLayer(polygon);
+
+        if (addLayerMethod == 'selected')
+            this.Map.addSelectedLayer(polygon);
     }
 
-    drawByPolygon(polygon) {
-        this.Map.addSelectedLayer(polygon);
+    drawByPolygon(polygon, addLayerMethod) {
+        if (addLayerMethod == 'hovered')
+            this.Map.addHoverLayer(polygon);
+
+        if (addLayerMethod == 'selected')
+            this.Map.addSelectedLayer(polygon);
     }
 
     getPoslistFromWFS(d) {

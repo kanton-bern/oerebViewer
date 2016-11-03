@@ -99,7 +99,7 @@ export class CoordinatesService {
 
 
     transform(coordinates, systemFrom, systemTo) {
-        console.debug('transform:' + systemFrom.type + ' -> ' + systemTo.type);
+        // console.debug('transform:' + systemFrom.type + ' -> ' + systemTo.type);
 
         return proj4(systemFrom.proj4, systemTo.proj4, coordinates);
     }

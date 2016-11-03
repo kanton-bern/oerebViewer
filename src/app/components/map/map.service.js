@@ -11,7 +11,9 @@ export class MapService {
 
         this.tempLayers = [];
         this.selectedLayer = undefined;
+        this.hoverLayer = undefined;
         this.clickObservers = [];
+        this.hoverObservers = [];
         this.modeChangedObservers = [];
 
         this.isSearchOpen = false;
@@ -102,6 +104,12 @@ export class MapService {
             self.notifyClickObservers(coordinates);
         });
 
+        this.map.on('pointermove', function(event) {
+            var coordinates = self.Coordinates.set('hover', Coordinates.System[21781], event.coordinate);
+            self.notifyHoverObservers(coordinates);
+        });
+
+
         var positionFeatureStyle = new this.ol.style.Style({
             image: new this.ol.style.Circle({
                 radius: 6,
@@ -146,6 +154,7 @@ export class MapService {
     click(coordinates) {
         this.notifyClickObservers(coordinates);
     }
+
 
     openSearch() {
         this.Helpers.closeMenu();
@@ -221,6 +230,16 @@ export class MapService {
         });
     }
 
+    registerHoverObserver(callback) {
+        this.hoverObservers.push(callback);
+    }
+
+    notifyHoverObservers(coordinates) {
+        angular.forEach(this.hoverObservers, function (callback) {
+            callback(coordinates);
+        });
+    }
+
     /*
      Adds Temporary Layers. Everytime new temporary Layers are added. The old one gets removed.
      */
@@ -289,6 +308,42 @@ export class MapService {
 
         this.addLayer(vectorLayer)
     }
+
+    addHoverLayer(polygon) {
+        var self = this;
+
+        // Create feature with polygon.
+        var feature = new self.ol.Feature(polygon);
+
+        // Create vector source and the feature to it.
+        var vectorSource = new self.ol.source.Vector();
+        vectorSource.addFeature(feature);
+
+        // Create vector layer attached to the vector source.
+        var vectorLayer = new self.ol.layer.Vector({
+            source: vectorSource,
+            style: new self.ol.style.Style({
+                stroke: new self.ol.style.Stroke({
+                    color: 'rgba(0, 255, 0, 0.5)',
+                    width: 2
+                }),
+                fill: new self.ol.style.Fill({
+                    color: 'rgba(255, 0, 0, 0)',
+                })
+            })
+        });
+
+        vectorLayer.setZIndex(5000);
+
+        if (this.hoverLayer != undefined)
+            this.map.removeLayer(this.hoverLayer);
+
+        this.hoverLayer = vectorLayer;
+
+        this.addLayer(vectorLayer)
+    }
+
+
 
     addLayer(layer) {
         this.map.addLayer(layer);
