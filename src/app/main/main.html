@@ -22,7 +22,7 @@
             <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
                 <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
             </div>
-            <a href="/#" title="Zum Eingang" class="mainlogo">
+            <a ng-click="main.reloadPage()" title="Zum Eingang" class="mainlogo">
                 <p><span class="oereb-title">{{'title'|translate}}</span><span class="show-for-medium">{{ 'subtitle' | translate }}</span></p>
             </a>
         </div>

@@ -1,5 +1,5 @@
 export class MainController {
-    constructor($log, $translate, Extracts, Helpers, Map, $scope) {
+    constructor($log, $translate, Extracts, Helpers, Map, $scope, $window) {
         'ngInject';
 
         var self = this;
@@ -8,17 +8,14 @@ export class MainController {
         this.Extracts = Extracts;
         this.Map = Map;
         this.Helpers = Helpers;
+        this.$window = $window;
         this.visibleContent = 'main';
 
-        // todo new-menu
-        // angular.element(document).foundation();
         var mainCtrl = this;
 
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
-
-            console.log(mainCtrl.extract);
         });
 
         Helpers.registerMenuStatusObserver(function() {
@@ -33,6 +30,10 @@ export class MainController {
         this.history = Extracts.get();
 
 
+    }
+
+    reloadPage() {
+        this.$window.location.href = '/';
     }
 
     setCurrentExtract(egrid) {
