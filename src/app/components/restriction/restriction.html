@@ -27,24 +27,37 @@
 </div>
 <div ng-repeat="v in restriction.data.values" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-    <div ng-repeat="document in v.LegalProvisions" class="row more-info pdf-list">
+
+
+    <div ng-if="!restriction.isArray(v.LegalProvisions)" class="row more-info pdf-list">
         <div class="small-12">
             <svg class="icon icon-file">
                 <use xlink:href="#icon-file"></use>
             </svg>
-            <a class="external-link" target="_blank" href="{{document.TextAtWeb.LocalisedText.Text}}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
+            <a class="external-link" target="_blank" href="{{ v.LegalProvisions.TextAtWeb.LocalisedText.Text }}" title="PDF">{{v.LegalProvisions.Title.LocalisedText.Text}}</a>
+        </div>
+    </div>
+
+
+    <div ng-if="restriction.isArray(v.LegalProvisions)" ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
+        <div class="small-12">
+            <svg class="icon icon-file">
+                <use xlink:href="#icon-file"></use>
+            </svg>
+            <a class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
         </div>
     </div>
 </div>
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
 </div>
-<div class="row more-info pdf-list">
+<div ng-repeat="v in restriction.data.values | unique:'v.ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
     <div class="small-12">
         <svg class="icon icon-open">
             <use xlink:href="#icon-open"></use>
         </svg>
-        <a class="external-link" target="_blank" href="{{restriction.data.values[0].LegalProvisions.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{restriction.data.values[0].LegalProvisions.ResponsibleOffice.Name.LocalisedText.Text}}</a>
+
+        <a class="external-link" target="_blank" href="{{v.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name.LocalisedText.Text}}</a>
     </div>
 </div>
 </div>

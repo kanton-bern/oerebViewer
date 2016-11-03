@@ -23,4 +23,9 @@ class RestrictionController {
         console.debug(this.data);
 
     }
+
+    isArray(data) {
+        return angular.isArray(data);
+    }
+
 }
