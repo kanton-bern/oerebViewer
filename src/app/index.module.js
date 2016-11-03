@@ -13,6 +13,7 @@ import { LoadingService } from '../app/components/loading/loading.service';
 import { HelpersService } from '../app/components/helpers/helpers.service';
 import { MapService } from '../app/components/map/map.service';
 import { MapDirective } from '../app/components/map/map.directive';
+import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 import { SearchSwisstopoDirective } from '../app/components/search/searchSwisstopo.directive';
 // import { SearchMapboxDirective } from '../app/components/search/searchMapbox.directive';
@@ -55,6 +56,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
     .directive('map', MapDirective)
     .directive('loading', LoadingDirective)
     .directive('search', SearchSwisstopoDirective)
+    .directive('restriction', RestrictionDirective)
     .directive('autofocus', AutofocusDirective)
     .directive('background', BackgroundImageDirective)
 

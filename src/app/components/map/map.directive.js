@@ -85,7 +85,7 @@ class MapController {
             });
         });
 
-        Map.registerHoverObserver(function(coordinates) {
+        /*Map.registerHoverObserver(function(coordinates) {
 
             if (self.hoverTimeoutHandle)
                 window.clearTimeout(self.hoverTimeoutHandle);
@@ -96,7 +96,7 @@ class MapController {
                 });
             }, 500);
 
-        });
+        });*/
 
         Extracts.registerCurrentObserverCallback(function() {
             var egrid = self.Extracts.getCurrent().egrid;

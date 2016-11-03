@@ -132,4 +132,9 @@ export class DetailController {
             }
         )
     }
+
+    showInList(item) {
+        return (!item.complex || item.hasChildren);
+
+    }
 }

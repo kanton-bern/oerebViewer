@@ -85,6 +85,8 @@ export class ExtractsService {
             if (angular.isUndefined(d.SubTheme))
                 return false;
 
+            var complex = (d.SubTheme != d.Theme.Name);
+
             var doesRestrictionTypeExist = false;
 
             angular.forEach(restrictions, function (value, key) {
@@ -94,11 +96,39 @@ export class ExtractsService {
                 }
             });
 
+            if (complex) {
+                var doesRestrictionParentTypeExist = false;
+
+                angular.forEach(restrictions, function (value, key) {
+                    if (value.code == d.Theme.Code) {
+                        doesRestrictionParentTypeExist = true;
+                    }
+                });
+
+                // create a new parent theme
+                if (!doesRestrictionParentTypeExist) {
+                    var theme = {};
+                    theme.name = d.Theme.Name;
+                    theme.code = d.Theme.Code;
+                    theme.complex = complex;
+                    theme.hasChildren = true;
+                    theme.values = []; // empty!
+                    theme.index = count++;
+
+                    restrictions.push(theme);
+                }
+            }
+
+
             if (!doesRestrictionTypeExist) {
                 var theme = {};
                 theme.name = d.SubTheme;
                 theme.code = d.SubTheme;
+                theme.parent = d.Theme.Code;
+                theme.complex = complex;
+                theme.hasChildren = false;
                 theme.values = [];
+
                 theme.values.push(d);
                 theme.index = count++;
 

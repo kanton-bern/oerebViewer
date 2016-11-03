@@ -1,0 +1,50 @@
+<div class="row theme-key">
+    <h3>{{"restrictionConcernedKey" | translate}}</h3>
+</div>
+
+<div ng-repeat="v in restriction.data.values" class="accordion-navigation">
+    <div class="row restriction-info">
+        <div class="small-1 oereb-label"><img class="legend-symbol" ng-src="{{v.Symbol}}" /></div>
+        <div class="small-11 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
+        <div class="small-1 show-for-small-only"></div>
+        <div ng-if="v.TypeCodelist == 'Polygon'" class="small-11 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
+        <div ng-if="v.TypeCodelist == 'Polyline'" class="small-11 medium-4 oereb-area">{{v.Area}}m</div>
+        <div ng-if="v.TypeCodelist == 'Point'" class="small-11 medium-4 oereb-area">{{v.Area}} Anzahl</div>
+    </div>
+</div>
+
+<div class="row more-info">
+    <div class="small-12">
+        <svg class="icon icon-layers">
+            <use xlink:href="#icon-layers"></use>
+        </svg>
+        <a class="external-link" target="_blank" href="{{restriction.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{restriction.data.name}})</a>
+    </div>
+</div>
+
+<div class="row">
+    <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
+</div>
+<div ng-repeat="v in restriction.data.values" class="accordion-navigation">
+    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
+    <div ng-repeat="document in v.LegalProvisions" class="row more-info pdf-list">
+        <div class="small-12">
+            <svg class="icon icon-file">
+                <use xlink:href="#icon-file"></use>
+            </svg>
+            <a class="external-link" target="_blank" href="{{document.TextAtWeb.LocalisedText.Text}}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
+</div>
+<div class="row more-info pdf-list">
+    <div class="small-12">
+        <svg class="icon icon-open">
+            <use xlink:href="#icon-open"></use>
+        </svg>
+        <a class="external-link" target="_blank" href="{{restriction.data.values[0].LegalProvisions.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{restriction.data.values[0].LegalProvisions.ResponsibleOffice.Name.LocalisedText.Text}}</a>
+    </div>
+</div>
+</div>
