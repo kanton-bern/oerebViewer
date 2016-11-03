@@ -82,13 +82,13 @@ export class ExtractsService {
         let count = 0;
         angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function (d) {
 
-            if (angular.isUndefined(d.Theme))
+            if (angular.isUndefined(d.SubTheme))
                 return false;
 
             var doesRestrictionTypeExist = false;
 
             angular.forEach(restrictions, function (value, key) {
-                if (value.code == d.Theme.Code) {
+                if (value.code == d.SubTheme) {
                     value.values.push(d);
                     doesRestrictionTypeExist = true;
                 }
@@ -96,8 +96,8 @@ export class ExtractsService {
 
             if (!doesRestrictionTypeExist) {
                 var theme = {};
-                theme.name = d.Theme.Name;
-                theme.code = d.Theme.Code;
+                theme.name = d.SubTheme;
+                theme.code = d.SubTheme;
                 theme.values = [];
                 theme.values.push(d);
                 theme.index = count++;
