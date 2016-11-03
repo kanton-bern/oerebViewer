@@ -253,6 +253,16 @@ body {
               padding:0;
             }
           }
+          &:hover {
+            background-color: $colorHeadContent;
+            &::after,
+            &::before {
+                background-color: $colorWhite;
+            }
+            .ng-binding {
+              color:$colorWhite !important;
+            }
+          }
         }
         &.is-expanded { // open
           v-pane-header {
@@ -332,7 +342,7 @@ body {
             cursor:default;
             .oereb-label {
               padding-right:10px;
-              font-weight:bold;
+              color:$colorHeadContent;
             }
 
 
@@ -406,6 +416,12 @@ body {
         li {
           padding:4px 12px 4px 12px;
           border-bottom:1px solid $colorHeadContent;
+          cursor:pointer;
+
+          &:hover {
+            background-color: $colorHeadContent;
+            color:$colorWhite;
+          }
         }
       }
 

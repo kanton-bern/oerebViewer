@@ -27,16 +27,8 @@
               <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.data.RealEstate.Number}}
                   ({{main.extract.data.RealEstate.Municipality}})
               </h1>
-              <p class="info-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</p>
+              <p ng-class="{'hidden': detail.noDatas}" class="info-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</p>
               <div class="pdf-download" ng-class="{'hidden': detail.noDatas}">
-
-                    <div class="small-12">
-                        <svg class="icon icon-map">
-                            <use xlink:href="#icon-map"></use>
-                        </svg>
-                        <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap"
-                            | translate}}</a>
-                    </div>
 
                   <div class="small-12">
                       <svg class="icon icon-file">
@@ -45,6 +37,13 @@
                       <a class="external-link"
                          href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
                          title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
+                  </div>
+                  <div class="small-12">
+                      <svg class="icon icon-map">
+                          <use xlink:href="#icon-map"></use>
+                      </svg>
+                      <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap"
+                          | translate}}</a>
                   </div>
               </div>
             </div>
@@ -241,16 +240,7 @@
                                 {{main.extract.data.PLRCadastreAuthority.PostalCode}}&nbsp;{{main.extract.data.PLRCadastreAuthority.City}}
                             </div>
                         </div>
-                        <div class="row more-info clearfix pdf-download">
-                            <div class="small-12">
-                                <svg class="icon icon-file">
-                                    <use xlink:href="#icon-file"></use>
-                                </svg>
-                                <a class="external-link"
-                                   href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
-                                   title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
-                            </div>
-                        </div>
+
                     </v-pane-content>
                 </v-pane>
                 <!-- / General Information -->
@@ -291,8 +281,8 @@
 
 
             <ul class="contentLinks">
-                <li ng-if="!detail.noDatas"><a ng-click="main.showGlossary()">Glossar</a></li>
-                <li><a ng-click="main.showImprint()">Rechtliches und Impressum</a></li>
+                <li ng-if="!detail.noDatas" ng-click="main.showGlossary()">Glossar</li>
+                <li ng-click="main.showImprint()">Rechtliches und Impressum</li>
             </ul>
 
         </div>
