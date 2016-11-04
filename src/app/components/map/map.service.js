@@ -11,9 +11,8 @@ export class MapService {
 
         this.tempLayers = [];
         this.selectedLayer = undefined;
-        this.hoverLayer = undefined;
+        this.clickedLayer = undefined;
         this.clickObservers = [];
-        this.hoverObservers = [];
         this.modeChangedObservers = [];
 
         this.isSearchOpen = false;
@@ -103,12 +102,6 @@ export class MapService {
             var coordinates = self.Coordinates.set('lastClick', Coordinates.System[21781], event.coordinate);
             self.notifyClickObservers(coordinates);
         });
-
-        this.map.on('pointermove', function(event) {
-            var coordinates = self.Coordinates.set('hover', Coordinates.System[21781], event.coordinate);
-            self.notifyHoverObservers(coordinates);
-        });
-
 
         var positionFeatureStyle = new this.ol.style.Style({
             image: new this.ol.style.Circle({
@@ -230,16 +223,6 @@ export class MapService {
         });
     }
 
-    registerHoverObserver(callback) {
-        this.hoverObservers.push(callback);
-    }
-
-    notifyHoverObservers(coordinates) {
-        angular.forEach(this.hoverObservers, function (callback) {
-            callback(coordinates);
-        });
-    }
-
     /*
      Adds Temporary Layers. Everytime new temporary Layers are added. The old one gets removed.
      */
@@ -309,7 +292,7 @@ export class MapService {
         this.addLayer(vectorLayer)
     }
 
-    addHoverLayer(polygon) {
+    addClickedLayer(polygon) {
         var self = this;
 
         // Create feature with polygon.
@@ -335,10 +318,10 @@ export class MapService {
 
         vectorLayer.setZIndex(5000);
 
-        if (this.hoverLayer != undefined)
-            this.map.removeLayer(this.hoverLayer);
+        if (this.clickedLayer != undefined)
+            this.map.removeLayer(this.clickedLayer);
 
-        this.hoverLayer = vectorLayer;
+        this.clickedLayer = vectorLayer;
 
         this.addLayer(vectorLayer)
     }

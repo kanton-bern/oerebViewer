@@ -81,7 +81,7 @@ class MapController {
             );
 
             self.Oereb.getDataFromWFS(coordinates).then(function (d) {
-                self.drawByWFS(d, 'selected');
+                self.drawByWFS(d, 'clicked');
             });
         });
 
@@ -129,16 +129,16 @@ class MapController {
         var posList = this.getPoslistFromWFS(d);
         var polygon = this.Map.createPolygon(posList);
 
-        if (addLayerMethod == 'hovered')
-            this.Map.addHoverLayer(polygon);
+        if (addLayerMethod == 'clicked')
+            this.Map.addClickedLayer(polygon);
 
         if (addLayerMethod == 'selected')
             this.Map.addSelectedLayer(polygon);
     }
 
     drawByPolygon(polygon, addLayerMethod) {
-        if (addLayerMethod == 'hovered')
-            this.Map.addHoverLayer(polygon);
+        if (addLayerMethod == 'clicked')
+            this.Map.addClickedLayer(polygon);
 
         if (addLayerMethod == 'selected')
             this.Map.addSelectedLayer(polygon);
