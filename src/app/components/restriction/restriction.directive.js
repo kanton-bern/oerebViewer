@@ -19,9 +19,6 @@ class RestrictionController {
     constructor() {
         'ngInject';
 
-        console.debug('restriction loaded');
-        console.debug(this.data);
-
     }
 
     isArray(data) {

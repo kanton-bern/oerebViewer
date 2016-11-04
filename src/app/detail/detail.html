@@ -68,7 +68,7 @@
                         <!-- sometimes there are themes but no restrictions -->
                         <ul ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length > 0">
                             <li ng-repeat="theme in main.extract.themes track by $index">
-                                {{ ::theme.Name }}
+                                {{ theme.Name }}
                             </li>
                         </ul>
 
@@ -82,7 +82,7 @@
 
                             <v-pane ng-repeat="restriction in main.extract.restrictions  | filter: detail.showInList track by $index" id="{{ restriction.code }}">
                                 <v-pane-header>
-                                    {{ ::restriction.name }}
+                                    {{ restriction.name }}
                                 </v-pane-header>
 
                                 <v-pane-content>
@@ -94,7 +94,7 @@
                                             <v-pane ng-repeat="subRestriction in main.extract.restrictions | filter:{parent:restriction.code} track by $index" id="{{ subRestriction.code }}">
 
                                                 <v-pane-header>
-                                                    {{ ::subRestriction.name }}
+                                                    {{ subRestriction.name }}
                                                 </v-pane-header>
 
                                                 <v-pane-content>
@@ -132,7 +132,7 @@
                         <!-- nested accordion -->
                         <ul>
                             <li ng-repeat="theme in main.extract.ncthemes track by $index">
-                                {{ ::theme.Name }}
+                                {{ theme.Name }}
                             </li>
                         </ul>
                     </v-pane-content>
@@ -149,7 +149,7 @@
                         <!-- nested accordion -->
                         <ul>
                             <li ng-repeat="theme in main.extract.wdthemes track by $index">
-                                {{ ::theme.Name }}
+                                {{ theme.Name }}
                             </li>
                         </ul>
                     </v-pane-content>
