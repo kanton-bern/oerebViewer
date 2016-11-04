@@ -1,7 +1,13 @@
 // Medium Layout
 @media screen and (min-width: $widthSmall) and (max-width: $widthLarge)  {
 
-
+.header {
+  .menu-nav {
+    .lang-selector {
+      display: none !important;
+    }
+  }
+}
 
 
  } // END Medium Layout

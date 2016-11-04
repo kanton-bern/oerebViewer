@@ -46,7 +46,7 @@ body {
     height:100vh;
     left:-75vw;
     width:75vw;
-    max-width: 680px;
+    max-width: 500px;
     z-index:5;
     overflow-y:auto;
     @include castShadowRight;
@@ -768,7 +768,7 @@ AB HIER WIRD NICHT MEHR BENUTZT
   .menu-nav, .map-nav {
     position:absolute;
     left:5%;
-    top:10%;
+    top:100px;
     z-index:3;
 
 
@@ -802,7 +802,7 @@ AB HIER WIRD NICHT MEHR BENUTZT
       display:block;
       position: absolute;
       top:0;
-      width:50vw;
+      width:75vw;
       right:64px;
       background-color:rgba($colorDarkGrey,0.9);
       padding:10px;

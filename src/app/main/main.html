@@ -5,7 +5,28 @@
 <header class="header">
     <div data-sticky-container class="header-sticky-container">
         <div data-sticky data-anchor="site-container" data-sticky-on="small" data-margin-top="0" class="header-sticky">
+
+
             <div class="menu-nav">
+              <div class="lang-selector">
+
+                  <svg class="icon icon-globe">
+                      <use xlink:href="#icon-globe"></use>
+                  </svg>
+
+                  <span ng-click="main.changeLanguage('de')">
+                      <a title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
+                  </span>
+                  <span>
+                      <a ng-click="main.changeLanguage('fr')" title="Version française"
+                         ng-class="{'is-active': main.isCurrentLanguage('fr')}">Français</a>
+                  </span>
+              </div>
+
+
+
+
+              <div class="menu-opener">
                 <button id="buttonShowExtract" aria-controls="menuLeftSlider"
                         ng-click="main.toggleMenu()"
                         class="button svg-icon btnOpenMenu">
@@ -15,6 +36,7 @@
                 </button>
                 <p ng-if="!main.menuStatus" ng-click="main.toggleMenu()">{{'titleMainMenu' | translate }}</p>
                 <p ng-if="main.menuStatus" ng-click="main.toggleMenu()">{{'titleMainMenuClose' | translate }}</p>
+              </div>
             </div>
             <div ng-class="{'hidden': main.extract}" class="no-property show-for-medium header-title">
                 <h2 class="hint">{{ 'no_property_loaded' | translate }}</h2>

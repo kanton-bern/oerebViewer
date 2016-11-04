@@ -1,7 +1,84 @@
 // Layout large
 @media screen and (min-width: $widthLarge) {
 
+// Header is bigger in Desktop-Mode
+.header {
+  height: 80px;
 
+  .header-title {
+    top:25px;
+    width:30%;
+    margin-left:auto;
+    margin-right:auto;
+    h2 {
+      font-size: $fontSizeBase * 1.6;
+    }
+  }
+  .menu-nav {
+    width:auto;
+    .lang-selector {
+      padding:25px 0px 0px 10px;
+
+      text-align: right;
+      span {
+        @include menuDarkLinks();
+        font-size: $fontSizeBase * 1.2;
+        vertical-align: text-bottom;
+        .is-active {
+          display:none;
+          visibility: hidden;
+        }
+      }
+    }
+    .menu-opener {
+      display:none !important;
+    }
+  }
+
+  .mainlogo {
+    top:20px;
+    right:30px;
+    p {
+      font-size:$fontSizeBase * 1.6;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+  }
+
+}
+
+.article {
+  .map-nav {
+    top:120px;
+
+    .search-open {
+      width:25vw;
+    }
+  }
+}
+
+// Left slider is always open
+.wrapper-inner {
+  .position-left {
+    padding-top:120px;
+    left:0px;
+
+    .top-menu {
+      display:none !important;
+    }
+
+    .intro-row {
+      padding-bottom:50px;
+    }
+  }
+}
+
+// Notifications
+
+
+.notification-wrapper {
+  width:25%;
+}
 
 
 

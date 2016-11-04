@@ -36,7 +36,8 @@ $button-size : 2rem;
 $transition: .2s; // increase this to see the transformations in slow-motion
 
 // Media-Query width
+$widthXLarge: 1300px; // Intermediate Breakpoint for large
 $widthLarge: 1200px; // Foundation Breakpoint
 $widthMedium: 1024px; // Foundation Breakpoint
-$widthSmallToMedium: 800px; // Indermidiate Breakpoint from small to medium
+$widthSmallToMedium: 800px; // Intermediate Breakpoint from small to medium
 $widthSmall: 640px; // Foundation Breakpoint

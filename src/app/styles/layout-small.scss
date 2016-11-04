@@ -1,6 +1,16 @@
 // Small Layout
 @media screen and (max-width: $widthSmall)  {
 
+  // Header 
+  .header {
+    .menu-nav {
+      .lang-selector {
+        display: none !important;
+      }
+    }
+  }
+
+
   // Notifications
   .notification-wrapper {
     width:100%;
