@@ -307,11 +307,11 @@ export class MapService {
             source: vectorSource,
             style: new self.ol.style.Style({
                 stroke: new self.ol.style.Stroke({
-                    color: 'rgba(0, 255, 0, 0.5)',
+                    color: 'rgba(255, 100, 0, 0.9)',
                     width: 2
                 }),
                 fill: new self.ol.style.Fill({
-                    color: 'rgba(255, 0, 0, 0)',
+                    color: 'rgba(255, 100, 0, 0.2)',
                 })
             })
         });
