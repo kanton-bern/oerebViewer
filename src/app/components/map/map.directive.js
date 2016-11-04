@@ -31,6 +31,8 @@ class MapController {
 
         var self = this;
 
+        this.activeLayer = 'aerial';
+
         // adds observer for clicks on the map
         Map.registerClickObserver(function(coordinates) {
 
@@ -217,6 +219,8 @@ class MapController {
     }
 
     showLayer(name) {
+        this.activeLayer = name;
+
         if (name == 'ortho') {
             this.Layers.show('ortho');
             this.Layers.hide('aerial');
@@ -228,10 +232,6 @@ class MapController {
         }
 
         this.Helpers.closeMenu();
-    }
-
-    isLayerActive(name) {
-        return this.Layers.isActive(name);
     }
 
     toggleSearch() {

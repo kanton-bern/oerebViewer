@@ -49,12 +49,12 @@
             <use xlink:href="#icon-minus"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnMapAerial" ng-click="map.showLayer('aerial')" ng-show="!map.isLayerActive('aerial')">
+    <button class="button svg-icon btnMapAerial no-transition" ng-click="map.showLayer('aerial')" ng-if="map.activeLayer != 'aerial'">
         <svg class="icon icon-aerial">
             <use xlink:href="#icon-aerial"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnMapOrtho" ng-click="map.showLayer('ortho')" ng-show="!map.isLayerActive('ortho')">
+    <button class="button svg-icon btnMapOrtho no-transition" ng-click="map.showLayer('ortho')" ng-if="map.activeLayer != 'ortho'">
         <svg class="icon icon-map">
             <use xlink:href="#icon-map"></use>
         </svg>
