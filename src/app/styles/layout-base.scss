@@ -308,13 +308,22 @@ body {
             h3 {
               font-size:$fontSizeBase * 1;
               @include fontBold;
-              margin:30px 0px 0px 0px;
+              margin:15px 0px 0px 0px;
+
+            }
+
+            restriction {
+              padding-bottom:20px;
+              padding-left:32px;
+              display:block;
 
             }
 
             > div {
               padding-left:0px;
               padding-right:0px;
+              padding-bottom:0px;
+
               // second level
               v-accordion {
                 margin:0;
@@ -324,9 +333,20 @@ body {
                     padding-left:20px;
                   }
                   v-pane-content {
-                    padding-left:32px;
-                    padding-right:32px;
+                    //padding-left:32px;
+                    //padding-right:32px;
                     font-size:$fontSizeBase * 1;
+
+                    &[aria-hidden='false'] {
+                      border:none;
+                      padding-bottom:0px;
+                    }
+
+                    v-pane {
+                      padding-left:0;
+                      padding-right:0;
+
+                    }
 
                     // mark it
                     background-color:$colorContentBgnd;
@@ -342,6 +362,10 @@ body {
         // Content
         v-pane-content {
 
+          &[aria-hidden='false'] {
+            border-bottom:1px solid $colorMenuTop;
+            padding-bottom:20px;
+          }
           > div {
             padding-top:0px;
             padding-left:12px;
