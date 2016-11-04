@@ -1,5 +1,5 @@
 export class DetailController {
-    constructor($log, $translate, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, $rootScope) {
+    constructor($log, $window, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, Loading) {
         'ngInject';
 
         let self = this;
@@ -9,6 +9,8 @@ export class DetailController {
         this.Layers = Layers;
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
+        this.Loading = Loading;
+        this.$window = $window;
         this.$scope = $scope;
 
 
@@ -131,6 +133,13 @@ export class DetailController {
                 egrid: egrid
             }
         )
+    }
+
+    openPDF(url) {
+        this.Loading.show();
+
+        this.$window.location.href = url;
+        console.debug(url);
     }
 
     showInList(item) {
