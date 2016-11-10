@@ -499,6 +499,11 @@ body {
 
 // End Mainmenu
 
+// contentwrapper
+.content-wrapper {
+
+}
+
 .article {
   // Navigation overlay on map
   .menu-nav, .map-nav {
@@ -618,6 +623,8 @@ body {
     position: relative;
     margin-top:44px;
     font-size:$fontSizeBase * 1.2;
+    height: calc(100vh - 40px);
+    overflow-y:scroll;
 
 
     // Logos im header

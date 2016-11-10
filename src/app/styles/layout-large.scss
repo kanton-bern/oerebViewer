@@ -82,6 +82,7 @@
   .contentpage {
       margin-top:80px;
       padding-left:20px;
+      height: calc(100vh - 80px) !important;
 
       .nav-close {
         right:30px;
