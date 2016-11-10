@@ -70,14 +70,18 @@
                 <!-- CONTENT: Impressum -->
                 <section class="contentpage contentimpressum" ng-class="{'current': main.visibleContent == 'imprint'}">
                   <div class="nav-close">
+
                     <button
                             ng-click="main.showMain()"
                             class="button svg-icon btnCloseContent">
                         <svg class="icon icon-cross">
                             <use xlink:href="#icon-cross"></use>
                         </svg>
+
                     </button>
-                    (<a ng-click="main.showMain()">Close</a>)
+                    <a ng-click="main.showMain()" href="">{{"notification_close" | translate}}</a>
+
+
                   </div>
                   <div class="row">
                     <div class="columns small-12">
@@ -128,24 +132,51 @@
                 <!-- END CONTENT: Impressum -->
                 <!-- CONTENT: Glossary -->
                 <section class="contentpage contentglossary" ng-class="{'current': main.visibleContent == 'glossary'}">
+                  <div class="nav-close">
+
+                    <button
+                            ng-click="main.showMain()"
+                            class="button svg-icon btnCloseContent">
+                        <svg class="icon icon-cross">
+                            <use xlink:href="#icon-cross"></use>
+                        </svg>
+
+                    </button>
+                    <a ng-click="main.showMain()" href="">{{"notification_close" | translate}}</a>
+
+
+                  </div>
+
                   <div class="row">
                     <div class="columns small-12">
-                      <h1>{{"contentTitleGlossary" | translate}}  (<a ng-click="main.showMain()">Close</a>)</h1>
-                      <!-- [bs][todo] Das Glossar kommt aus diesem XML-Node: Glossary:Title und muss entsprechend repetiert werden -->
+                      <h1>{{"contentTitleGlossary" | translate}}</h1>
+                      <div class="glossary-items">
                         <dl ng-repeat="element in main.extract.data.Glossary">
                             <dt>{{element.Title.LocalisedText.Text}}</dt>
                             <dd>{{element.Content.LocalisedText.Text}}</dd>
                         </dl>
-                        <dl>
-                            <dt>ÖREB-Kataster</dt>
-                            <dd>Öffentlich-rechtliche Eigentumsbeschränkungen: siehe auch <a href="http://www.cadastre.ch" class="external-link">www.cadastre.ch</a></dd>
-                        </dl>
+                      </div>
                     </div>
                   </div>
                 </section>
                 <!-- END CONTENT: Glossary -->
                 <!-- CONTENT: Themenbereiche -->
                 <section class="contentpage contentthemes" ng-class="{'current': main.visibleContent == 'themes'}">
+                  <div class="nav-close">
+
+                    <button
+                            ng-click="main.showMain()"
+                            class="button svg-icon btnCloseContent">
+                        <svg class="icon icon-cross">
+                            <use xlink:href="#icon-cross"></use>
+                        </svg>
+
+                    </button>
+                    <a ng-click="main.showMain()" href="">{{"notification_close" | translate}}</a>
+
+
+                  </div>
+
                   <div class="row">
                     <div class="columns small-12">
                         Themenbereiche
@@ -156,6 +187,20 @@
                 <!-- END CONTENT: Themenbereiche -->
                 <!-- CONTENT: Other content -->
                 <section class="contentpage contentinfo" ng-class="{'current': main.visibleContent == 'other'}">
+                  <div class="nav-close">
+
+                    <button
+                            ng-click="main.showMain()"
+                            class="button svg-icon btnCloseContent">
+                        <svg class="icon icon-cross">
+                            <use xlink:href="#icon-cross"></use>
+                        </svg>
+
+                    </button>
+                    <a ng-click="main.showMain()" href="">{{"notification_close" | translate}}</a>
+
+
+                  </div>
                   <div class="row">
                     <div class="columns small-12">
                       <h1>Was ist die ÖREB?</h1>

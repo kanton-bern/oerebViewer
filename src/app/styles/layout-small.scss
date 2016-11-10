@@ -1,7 +1,7 @@
 // Small Layout
 @media screen and (max-width: $widthSmall)  {
 
-  // Header 
+  // Header
   .header {
     .menu-nav {
       .lang-selector {
@@ -21,6 +21,27 @@
   .mainnav {
       font-size:$fontSizeBase * 1;
   }
+
+  // history
+  .history-item {
+    .logo-gemeinde {
+
+      width:28px !important;
+    }
+  }
+
+  // end history
+
+
+  // Start glossary
+  .contentglossary {
+
+      dl {
+        width:100% !important;
+        padding-right:10px !important;
+    }
+  }
+  // end glossary
 
 
  } // END Medium Layout

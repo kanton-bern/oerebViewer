@@ -76,6 +76,26 @@ body {
 }
 // End SVG-Icons
 
+// Close content-view
+.nav-close {
+  position:absolute;
+  right:10px;
+  top:10px;
+
+  .button {
+    background-color:rgba($colorDarkGrey,0.9);
+    @include rounded;
+    margin:0.5em;
+  }
+  @include contentLightLinks;
+  a {
+    font-size: $fontSizeBase * 1.2;
+    vertical-align: middle;
+  }
+
+}
+// end close content view
+
 .header {
   height: 44px;
   z-index: 10;
@@ -425,9 +445,10 @@ body {
               margin-right:10px;
               background-size: contain;
               background-repeat: no-repeat;
-              background-position: center center;
+              background-position: top center;
               background-blend-mode: multiply;
-              height:40px;
+              margin-top:6px;
+              height:50px;
             }
             .copy-clipboard {
              padding:0px 16px 0px 16px;
@@ -594,6 +615,10 @@ body {
   .contentpage {
     display:none;
     background-color: $colorContentBgnd;
+    position: relative;
+    margin-top:44px;
+    font-size:$fontSizeBase * 1.2;
+
 
     // Logos im header
     .partner-logo {
@@ -623,7 +648,29 @@ body {
     &.current {
       display:block;
     }
+
+    // Start glossary
+    &.contentglossary {
+      .glossary-items {
+        display:flex;
+        flex-wrap: wrap;
+
+        dl {
+          width:50%;
+          padding-right:10%;
+          margin-bottom:60px;
+
+          dd {
+              line-height:$fontLineHeightBase + 5%;
+          }
+        }
+      }
+    }
+    // end glossary
+
   }
+
+
 
 }
 // End article

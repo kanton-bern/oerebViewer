@@ -77,6 +77,17 @@
 .content-wrapper {
   width:calc(100vw - 500px);
   margin-left:500px;
+
+  // content pages
+  .contentpage {
+      margin-top:80px;
+      padding-left:20px;
+
+      .nav-close {
+        right:30px;
+      }
+  }
+
 }
 
 // Notifications
