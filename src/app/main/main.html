@@ -85,47 +85,97 @@
                   </div>
                   <div class="row">
                     <div class="columns small-12">
-                      <h1>Impressum und Rechtliches</h1>
+                      <h1>{{'titleImprint' | translate}}</h1>
                       <!-- Disclaimer -->
-                      <p>An diesem Auszug sind beteiligt:</p>
+                      <h2>{{'titleInvolvedParties' | translate }}</h2>
                       <div class="partner-logo">
+                        <div class="logo-item">
                         <div style="background-image:url('/assets/images/bund_wappen.png')"
                              class="logo-bund">
-
-                           </div><p class="clearfix">{{"bundText" | translate}}</p>
+                           </div>
+                           <p class="clearfix">{{"bundText" | translate}}</p>
+                         </div>
+                         <div class="logo-item">
                         <div style="background-image:url('/assets/images/kanton_be.png')"
                                   class="logo-kanton">
-
-                        </div><p class="clearfix">{{"kantonText" | translate}}</p>
-
+                        </div>
+                        <p class="clearfix">{{"kantonText" | translate}}</p>
+                      </div>
+                      <div class="logo-item">
                        <div ng-if="main.extract.data.MunicipalityLogo" style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
                             class="logo-gemeinde">
-
-                          </div><p class="clearfix">{{"detailCommunity" | translate}} {{main.extract.data.RealEstate.Municipality}}</p>
+                          </div>
+                          <p class="clearfix">{{"detailCommunity" | translate}} {{main.extract.data.RealEstate.Municipality}}</p>
+                        </div>
+                        <div class="logo-item">
                        <div ng-if="!main.extract.data.MunicipalityLogo" style="background-image:url('/assets/images/gde_dummy.png')"
                                  class="logo-gemeinde">
-
-                       </div><p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">{{"notification_noCommunity" | translate}}</p>
+                       </div>
+                       <p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">{{"notification_noCommunity" | translate}}</p>
+                     </div>
+                     </div>
+                      <h2>{{'titleRemarksImprint' | translate}}</h2>
+                      <section class="section">
+                      <div class="section-item">
+                        <h3>{{ 'titleGeneralInformation' | translate}}</h3>
+                        <p>{{main.extract.data.GeneralInformation.LocalisedText.Text}}</p>
+                        <h3>{{ 'titleBaseData' | translate}}</h3>
+                        <p>{{main.extract.data.BaseData.LocalisedText.Text}}</p>
                       </div>
-                      <h2>Impressum</h2>
-                      <h3>Inhaltliche Verantwortung</h3>
-                      <address>
-                        Bau-, Verkehrs- und Energiedirektion des Kantons Bern
-                      </address>
-                      <h3>Usability</h3>
-                        <address>
-                          uFive
-                        </address>
-                      <h3>Gestaltung und Screendesign</h3>
-                        <address>
-                          Sturm und Bräm GmbH
-                        </address>
+                      <div class="section-item">
+                        <h3>{{main.extract.data.ExclusionOfLiability.Title.LocalisedText.Text}}</h3>
+                        <p>{{main.extract.data.ExclusionOfLiability.Content.LocalisedText.Text}}</p>
+                      </div>
+                    </section>
+                    <h2>{{ 'titleResponsibilityImprint' | translate}}</h2>
+                    <section class="section">
+                      <div class="section-item">
+                        <h3>Inhaltliche Verantwortung</h3>
+                        <p>
+                          Bau-, Verkehrs- und Energiedirektion des Kantons Bern<br />
+                          Amt für Geoinformation<br />
+                          Reiterstrasse 11<br />
+                          3011 Bern<br />
+                          <a href="http://www.apps.be.ch/geo/de" class="url-link">Geoportal des Kantons Bern</a>
+                        </p>
+                      </div>
+                      <div class="section-item">
+                        <h3>Usability</h3>
+                          <p>
+                            Team U5 Usability</br>
+                            Institut für Medizinische Lehre<br />
+                            Universität Bern<br>
+                            Sulgenauweg 40<br />
+                            3007 Bern<br />
+                            <a href="https://www.iml.unibe.ch/angebote/weitere-dienstleistungen/usability" class="url-link">Team U5 Usability</a>
+
+                          </p>
+                        </div>
+                        <div class="section-item">
+                      <h3>Gestaltung und Frontend-Screendesign</h3>
+                        <p>
+                          Sturm und Bräm GmbH<br/>
+                          Monbijousstrasse 27<br />
+                          3011 Bern<br />
+                          <a href="https://www.sturmundbraem.ch" class="url-link">www.sturmundbraem.ch</a>
+                        </p>
+                      </div>
+                      <div class="section-item">
                       <h3>Technische Realisierung</h3>
-                      <address>
-                        novu GmbH
-                      </address>
+                      <p>
+                        novu GmbH<br />
+                        Aarbergergasse 46<br />
+                        3011 Bern<br />
+                        <a href="https://www.novu.ch" class="url-link">www.novu.ch</a>
+                      </p>
+                    </div>
+                      </section>
+
                       <h2>Rechtliches</h2>
+                      <section class="section">
+                        <p>Gibt es da etwas zu den Lizenzen?</p>
                       <p>Teile dieser Applikation unterliegen den folgenden Lizenzen</p>
+                    </section>
                     </div>
                   </div>
                 </section>

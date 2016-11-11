@@ -57,6 +57,12 @@
   "restrictionAuthority": "FR Zuständige Stelle",
   "restrictionKeyDownload": "FR Vollständige Legende herunterladen",
   "contentTitleGlossary": "Glossaire",
+  "titleGeneralInformation": "Informations générales",
+  "titleBaseData": "Données de base",
+  "titleRemarksImprint": "FR Hinweise",
+  "titleResponsibilityImprint": "FR Verantwortlichkeiten",
+  "titleImprint": "FR Impressum und Rechtliches",
+  "titleInvolvedParties": "FR An diesem Auszug sind beteiligt:",
 
   "gstart" : {
     "0": "FR Liegenschaft",

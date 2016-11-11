@@ -57,6 +57,12 @@
   "restrictionAuthority": "Zuständige Stelle",
   "restrictionKeyDownload": "Vollständige Legende herunterladen",
   "contentTitleGlossary": "Glossar",
+  "titleGeneralInformation": "Allgemeine Hinweise",
+  "titleBaseData": "Grundlagendaten",
+  "titleRemarksImprint": "Hinweise",
+  "titleResponsibilityImprint": "Verantwortlichkeiten",
+  "titleImprint": "Impressum und Rechtliches",
+  "titleInvolvedParties": "An diesem Auszug sind beteiligt:",
 
 
   "gstart" : {

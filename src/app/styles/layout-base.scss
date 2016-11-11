@@ -675,6 +675,24 @@ body {
     }
     // end glossary
 
+    // Start imprint
+    &.contentimpressum {
+      .partner-logo {
+        margin-top:2rem;
+      }
+      .section, .partner-logo {
+        display:flex;
+        flex-wrap:wrap;
+        .section-item, .logo-item {
+          width:50%;
+          padding-right:10%;
+        }
+      }
+    }
+
+    // end imprint
+
+
   }
 
 
