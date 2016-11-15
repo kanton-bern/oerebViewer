@@ -31,7 +31,7 @@
                         ng-click="main.toggleMenu()"
                         class="button svg-icon btnOpenMenu">
                     <svg class="icon" ng-class="{'icon-menu': !main.menuStatus, 'icon-cross': main.menuStatus}">
-                        <use xlink:href="{{main.menuStatus?'#icon-cross':'#icon-menu'}}"></use>
+                        <use xlink:href="" ng-href="{{ main.menuStatus ? '#icon-cross':'#icon-menu' }}"></use>
                     </svg>
                 </button>
                 <p ng-if="!main.menuStatus" ng-click="main.toggleMenu()">{{'titleMainMenu' | translate }}</p>
