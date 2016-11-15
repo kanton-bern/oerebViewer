@@ -144,6 +144,10 @@ export class MapService {
         });
     }
 
+
+
+
+
     click(coordinates) {
         this.notifyClickObservers(coordinates);
     }
@@ -190,8 +194,24 @@ export class MapService {
         this.map.addOverlay(overlay);
     }
 
+    hideOverlay(overlay) {
+        $('.infobox').hide();
+    }
+
     removeOverlay(overlay) {
-        this.map.removeOverlay(overlay);
+        if (angular.isDefined(overlay)) {
+            this.map.removeOverlay(overlay);
+            return;
+        }
+
+        if (angular.isDefined(this.lastOverlay)) {
+            this.map.removeOverlay(this.lastOverlay);
+            return;
+        }
+
+        console.debug('tried to remove an non existing overlay');
+        return;
+
     }
 
     zoomIn() {
@@ -284,7 +304,7 @@ export class MapService {
 
         vectorLayer.setZIndex(5000);
 
-        if (this.selectedLayer != undefined)
+        if (angular.isDefined(this.selectedLayer))
             this.map.removeLayer(this.selectedLayer);
 
         this.selectedLayer = vectorLayer;
@@ -324,6 +344,11 @@ export class MapService {
         this.clickedLayer = vectorLayer;
 
         this.addLayer(vectorLayer)
+    }
+
+    removeClickedLayer() {
+        if (angular.isDefined(this.clickedLayer))
+            this.map.removeLayer(this.clickedLayer);
     }
 
 

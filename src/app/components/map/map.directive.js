@@ -56,7 +56,7 @@ class MapController {
                 element: document.getElementById('infobox')
             });
 
-            self.lastOverlay = popup;
+            self.Map.lastOverlay = popup;
 
             // add the overlay 'popup' to the map
             Map.addOverlay(popup);
@@ -195,8 +195,8 @@ class MapController {
     }
 
     removeOverlay() {
-        if (angular.isDefined(this.lastOverlay))
-            return this.Map.removeOverlay(this.lastOverlay);
+        if (angular.isDefined(this.Map.lastOverlay))
+            return this.Map.removeOverlay(this.Map.lastOverlay);
         return false;
 
         // Close main menu if open
@@ -204,8 +204,8 @@ class MapController {
     }
 
     showOverlay() {
-        if (angular.isDefined(this.lastOverlay))
-            return this.Map.addOverlay(this.lastOverlay);
+        if (angular.isDefined(this.Map.lastOverlay))
+            return this.Map.addOverlay(this.Map.lastOverlay);
 
         // Close main menu if open
         this.Helpers.closeMenu();

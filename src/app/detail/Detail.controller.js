@@ -14,10 +14,17 @@ export class DetailController {
         this.$scope = $scope;
 
 
+
+        // hide infobox overlay
+        this.Map.hideOverlay();
+
+        // remove selected layer
+        this.Map.removeClickedLayer();
+
+
+        // if there are no data available
         this.noDatas = true;
-        if ($stateParams.egrid == 0) {
-            this.noDatas = true;
-        } else {
+        if ($stateParams.egrid != 0) {
             this.addExtract($stateParams.egrid);
             this.noDatas = false;
         }
