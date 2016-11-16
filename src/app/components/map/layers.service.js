@@ -38,7 +38,6 @@ export class LayersService {
 
     oerebLayer() {
         let wmsOerebSource = new this.ol.source.TileWMS(({
-            //url: 'http://www.geoservice.apps.be.ch/geoservice/services/a42pub/a42pub_oereb_av_wms_d_bk_s/MapServer/WMSServer?',
             url: 'http://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
             params: {
                 'LAYERS': 'GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE',  // LAYERS=GEODB.AVR_BOF,GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF_SR_B,GEODB.DIPANU_DIPANUF,GEODB.DIPANU_DIPANUF_B,GEODB.GRENZ5_G5_B,GEODB.TELEDAT_NW,GEODB.GEBADR_GADR,GEODB.AVR_PELE,GEODB.AVR_LELE,GEODB.AVR_FELE
@@ -52,7 +51,6 @@ export class LayersService {
 
 
         let wmsOEREB = new this.ol.layer.Tile({
-            /*preload: Infinity,*/
             visible: true,
             source: wmsOerebSource,
             name: 'oereb'
@@ -120,21 +118,16 @@ export class LayersService {
     }
 
     isActive(name) {
-        /*for (var i = 0; i < this.layers.length; i++) {
-            if (this.layers[i].M.name == name) {
-                return this.layers[i].visible;
+        return (this.active == name);
+    }
+
+    isHidden(name) {
+        for (var i = 0; i < this.resolvedLayers.length; i++) {
+            if (this.resolvedLayers[i].M.name == name) {
+                return !this.resolvedLayers[i].visible;
             }
         }
-
-        return false;*/
-
-        console.log('isactive');
-
-        console.log(this.activeLayerNames);
-
-        console.log(name);
-        console.log(this.activeLayerNames.includes(name));
-        return (this.active == name);
+        return false;
     }
 
     hide(name, inverse = false) {

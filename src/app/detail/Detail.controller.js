@@ -2,6 +2,7 @@ export class DetailController {
     constructor($log, $window, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, Loading) {
         'ngInject';
 
+        // declarations
         let self = this;
         this.Extracts = Extracts;
         this.$location = $location;
@@ -14,13 +15,11 @@ export class DetailController {
         this.$scope = $scope;
 
 
-
         // hide infobox overlay
         this.Map.hideOverlay();
 
         // remove selected layer
         this.Map.removeClickedLayer();
-
 
         // if there are no data available
         this.noDatas = true;
@@ -32,7 +31,6 @@ export class DetailController {
         // triggers restriction changed at startup
         this.restrictionChanged(false);
 
-
         // if location searchpath is changed, restrictionchanges
         $scope.$on('$locationChangeSuccess', function () {
             self.restrictionChanged(true);
@@ -40,10 +38,6 @@ export class DetailController {
 
         // on restriction reload add layer to map
         this.Extracts.registerRestrictionObserverCallback(function() {
-
-
-
-            console.log('execute register restriction observer');
             self.tempLayers = [];
 
             let bbox = '';
@@ -78,7 +72,6 @@ export class DetailController {
 
 
             self.Map.addTempLayers(self.tempLayers);
-
         });
 
 
@@ -86,10 +79,6 @@ export class DetailController {
         Extracts.registerCurrentObserverCallback(function() {
             Helpers.openMenu();
         });
-
-
-      // todo new-menu
-      // angular.element('aside').foundation();
 
         // Menubutton in header will change to cross [x] if menu is open.
         var $menuNav = angular.element('.menu-nav');
@@ -151,6 +140,5 @@ export class DetailController {
 
     showInList(item) {
         return (!item.complex || item.hasChildren);
-
     }
 }

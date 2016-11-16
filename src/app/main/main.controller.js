@@ -29,8 +29,6 @@ export class MainController {
 
 
         this.history = Extracts.get();
-
-
     }
 
     reloadPage() {

@@ -2,6 +2,7 @@ export class MapService {
     constructor(ngeoDecorateLayer, Layers, Oereb, Helpers, Coordinates) {
         'ngInject';
 
+        // declarations
         let self = this;
         this.ol = ol;
         this.Oereb = Oereb;
@@ -9,14 +10,17 @@ export class MapService {
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
 
+        // default definitions
         this.tempLayers = [];
         this.selectedLayer = undefined;
         this.clickedLayer = undefined;
         this.clickObservers = [];
         this.modeChangedObservers = [];
 
+        this.shouldUpdate = true;
         this.isSearchOpen = false;
 
+        // configs for map
         this.config = {
             zoom: {
 
@@ -27,15 +31,18 @@ export class MapService {
                 extent: [420000, 30000, 900000, 350000],
                 epsg: 'EPSG:21781',
             }
-        }
+        };
 
+        // current center
         this.center = [599042.5342280008,185035.77279221092];
+
+        // default zoom by config
         this.zoom = this.config.zoom.default;
 
-        // projection
+        // set projection by config
         this.projection = this.ol.proj.get(self.config.projection.epsg);
 
-        // view
+        // initialises view
         this.view = new this.ol.View({
             center: self.center,
             zoom: self.zoom,
@@ -43,61 +50,17 @@ export class MapService {
             minZoom: 4
         });
 
+        // initialises map
         this.map = new this.ol.Map({
             view: this.view,
         });
 
-
-        var shouldUpdate = true;
-        var view = this.map.getView();
-        var onResizeMap = function () {
-
-            if (view.getZoom() > 11) {
-                self.Layers.show('oereb');
-            } else {
-                self.Layers.hide('oereb');
-            }
-
-            // self.Helpers.closeMenu();
-
-            console.log(view.getZoom() + ' ' + view.getCenter());
-
-            return true;
-
-            if (!shouldUpdate) {
-                // do not update the URL when the view was changed in the 'popstate' handler
-                shouldUpdate = true;
-                return;
-            }
-
-            var center = view.getCenter();
-
-            // generate hash
-            var hash = '/#/?' +
-                $base64.encode(
-                    view.getZoom() + '/' + center[0] + '/' + center[1]
-                ).slice(0, -1);
-
-            var state = {
-                zoom: view.getZoom(),
-                center: view.getCenter()
-            };
-            window.history.pushState(state, 'map', hash);
-        };
-
-        this.map.on('moveend', onResizeMap);
-
-        // onload set center from url
-        window.addEventListener('popstate', function (event) {
-            if (event.state === null) {
-                return;
-            }
-            self.map.getView().setCenter(event.state.center);
-            self.map.getView().setZoom(event.state.zoom);
-            shouldUpdate = false;
+        // registers 'moveend' event listener
+        this.map.on('moveend', function () {
+            self.updateStatus();
         });
 
-        // click event listener
+        // registers 'singleclick' event listener
         this.map.on('singleclick', function (event) {
             var coordinates = self.Coordinates.set('lastClick', Coordinates.System[21781], event.coordinate);
             self.notifyClickObservers(coordinates);
@@ -122,20 +85,7 @@ export class MapService {
             zoom: this.config.zoom.zoomedIn,
         };
 
-
-        // async layers
-        /*Layers.get().forEach(function (layer) {
-            if (layer instanceof Promise) {
-                layer.then(function (value) {
-                    ngeoDecorateLayer(value);
-                    self.map.addLayer(value);
-                });
-            } else {
-                ngeoDecorateLayer(layer);
-                self.map.addLayer(layer);
-            }
-        });*/
-
+        // adds layers to map
         Layers.get(function(layers) {
             layers.forEach(function(layer) {
                 ngeoDecorateLayer(layer);
@@ -144,9 +94,21 @@ export class MapService {
         });
     }
 
+    updateStatus() {
+        var self = this;
+        var view = this.map.getView();
 
+        if (angular.isUndefined(view.getZoom()) && self.Layers.isHidden('oereb')) {
+            self.Layers.show('oereb');
+            return;
+        }
 
-
+        if (view.getZoom() > 11) {
+            self.Layers.show('oereb');
+        } else {
+            self.Layers.hide('oereb');
+        }
+    }
 
     click(coordinates) {
         this.notifyClickObservers(coordinates);

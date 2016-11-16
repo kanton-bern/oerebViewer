@@ -1,9 +1,8 @@
 export class ExtractsService {
-    constructor($log, $location, Loading, Oereb, Notification, localStorageService, Helpers, $filter) {
+    constructor($location, Loading, Oereb, Notification, localStorageService, Helpers, $filter) {
 
         'ngInject';
 
-        this.$log = $log;
         this.$filter = $filter;
         this.Helpers = Helpers;
         this.$location = $location;
@@ -31,7 +30,7 @@ export class ExtractsService {
 
         this.remove(newExtract.egrid);
 
-        this.$log.warn('extract loading: ' + newExtract.egrid);
+        console.warn('extract loading: ' + newExtract.egrid);
 
         this.Loading.show();
 
@@ -230,7 +229,7 @@ export class ExtractsService {
             }
         }
 
-        this.$log.warn("animation: remove" + egrid);
+        console.warn("animation: remove" + egrid);
 
         return egrid;
     }
