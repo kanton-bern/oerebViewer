@@ -7,6 +7,14 @@
       .lang-selector {
         display: none !important;
       }
+
+      .menu-opener {
+        min-width:200px;
+        p {
+          min-width:150px;
+          padding-left:0em;
+        }
+      }
     }
   }
 
@@ -20,6 +28,24 @@
   // Start mainnav
   .mainnav {
       font-size:$fontSizeBase * 1;
+      line-height:$fontLineHeightBase;
+
+      .intro-row {
+        .info-date {
+          margin-top:0.25rem;
+        }
+      }
+
+      .pdf-download {
+        .small-12 {
+          margin-bottom:10px;
+        }
+      }
+
+      .lang-selector {
+        width:50%;
+      }
+
   }
 
   // history
@@ -28,6 +54,8 @@
 
       width:28px !important;
     }
+
+
   }
 
   // end history
