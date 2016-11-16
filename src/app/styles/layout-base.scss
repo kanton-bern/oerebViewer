@@ -557,6 +557,10 @@ body {
         }
         .tt-selectable {
           cursor:pointer;
+          padding:5px;
+        }
+        .tt-cursor {
+          background-color: $colorHeadContent;
         }
       }
       // End typeahead suggestions
