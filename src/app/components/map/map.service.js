@@ -98,11 +98,6 @@ export class MapService {
         var self = this;
         var view = this.map.getView();
 
-        if (angular.isUndefined(view.getZoom()) && self.Layers.isHidden('oereb')) {
-            self.Layers.show('oereb');
-            return;
-        }
-
         if (view.getZoom() > 11) {
             self.Layers.show('oereb');
         } else {

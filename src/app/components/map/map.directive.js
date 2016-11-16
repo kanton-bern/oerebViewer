@@ -111,7 +111,7 @@ class MapController {
 
                 var size = Map.map.getSize();
                 Map.map.getView()
-                    .fit(polygon, size, {padding: [200, 200, 200, 200], constrainResolution: false});
+                    .fit(polygon, size, {padding: [200, 200, 200, 200] });
             });
 
 

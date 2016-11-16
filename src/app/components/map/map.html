@@ -16,7 +16,7 @@
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
-                <span class="clickable" href="#" ui-sref="home.detail({egrid: ele.egrid, restriction: 'none'})">{{'infobox_plot' | translate}} {{ele.number}}</span>
+                <span class="clickable" href="#" ui-sref-active="active" ui-sref="home.detail({egrid: ele.egrid, restriction: 'none'})">{{'infobox_plot' | translate}} {{ele.number}}</span>
             </li>
         </ul>
     </div>
