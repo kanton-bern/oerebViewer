@@ -1,9 +1,10 @@
 export class LayersService {
-    constructor() {
+    constructor(Notification) {
         'ngInject';
 
         this.ol = ol;
         this.Map = Map;
+        this.Notification = Notification;
 
         this.layers = [];
         this.resolvedLayers = [];
@@ -61,6 +62,8 @@ export class LayersService {
             });
 
             return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
         });
     }
 
@@ -84,7 +87,9 @@ export class LayersService {
             });
 
             return wmtsLayer;
-        });
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_orthofoto_n_bk konnte nicht geladen werden.');
+        });;
     }
 
 

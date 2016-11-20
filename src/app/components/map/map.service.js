@@ -34,7 +34,6 @@ export class MapService {
 
         // current center
         this.center = [620039.0625,188203.125];
-        // this.center = [434999, 290000];
 
         // default zoom by config
         this.zoom = this.config.zoom.default;
