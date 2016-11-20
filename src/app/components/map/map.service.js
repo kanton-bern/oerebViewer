@@ -23,18 +23,18 @@ export class MapService {
         // configs for map
         this.config = {
             zoom: {
-
-                default: 6,
+                default: 4,
                 zoomedIn: 13
             },
             projection: {
-                extent: [420000, 30000, 900000, 350000],
+                extent: [420000, 30000, 900000, 350000],  // 2440000
                 epsg: 'EPSG:21781',
             }
         };
 
         // current center
-        this.center = [599042.5342280008,185035.77279221092];
+        this.center = [620039.0625,188203.125];
+        // this.center = [434999, 290000];
 
         // default zoom by config
         this.zoom = this.config.zoom.default;
@@ -57,6 +57,8 @@ export class MapService {
 
         // registers 'moveend' event listener
         this.map.on('moveend', function () {
+            console.debug(self.map.getView().getCenter());
+            console.debug(self.map.getView().getZoom());
             self.updateStatus();
         });
 
@@ -98,7 +100,7 @@ export class MapService {
         var self = this;
         var view = this.map.getView();
 
-        if (view.getZoom() > 11) {
+        if (view.getZoom() > 10) {
             self.Layers.show('oereb');
         } else {
             self.Layers.hide('oereb');

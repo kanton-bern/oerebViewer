@@ -31,7 +31,7 @@ class MapController {
 
         var self = this;
 
-        this.activeLayer = 'aerial';
+        this.activeLayer = 'greyMap';
 
         // adds observer for clicks on the map
         Map.registerClickObserver(function(coordinates) {
@@ -86,19 +86,6 @@ class MapController {
                 self.drawByWFS(d, 'clicked');
             });
         });
-
-        /*Map.registerHoverObserver(function(coordinates) {
-
-            if (self.hoverTimeoutHandle)
-                window.clearTimeout(self.hoverTimeoutHandle);
-
-            self.hoverTimeoutHandle = window.setTimeout(function() {
-                self.Oereb.getDataFromWFS(coordinates).then(function (d) {
-                    self.drawByWFS(d, 'hovered');
-                });
-            }, 500);
-
-        });*/
 
         Extracts.registerCurrentObserverCallback(function() {
             var egrid = self.Extracts.getCurrent().egrid;
@@ -221,14 +208,14 @@ class MapController {
     showLayer(name) {
         this.activeLayer = name;
 
-        if (name == 'ortho') {
-            this.Layers.show('ortho');
-            this.Layers.hide('aerial');
+        if (name == 'greyMap') {
+            this.Layers.show('greyMap');
+            this.Layers.hide('orthoPhoto');
         }
 
-        if (name == 'aerial') {
-            this.Layers.show('aerial');
-            this.Layers.hide('ortho');
+        if (name == 'orthoPhoto') {
+            this.Layers.show('orthoPhoto');
+            this.Layers.hide('greyMap');
         }
 
         this.Helpers.closeMenu();
