@@ -27,14 +27,13 @@ export class MapService {
                 zoomedIn: 13
             },
             projection: {
-                // extent: [420000, 30000, 900000, 350000],  // 2440000
-                // epsg: 'EPSG:21781',
+                extent: [2440000, 1024000, 2895000, 1340000],
                 epsg: 'EPSG:2056'
             }
         };
 
         // current center
-        this.center = [620039.0625,188203.125];
+        this.center = [2604688.627, 1175634.936];
 
         // default zoom by config
         this.zoom = this.config.zoom.default;
@@ -44,7 +43,8 @@ export class MapService {
 
         // initialises view
         this.view = new this.ol.View({
-            // center: self.center,
+            center: self.center,
+            extent: this.config.projection.extent,
             zoom: self.zoom,
             projection: this.projection,
             minZoom: 4
