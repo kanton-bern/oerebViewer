@@ -28,12 +28,12 @@ function webpackWrapper(watch, test, callback) {
     if(err) {
       conf.errorHandler('Webpack')(err);
     }
-    $.util.log(stats.toString({
+    /*$.util.log(stats.toString({
       colors: $.util.colors.supportsColor,
       chunks: false,
       hash: false,
       version: false
-    }));
+    }));*/
     browserSync.reload();
     if(watch) {
       watch = false;
