@@ -28,6 +28,7 @@ class MapController {
         this.Helpers = Helpers;
         this.Coordinates = Coordinates;
         this.Notification = Notification;
+        this.ol = ol;
 
         var self = this;
 
@@ -68,7 +69,7 @@ class MapController {
             $(element).hide();
             $(element).show();
 
-            popup.setPosition(coordinates[21781]);
+            popup.setPosition(coordinates[2056]);
 
             self.selectedPoint = [];
             self.infoboxLoading = true;
@@ -82,30 +83,20 @@ class MapController {
                 }
             );
 
-            self.Oereb.getDataFromWFS(coordinates).then(function (d) {
-                self.drawByWFS(d, 'clicked');
+            self.Oereb.getWFSSource(coordinates).then(function (vectorSource) {
+                self.drawByWFSSource(vectorSource, 'clicked');
             });
+
         });
 
         Extracts.registerCurrentObserverCallback(function() {
             var egrid = self.Extracts.getCurrent().egrid;
 
-            self.Oereb.getDataFromWFS(egrid).then(function (d) {
-                var posList = self.getPoslistFromWFS(d);
-                var polygon = Map.createPolygon(posList);
-
-                self.drawByPolygon(polygon, 'selected');
-
-                var size = Map.map.getSize();
-                Map.map.getView()
-                    .fit(polygon, size, {padding: [200, 200, 200, 200] });
+            self.Oereb.getWFSSource(egrid).then(function (vectorSource) {
+                self.drawByWFSSource(vectorSource, 'selected');
+                self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
             });
-
-
-            // Helpers.openMenu();
-
         });
-
 
         // load map
         this.map = Map.map;
@@ -114,38 +105,12 @@ class MapController {
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
     }
 
-    drawByWFS(d, addLayerMethod) {
-        var posList = this.getPoslistFromWFS(d);
-        var polygon = this.Map.createPolygon(posList);
-
+    drawByWFSSource(source, addLayerMethod) {
         if (addLayerMethod == 'clicked')
-            this.Map.addClickedLayer(polygon);
+            this.Map.addClickedLayer(source);
 
         if (addLayerMethod == 'selected')
-            this.Map.addSelectedLayer(polygon);
-    }
-
-    drawByPolygon(polygon, addLayerMethod) {
-        if (addLayerMethod == 'clicked')
-            this.Map.addClickedLayer(polygon);
-
-        if (addLayerMethod == 'selected')
-            this.Map.addSelectedLayer(polygon);
-    }
-
-    getPoslistFromWFS(d) {
-        var posList = [];
-        angular.forEach(d.data, function (data) {
-
-            if (angular.isUndefined(data))
-                return;
-
-            var cPosList = data.DIPANU_DIPANUF.SHAPE.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList;
-            cPosList = cPosList.toString().split(" ");
-            angular.extend(posList, cPosList);
-        });
-
-        return posList;
+            this.Map.addSelectedLayer(source);
     }
 
     // restore permalink
@@ -230,5 +195,4 @@ class MapController {
     isSearchOpen() {
         return this.Map.isSearchOpen;
     }
-
 }

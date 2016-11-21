@@ -42,6 +42,7 @@ export class LayersService {
         return wmsOEREB;
     }
 
+
     asyncGreyMapLayer() {
         let self = this;
 
@@ -54,9 +55,11 @@ export class LayersService {
                 matrixSet: 'EPSG:2056'
             });
 
+            var wmtsSource = new ol.source.WMTS(options);
+
             var wmtsLayer = new ol.layer.Tile({
                 opacity: 1,
-                source: new ol.source.WMTS(options),
+                source: wmtsSource,
                 visible: true,
                 name: 'greyMap'
             });

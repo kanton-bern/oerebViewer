@@ -27,8 +27,9 @@ export class MapService {
                 zoomedIn: 13
             },
             projection: {
-                extent: [420000, 30000, 900000, 350000],  // 2440000
-                epsg: 'EPSG:21781',
+                // extent: [420000, 30000, 900000, 350000],  // 2440000
+                // epsg: 'EPSG:21781',
+                epsg: 'EPSG:2056'
             }
         };
 
@@ -43,7 +44,7 @@ export class MapService {
 
         // initialises view
         this.view = new this.ol.View({
-            center: self.center,
+            // center: self.center,
             zoom: self.zoom,
             projection: this.projection,
             minZoom: 4
@@ -56,14 +57,12 @@ export class MapService {
 
         // registers 'moveend' event listener
         this.map.on('moveend', function () {
-            console.debug(self.map.getView().getCenter());
-            console.debug(self.map.getView().getZoom());
             self.updateStatus();
         });
 
         // registers 'singleclick' event listener
         this.map.on('singleclick', function (event) {
-            var coordinates = self.Coordinates.set('lastClick', Coordinates.System[21781], event.coordinate);
+            var coordinates = self.Coordinates.set('lastClick', Coordinates.System[2056], event.coordinate);
             self.notifyClickObservers(coordinates);
         });
 
@@ -117,8 +116,9 @@ export class MapService {
         this.isSearchOpen = true;
 
         setTimeout(function() {
-            $('#search-me').trigger('focus')
-        }, 100);
+            // $('#search-me').trigger('focus');
+            document.querySelector('[id="search-me"]').focus();
+        }, 200);
 
         return this.isSearchOpen;
     }
@@ -137,8 +137,8 @@ export class MapService {
 
     setPosition(coordinates, zoom = this.config.zoom.zoomedIn) {
         this.map.getView().setCenter([
-            parseFloat(coordinates[21781][0]),
-            parseFloat(coordinates[21781][1])
+            parseFloat(coordinates[2056][0]),
+            parseFloat(coordinates[2056][1])
         ]);
 
         this.map.getView().setZoom(zoom);
@@ -236,16 +236,7 @@ export class MapService {
         return new self.ol.geom.Polygon([ring]);
     }
 
-    addSelectedLayer(polygon) {
-        var self = this;
-
-        // Create feature with polygon.
-        var feature = new self.ol.Feature(polygon);
-
-        // Create vector source and the feature to it.
-        var vectorSource = new self.ol.source.Vector();
-        vectorSource.addFeature(feature);
-
+    addSelectedLayer(vectorSource) {
         // Create vector layer attached to the vector source.
         var vectorLayer = new self.ol.layer.Vector({
             source: vectorSource,
@@ -270,17 +261,9 @@ export class MapService {
         this.addLayer(vectorLayer)
     }
 
-    addClickedLayer(polygon) {
+    addClickedLayer(vectorSource) {
         var self = this;
 
-        // Create feature with polygon.
-        var feature = new self.ol.Feature(polygon);
-
-        // Create vector source and the feature to it.
-        var vectorSource = new self.ol.source.Vector();
-        vectorSource.addFeature(feature);
-
-        // Create vector layer attached to the vector source.
         var vectorLayer = new self.ol.layer.Vector({
             source: vectorSource,
             style: new self.ol.style.Style({
@@ -310,7 +293,6 @@ export class MapService {
     }
 
 
-
     addLayer(layer) {
         this.map.addLayer(layer);
     }
@@ -321,5 +303,9 @@ export class MapService {
 
     getView() {
         return this.map.getView();
+    }
+
+    getSize() {
+        return this.map.getSize();
     }
 }
