@@ -223,19 +223,6 @@ export class MapService {
         });
     }
 
-    createPolygon(posList) {
-        var self = this;
-
-        var ring = [];
-
-        for (var i = 0; i < posList.length; i=i+2) {
-            var temporary = self.Coordinates.create(self.Coordinates.System[2056], [posList[i], posList[i+1]]);
-            ring.push([temporary[21781][0], temporary[21781][1]]);
-        }
-
-        return new self.ol.geom.Polygon([ring]);
-    }
-
     addSelectedLayer(vectorSource) {
         // Create vector layer attached to the vector source.
         var vectorLayer = new self.ol.layer.Vector({

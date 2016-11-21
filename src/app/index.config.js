@@ -9,6 +9,8 @@ export function config($logProvider, $translateProvider, localStorageServiceProv
         suffix: '.json'
     });
 
+    $translateProvider.useLocalStorage();
+
     $translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.preferredLanguage('de');
 

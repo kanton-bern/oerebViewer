@@ -1,10 +1,12 @@
 export class OerebBernService {
-    constructor($http, $log, $base64) {
+    constructor($http, $log, $base64, Notification, $filter) {
         'ngInject';
 
         this.$http = $http;
         this.$log = $log;
         this.$base64 = $base64;
+        this.$filter = $filter;
+        this.Notification = Notification;
 
         this.base = 'https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/';
 
@@ -12,6 +14,8 @@ export class OerebBernService {
     }
 
     getExtractById(egrid) {
+        var self = this;
+
         let url = this.base + this.reducedExtractPath + egrid;
 
         var promise = this.$http.get(url,
@@ -35,6 +39,8 @@ export class OerebBernService {
 
                     return false;
                 }
+            }).catch(function() {
+                self.Notification.warning(self.$filter('translate')('oerebServiceNotAvailable'));
             });
 
         return promise;
@@ -78,7 +84,9 @@ export class OerebBernService {
                     }];
                 }
             }
-        );
+        ).catch(function() {
+            self.Notification.warning(self.$filter('translate')('oerebServiceNotAvailable'));
+        });
 
         return promise;
     }
