@@ -431,6 +431,10 @@ body {
         vertical-align: text-bottom;
         &.secondary {
           color:$colorWhite;
+          min-width:1.2rem;
+          height:1.2rem;
+          font-size: 0.8rem !important;
+          padding:0rem !important;
 
         }
       }
@@ -456,6 +460,8 @@ body {
             .copy-clipboard {
              padding:0px 16px 0px 16px;
             }
+
+
             .history-date {
               font-size:$fontSizeBase * 0.8;
               color:$colorContentGrey;
