@@ -2,7 +2,7 @@
     <h3>{{"restrictionConcernedKey" | translate}}</h3>
 </div>
 
-<div ng-repeat="v in restriction.data.values" class="accordion-navigation">
+<div ng-repeat="v in restriction.data.values | unique: v.Information.LocalisedText.Text" class="accordion-navigation">
     <div class="row restriction-info">
         <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.Symbol}}" /></div>
         <div class="small-10 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
@@ -27,7 +27,6 @@
 </div>
 <div ng-repeat="v in restriction.data.values" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-
 
     <div ng-if="!restriction.isArray(v.LegalProvisions)" class="row more-info pdf-list">
         <div class="small-12">
