@@ -12,8 +12,6 @@ export function MapDirective() {
     return directive;
 }
 
-// use: WGS84 bzw. EPSG:4326
-
 class MapController {
     constructor(Layers, $log, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates, Notification) {
         'ngInject';
@@ -43,12 +41,11 @@ class MapController {
             if (menuStatus)
                 self.Helpers.closeMenu();
 
-
             // close map
             self.Map.closeSearch();
 
-            // if zoom is smaller than 12 don't add an infobox
-            if (self.Map.getView().getZoom() < 12 || menuStatus) {
+            // if zoom is smaller than config.zoom.oereb
+            if (self.Map.getView().getZoom() < 10+1 || menuStatus) {
                 return;
             }
 
@@ -101,7 +98,7 @@ class MapController {
         // load map
         this.map = Map.map;
 
-        // load geoloaction parameters
+        // load geolocation parameters
         this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
     }
 

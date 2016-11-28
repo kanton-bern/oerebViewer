@@ -15,9 +15,7 @@ export class MapService {
         this.selectedLayer = undefined;
         this.clickedLayer = undefined;
         this.clickObservers = [];
-        this.modeChangedObservers = [];
 
-        this.shouldUpdate = true;
         this.isSearchOpen = false;
 
         // configs for map
