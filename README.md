@@ -1,6 +1,12 @@
-# README #
+# ÖREB-APPLIKATION #
 
+## KURZBESCHREIBUNG ##
 Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige Instanz der ÖREB-Applikation zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der ÖREB-Applikation. 
+
+### Zu diesem Repository ###
+* Dieses Repository beinhaltet die komplette OEREB-Applikation und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
+* Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung. 
+* Issues / Bugs und Wünsche können mit dem Issue-Tracker erfasst werden.
 
 ## FUNKTIONSSCHEMA DER ÖREB-APPLIKATION ##
 ![oereb_client_architektur_v1_2.png](https://bitbucket.org/repo/kbojGq/images/2306584680-oereb_client_architektur_v1_2.png)
@@ -11,6 +17,8 @@ Damit die Applikation auf einem Webserver installiert werden kann, müssen folge
 
 * Die Applikation muss als lauffähiger "Build" vorliegen. Wie dieser Build erzeugt wird, ist weiter unten beschrieben.
 * Der Webserver muss fähig sein HTML-Dokumente auszuliefern. Auf der Betreiberseite wird also nur eine minimale Infrastruktur benötigt.
+
+## ERSTELLEN EINES LAUFFÄHIGEN BUILD ##
 
 ## TESTS ##
 Für Tests können die folgenden Parzellen verwendet werden:
@@ -25,9 +33,7 @@ Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL
 ## ZUM REPOSITORY ##
 ### Für was ist dieses Repository? ###
 
-* Dieses Repo beinhaltet die komplette OEREB-Applikation und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
-* Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung. 
-* Issues / Bugs und Wünsche können mit dem Issue-Tracker erfasst werden.
+
 
 ### Installationsanleitung ###
 
