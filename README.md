@@ -1,6 +1,15 @@
 # README #
 
-OEREB-App Repository.
+Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige Instanz der ÖREB-Applikation zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der ÖREB-Applikation. 
+
+## FUNKTIONSSCHEMA DER ÖREB-APPLIKATION ##
+
+## TECHNISCHE VORAUSSETZUNGEN ##
+
+Damit die Applikation auf einem Webserver installiert werden kann, müssen folgende Bedingungen erfüllt sein:
+
+* Die Applikation muss als lauffähiger "Build" vorliegen. Wie dieser Build erzeugt wird, ist weiter unten beschrieben.
+* Der Webserver muss fähig sein HTML-Dokumente auszuliefern. Auf der Betreiberseite wird also nur eine minimale Infrastruktur benötigt.
 
 ## TESTS ##
 Für Tests können die folgenden Parzellen verwendet werden:
