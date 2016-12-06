@@ -56,7 +56,7 @@ Damit eine lauffähige Version auf einem externen Webserver publiziert werden ka
 ```
 #!text
 
-**Der letzte Schritt besteht aus einem gulp build. Damit werden alle Quelldateien komprimiert und für die Publikation auf einem externen Webserver optimiert**
+Der letzte Schritt besteht aus einem gulp build. Damit werden alle Quelldateien komprimiert und für die Publikation auf einem externen Webserver optimiert.
 ```
 
 
