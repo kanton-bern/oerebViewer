@@ -8,14 +8,20 @@ Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige In
 * Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung. 
 * Issues / Bugs und Wünsche können mit dem Issue-Tracker erfasst werden.
 
+---
+
 ## 2. FUNKTIONSSCHEMA DER ÖREB-APPLIKATION ##
 ![oereb_client_architektur_v1_2.png](https://bitbucket.org/repo/kbojGq/images/2306584680-oereb_client_architektur_v1_2.png)
+
+---
 
 ## 3. TECHNISCHE VORAUSSETZUNGEN ##
 Damit die Applikation auf einem Webserver installiert werden kann, müssen folgende Bedingungen erfüllt sein:
 
 * Die Applikation muss als lauffähiger "Build" vorliegen. Wie dieser Build erzeugt wird, ist weiter unten beschrieben.
 * Der Webserver muss fähig sein HTML-Dokumente auszuliefern. Auf der Betreiberseite wird also nur eine minimale Infrastruktur benötigt.
+
+---
 
 ## 4. ENTWICKLUNG UND LOKALES TESTEN ##
 Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine installiert werden. Weiterentwicklungen sind möglich und können via PR (Pull-Requests) beantragt werden.
@@ -40,9 +46,10 @@ Für Tests können die folgenden Parzellen verwendet werden:
 * 741 in Ittigen (Grauholzstrasse 50, 3063 Ittigen)
 * 1169 in Brügg (Portstrasse 38, 2555 Brügg)
 
+---
+
 ## 5. ERSTELLEN EINES LAUFFÄHIGEN BUILD ##
 Damit eine lauffähige Version auf einem externen Webserver publiziert werden kann, muss zuerst ein so genannter "Build" aus den Source-Files der Applikation erzeugt werden. Dies geschieht direkt aus der Entwicklungsinstallation heraus. Zuerst wird - wie in Kapitel 4.1 beschrieben eine Entwicklungsumgebung erzeugt:
-
 
 1. Die aktuelle Version aus diesem Repository herunterladen
 2. npm install
@@ -54,12 +61,11 @@ Damit eine lauffähige Version auf einem externen Webserver publiziert werden ka
 
 
 ```
-#!text
-
-Der letzte Schritt besteht aus einem gulp build. Damit werden alle Quelldateien komprimiert und für die Publikation auf einem externen Webserver optimiert.
+Der letzte Schritt besteht aus einem gulp build. 
+Damit werden alle Quelldateien komprimiert und für die Publikation auf einem externen Webserver optimiert.
 ```
 
-
+---
 
 ## 6. DEFINITION DER SCHNITTSTELLEN ##
 ### 6.1 ÖREB JSON/XML-Auszug ###
@@ -68,12 +74,23 @@ Der letzte Schritt besteht aus einem gulp build. Damit werden alle Quelldateien 
 
 ### 6.3 Adressauflösung ###
 
-## EINSCHRÄNKUNGEN ##
-### SSL-Zertifikate ###
+---
+
+## 7. EINSCHRÄNKUNGEN ##
+### 7.1 SSL-Zertifikate ###
 Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden. 
 
-## DIVERSES ##
-### Verantwortlichkeiten ###
+### 7.2 Browser ###
+Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet:
+
+ * Windows (7/10): Chrome, Firefox, IE, Opera
+ * Android (4/7.1): Chrome
+ * iOS (): Safari, Chrome 
+
+---
+
+## 8. DIVERSES ##
+### 8.1 Verantwortlichkeiten ###
 
 * Owner und Projektmanagement OEREB-App: Bernhard Sturm (bs@sturmundbreaem.ch)
 * Technische Realisierung: Tobias Schmoker (schmoker@novu.ch)
