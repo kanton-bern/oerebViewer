@@ -89,7 +89,7 @@ Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL
 Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
 
  * Windows (7/10): Chrome, Firefox, IE, Opera
- * Android (4/7.1): Chrome
+ * Android (5.x/6.x/7.x): Chrome
  * iOS (7): Safari, Chrome 
 
 ---
