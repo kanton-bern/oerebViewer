@@ -29,7 +29,7 @@ Damit konnte eine performante und flexible Lösung gebaut werden welche kaum Anf
 ---
 
 # 4. ENTWICKLUNG UND LOKALES TESTEN #
-Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine installiert werden. Weiterentwicklungen sind möglich und können via PR (Pull-Requests) beantragt werden.
+Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine installiert werden. [Weiterentwicklungen sind möglich und können via PR (Pull-Requests) beantragt werden](https://bitbucket.org/stubr/oereb-app/pull-requests/).
 
 ## 4.1 Installationsanleitung ##
 
