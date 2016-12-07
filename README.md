@@ -74,6 +74,7 @@ Damit werden alle Quelldateien komprimiert und für die Publikation auf einem ex
 
 # 6. DEFINITION DER SCHNITTSTELLEN #
 ## 6.1 ÖREB JSON/XML-Auszug ##
+Der ÖREB-Auszug basiert auf der offiziellen Weisung [«ÖREB-Kataster – DATA-Extract» der swisstopo/Vermessungsdirektion](http://www.cadastre.ch/internet/kataster/de/home/services/publication/XML.html).
 
 ## 6.2 WFS-Dienste ##
 
