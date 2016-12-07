@@ -6,7 +6,7 @@
 Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige Instanz der ÖREB-Applikation zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der ÖREB-Applikation. 
 
 ## 1.1 Zu diesem Repository ##
-* Dieses Repository beinhaltet die komplette OEREB-Applikation und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
+* Dieses Repository beinhaltet die komplette ÖREB-Applikation und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
 * Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung. 
 * Issues / Bugs und Wünsche können mit dem Issue-Tracker erfasst werden.
 
