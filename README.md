@@ -86,11 +86,11 @@ Damit werden alle Quelldateien komprimiert und für die Publikation auf einem ex
 Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden. 
 
 ## 7.2 Browser ##
-Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet:
+Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
 
  * Windows (7/10): Chrome, Firefox, IE, Opera
  * Android (4/7.1): Chrome
- * iOS (): Safari, Chrome 
+ * iOS (7): Safari, Chrome 
 
 ---
 
