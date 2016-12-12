@@ -1,16 +1,15 @@
+/*
+     Example Usage:
+
+     Coordinates.set('coordinateName', Coordinates.System[2056], [204124, 142002]);
+     var coordinates = Coordinates.get('testing', Coordinates.System[4326]);
+*/
+
 export class CoordinatesService {
     constructor() {
         'ngInject';
 
-        /*
-            Example Usage:
-
-            Coordinates.set('coordinateName', Coordinates.System[2056], [204124, 142002]);
-            var coordinates = Coordinates.get('testing', Coordinates.System[4326]);
-         */
-
         this.coordinates = {};
-
 
         this.System = {
             2056: {
@@ -85,7 +84,6 @@ export class CoordinatesService {
             return null;
         }
 
-
         if (system === undefined)
             return this.coordinates[name];
 
@@ -99,8 +97,6 @@ export class CoordinatesService {
 
 
     transform(coordinates, systemFrom, systemTo) {
-        // console.debug('transform:' + systemFrom.type + ' -> ' + systemTo.type);
-
         return proj4(systemFrom.proj4, systemTo.proj4, coordinates);
     }
 }

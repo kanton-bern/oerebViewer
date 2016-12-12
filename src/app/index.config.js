@@ -1,6 +1,7 @@
-export function config($logProvider, $translateProvider, localStorageServiceProvider, NotificationProvider, $httpProvider) {
+export function Config($logProvider, $translateProvider, localStorageServiceProvider, NotificationProvider) {
     'ngInject';
-    // enable log
+
+    // log settings:
     $logProvider.debugEnabled(true);
 
     // language
@@ -29,13 +30,4 @@ export function config($logProvider, $translateProvider, localStorageServiceProv
         positionY: 'top',
         templateUrl: 'app/ui-notification.html'
     });
-
-
-    // auth for wfs
-
-    // $httpProvider.interceptors.push('httpRequestInterceptor');
-
-    //
-    // $httpProvider.defaults.headers.common['Authorization'] = 'Basic auth';
-
 }

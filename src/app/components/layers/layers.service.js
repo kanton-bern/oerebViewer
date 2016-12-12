@@ -14,9 +14,11 @@ export class LayersService {
         this.add(this.asyncGreyMapLayer());
         this.add(this.asyncOrthoPhotoLayer());
         this.add(this.oerebLayer());
-        // this.add(this.osmLayer());
     }
 
+    /*
+        LAYERS START
+     */
     oerebLayer() {
         let wmsOerebSource = new this.ol.source.TileWMS(({
             url: 'http://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
@@ -46,7 +48,7 @@ export class LayersService {
     asyncGreyMapLayer() {
         let self = this;
 
-        return fetch('/app/components/map/capabilities/greyMapWMTS.xml').then(function (response) {
+        return fetch('/app/components/layers/capabilities/greyMapWMTS.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             var result = self.parser.read(text);
@@ -73,7 +75,7 @@ export class LayersService {
     asyncOrthoPhotoLayer() {
         let self = this;
 
-        return fetch('/app/components/map/capabilities/orthoPhotoWMTS.xml').then(function (response) {
+        return fetch('/app/components/layers/capabilities/orthoPhotoWMTS.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             var result = self.parser.read(text);
@@ -105,10 +107,18 @@ export class LayersService {
         return osmLayer;
     }
 
+    /*
+        LAYERS END
+     */
+
+
+
+    // checks if layer is currently active
     isActive(name) {
         return (this.active == name);
     }
 
+    // checks if layer is hidden
     isHidden(name) {
         for (var i = 0; i < this.resolvedLayers.length; i++) {
             if (this.resolvedLayers[i].M.name == name) {
@@ -118,6 +128,7 @@ export class LayersService {
         return false;
     }
 
+    // hide a layer by name
     hide(name, inverse = false) {
         for (var i = 0; i < this.resolvedLayers.length; i++) {
             if (this.resolvedLayers[i].M.name == name) {
@@ -128,10 +139,10 @@ export class LayersService {
         return name;
     }
 
+    // show a layer by name
     show(name) {
         return this.hide(name, true);
     }
-
 
     get(callback) {
         var layerService = this;
@@ -141,7 +152,6 @@ export class LayersService {
                 if (layer instanceof Promise) {
                     layer.then(function (value) {
                         layerService.resolvedLayers.push(value);
-                        console.log('resolved');
                         resolve();
                     });
                 } else {
@@ -155,9 +165,6 @@ export class LayersService {
         Promise.all(requests).then(() => callback(layerService.resolvedLayers));
     }
 
-    /*
-     only works before map initialization, after that use Map.addTempLayer()
-     */
     add(layer) {
         this.layers.push(layer);
     }

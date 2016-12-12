@@ -1,23 +1,35 @@
 /* global moment:false */
 
-import { config } from './index.config';
-import { routerConfig } from './index.route';
-import { runBlock } from './index.run';
+// core imports
+import { Config } from './index.config';
+import { RouterConfig } from './index.route';
+
+// controller imports
 import { MainController } from './main/main.controller';
 import { DetailController } from './detail/detail.controller';
-import { LayersService } from '../app/components/map/layers.service';
-import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
-import { ExtractsService } from '../app/components/extracts/extracts.service';
-import { CoordinatesService } from '../app/components/coordinates/coordinates.service';
-import { LoadingService } from '../app/components/loading/loading.service';
-import { HelpersService } from '../app/components/helpers/helpers.service';
-import { MapService } from '../app/components/map/map.service';
+
+// map imports
 import { MapDirective } from '../app/components/map/map.directive';
+import { MapService } from '../app/components/map/map.service';
+
+// layer imports
+import { LayersService } from '../app/components/layers/layers.service';
+
+// extract & restriction imports
+import { ExtractsService } from '../app/components/extracts/extracts.service';
 import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
-import { LoadingDirective } from '../app/components/loading/loading.directive';
+import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
+
+// search imports
 import { SearchSwisstopoDirective } from '../app/components/search/searchSwisstopo.directive';
 // import { SearchMapboxDirective } from '../app/components/search/searchMapbox.directive';
-import { BackgroundImageDirective } from '../app/components/backgroundImage/backgroundImage.directive';
+
+// utilities imports
+import { HelpersService } from '../app/components/helpers/helpers.service';
+import { CoordinatesService } from '../app/components/coordinates/coordinates.service';
+import { LoadingDirective } from '../app/components/loading/loading.directive';
+import { LoadingService } from '../app/components/loading/loading.service';
+
 
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
@@ -28,7 +40,6 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
 
                 if (config.url.indexOf('geodienste.ch') !== -1) {
                     config.headers['Authorization'] = 'Basic Z2VvZGllbnN0ZV9iZTplZmVtYWlIMA==';
-                    console.debug('is geodienste.ch');
                 }
 
                 return config;
@@ -36,11 +47,10 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
         };
     })
 
-    .config(config)
-    .config(routerConfig)
+    .config(Config)
+    .config(RouterConfig)
 
-    .run(runBlock)
-
+    // register services
     .service('Coordinates', CoordinatesService)
     .service('Helpers', HelpersService)
     .service('Oereb', OerebBernService)
@@ -49,15 +59,17 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
     .service('Loading', LoadingService)
     .service('Map', MapService)
 
+    // register controllers
     .controller('MainController', MainController)
     .controller('DetailController', DetailController)
 
+    // register directives
     .directive('map', MapDirective)
     .directive('loading', LoadingDirective)
     .directive('search', SearchSwisstopoDirective)
     .directive('restriction', RestrictionDirective)
-    .directive('background', BackgroundImageDirective)
 
+    // unique filter
     .filter('unique', function() {
         return function(collection, keyname) {
             var output = [],
