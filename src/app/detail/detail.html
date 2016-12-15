@@ -64,15 +64,15 @@
 
                     <v-pane-content>
 
-                        <!-- sometimes there are themes but no restrictions -->
+                        <!-- sometimes there are themes but no restrictions
                         <ul ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length > 0">
                             <li ng-repeat="theme in main.extract.themes track by $index">
                                 {{ theme.Name }}
                             </li>
-                        </ul>
+                        </ul>-->
 
                         <!-- neither restrictions nor themes -->
-                        <div ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length == 0">
+                        <div ng-if="main.extract.restrictions.length == 0">
                             {{"noRestrictions" | translate}}
                         </div>
 

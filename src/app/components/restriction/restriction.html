@@ -25,7 +25,7 @@
 <div class="row">
     <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
 </div>
-<div ng-repeat="v in restriction.data.values" class="accordion-navigation">
+<div ng-repeat="v in restriction.data.values | unique:'document.TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
 
     <div ng-if="!restriction.isArray(v.LegalProvisions)" class="row more-info pdf-list">
