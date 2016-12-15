@@ -2,7 +2,12 @@
 
 // core imports
 import { Config } from './index.config';
+import { ConfigService } from '../app/components/config/config.service';
 import { RouterConfig } from './index.route';
+
+// utilities
+import {UniqueFilter} from '../app/components/utilities/unique.filter';
+import {HttpRequestInterceptorFactory} from '../app/components/utilities/httpRequestInterceptor.factory';
 
 // controller imports
 import { MainController } from './main/main.controller';
@@ -34,23 +39,13 @@ import { LoadingService } from '../app/components/loading/loading.service';
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
 
-    .factory('httpRequestInterceptor', function () {
-        return {
-            request: function (config) {
-
-                if (config.url.indexOf('geodienste.ch') !== -1) {
-                    config.headers['Authorization'] = 'Basic Z2VvZGllbnN0ZV9iZTplZmVtYWlIMA==';
-                }
-
-                return config;
-            }
-        };
-    })
+    .factory('httpRequestInterceptor', HttpRequestInterceptorFactory)
 
     .config(Config)
     .config(RouterConfig)
 
     // register services
+    .service('Config', ConfigService)
     .service('Coordinates', CoordinatesService)
     .service('Helpers', HelpersService)
     .service('Oereb', OerebBernService)
@@ -69,21 +64,4 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
     .directive('search', SearchSwisstopoDirective)
     .directive('restriction', RestrictionDirective)
 
-    // unique filter
-    .filter('unique', function() {
-        return function(collection, keyname) {
-            var output = [],
-                keys = [];
-
-            angular.forEach(collection, function(item) {
-                var key = item[keyname];
-                if(keys.indexOf(key) === -1) {
-                    keys.push(key);
-                    output.push(item);
-                }
-            });
-
-            return output;
-        };
-    });
-
+    .filter('unique', UniqueFilter);

@@ -77,7 +77,7 @@ Damit werden alle Quelldateien komprimiert und für die Publikation auf einem ex
 ## 6.1. Layers ##
 Im LayersService (``/src/app/components/layers/layers.service.js``) können die bestehenden Layers angepasst werden. Im Block «LAYERS START» bis «LAYERS END» sind die Layers jeweils in einer Methode definiert. Der Rückgabe Wert dieser Methoden muss entweder ein [ol.Layer.Tile](http://openlayers.org/en/v3.7.0/apidoc/ol.layer.Tile.html) zurückgeben oder ein [Promise](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) mit einer ol.Layer.Tile Auflösung (das ermöglicht ein dynamisches Laden der Konfiguration von einem Fremdsystem oder aus einem separaten File).
  
-Zusätzlich zu den normalen ol.Layer.Tile Optionen muss weiter der Parameter ``visible: boolean`` und ``name: string`` gesetzt werden.
+Zusätzlich zu den normalen ol.Layer.Tile Optionen müssen weiter die Parameters ``visible: boolean`` und ``name: string`` gesetzt werden.
 
 Letztens muss jeder Layer registriert werden. Soll der Layer standardmässig geladen werden, kann dies im ``constructor`` des LayersService mit der Methode ``LayersService.add()`` getan werden.
 
