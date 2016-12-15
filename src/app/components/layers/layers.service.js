@@ -44,7 +44,6 @@ export class LayersService {
         return wmsOEREB;
     }
 
-
     asyncGreyMapLayer() {
         let self = this;
 

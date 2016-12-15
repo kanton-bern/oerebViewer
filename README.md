@@ -72,31 +72,51 @@ Damit werden alle Quelldateien komprimiert und für die Publikation auf einem ex
 
 ---
 
-# 6. DEFINITION DER SCHNITTSTELLEN #
-## 6.1 ÖREB JSON/XML-Auszug ##
-Der ÖREB-Auszug basiert auf der offiziellen Weisung [«ÖREB-Kataster – DATA-Extract» der swisstopo/Vermessungsdirektion](http://www.cadastre.ch/internet/kataster/de/home/services/publication/XML.html).
 
-## 6.2 WFS-Dienste ##
+# 6. KONFIGURATION #
+## 6.1. Layers ##
+Im LayersService (``/src/app/components/layers/layers.service.js``) können die bestehenden Layers angepasst werden. Im Block «LAYERS START» bis «LAYERS END» sind die Layers jeweils in einer Methode definiert. Der Rückgabe Wert dieser Methoden muss entweder ein [ol.Layer.Tile](http://openlayers.org/en/v3.7.0/apidoc/ol.layer.Tile.html) zurückgeben oder ein [Promise](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) mit einer ol.Layer.Tile Auflösung (das ermöglicht ein dynamisches Laden der Konfiguration von einem Fremdsystem oder aus einem separaten File).
+ 
+Zusätzlich zu den normalen ol.Layer.Tile Optionen muss weiter der Parameter ``visible: boolean`` und ``name: string`` gesetzt werden.
 
-## 6.3 Adressauflösung ##
+Letztens muss jeder Layer registriert werden. Soll der Layer standardmässig geladen werden, kann dies im ``constructor`` des LayersService mit der Methode ``LayersService.add()`` getan werden.
+
+
+## 6.2. Bearbeiten der Sprachvariablen ##
+Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und angepasst werden. Pro Sprache existiert jeweils eine .json Datei.
+
+## 6.1. Allgemeine Map Konfiguration ##
 
 ---
 
-# 7. EINSCHRÄNKUNGEN #
-## 7.1 SSL-Zertifikate ##
+# 7. DEFINITION DER SCHNITTSTELLEN #
+## 7.1 ÖREB JSON/XML-Auszug ##
+Der ÖREB-Auszug basiert auf der offiziellen Weisung [«ÖREB-Kataster – DATA-Extract» der swisstopo/Vermessungsdirektion](http://www.cadastre.ch/internet/kataster/de/home/services/publication/XML.html).
+
+## 7.2 WFS-Dienste ##
+
+
+## 7.3 Adressauflösung ## 
+Für die Adressauflösung wird der Service von [geo.admin.ch](http://api3.geo.admin.ch/) verwendet.
+
+---
+
+# 8. EINSCHRÄNKUNGEN #
+## 8.1 SSL-Zertifikate ##
 Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden. 
 
-## 7.2 Browser ##
+## 8.2 Browser ##
 Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
 
  * Windows (7/10): Chrome, Firefox, IE, Opera
  * Android (5.x/6.x/7.x): Chrome
  * iOS (7): Safari, Chrome 
 
+
 ---
 
-# 8. DIVERSES #
-## 8.1 Verantwortlichkeiten ##
+# 9. DIVERSES #
+## 9.1 Verantwortlichkeiten ##
 
 * Owner und Projektmanagement OEREB-App: Bernhard Sturm (bs@sturmundbreaem.ch)
 * Technische Realisierung: Tobias Schmoker (schmoker@novu.ch)
