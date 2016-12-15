@@ -23,7 +23,8 @@ import { LayersService } from '../app/components/layers/layers.service';
 // extract & restriction imports
 import { ExtractsService } from '../app/components/extracts/extracts.service';
 import { RestrictionDirective } from '../app/components/restriction/restriction.directive';
-import { OerebBernService } from '../app/components/oerebBern/oerebBern.service';
+import { OEREBService } from '../app/components/oereb/oereb.service';
+import { WFSService } from '../app/components/wfs/wfs.service';
 
 // search imports
 import { SearchSwisstopoDirective } from '../app/components/search/searchSwisstopo.directive';
@@ -48,7 +49,8 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
     .service('Config', ConfigService)
     .service('Coordinates', CoordinatesService)
     .service('Helpers', HelpersService)
-    .service('Oereb', OerebBernService)
+    .service('OEREB', OEREBService)
+    .service('WFS', WFSService)
     .service('Layers', LayersService)
     .service('Extracts', ExtractsService)
     .service('Loading', LoadingService)

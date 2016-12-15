@@ -1,5 +1,5 @@
 export class ExtractsService {
-    constructor($location, Loading, Oereb, Notification, localStorageService, Helpers, $filter) {
+    constructor($location, Loading, OEREB, Notification, localStorageService, Helpers, $filter) {
 
         'ngInject';
 
@@ -7,7 +7,7 @@ export class ExtractsService {
         this.Helpers = Helpers;
         this.$location = $location;
         this.Loading = Loading;
-        this.Oereb = Oereb;
+        this.OEREB = OEREB;
         this.Notification = Notification;
         this.localStorageService = localStorageService;
 
@@ -38,7 +38,7 @@ export class ExtractsService {
             self.remove(this.egrid);
         };
 
-        this.Oereb.getExtractById(newExtract.egrid).then(function (d) {
+        this.OEREB.getExtractById(newExtract.egrid).then(function (d) {
 
             newExtract = self.wrap(newExtract, d.data);
 

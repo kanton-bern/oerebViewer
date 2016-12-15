@@ -72,7 +72,6 @@ Damit werden alle Quelldateien komprimiert und für die Publikation auf einem ex
 
 ---
 
-
 # 6. KONFIGURATION #
 ## 6.1. Layers ##
 Im LayersService (``/src/app/components/layers/layers.service.js``) können die bestehenden Layers angepasst werden. Im Block «LAYERS START» bis «LAYERS END» sind die Layers jeweils in einer Methode definiert. Der Rückgabe Wert dieser Methoden muss entweder ein [ol.Layer.Tile](http://openlayers.org/en/v3.7.0/apidoc/ol.layer.Tile.html) zurückgeben oder ein [Promise](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) mit einer ol.Layer.Tile Auflösung (das ermöglicht ein dynamisches Laden der Konfiguration von einem Fremdsystem oder aus einem separaten File).
@@ -86,6 +85,7 @@ Letztens muss jeder Layer registriert werden. Soll der Layer standardmässig gel
 Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und angepasst werden. Pro Sprache existiert jeweils eine .json Datei.
 
 ## 6.1. Allgemeine Map Konfiguration ##
+Im ConfigService (``/src/app/components/config/config.service.js``) können  Einstellungen betreffend der Map gemacht werden.  
 
 ---
 
@@ -94,7 +94,7 @@ Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und ang
 Der ÖREB-Auszug basiert auf der offiziellen Weisung [«ÖREB-Kataster – DATA-Extract» der swisstopo/Vermessungsdirektion](http://www.cadastre.ch/internet/kataster/de/home/services/publication/XML.html).
 
 ## 7.2 WFS-Dienste ##
-
+Für die Markierung der Grundstücke wir der WFS-Dienst des Kanton Berns verwendet.  
 
 ## 7.3 Adressauflösung ## 
 Für die Adressauflösung wird der Service von [geo.admin.ch](http://api3.geo.admin.ch/) verwendet.

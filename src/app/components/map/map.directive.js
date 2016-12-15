@@ -13,13 +13,15 @@ export function MapDirective() {
 }
 
 class MapController {
-    constructor(Layers, $log, $base64, $window, Oereb, Extracts, Map, Helpers, Coordinates, Notification) {
+    constructor(Config, Layers, $log, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification) {
         'ngInject';
 
+        this.Config = Config;
         this.$window = $window;
         this.$log = $log;
         this.$base64 = $base64;
-        this.Oereb = Oereb;
+        this.OEREB = OEREB;
+        this.WFS = WFS;
         this.Extracts = Extracts;
         this.Layers = Layers;
         this.Map = Map;
@@ -45,7 +47,7 @@ class MapController {
             self.Map.closeSearch();
 
             // if zoom is smaller than config.zoom.oereb
-            if (self.Map.getView().getZoom() < 10+1 || menuStatus) {
+            if (self.Map.getView().getZoom() < self.Config.zoom.oerebLayer || menuStatus) {
                 return;
             }
 
@@ -70,7 +72,7 @@ class MapController {
 
             self.selectedPoint = [];
             self.infoboxLoading = true;
-            self.Oereb.getEGRID(coordinates).then(
+            self.OEREB.getEGRID(coordinates).then(
                 function (d) {
                     self.selectedPoint = d.data;
                     self.infoboxLoading = false;
@@ -80,7 +82,7 @@ class MapController {
                 }
             );
 
-            self.Oereb.getWFSSource(coordinates).then(function (vectorSource) {
+            self.WFS.getSource(coordinates).then(function (vectorSource) {
                 self.drawByWFSSource(vectorSource, 'clicked');
             });
 
@@ -89,7 +91,7 @@ class MapController {
         Extracts.registerCurrentObserverCallback(function() {
             var egrid = self.Extracts.getCurrent().egrid;
 
-            self.Oereb.getWFSSource(egrid).then(function (vectorSource) {
+            self.WFS.getSource(egrid).then(function (vectorSource) {
                 self.drawByWFSSource(vectorSource, 'selected');
                 self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
             });

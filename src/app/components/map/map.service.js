@@ -1,11 +1,10 @@
 export class MapService {
-    constructor(ngeoDecorateLayer, Layers, Oereb, Helpers, Coordinates) {
+    constructor(ngeoDecorateLayer, Config, Layers, Helpers, Coordinates) {
         'ngInject';
 
         // declarations
         let self = this;
         this.ol = ol;
-        this.Oereb = Oereb;
         this.Layers = Layers;
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
@@ -18,31 +17,21 @@ export class MapService {
 
         this.isSearchOpen = false;
 
-        // configs for map
-        this.config = {
-            zoom: {
-                default: 4,
-                zoomedIn: 13
-            },
-            projection: {
-                extent: [2440000, 1024000, 2895000, 1340000],
-                epsg: 'EPSG:2056'
-            }
-        };
+        this.Config = Config;
 
         // current center
-        this.center = [2604688.627, 1175634.936];
+        this.center = this.Config.center;
 
         // default zoom by config
-        this.zoom = this.config.zoom.default;
+        this.zoom = this.Config.zoom.default;
 
         // set projection by config
-        this.projection = this.ol.proj.get(self.config.projection.epsg);
+        this.projection = this.ol.proj.get(this.Config.projection.epsg);
 
         // initialises view
         this.view = new this.ol.View({
             center: self.center,
-            extent: this.config.projection.extent,
+            extent: this.Config.projection.extent,
             zoom: self.zoom,
             projection: this.projection,
             minZoom: 4
@@ -80,7 +69,7 @@ export class MapService {
         this.mobileGeolocationOptions = {
             positionFeatureStyle: positionFeatureStyle,
             accuracyFeatureStyle: accuracyFeatureStyle,
-            zoom: this.config.zoom.zoomedIn,
+            zoom: this.Config.zoom.zoomedIn,
         };
 
         // adds layers to map
@@ -96,7 +85,7 @@ export class MapService {
         var self = this;
         var view = this.map.getView();
 
-        if (view.getZoom() > 10) {
+        if (view.getZoom() >= this.Config.zoom.oerebLayer) {
             self.Layers.show('oereb');
         } else {
             self.Layers.hide('oereb');
@@ -133,7 +122,7 @@ export class MapService {
         return this.openSearch();
     }
 
-    setPosition(coordinates, zoom = this.config.zoom.zoomedIn) {
+    setPosition(coordinates, zoom = this.Config.zoom.zoomedIn) {
         this.map.getView().setCenter([
             parseFloat(coordinates[2056][0]),
             parseFloat(coordinates[2056][1])
@@ -165,7 +154,7 @@ export class MapService {
             return;
         }
 
-        console.debug('tried to remove an non existing overlay');
+        console.debug('tried to remove a non existing overlay');
         return;
 
     }
