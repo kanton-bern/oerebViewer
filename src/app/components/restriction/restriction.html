@@ -37,7 +37,6 @@
         </div>
     </div>
 
-
     <div ng-if="restriction.isArray(v.LegalProvisions)" ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
         <div class="small-12">
             <svg class="icon icon-file">
@@ -47,6 +46,30 @@
         </div>
     </div>
 </div>
+
+
+<!-- Hier bin ich noch am arbeiten STUBR.BS
+<pre>
+  {{restriction}}
+</pre>
+<div class="row">
+    <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
+</div>
+<div class="row more-info pdf-list">
+  <div class="small=12">
+    <p></p>
+  </div>
+</div>
+
+<div ng-repeat="v in restriction.data.values | unique:'v.ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
+    <div class="small-12">
+        <svg class="icon icon-open">
+            <use xlink:href="#icon-open"></use>
+        </svg>
+        <a class="external-link" target="_blank" href="{{v.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name.LocalisedText.Text}}</a>
+    </div>
+</div>
+-->
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
 </div>
