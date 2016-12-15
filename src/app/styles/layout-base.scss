@@ -264,6 +264,13 @@ body {
     // accordion-navigation
     v-accordion[class^='vAccordion'] {
 
+      // no-restrictions found
+      .no-restrictions {
+        padding-left:10px;
+        display:inline-block;
+        padding-top:5px;
+      }
+
       v-pane {
         // Header
         v-pane-header::after,
