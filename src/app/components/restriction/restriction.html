@@ -2,7 +2,7 @@
     <h3>{{"restrictionConcernedKey" | translate}}</h3>
 </div>
 
-<div ng-repeat="v in restriction.data.values | unique: v.Information.LocalisedText.Text" class="accordion-navigation">
+<div ng-repeat="v in restriction.data.values | unique:'Information.LocalisedText.Text'" class="accordion-navigation">
     <div class="row restriction-info">
         <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.Symbol}}" /></div>
         <div class="small-10 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
@@ -25,7 +25,7 @@
 <div class="row">
     <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
 </div>
-<div ng-repeat="v in restriction.data.values | unique:'document.TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
+<div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
 
     <div ng-if="!restriction.isArray(v.LegalProvisions)" class="row more-info pdf-list">
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div ng-if="restriction.isArray(v.LegalProvisions)" ng-repeat="document in v.LegalProvisions | unique:'document.TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
+    <div ng-if="restriction.isArray(v.LegalProvisions)" ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
         <div class="small-12">
             <svg class="icon icon-file">
                 <use xlink:href="#icon-file"></use>
@@ -61,19 +61,19 @@
   </div>
 </div>
 
-<div ng-repeat="v in restriction.data.values | unique:'v.ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
+<div ng-repeat="v in restriction.data.values | unique:'ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
     <div class="small-12">
         <svg class="icon icon-open">
             <use xlink:href="#icon-open"></use>
         </svg>
-        <a class="external-link" target="_blank" href="{{v.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name.LocalisedText.Text}}</a>
+        <a class="external-link" target="_blank" href="{{ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name.LocalisedText.Text}}</a>
     </div>
 </div>
 -->
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
 </div>
-<div ng-repeat="v in restriction.data.values | unique:'v.ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
+<div ng-repeat="v in restriction.data.values | unique:'ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
     <div class="small-12">
         <svg class="icon icon-open">
             <use xlink:href="#icon-open"></use>

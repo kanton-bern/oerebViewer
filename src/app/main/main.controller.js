@@ -15,8 +15,6 @@ export class MainController {
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
             mainCtrl.history = Extracts.get().slice().reverse();
-
-            console.debug(mainCtrl.extract);
         });
 
         Helpers.registerMenuStatusObserver(function() {
@@ -26,7 +24,6 @@ export class MainController {
                 self.$scope.$apply();
             }
         });
-
 
         this.history = Extracts.get();
     }

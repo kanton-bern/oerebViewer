@@ -47,19 +47,32 @@ export class DetailController {
                 angular.forEach(self.Extracts.getRestriction().values, function (v) {
                     bbox = Helpers.getParameterByName('bbox', v.Map.ReferenceWMS);
 
-                    var url = v.Map.ReferenceWMS.substr(0, v.Map.ReferenceWMS.indexOf('WMSServer?')) + 'WMSServer?';
+                    var indexOfWMSServer = v.Map.ReferenceWMS.indexOf('WMSServer?');
 
-                    var wmsTempSource = new self.Map.ol.source.TileWMS(({
-                        url: url,
-                        params: {
-                            'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
-                            'TILED': true,
-                            'VERSION': Helpers.getParameterByName('VERSION', v.Map.ReferenceWMS),
-                            'FORMAT': Helpers.getParameterByName('FORMAT', v.Map.ReferenceWMS),
-                            'CRS': Helpers.getParameterByName('CRS', v.Map.ReferenceWMS)
-                        },
-                        serverType: 'geoserver'
-                    }));
+                    if (indexOfWMSServer == -1) {
+                        var wmsTempSource = new self.Map.ol.source.TileWMS(({
+                            url: v.Map.ReferenceWMS,
+                            params: {
+                                'TILED': true,
+                            },
+                            serverType: 'geoserver'
+                        }));
+                    }
+                    else {
+                        var url = v.Map.ReferenceWMS.substr(0, indexOfWMSServer) + 'WMSServer?';
+
+                        var wmsTempSource = new self.Map.ol.source.TileWMS(({
+                            url: url,
+                            params: {
+                                'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
+                                'TILED': true,
+                                'VERSION': Helpers.getParameterByName('VERSION', v.Map.ReferenceWMS),
+                                'FORMAT': Helpers.getParameterByName('FORMAT', v.Map.ReferenceWMS),
+                                'CRS': Helpers.getParameterByName('CRS', v.Map.ReferenceWMS)
+                            },
+                            serverType: 'geoserver'
+                        }));
+                    }
 
                     let wmsTemp = new self.Map.ol.layer.Tile({
                         /*preload: Infinity,*/
@@ -67,6 +80,7 @@ export class DetailController {
                         source: wmsTempSource,
                         name: 'restriction-temp'
                     });
+
 
                     self.tempLayers.push(wmsTemp);
                 });
@@ -91,9 +105,6 @@ export class DetailController {
     }
 
     expand(index, code) {
-        console.debug('expanded');
-        console.debug(code);
-
         if (angular.isDefined(code))
             this.Extracts.setRestrictionByCode(code);
     }
@@ -101,8 +112,6 @@ export class DetailController {
     collapse(index, code) {
         // just close
         this.Extracts.setRestrictionByCode(null);
-
-        console.debug('closed');
     }
 
     restrictionChanged(notify) {
