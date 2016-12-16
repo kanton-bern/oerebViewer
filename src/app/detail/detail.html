@@ -35,8 +35,8 @@
                           <use xlink:href="#icon-file"></use>
                       </svg>
                       <a class="external-link"
-                         ng-href="https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/{{main.extract.egrid}}?lang=de"
-                         ng-click="$event.preventDefault(); detail.openPDF('https://www.oereb2-test.apps.be.ch/OerbverSVC.svc/extract/reduced/pdf/' + main.extract.egrid + '?lang=de')"
+                         ng-href="{{detail.getPDFLink(main.extract.egrid)}}"
+                         ng-click="$event.preventDefault(); detail.openPDF(main.extract.egrid)"
                          title='{{"detailDownloadPDF" | translate}}'>{{"detailDownloadPDF" | translate}}</a>
                   </div>
                   <div class="small-12">

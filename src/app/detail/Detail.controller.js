@@ -1,10 +1,12 @@
 export class DetailController {
-    constructor($log, $window, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, Loading) {
+    constructor($log, $translate, $window, Config, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, Loading) {
         'ngInject';
 
         // declarations
         let self = this;
         this.Extracts = Extracts;
+        this.$translate = $translate;
+        this.Config = Config;
         this.$location = $location;
         this.Map = Map;
         this.Layers = Layers;
@@ -13,7 +15,6 @@ export class DetailController {
         this.Loading = Loading;
         this.$window = $window;
         this.$scope = $scope;
-
 
         // hide infobox overlay
         this.Map.hideOverlay();
@@ -131,12 +132,17 @@ export class DetailController {
         )
     }
 
-    openPDF(url) {
+    openPDF(egrid) {
         this.Loading.show();
 
-        this.$window.location.href = url;
-        console.debug(url);
+        this.$window.location.href = this.getPDFLink(egrid);
     }
+
+    getPDFLink(egrid) {
+        return this.Config.services.oereb + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
+
+    }
+
 
     showInList(item) {
         return (!item.complex || item.hasChildren);
