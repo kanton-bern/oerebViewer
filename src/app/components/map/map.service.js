@@ -90,8 +90,6 @@ export class MapService {
         var self = this;
         var view = this.map.getView();
 
-        console.debug(view.getCenter());
-
         if (view.getZoom() >= this.Config.zoom.oerebLayer) {
             self.Layers.show('oereb');
         } else {
