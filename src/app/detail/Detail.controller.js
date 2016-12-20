@@ -1,5 +1,5 @@
 export class DetailController {
-    constructor($log, $translate, $window, Config, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, Coordinates, Loading) {
+    constructor($log, $translate, $window, Config, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, $rootScope, Coordinates, Loading) {
         'ngInject';
 
         // declarations
@@ -14,6 +14,7 @@ export class DetailController {
         this.Helpers = Helpers;
         this.Loading = Loading;
         this.$window = $window;
+        this.$stateParams = $stateParams;
         this.$scope = $scope;
 
         // hide infobox overlay
@@ -35,6 +36,12 @@ export class DetailController {
         // if location searchpath is changed, restrictionchanges
         $scope.$on('$locationChangeSuccess', function () {
             self.restrictionChanged(true);
+        });
+
+        $rootScope.$on('$translateChangeSuccess', function () {
+            if ($stateParams.egrid != 0) {
+                self.Extracts.reload();
+            }
         });
 
         // on restriction reload add layer to map

@@ -88,13 +88,16 @@ class MapController {
 
         });
 
-        Extracts.registerCurrentObserverCallback(function() {
+        Extracts.registerCurrentObserverCallback(function(reloading) {
+            reloading = reloading || false;
+
             var egrid = self.Extracts.getCurrent().egrid;
 
-            self.WFS.getSource(egrid).then(function (vectorSource) {
-                self.drawByWFSSource(vectorSource, 'selected');
-                self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
-            });
+            if (!reloading)
+                self.WFS.getSource(egrid).then(function (vectorSource) {
+                    self.drawByWFSSource(vectorSource, 'selected');
+                    self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
+                });
         });
 
         // load map

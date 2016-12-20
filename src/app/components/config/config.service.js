@@ -4,7 +4,7 @@ export class ConfigService {
 
         // zoom configuration
         this.zoom = {
-            default: 4,
+            default: 0,
             zoomedIn: 13,
             oerebLayer: 11,
         };
@@ -16,7 +16,7 @@ export class ConfigService {
         };
 
         // default center
-        this.center = [2604688.627, 1175634.936];
+        this.center = [2616445.3125, 1190976.5625];
 
         // map services
         this.services = {

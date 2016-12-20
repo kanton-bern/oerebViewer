@@ -11,6 +11,7 @@ export class LayersService {
         this.parser = new ol.format.WMTSCapabilities();
 
         // add layers
+        this.add(this.asynCantonLayer());
         this.add(this.asyncGreyMapLayer());
         this.add(this.asyncOrthoPhotoLayer());
         this.add(this.oerebLayer());
@@ -64,6 +65,36 @@ export class LayersService {
                 visible: true,
                 name: 'greyMap'
             });
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
+        });
+    }
+
+    asynCantonLayer() {
+        let self = this;
+
+        return fetch('/app/components/layers/capabilities/cantonWMTS.xml').then(function (response) {
+            return response.text();
+        }).then(function (text) {
+            var result = self.parser.read(text);
+            var options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_kanton5_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+
+            var wmtsSource = new ol.source.WMTS(options);
+
+            var wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: wmtsSource,
+                visible: true,
+                name: 'cantonMap'
+            });
+
+            wmtsLayer.setZIndex(500);
+
 
             return wmtsLayer;
         }).catch(function(ex) {

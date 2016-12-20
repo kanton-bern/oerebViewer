@@ -47,6 +47,11 @@ export class MapService {
             self.updateStatus();
         });
 
+        // workaround for oereb layer early load
+        setTimeout(function () {
+            self.updateStatus();
+        }, 500);
+
         // registers 'singleclick' event listener
         this.map.on('singleclick', function (event) {
             var coordinates = self.Coordinates.set('lastClick', Coordinates.System[2056], event.coordinate);
@@ -84,6 +89,8 @@ export class MapService {
     updateStatus() {
         var self = this;
         var view = this.map.getView();
+
+        console.debug(view.getCenter());
 
         if (view.getZoom() >= this.Config.zoom.oerebLayer) {
             self.Layers.show('oereb');

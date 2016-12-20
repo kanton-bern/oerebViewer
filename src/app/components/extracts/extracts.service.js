@@ -25,12 +25,17 @@ export class ExtractsService {
         this.extracts = [];
     }
 
-    add(newExtract) {
+    reload() {
+        this.add(this.getCurrent(), true);
+    }
+
+    add(newExtract, reloading) {
+        reloading = reloading || false;
+
         let self = this;
 
+        // if it's a reloading skip the first one
         this.remove(newExtract.egrid);
-
-        console.warn('extract loading: ' + newExtract.egrid);
 
         this.Loading.show();
 
@@ -44,21 +49,24 @@ export class ExtractsService {
 
             self.extracts.push(newExtract);
 
-            console.log(self.extracts.length);
             while (self.extracts.length > 10)
                 self.extracts.shift();
 
-            self.setCurrent(newExtract.egrid);
+            self.setCurrent(newExtract.egrid, reloading);
             self.localStorageService.set('extracts', self.extracts);
 
-            self.notifyCurrentObservers();
+            // self.notifyCurrentObservers(reloading);
 
             self.Loading.hide();
 
-            var loadSuccess1 = self.$filter('translate')('notification_loadsuccess1');
-            var loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
+            if (!reloading) {
+                // now lets remove the second one in silent
+                var loadSuccess1 = self.$filter('translate')('notification_loadsuccess1');
+                var loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
 
-            self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
+                self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
+            }
+
         }).catch(function () {
 
             var loadFailed1 = self.$filter('translate')('notification_failed1');
@@ -141,16 +149,24 @@ export class ExtractsService {
         return newExtract;
     }
 
-    setCurrent(egrid) {
+    setCurrent(egrid, reloading) {
+        reloading = reloading || false;
+
         let self = this;
+        let foundOne = false;
 
         for (var i = 0; i < this.extracts.length; i++) {
-            if (this.extracts[i].egrid == egrid) {
-                self.currentExtract = self.extracts[i];
-                self.notifyCurrentObservers();
-
+            if (self.extracts[i].egrid == egrid) {
+                if (!foundOne) {
+                    self.currentExtract = self.extracts[i];
+                    foundOne = true;
+                } else {
+                    self.extracts.splice(i, 1);
+                }
             }
         }
+
+        self.notifyCurrentObservers(reloading);
     }
 
     getCurrent() {
@@ -166,9 +182,11 @@ export class ExtractsService {
         this.observers.push(callback);
     }
 
-    notifyCurrentObservers() {
+    notifyCurrentObservers(reloading) {
+        reloading = reloading || false;
+
         angular.forEach(this.observers, function (callback) {
-            callback();
+            callback(reloading);
         });
 
         this.notifyRestrictionObservers();
@@ -220,16 +238,20 @@ export class ExtractsService {
         return this.extracts.length;
     }
 
-    remove(egrid) {
+    remove(egrid, skip) {
+        skip = skip || false;
+
         let self = this;
 
         for (var i = 0; i < this.extracts.length; i++) {
             if (this.extracts[i].egrid == egrid) {
-                self.extracts.splice(i, 1);
-            }
-        }
 
-        console.warn("animation: remove" + egrid);
+                if (!skip)
+                    self.extracts.splice(i, 1);
+                skip = false;
+            }
+
+        }
 
         return egrid;
     }

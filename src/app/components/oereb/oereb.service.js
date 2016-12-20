@@ -1,11 +1,12 @@
 export class OEREBService {
-    constructor(Config, $http, $log, $base64, Notification, $filter) {
+    constructor(Config, $http, $log, $base64, Notification, $filter, $translate) {
         'ngInject';
 
         this.$http = $http;
         this.$log = $log;
         this.$base64 = $base64;
         this.$filter = $filter;
+        this.$translate = $translate;
         this.Notification = Notification;
         this.Config = Config;
 
@@ -15,7 +16,7 @@ export class OEREBService {
     getExtractById(egrid) {
         var self = this;
 
-        let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid;
+        let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + self.$translate.use();
 
         var promise = this.$http.get(url,
             {
