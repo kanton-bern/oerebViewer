@@ -61,7 +61,7 @@
 .wrapper-inner {
   .position-left {
     padding-top:120px;
-    left:0px;
+    left:250px !important; // wieso das so ist? keine ahnung
 
     .top-menu {
       display:none !important;

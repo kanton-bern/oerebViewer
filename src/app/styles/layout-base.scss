@@ -56,7 +56,7 @@ body {
     // Menu is open
     &.active-menu {
       transition: all ease 1s;
-      left:0px;
+      left:250px;
     }
   }
 
@@ -169,6 +169,8 @@ body {
     p {
       padding:0.5em 0em 0em 3.5em;
       font-size:$fontSizeBase * 1.4;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       line-height:1;
     }
     .oereb-title {

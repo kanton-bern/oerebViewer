@@ -9,6 +9,7 @@
     "title": "RDPPF",
     "mainAppTitle": "RDPPF-App",
     "mainTitle": "FR Auszug aus dem ÖREB-Kataster",
+    "appReset": "FR Alles Zurücksetzen",
     "titleMainMenu": "Menu",
     "titleMainMenuClose": "Fermer menu",
     "no_property_loaded": "Aucune propriété chargée",
