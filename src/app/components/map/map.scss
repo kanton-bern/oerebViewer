@@ -38,15 +38,17 @@
   display: none !important;
 }
 
-.oereb-marker {
-  z-index:3;
-  position:absolute;
-  /* Positionierung des markers */
-  left: -16px;
-  top: -14px;
+.ol-overlay-container {
+  .oereb-marker {
+    z-index:3;
+    position:absolute;
+    /* Positionierung des markers */
+    left: -16px;
+    top: -14px;
 
-  img {
-    width:32px;
-    height:32px;
+    img {
+      width:32px;
+      height:32px;
+    }
   }
 }
