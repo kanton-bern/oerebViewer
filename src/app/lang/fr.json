@@ -64,6 +64,8 @@
     "titleResponsibilityImprint": "FR Verantwortlichkeiten",
     "titleImprint": "FR Impressum und Rechtliches",
     "titleInvolvedParties": "FR An diesem Auszug sind beteiligt:",
+    "searchboxPlaceholder": "FR Nach einem Grundstück suchen...",
+    "markerAlt":"FR Markiertes Grundstück",
 
     "oerebServiceNotAvailable" : "FR Der OEREB Service des Kanton Bern ist derzeit nicht erreichbar.",
 

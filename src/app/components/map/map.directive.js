@@ -148,6 +148,10 @@ class MapController {
 
     }
 
+    noData() {
+      return this.Detail.noDatas();
+    }
+
     removeOverlay() {
         if (angular.isDefined(this.Map.lastOverlay))
             return this.Map.removeOverlay(this.Map.lastOverlay);
