@@ -220,6 +220,7 @@ body {
     @include contentLinks;
     .ng-binding {
       color:$colorContent;
+      word-break:break-word;
 
     }
 
@@ -420,7 +421,7 @@ body {
 
 
             .oereb-value {
-
+              padding-right:5px;
 
             }
             &.property-info {
