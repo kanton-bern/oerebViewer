@@ -112,8 +112,8 @@
                        <p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">{{"notification_noCommunity" | translate}}</p>
                      </div>
                      </div>
-                      <h2>{{'titleRemarksImprint' | translate}}</h2>
-                      <section class="section">
+                      <h2 ng-if="main.extract.data.MunicipalityLogo">{{'titleRemarksImprint' | translate}}</h2>
+                      <section ng-if="main.extract.data.MunicipalityLogo" class="section">
                       <div class="section-item">
                         <h3>{{ 'titleGeneralInformation' | translate}}</h3>
                         <p>{{main.extract.data.GeneralInformation.LocalisedText.Text}}</p>
