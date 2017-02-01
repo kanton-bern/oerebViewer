@@ -322,7 +322,9 @@ body {
         &.norestrictions,
         &.missingrestrictions {
             .ng-binding {
-              color:$colorMenuTop;
+              color:darken($colorMenuTop,15%);
+              padding:5px 0px 10px 0px;
+              line-height: $fontLineHeightBase - 10%;
           }
         }
         &.generalinformation {
