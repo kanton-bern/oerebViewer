@@ -68,6 +68,7 @@
     "markerAlt":"Markiertes Grundstück",
 
     "oerebServiceNotAvailable" : "Der OEREB Service des Kanton Bern ist derzeit nicht erreichbar.",
+    "oerebService500": "Der OEREB Service des Kanton Berns hat keine Daten zu diesem Grundstück.",
 
     "gstart" : {
     "0": "Liegenschaft",

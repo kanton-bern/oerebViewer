@@ -161,6 +161,8 @@
                     </v-pane-header>
 
                     <v-pane-content>
+
+
                         <div class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
                             <div class="medium-1"></div>
@@ -178,18 +180,20 @@
                                 ({{main.extract.data.RealEstate.FosNr}})
                             </div>
                         </div>
-                        <div class="row property-info">
+
+                        <div ng-if="main.extract.data.RealEstate.SubunitOfLandRegister" class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
                             <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitofLandRegister}}
-                            </div>
+                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitOfLandRegister}}</div>
                         </div>
+
                         <div class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
                             <div class="medium-1"></div>
                             <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}}
                                 m<sup>2</sup></div>
                         </div>
+
 
 
                     </v-pane-content>

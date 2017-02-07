@@ -84,8 +84,12 @@ export class OEREBService {
                     }];
                 }
             }
-        ).catch(function() {
-            self.Notification.warning(self.$filter('translate')('oerebServiceNotAvailable'));
+        ).catch(function(data) {
+            if (data.status == 500) {
+                self.Notification.warning(self.$filter('translate')('oerebService500'));
+            } else {
+                self.Notification.warning(self.$filter('translate')('oerebServiceNotAvailable'));
+            }
         });
 
         return promise;
