@@ -44,6 +44,8 @@ export class ExtractsService {
         };
 
         this.OEREB.getExtractById(newExtract.egrid).then(function (d) {
+            console.debug('extract');
+            console.debug(newExtract);
 
             newExtract = self.wrap(newExtract, d.data);
 

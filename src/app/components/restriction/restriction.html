@@ -33,7 +33,8 @@
             <svg class="icon icon-file">
                 <use xlink:href="#icon-file"></use>
             </svg>
-            <a class="external-link" target="_blank" href="{{ v.LegalProvisions.TextAtWeb.LocalisedText.Text }}" title="PDF">{{v.LegalProvisions.Title.LocalisedText.Text}}</a>
+            <a ng-if="v.LegalProvisions.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ v.LegalProvisions.TextAtWeb.LocalisedText.Text }}" title="PDF">{{v.LegalProvisions.OfficialTitle.LocalisedText.Text}}</a>
+            <a ng-if="v.LegalProvisions.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ v.LegalProvisions.TextAtWeb.LocalisedText.Text }}" title="PDF">{{v.LegalProvisions.Title.LocalisedText.Text}}</a>
         </div>
     </div>
 
@@ -42,7 +43,8 @@
             <svg class="icon icon-file">
                 <use xlink:href="#icon-file"></use>
             </svg>
-            <a class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
+            <a ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
+            <a ng-if="document.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
         </div>
     </div>
 </div>
