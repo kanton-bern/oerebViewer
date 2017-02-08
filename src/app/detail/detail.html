@@ -45,6 +45,26 @@
                       </svg>
                       <a class="external-link" target="_blank" href="http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1={{main.extract.egrid}}&keyname1=EGRID&project=a42pub_oereb&language=de&userprofile=geo" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap" | translate}}</a>
                   </div>
+                  <!--
+                    TODO: Über Mail teilen. Wirklich implementieren? - Issue #80
+                    <div class="small-12">
+                        <svg class="icon icon-mail">
+                            <use xlink:href="#icon-mail"></use>
+                        </svg>
+
+                        <a class="external-link" target="_blank" href="mailto:empfaenger@example.com?body={{detail.url()}}&subject={{'title' | translate}}">Über Mail teilen</a>
+                    </div>
+                  -->
+
+                  <div class="small-12">
+                      <svg class="icon icon-share">
+                          <use xlink:href="#icon-share"></use>
+                      </svg>
+
+                    <a class="external-link" target="_blank" ng-click="detail.copyUrlToClipboard()">{{"detailCopyLink" | translate}}</a>
+
+                  </div>
+
               </div>
             </div>
           </div>

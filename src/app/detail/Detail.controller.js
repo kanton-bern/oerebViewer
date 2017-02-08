@@ -1,5 +1,5 @@
 export class DetailController {
-    constructor($log, $translate, $window, Config, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, $rootScope, Coordinates, Loading) {
+    constructor($log, $translate, $window, Config, Extracts, Helpers, Map, Layers, $stateParams, $location, $scope, $rootScope, Coordinates, Loading, Notification, $filter) {
         'ngInject';
 
         // declarations
@@ -10,12 +10,15 @@ export class DetailController {
         this.$location = $location;
         this.Map = Map;
         this.Layers = Layers;
+        this.$filter = $filter;
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
         this.Loading = Loading;
         this.$window = $window;
         this.$stateParams = $stateParams;
         this.$scope = $scope;
+        this.Notification = Notification;
+
 
         // hide infobox overlay
         this.Map.hideOverlay();
@@ -162,5 +165,37 @@ export class DetailController {
 
     showInList(item) {
         return (!item.complex || item.hasChildren);
+    }
+
+    url() {
+        return window.location.href;
+    }
+
+    copyUrlToClipboard() {
+        var success = false;
+
+        if (window.clipboardData && window.clipboardData.setData) {
+            // IE specific code path to prevent textarea being shown while dialog is visible.
+            success = clipboardData.setData("Text", this.url());
+
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = this.url();
+            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                success = document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                success = false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        console.debug('ususususus');
+        if (success)
+            this.Notification.success(this.$filter('translate')('notification_copied'));
     }
 }
