@@ -12,7 +12,7 @@
     <div ng-if="!infoboxLoading">
         <strong>{{ 'infobox_property' | translate }}</strong>
 
-        <div ng-if="map.egrids.length == 0">{{'no_propery_found' | translate}}</div>
+        <div ng-if="map.selectedPoint.length == 0">{{'no_propery_found' | translate}}</div>
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
