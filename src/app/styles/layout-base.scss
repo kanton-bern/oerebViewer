@@ -43,7 +43,7 @@ body {
   .position-left {
     padding-top:3em;
     position:absolute;
-    height:100vh;
+    // height:100vh;
     left:-75vw;
     width:75vw;
     max-width: 500px;
@@ -220,7 +220,7 @@ body {
     @include contentLinks;
     .ng-binding {
       color:$colorContent;
-      word-break:break-word;
+      @include dontBreakOut();
 
     }
 
@@ -688,7 +688,8 @@ body {
         flex-wrap: wrap;
 
         dl {
-          width:50%;
+          flex-basis: 50%;
+          width:100%;
           padding-right:10%;
           margin-bottom:60px;
 
@@ -709,7 +710,8 @@ body {
         display:flex;
         flex-wrap:wrap;
         .section-item, .logo-item {
-          width:50%;
+          width:100%;
+          flex-basis: 50%;
           padding-right:10%;
         }
       }
