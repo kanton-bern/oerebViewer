@@ -96,7 +96,17 @@ export class ExtractsService {
         let restrictions = [];
         let count = 0;
 
-        angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function (d) {
+
+        var restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
+
+        // checks if there is only one restriction
+        if (angular.isDefined(restrictionArray.SubTheme)) {
+            restrictionArray = [];
+            restrictionArray.push(newExtract.data.RealEstate.RestrictionOnLandownership);
+        }
+
+
+        angular.forEach(restrictionArray, function (d) {
 
             if (angular.isUndefined(d.SubTheme))
                 return false;
@@ -156,7 +166,7 @@ export class ExtractsService {
 
         newExtract.restrictions = restrictions;
         newExtract.restrictionLength = Object.keys(restrictions).length;
-        
+
         return newExtract;
     }
 
