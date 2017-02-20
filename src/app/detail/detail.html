@@ -109,7 +109,7 @@
 
                                         <v-accordion ng-if="main.extract.restrictions.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
 
-                                            <v-pane ng-repeat="subRestriction in main.extract.restrictions | filter:{parent:restriction.code} track by $index" id="{{ subRestriction.code }}">
+                                            <v-pane ng-repeat="subRestriction in main.extract.restrictions | filter:{parent:restriction.name} track by $index" id="{{ subRestriction.code }}">
 
                                                 <v-pane-header>
                                                     {{ subRestriction.name }}
@@ -133,6 +133,8 @@
                             </v-pane>
 
                         </v-accordion>
+
+
 
 
                     </v-pane-content>

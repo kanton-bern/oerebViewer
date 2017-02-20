@@ -50,6 +50,9 @@ export class ExtractsService {
 
             newExtract = self.wrap(newExtract, d.data);
 
+            console.error('newEcxtract');
+            console.error(newExtract);
+
             self.extracts.push(newExtract);
 
             while (self.extracts.length > 10)
@@ -95,13 +98,16 @@ export class ExtractsService {
 
         let restrictions = [];
         let count = 0;
+
         angular.forEach(newExtract.data.RealEstate.RestrictionOnLandownership, function (d) {
 
             if (angular.isUndefined(d.SubTheme))
                 return false;
 
+            // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
             var complex = (d.SubTheme != d.Theme.Name);
 
+            // check if restriction type allready exists - if yes, lets just push it as a value and skip the rest
             var doesRestrictionTypeExist = false;
 
             angular.forEach(restrictions, function (value, key) {
@@ -134,12 +140,11 @@ export class ExtractsService {
                 }
             }
 
-
             if (!doesRestrictionTypeExist) {
                 var theme = {};
                 theme.name = d.SubTheme;
                 theme.code = d.SubTheme;
-                theme.parent = d.Theme.Code;
+                theme.parent = d.Theme.Name;
                 theme.complex = complex;
                 theme.hasChildren = false;
                 theme.values = [];
@@ -149,10 +154,17 @@ export class ExtractsService {
 
                 restrictions.push(theme);
             }
+
         });
+
+        console.error(restrictions);
 
         newExtract.restrictions = restrictions;
         newExtract.restrictionLength = Object.keys(restrictions).length;
+
+
+        console.error(newExtract);
+
 
         return newExtract;
     }
