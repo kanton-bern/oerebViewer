@@ -16,7 +16,12 @@ export class OEREBService {
     getExtractById(egrid) {
         var self = this;
 
-        let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + self.$translate.use();
+        var lang = '';
+
+        if (self.$translate.use() != undefined)
+            lang = self.$translate.use();
+
+        let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + lang;
 
         var promise = this.$http.get(url,
             {

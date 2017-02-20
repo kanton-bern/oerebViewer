@@ -50,9 +50,6 @@ export class ExtractsService {
 
             newExtract = self.wrap(newExtract, d.data);
 
-            console.error('newEcxtract');
-            console.error(newExtract);
-
             self.extracts.push(newExtract);
 
             while (self.extracts.length > 10)
@@ -157,15 +154,9 @@ export class ExtractsService {
 
         });
 
-        console.error(restrictions);
-
         newExtract.restrictions = restrictions;
         newExtract.restrictionLength = Object.keys(restrictions).length;
-
-
-        console.error(newExtract);
-
-
+        
         return newExtract;
     }
 
