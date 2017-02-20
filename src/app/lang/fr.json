@@ -72,6 +72,7 @@
 
     "oerebServiceNotAvailable" : "FR Der OEREB Service des Kanton Bern ist derzeit nicht erreichbar.",
     "oerebService500": "FR Der OEREB Service des Kanton Berns hat keine Daten zu diesem Grundstück.",
+    "oerebService204": "FR Kein Grundstück mit dieser ID.",
 
     "gstart" : {
         "0": "FR Liegenschaft",

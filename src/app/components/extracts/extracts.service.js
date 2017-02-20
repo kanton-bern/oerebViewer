@@ -44,8 +44,9 @@ export class ExtractsService {
         };
 
         this.OEREB.getExtractById(newExtract.egrid).then(function (d) {
-            console.debug('extract');
-            console.debug(newExtract);
+            if (d.status == 204)
+                throw d;
+
 
             newExtract = self.wrap(newExtract, d.data);
 
@@ -69,12 +70,17 @@ export class ExtractsService {
                 self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
             }
 
-        }).catch(function () {
+        }).catch(function (data) {
 
-            var loadFailed1 = self.$filter('translate')('notification_failed1');
-            var loadFailed2 = self.$filter('translate')('notification_failed2');
+            if (data.status == 204) {
+                self.Notification.error(self.$filter('translate')('oerebService204'));
+            } else {
+                var loadFailed1 = self.$filter('translate')('notification_failed1');
+                var loadFailed2 = self.$filter('translate')('notification_failed2');
+                self.Notification.error(loadFailed1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
+            }
 
-            self.Notification.error(loadFailed1 + ' '  + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
+
             self.Loading.hide();
         });
     }

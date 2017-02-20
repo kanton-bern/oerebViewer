@@ -59,6 +59,9 @@ export class OEREBService {
             {
                 cache: true,
                 transformResponse: function (data) {
+                    if (data.status == 204)
+                        throw data;
+
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
                     self.$log.info(object);
@@ -85,11 +88,16 @@ export class OEREBService {
                 }
             }
         ).catch(function(data) {
-            if (data.status == 500) {
-                self.Notification.warning(self.$filter('translate')('oerebService500'));
-            } else {
-                self.Notification.warning(self.$filter('translate')('oerebServiceNotAvailable'));
-            }
+
+            var warning = self.$filter('translate')('oerebServiceNotAvailable');
+
+            if (data.status == 500)
+                warning = self.$filter('translate')('oerebService500');
+
+            if (data.status == 204)
+                warning = self.$filter('translate')('oerebService204');
+
+            self.Notification.warning(warning);
         });
 
         return promise;
