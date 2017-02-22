@@ -80,5 +80,9 @@ export class MainController {
         this.visibleContent = 'themes';
         this.Helpers.closeMenu();
     }
+    
+    swipeLeft() {
+        this.Helpers.closeMenu();
+    }
 
 }
