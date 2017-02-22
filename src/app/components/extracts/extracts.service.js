@@ -100,7 +100,7 @@ export class ExtractsService {
         var restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
 
         // checks if there is only one restriction
-        if (angular.isDefined(restrictionArray.SubTheme)) {
+        if (angular.isDefined(restrictionArray) && angular.isDefined(restrictionArray.SubTheme)) {
             restrictionArray = [];
             restrictionArray.push(newExtract.data.RealEstate.RestrictionOnLandownership);
         }
