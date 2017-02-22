@@ -101,6 +101,10 @@ export class MapService {
         this.notifyClickObservers(coordinates);
     }
 
+    getCenter() {
+        var center = this.map.getView().getCenter();
+        return this.Coordinates.create(this.Coordinates.System[2056], [center[0], center[1]]);
+    }
 
     openSearch() {
         this.Helpers.closeMenu();
@@ -159,7 +163,6 @@ export class MapService {
             return;
         }
 
-        console.debug('tried to remove a non existing overlay');
         return;
 
     }

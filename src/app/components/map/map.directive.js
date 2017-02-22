@@ -137,6 +137,15 @@ class MapController {
     }
 
     getLocation() {
+        var self = this;
+
+        // Click on Center
+
+        setTimeout(function() {
+            var currentCenter = self.Map.getCenter();
+            self.Map.click(currentCenter);
+        }, 1000);
+
         // Close main menu if open
         this.Helpers.closeMenu();
     }
