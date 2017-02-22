@@ -111,6 +111,22 @@ export class ExtractsService {
             if (angular.isUndefined(d.SubTheme))
                 return false;
 
+
+
+            // legalProvisions must be an array
+             if (!angular.isArray(d.LegalProvisions)) {
+                 var legalProvision = d.LegalProvisions;
+                 d.LegalProvisions = [];
+                 d.LegalProvisions.push(legalProvision);
+             }
+
+             // filter for legalProvisions without Links
+             d.LegalProvisions = d.LegalProvisions.filter(function(legalProvision) {
+                return legalProvision.TextAtWeb.LocalisedText.Text.length > 0;
+             });
+
+
+
             // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
             var complex = (d.SubTheme != d.Theme.Name);
 

@@ -22,23 +22,16 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" ng-if="restriction.hasLegals">
     <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
 </div>
 <div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
+    <div ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
 
-    <div ng-if="!restriction.isArray(v.LegalProvisions)" class="row more-info pdf-list">
-        <div class="small-12">
-            <svg class="icon icon-file">
-                <use xlink:href="#icon-file"></use>
-            </svg>
-            <a ng-if="v.LegalProvisions.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ v.LegalProvisions.TextAtWeb.LocalisedText.Text }}" title="PDF">{{v.LegalProvisions.OfficialTitle.LocalisedText.Text}}</a>
-            <a ng-if="v.LegalProvisions.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ v.LegalProvisions.TextAtWeb.LocalisedText.Text }}" title="PDF">{{v.LegalProvisions.Title.LocalisedText.Text}}</a>
-        </div>
-    </div>
+        <!-- necessary for theme-heading of legals -->
+        <span ng-init="restriction.hasLegals = true"></span>
 
-    <div ng-if="restriction.isArray(v.LegalProvisions)" ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
         <div class="small-12">
             <svg class="icon icon-file">
                 <use xlink:href="#icon-file"></use>

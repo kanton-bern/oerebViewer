@@ -19,6 +19,8 @@ class RestrictionController {
     constructor() {
         'ngInject';
 
+        this.hasLegals = false;
+
     }
 
     isArray(data) {
