@@ -70,7 +70,7 @@
           </div>
 
 
-            <v-accordion class="vAccordion--default" ng-if="!detail.noDatas">
+            <v-accordion class="vAccordion--default" ng-if="!detail.noDatas" control="accordion" oncollapse="detail.collapse(accordion)">
 
 
                 <!-- Restrictions -->
@@ -96,7 +96,7 @@
                         </div>
 
                         <!-- if restrictions -->
-                        <v-accordion ng-if="main.extract.restrictions.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
+                        <v-accordion ng-if="main.extract.restrictions.length > 0" control="accordion" oncollapse="detail.collapse(accordion)" onexpand="detail.expand(index, id)">
 
                             <v-pane ng-repeat="restriction in main.extract.restrictions  | filter: detail.showInList track by $index" id="{{ restriction.code }}">
                                 <v-pane-header>

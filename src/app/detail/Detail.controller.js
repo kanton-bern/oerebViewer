@@ -19,6 +19,7 @@ export class DetailController {
         this.$scope = $scope;
         this.Notification = Notification;
 
+        this.accordion = null;
 
         // hide infobox overlay
         this.Map.hideOverlay();
@@ -119,9 +120,10 @@ export class DetailController {
             this.Extracts.setRestrictionByCode(code);
     }
 
-    collapse(index, code) {
+    collapse(accordion) {
         // just close
         this.Extracts.setRestrictionByCode(null);
+        // accordion.collapseAll();
     }
 
     restrictionChanged(notify) {
