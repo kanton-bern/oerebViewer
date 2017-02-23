@@ -18,8 +18,7 @@ export class DetailController {
         this.$stateParams = $stateParams;
         this.$scope = $scope;
         this.Notification = Notification;
-
-        this.accordion = null;
+        this.activeRestriction = null;
 
         // hide infobox overlay
         this.Map.hideOverlay();
@@ -115,16 +114,46 @@ export class DetailController {
         }
     }
 
-    expand(index, code) {
-        if (angular.isDefined(code))
+    expand(index, id) {
+        if (id == 'toogleExpand') {
+            this.Extracts.setRestrictionByCode(this.activeRestriction);
+            return;
+        }
+
+        if (id == undefined) {
+            return;
+        }
+
+        var splitedResult = id.split("--");
+        var code = splitedResult[0];
+        var hasChildren = (splitedResult[1] == 'true');
+
+        if (hasChildren && this.activeRestriction != null) {
+            this.Extracts.setRestrictionByCode(this.activeRestriction);
+        }
+
+
+        if (!hasChildren && code != null) {
             this.Extracts.setRestrictionByCode(code);
+            this.activeRestriction = code;
+
+        }
     }
 
-    collapse(accordion) {
-        // just close
+    collapse(index, id) {
         this.Extracts.setRestrictionByCode(null);
-        // accordion.collapseAll();
+
+        if (id == null || id == undefined)
+            return;
+
+        var splitedResult = id.split("--");
+        var code = splitedResult[0];
+        var hasChildren = (splitedResult[1] == 'true');
+
+        if (hasChildren != true)
+            this.activeRestriction = null;
     }
+
 
     restrictionChanged(notify) {
         if (angular.isUndefined(this.$location.search().restriction))
