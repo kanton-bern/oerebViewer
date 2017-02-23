@@ -1,5 +1,5 @@
 export class MapService {
-    constructor(ngeoDecorateLayer, Config, Layers, Helpers, Coordinates) {
+    constructor(ngeoDecorateLayer, Config, Layers, Helpers, Coordinates, $window) {
         'ngInject';
 
         // declarations
@@ -34,7 +34,7 @@ export class MapService {
             extent: this.Config.projection.extent,
             zoom: self.zoom,
             projection: this.projection,
-            minZoom: 4
+            minZoom: ($window.innerWidth < 480) ? this.Config.zoom.minMobile : this.Config.zoom.min
         });
 
         // initialises map

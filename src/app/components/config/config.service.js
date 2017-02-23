@@ -7,11 +7,14 @@ export class ConfigService {
             default: 0,
             zoomedIn: 13,
             oerebLayer: 11,
+            min: 4,
+            minMobile: 2
         };
 
         // default projection
         this.projection = {
-            extent: [2440000, 1024000, 2895000, 1340000],
+            // extent: [2440000, 1024000, 2895000, 1340000],
+            extent: [2485869.5728, 1076443.1884, 2837076.5648, 1299941.7864],
             epsg: 'EPSG:2056'
         };
 
