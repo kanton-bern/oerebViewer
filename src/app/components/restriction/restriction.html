@@ -22,51 +22,74 @@
     </div>
 </div>
 
+<!-- Legal Provisions -->
 <div class="row" ng-if="restriction.hasLegals">
     <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
 </div>
 <div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-    <div ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'" class="row more-info pdf-list">
+    <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
+      <div ng-if="document['_xsi:type'] == 'LegalProvisions'" class="row more-info pdf-list">
 
-        <!-- necessary for theme-heading of legals -->
-        <span ng-init="restriction.hasLegals = true"></span>
+          <!-- necessary for theme-heading of legals -->
 
-        <div class="small-12">
-            <svg class="icon icon-file">
-                <use xlink:href="#icon-file"></use>
-            </svg>
-            <a ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
-            <a ng-if="document.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
-        </div>
-    </div>
+            <span ng-init="restriction.hasLegals = true"></span>
+
+            <div class="small-12">
+                <svg class="icon icon-file">
+                    <use xlink:href="#icon-file"></use>
+                </svg>
+                <a ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
+                <a ng-if="document.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
+            </div>
+      </div>
+    </use>
+</div>
+<!-- Documents -->
+<div class="row" ng-if="restriction.hasLegals">
+    <h3 class="theme-heading">{{"restrictionLegal" | translate }}</h3>
+</div>
+<div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
+    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
+    <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
+      <div ng-if="document['_xsi:type'] == 'Document'" class="row more-info pdf-list">
+
+          <!-- necessary for theme-heading of legals -->
+
+            <span ng-init="restriction.hasLegals = true"></span>
+
+            <div class="small-12">
+                <svg class="icon icon-open">
+                    <use xlink:href="#icon-open"></use>
+                </svg>
+                <a ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="Link">{{document.OfficialTitle.LocalisedText.Text}}</a>
+                <a ng-if="document.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="Link">{{document.Title.LocalisedText.Text}}</a>
+            </div>
+      </div>
+    </use>
+</div>
+<!-- Remarks -->
+<div class="row" ng-if="restriction.hasLegals">
+    <h3 class="theme-heading">{{"restrictionReference" | translate }}</h3>
+</div>
+<div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
+    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
+    <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
+      <div ng-if="document['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
+
+          <!-- necessary for theme-heading of legals -->
+
+            <span ng-init="restriction.hasLegals = true"></span>
+
+            <div class="small-12">
+                <span ng-if="document.OfficialTitle.LocalisedText.Text.length > 0">{{document.OfficialTitle.LocalisedText.Text}}</span>
+                <span ng-if="document.OfficialTitle.LocalisedText.Text.length == 0">{{document.Title.LocalisedText.Text}}</span>
+            </div>
+      </div>
+    </use>
 </div>
 
 
-
-<!-- TO DO BS
-<pre>
-  {{restrionOnLandownership}}
-</pre>
-
-<div class="row">
-    <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
-</div>
-<div class="row more-info pdf-list">
-  <div class="small=12">
-    <p></p>
-  </div>
-</div>
-
-<div ng-repeat="v in restriction.data.values | unique:'ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
-    <div class="small-12">
-        <svg class="icon icon-open">
-            <use xlink:href="#icon-open"></use>
-        </svg>
-        <a class="external-link" target="_blank" href="{{ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name.LocalisedText.Text}}</a>
-    </div>
-</div>
--->
 
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
