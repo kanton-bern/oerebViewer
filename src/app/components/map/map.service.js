@@ -37,9 +37,16 @@ export class MapService {
             minZoom: ($window.innerWidth < 480) ? this.Config.zoom.minMobile : this.Config.zoom.min
         });
 
+        // deactivates drag rotation interactions
+        var interactions = this.ol.interaction.defaults({
+            altShiftDragRotate: false,
+            pinchRotate: false
+        });
+
         // initialises map
         this.map = new this.ol.Map({
             view: this.view,
+            interactions: interactions
         });
 
         // registers 'moveend' event listener
