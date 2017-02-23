@@ -35,8 +35,7 @@ class MapController {
         this.activeLayer = 'greyMap';
 
         // adds observer for clicks on the map
-        Map.registerClickObserver(function(coordinates) {
-
+        Map.registerClickObserver(function(coordinates, force = false) {
             // close menu
             var menuStatus = self.Helpers.getMenuStatus();
 
@@ -46,9 +45,12 @@ class MapController {
             // close map
             self.Map.closeSearch();
 
-            // if zoom is smaller than config.zoom.oereb
-            if (self.Map.getView().getZoom() < self.Config.zoom.oerebLayer || menuStatus) {
+            if (!force && (self.Map.getView().getZoom() < self.Config.zoom.oerebLayer || menuStatus)) {
                 return;
+            }
+
+            if (force) {
+                self.Map.setZoom(self.Config.zoom.zoomedIn);
             }
 
             // creates an overlay over the openlayers api
@@ -140,10 +142,9 @@ class MapController {
         var self = this;
 
         // Click on Center
-
         setTimeout(function() {
             var currentCenter = self.Map.getCenter();
-            self.Map.click(currentCenter);
+            self.Map.click(currentCenter, true);
         }, 1000);
 
         // Close main menu if open

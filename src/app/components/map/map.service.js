@@ -97,8 +97,8 @@ export class MapService {
         }
     }
 
-    click(coordinates) {
-        this.notifyClickObservers(coordinates);
+    click(coordinates, force = false) {
+        this.notifyClickObservers(coordinates, force);
     }
 
     getCenter() {
@@ -185,14 +185,15 @@ export class MapService {
         this.clickObservers.push(callback);
     }
 
-    notifyClickObservers(coordinates) {
+    notifyClickObservers(coordinates, force = false) {
+
         // Close main menu if open
         if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
             angular.element('#buttonShowExtract').click();
         }
 
         angular.forEach(this.clickObservers, function (callback) {
-            callback(coordinates);
+            callback(coordinates, force);
         });
     }
 
