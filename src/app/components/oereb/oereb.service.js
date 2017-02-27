@@ -30,6 +30,9 @@ export class OEREBService {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
 
+                    //console.debug(data);
+
+
                     if (!angular.isObject(object))
                         return false;
 

@@ -47,6 +47,9 @@ export class ExtractsService {
             if (d.status == 204)
                 throw d;
 
+            // Dump JSON-object to console
+            //console.debug('extract');
+            //console.debug(newExtract);
 
             newExtract = self.wrap(newExtract, d.data);
 
