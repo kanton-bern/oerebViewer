@@ -79,6 +79,19 @@
 <div ng-repeat="v in restriction.data.values" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
     <use ng-repeat="parentDocument in v.LegalProvisions">
+
+        <div ng-if="parentDocument['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
+
+            <!-- necessary for theme-heading of legals -->
+
+            <span ng-init="restriction.hasReferences = true"></span>
+
+            <div class="small-12">
+                <span ng-if="parentDocument.OfficialTitle.LocalisedText.Text.length > 0">{{parentDocument.OfficialTitle.LocalisedText.Text}}</span>
+                <span ng-if="parentDocument.OfficialTitle.LocalisedText.Text.length == 0">{{parentDocument.Title.LocalisedText.Text}}</span>
+            </div>
+        </div>
+
         <div ng-repeat="document in parentDocument.Reference">
               <div ng-if="document['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
 
