@@ -35,7 +35,8 @@ import { HelpersService } from '../app/components/helpers/helpers.service';
 import { CoordinatesService } from '../app/components/coordinates/coordinates.service';
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 import { LoadingService } from '../app/components/loading/loading.service';
-import { MobileClick } from '../app/components/mobileclick/mobileclick.directive';
+import { MobileClickDirective } from '../app/components/mobileclick/mobileclick.directive';
+import { LegalEntryDirective } from '../app/components/legalentry/legalentry.directive';
 
 
 angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
@@ -63,11 +64,12 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
     .controller('DetailController', DetailController)
 
     // register directives
-    .directive('ngMobileClick', MobileClick)
+    .directive('ngMobileClick', MobileClickDirective)
     .directive('map', MapDirective)
     .directive('loading', LoadingDirective)
     .directive('search', SearchSwisstopoDirective)
     .directive('restriction', RestrictionDirective)
+    .directive('legalEntry', LegalEntryDirective)
 
     // register filters
     .filter('unique', UniqueFilter);

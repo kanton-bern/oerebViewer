@@ -1,0 +1,21 @@
+<svg ng-if="entry.document.TextAtWeb.LocalisedText.Text.length > 0" class="icon {{entry.icon}}">
+    <use xlink:href="{{'#' + entry.icon}}"></use>
+</svg>
+
+<a class="legal-entry" ng-if="entry.document.TextAtWeb.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ entry.document.TextAtWeb.LocalisedText.Text }}" title="PDF">
+    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length > 0">
+        {{entry.document.OfficialTitle.LocalisedText.Text}}
+    </span>
+    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length == 0">
+        {{entry.document.Title.LocalisedText.Text}}
+    </span>
+</a>
+
+<span class="legal-entry" ng-if="entry.document.TextAtWeb.LocalisedText.Text.length == 0">
+    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length > 0">
+        {{entry.document.OfficialTitle.LocalisedText.Text}}
+    </span>
+    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length == 0">
+        {{entry.document.Title.LocalisedText.Text}}
+    </span>
+</span>

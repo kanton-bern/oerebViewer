@@ -41,11 +41,7 @@
             <span ng-init="restriction.hasLegals = true"></span>
 
             <div class="small-12">
-                <svg ng-if="document.TextAtWeb.LocalisedText.Text.length > 0" class="icon icon-file">
-                    <use xlink:href="#icon-file"></use>
-                </svg>
-                <a ng-if="document.TextAtWeb.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
-                <span ng-if="document.TextAtWeb.LocalisedText.Text.length == 0">{{document.Title.LocalisedText.Text}}</span>
+                <legal-entry document="document" icon="'icon-file'"></legal-entry>
             </div>
       </div>
     </use>
@@ -63,11 +59,7 @@
             <span ng-init="restriction.hasRestrictionLegals = true"></span>
 
             <div class="small-12">
-                <svg class="icon icon-open">
-                    <use xlink:href="#icon-open"></use>
-                </svg>
-                <a ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="Link">{{document.OfficialTitle.LocalisedText.Text}}</a>
-                <a ng-if="document.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="Link">{{document.Title.LocalisedText.Text}}</a>
+                <legal-entry document="document" icon="'icon-open'"></legal-entry>
             </div>
       </div>
     </use>
@@ -87,8 +79,7 @@
             <span ng-init="restriction.hasReferences = true"></span>
 
             <div class="small-12">
-                <span ng-if="parentDocument.OfficialTitle.LocalisedText.Text.length > 0">{{parentDocument.OfficialTitle.LocalisedText.Text}}</span>
-                <span ng-if="parentDocument.OfficialTitle.LocalisedText.Text.length == 0">{{parentDocument.Title.LocalisedText.Text}}</span>
+                <legal-entry document="parentDocument" icon="'icon-open'"></legal-entry>
             </div>
         </div>
 
@@ -100,8 +91,7 @@
                     <span ng-init="restriction.hasReferences = true"></span>
 
                     <div class="small-12">
-                        <span ng-if="document.OfficialTitle.LocalisedText.Text.length > 0">{{document.OfficialTitle.LocalisedText.Text}}</span>
-                        <span ng-if="document.OfficialTitle.LocalisedText.Text.length == 0">{{document.Title.LocalisedText.Text}}</span>
+                        <legal-entry document="document" icon="'icon-open'"></legal-entry>
                     </div>
               </div>
         </div>

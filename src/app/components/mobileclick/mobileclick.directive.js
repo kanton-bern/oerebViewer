@@ -1,4 +1,4 @@
-export function MobileClick() {
+export function MobileClickDirective() {
     'ngInject';
 
     return function (scope, elem, attrs) {
