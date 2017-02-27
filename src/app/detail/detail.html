@@ -96,7 +96,7 @@
                         </div>
 
                         <!-- if restrictions -->
-                        <v-accordion ng-if="main.extract.restrictions.length > 0" control="accordion" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
+                        <v-accordion ng-show="main.extract.restrictions.length > 0" control="accordion" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
 
                             <v-pane ng-repeat="restriction in main.extract.restrictions  | filter: detail.showInList track by $index" id="{{ restriction.code }}--{{ restriction.hasChildren }}">
                                 <v-pane-header>

@@ -16,7 +16,7 @@
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
-                <span class="clickable" href="#" ui-sref-active="active" ui-sref="home.detail({egrid: ele.egrid, restriction: 'none'})">{{'infobox_plot' | translate}} {{ele.number}}</span>
+                <button ng-click="map.openDetail(ele.egrid)" ng-mobile-click="map.openDetail(ele.egrid)" class="clickable">{{'infobox_plot' | translate}} {{ele.number}}</button>
             </li>
         </ul>
     </div>

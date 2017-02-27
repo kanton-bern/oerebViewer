@@ -13,12 +13,13 @@ export function MapDirective() {
 }
 
 class MapController {
-    constructor(Config, Layers, $log, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification) {
+    constructor(Config, Layers, $log, $state, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification) {
         'ngInject';
 
         this.Config = Config;
         this.$window = $window;
         this.$log = $log;
+        this.$state = $state;
         this.$base64 = $base64;
         this.OEREB = OEREB;
         this.WFS = WFS;
@@ -210,5 +211,9 @@ class MapController {
 
     isSearchOpen() {
         return this.Map.isSearchOpen;
+    }
+
+    openDetail(egrid) {
+        this.$state.go('home.detail', {egrid: egrid, restriction: 'none'});
     }
 }
