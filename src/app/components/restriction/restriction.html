@@ -41,11 +41,11 @@
             <span ng-init="restriction.hasLegals = true"></span>
 
             <div class="small-12">
-                <svg class="icon icon-file">
+                <svg ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="icon icon-file">
                     <use xlink:href="#icon-file"></use>
                 </svg>
                 <a ng-if="document.OfficialTitle.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.OfficialTitle.LocalisedText.Text}}</a>
-                <a ng-if="document.OfficialTitle.LocalisedText.Text.length == 0" class="external-link" target="_blank" href="{{ document.TextAtWeb.LocalisedText.Text }}" title="PDF">{{document.Title.LocalisedText.Text}}</a>
+                <span ng-if="document.OfficialTitle.LocalisedText.Text.length == 0">{{document.Title.LocalisedText.Text}}</span>
             </div>
       </div>
     </use>
