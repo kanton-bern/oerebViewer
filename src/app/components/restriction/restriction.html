@@ -51,7 +51,7 @@
     </use>
 </div>
 <!-- Documents -->
-<div class="row" ng-if="restriction.hasLegals">
+<div class="row" ng-if="restriction.hasRestrictionLegals">
     <h3 class="theme-heading">{{"restrictionLegal" | translate }}</h3>
 </div>
 <div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
@@ -60,7 +60,7 @@
       <div ng-if="document['_xsi:type'] == 'Document' || reference['_xsi:type'] == 'Document'" class="row m||e-info pdf-list">
 
           <!-- necessary for theme-heading of legals -->
-            <span ng-init="restriction.hasLegals = true"></span>
+            <span ng-init="restriction.hasRestrictionLegals = true"></span>
 
             <div class="small-12">
                 <svg class="icon icon-open">
@@ -73,27 +73,27 @@
     </use>
 </div>
 <!-- Remarks -->
-<div class="row" ng-if="restriction.hasLegals">
+<div class="row" ng-if="restriction.hasReferences">
     <h3 class="theme-heading">{{"restrictionReference" | translate }}</h3>
 </div>
-<div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
+<div ng-repeat="v in restriction.data.values" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-    <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
-      <div ng-if="document['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
+    <use ng-repeat="parentDocument in v.LegalProvisions">
+        <div ng-repeat="document in parentDocument.Reference">
+              <div ng-if="document['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
 
-          <!-- necessary for theme-heading of legals -->
+                  <!-- necessary for theme-heading of legals -->
 
-            <span ng-init="restriction.hasLegals = true"></span>
+                    <span ng-init="restriction.hasReferences = true"></span>
 
-            <div class="small-12">
-                <span ng-if="document.OfficialTitle.LocalisedText.Text.length > 0">{{document.OfficialTitle.LocalisedText.Text}}</span>
-                <span ng-if="document.OfficialTitle.LocalisedText.Text.length == 0">{{document.Title.LocalisedText.Text}}</span>
-            </div>
-      </div>
+                    <div class="small-12">
+                        <span ng-if="document.OfficialTitle.LocalisedText.Text.length > 0">{{document.OfficialTitle.LocalisedText.Text}}</span>
+                        <span ng-if="document.OfficialTitle.LocalisedText.Text.length == 0">{{document.Title.LocalisedText.Text}}</span>
+                    </div>
+              </div>
+        </div>
     </use>
 </div>
-
-
 
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>

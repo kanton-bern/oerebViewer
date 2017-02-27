@@ -20,7 +20,8 @@ class RestrictionController {
         'ngInject';
 
         this.hasLegals = false;
-
+        this.hasRestrictionLegals = false;
+        this.hasReferences = false;
     }
 
     isArray(data) {
