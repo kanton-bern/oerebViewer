@@ -35,7 +35,7 @@
 <div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
     <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
-      <div ng-if="document['_xsi:type'] == 'LegalProvisions'" class="row more-info pdf-list">
+      <div ng-if="document['_xsi:type'] == 'LegalProvisions' || reference['_xsi:type'] == 'LegalProvisions'" class="row m||e-info pdf-list">
 
           <!-- necessary for theme-heading of legals -->
             <span ng-init="restriction.hasLegals = true"></span>
@@ -57,7 +57,7 @@
 <div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
     <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
-      <div ng-if="document['_xsi:type'] == 'Document'" class="row more-info pdf-list">
+      <div ng-if="document['_xsi:type'] == 'Document' || reference['_xsi:type'] == 'Document'" class="row m||e-info pdf-list">
 
           <!-- necessary for theme-heading of legals -->
             <span ng-init="restriction.hasLegals = true"></span>
@@ -79,7 +79,7 @@
 <div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
     <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
-      <div ng-if="document['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
+      <div ng-if="document['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
 
           <!-- necessary for theme-heading of legals -->
 
