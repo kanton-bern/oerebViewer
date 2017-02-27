@@ -28,75 +28,15 @@
 </pre>
 -->
 
-<!-- Legal Provisions -->
-<div class="row" ng-if="restriction.hasLegals">
-    <h3 class="theme-heading">{{"restrictionLegalProvision" | translate }}</h3>
-</div>
-<div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
-    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-    <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
-      <div ng-if="document['_xsi:type'] == 'LegalProvisions' || reference['_xsi:type'] == 'LegalProvisions'" class="row m||e-info pdf-list">
+<!-- LegalProvisions -->
+<legal-list title="'restrictionLegalProvision'" documents="restriction.data.values" xsitype="'LegalProvisions'" entryicon="'icon-file'"></legal-list>
 
-          <!-- necessary for theme-heading of legals -->
-            <span ng-init="restriction.hasLegals = true"></span>
-
-            <div class="small-12">
-                <legal-entry document="document" icon="'icon-file'"></legal-entry>
-            </div>
-      </div>
-    </use>
-</div>
 <!-- Documents -->
-<div class="row" ng-if="restriction.hasRestrictionLegals">
-    <h3 class="theme-heading">{{"restrictionLegal" | translate }}</h3>
-</div>
-<div ng-repeat="v in restriction.data.values | unique:'TextAtWeb.LocalisedText.Text'" class="accordion-navigation">
-    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-    <use ng-repeat="document in v.LegalProvisions | unique:'TextAtWeb.LocalisedText.Text'">
-      <div ng-if="document['_xsi:type'] == 'Document' || reference['_xsi:type'] == 'Document'" class="row m||e-info pdf-list">
+<legal-list title="'restrictionLegal'" documents="restriction.data.values" xsitype="'Document'" entryicon="'icon-open'"></legal-list>
 
-          <!-- necessary for theme-heading of legals -->
-            <span ng-init="restriction.hasRestrictionLegals = true"></span>
+<!-- References -->
+<legal-list title="'restrictionReference'" documents="restriction.data.values" xsitype="'Reference'" entryicon="'icon-open'"></legal-list>
 
-            <div class="small-12">
-                <legal-entry document="document" icon="'icon-open'"></legal-entry>
-            </div>
-      </div>
-    </use>
-</div>
-<!-- Remarks -->
-<div class="row" ng-if="restriction.hasReferences">
-    <h3 class="theme-heading">{{"restrictionReference" | translate }}</h3>
-</div>
-<div ng-repeat="v in restriction.data.values" class="accordion-navigation">
-    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
-    <use ng-repeat="parentDocument in v.LegalProvisions">
-
-        <div ng-if="parentDocument['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
-
-            <!-- necessary for theme-heading of legals -->
-
-            <span ng-init="restriction.hasReferences = true"></span>
-
-            <div class="small-12">
-                <legal-entry document="parentDocument" icon="'icon-open'"></legal-entry>
-            </div>
-        </div>
-
-        <div ng-repeat="document in parentDocument.Reference">
-              <div ng-if="document['_xsi:type'] == 'Reference' || reference['_xsi:type'] == 'Reference'" class="row more-info pdf-list">
-
-                  <!-- necessary for theme-heading of legals -->
-
-                    <span ng-init="restriction.hasReferences = true"></span>
-
-                    <div class="small-12">
-                        <legal-entry document="document" icon="'icon-open'"></legal-entry>
-                    </div>
-              </div>
-        </div>
-    </use>
-</div>
 
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>

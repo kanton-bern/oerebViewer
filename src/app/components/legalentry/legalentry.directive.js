@@ -19,8 +19,5 @@ export function LegalEntryDirective() {
 class LegalEntryController {
     constructor() {
         'ngInject';
-
-        console.debug('loaded entry');
-        console.debug(this.document);
     }
 }

@@ -36,6 +36,7 @@ import { CoordinatesService } from '../app/components/coordinates/coordinates.se
 import { LoadingDirective } from '../app/components/loading/loading.directive';
 import { LoadingService } from '../app/components/loading/loading.service';
 import { MobileClickDirective } from '../app/components/mobileclick/mobileclick.directive';
+import { LegalListDirective } from '../app/components/legallist/legallist.directive';
 import { LegalEntryDirective } from '../app/components/legalentry/legalentry.directive';
 
 
@@ -69,6 +70,7 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
     .directive('loading', LoadingDirective)
     .directive('search', SearchSwisstopoDirective)
     .directive('restriction', RestrictionDirective)
+    .directive('legalList', LegalListDirective)
     .directive('legalEntry', LegalEntryDirective)
 
     // register filters
