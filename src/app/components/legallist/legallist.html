@@ -1,7 +1,7 @@
 <div class="row" ng-if="list.hasElement">
     <h3 class="theme-heading">{{list.title | translate}}</h3>
 </div>
-<div ng-repeat="v in list.documents" class="accordion-navigation">
+<div ng-repeat="v in list.documents | unique: 'OfficialTitle.LocalisedText.Text'" class="accordion-navigation">
     <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
     <use ng-repeat="parentDocument in v.LegalProvisions">
 
