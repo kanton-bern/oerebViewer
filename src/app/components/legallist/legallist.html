@@ -1,11 +1,9 @@
-<div class="row" ng-if="list.hasElement">
+<div class="row" ng-if="filtered.length > 0">
     <h3 class="theme-heading">{{list.title | translate}}</h3>
 </div>
 
-<div ng-repeat="document in list.newDocumentsList" class="accordion-navigation">
+<div ng-repeat="document in list.documents | legals:list.xsitype as filtered" class="accordion-navigation">
     <div class="row more-info pdf-list">
-        <span ng-init="list.hasElement = true"></span>
-
         <div class="small-12">
             <legal-entry document="document" icon="list.entryicon"></legal-entry>
         </div>

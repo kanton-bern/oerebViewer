@@ -6,8 +6,9 @@ import { ConfigService } from '../app/components/config/config.service';
 import { RouterConfig } from './index.route';
 
 // utilities
-import {UniqueFilter} from '../app/components/utilities/unique.filter';
-import {HttpRequestInterceptorFactory} from '../app/components/utilities/httpRequestInterceptor.factory';
+import { UniqueFilter } from '../app/components/utilities/unique.filter';
+import { LegalsFilter } from '../app/components/utilities/legals.filter';
+import { HttpRequestInterceptorFactory } from '../app/components/utilities/httpRequestInterceptor.factory';
 
 // controller imports
 import { MainController } from './main/main.controller';
@@ -74,4 +75,5 @@ angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick
     .directive('legalEntry', LegalEntryDirective)
 
     // register filters
-    .filter('unique', UniqueFilter);
+    .filter('unique', UniqueFilter)
+    .filter('legals', LegalsFilter);
