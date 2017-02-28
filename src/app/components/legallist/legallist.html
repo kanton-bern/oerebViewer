@@ -1,15 +1,32 @@
 <div class="row" ng-if="list.hasElement">
     <h3 class="theme-heading">{{list.title | translate}}</h3>
 </div>
-<div ng-repeat="document in list.newDocumentsList" class="accordion-navigation">
+<div ng-repeat="v in list.documents | unique: 'OfficialTitle.LocalisedText.Text'" class="accordion-navigation">
+    <!--  | unique:'document.TextAtWeb.LocalisedText.Text' -->
+    <use ng-repeat="parentDocument in v.LegalProvisions">
 
-    <div class="row more-info pdf-list">
+        <div ng-if="parentDocument['_xsi:type'] == list.xsitype" class="row more-info pdf-list">
 
-        <!-- necessary for theme-heading of legals -->
-        <span ng-init="list.hasElement = true"></span>
+            <!-- necessary for theme-heading of legals -->
 
-        <div class="small-12">
-            <legal-entry document="document" icon="list.entryicon"></legal-entry>
+            <span ng-init="list.hasElement = true"></span>
+
+            <div class="small-12">
+                <legal-entry document="parentDocument" icon="list.entryicon"></legal-entry>
+            </div>
         </div>
-    </div>
+
+        <div ng-repeat="document in parentDocument.Reference">
+            <div ng-if="document['_xsi:type'] == list.xsitype" class="row more-info pdf-list">
+
+                <!-- necessary for theme-heading of legals -->
+
+                <span ng-init="list.hasElement = true"></span>
+
+                <div class="small-12">
+                    <legal-entry document="document" icon="list.entryicon"></legal-entry>
+                </div>
+            </div>
+        </div>
+    </use>
 </div>
