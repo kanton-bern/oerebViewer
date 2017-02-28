@@ -43,7 +43,7 @@ body {
   .position-left {
     padding-top:3em;
     position:absolute;
-    // height:100vh;
+    //height:100vh;
     left:-75vw;
     width:75vw;
     max-width: 500px;
@@ -56,7 +56,7 @@ body {
     // Menu is open
     &.active-menu {
       transition: all ease 1s;
-      left:250px;
+      left:0px;
     }
   }
 
@@ -183,6 +183,7 @@ body {
 // Start mainnav
 .mainnav {
     font-size:$fontSizeBase * 1.2;
+    min-height: 100vh;
 
 
     // top-bar with language
