@@ -21,7 +21,5 @@ export function LegalListDirective() {
 class LegalListController {
     constructor() {
         'ngInject';
-
-        this.hasElement = false;
     }
 }
