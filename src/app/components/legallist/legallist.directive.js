@@ -26,15 +26,13 @@ class LegalListController {
         this.$scope = $scope;
         this.hasElement = false;
         this.textList = [];
-
-
-
+        
         // fallback update
         Extracts.registerCurrentObserverCallback(function() {
-            console.debug('manuel update')
-            console.debug(self.documents);
+            setTimeout(function() {
+                self.newDocumentsList = self.removeDuplicates(self.documents);
+            }, 1000);
         });
-
 
         self.newDocumentsList = this.removeDuplicates(self.documents);
     }
