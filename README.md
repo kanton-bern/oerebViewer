@@ -34,12 +34,11 @@ Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine inst
 ## 4.1 Installationsanleitung ##
 
 1. Die aktuelle Version aus diesem Repository herunterladen
-2. npm install
-3. npm install -g bower
+2. npm install -g bower gulp yarn
+3. yarn
 4. bower install
 5. npm install -g gulp
-6. gulp
-7. gulp serve
+6. gulp serve
 
 ## 4.2 Anmerkung ##
 Mit **gulp serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
@@ -57,12 +56,11 @@ Für Tests können die folgenden Parzellen verwendet werden:
 Damit eine lauffähige Version auf einem externen Webserver publiziert werden kann, muss zuerst ein so genannter **"Build"** aus den Source-Files der Applikation erzeugt werden. Dies geschieht direkt aus der **Entwicklungsinstallation** heraus. Zuerst wird - wie in Kapitel 4.1 beschrieben eine Entwicklungsumgebung erzeugt:
 
 1. Die aktuelle Version aus diesem Repository herunterladen
-2. npm install
-3. npm install -g bower
+2. npm install -g bower gulp yarn
+3. yarn
 4. bower install
 5. npm install -g gulp
-6. gulp
-7. **gulp build**
+6. **gulp build**
 
 
 ```
