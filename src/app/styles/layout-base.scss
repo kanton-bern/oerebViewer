@@ -56,7 +56,7 @@ body {
     // Menu is open
     &.active-menu {
       transition: all ease 1s;
-      left:0px;
+      left:250px;
     }
   }
 
@@ -183,7 +183,7 @@ body {
 // Start mainnav
 .mainnav {
     font-size:$fontSizeBase * 1.2;
-    min-height: 100vh;
+    //min-height: 100vh;
 
 
     // top-bar with language
