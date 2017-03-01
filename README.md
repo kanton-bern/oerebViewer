@@ -37,8 +37,7 @@ Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine inst
 2. npm install -g bower gulp yarn
 3. yarn
 4. bower install
-5. npm install -g gulp
-6. gulp serve
+5. gulp serve
 
 ## 4.2 Anmerkung ##
 Mit **gulp serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
@@ -59,8 +58,7 @@ Damit eine lauffähige Version auf einem externen Webserver publiziert werden ka
 2. npm install -g bower gulp yarn
 3. yarn
 4. bower install
-5. npm install -g gulp
-6. **gulp build**
+5. **gulp build**
 
 
 ```
