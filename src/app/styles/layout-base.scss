@@ -221,10 +221,18 @@ body {
     @include contentLinks;
     .ng-binding {
       color:$colorContent;
-      @include dontBreakOut();
+
 
     }
-
+    .oereb-value {
+      @include dontBreakOut();
+    }
+    .pdf-list {
+      @include dontBreakOut();
+      .small-12 {
+        max-width:90%;
+      }
+    }
     .intro-row {
       padding:12px;
       .pdf-download {
