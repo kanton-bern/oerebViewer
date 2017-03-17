@@ -240,9 +240,9 @@
                         <ul>
                             <li ng-repeat="hextract in main.history track by $index">
                                 <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
-                                   title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}">
+                                   title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}">
                                     <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
-                                    Liegenschaft Nr. {{hextract.data.RealEstate.Number}}, Gemeinde {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})
+                                    {{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, <span ng-if="hextract.data.RealEstate.SubunitOfLandRegister">{{"detailSubUnitOfLandRegister" | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}, </span>{{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})
                                     <span class="history-date">
                                         {{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
                                     </span>

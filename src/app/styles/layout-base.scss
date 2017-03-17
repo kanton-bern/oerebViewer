@@ -320,6 +320,10 @@ body {
           }
           .history-item {
             margin-top:20px;
+            li {
+              line-height:$fontLineHeightBase - 10%;
+              margin-bottom:10px;
+            }
           }
         }
         v-pane-header[aria-expanded^="true"]{
@@ -475,6 +479,7 @@ body {
               display:inline-block;
               float:left;
               margin-right:10px;
+              margin-bottom:10px;
               background-size: contain;
               background-repeat: no-repeat;
               background-position: top center;
