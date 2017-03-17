@@ -234,7 +234,10 @@ body {
       }
     }
     .intro-row {
-      padding:12px;
+      padding:12px 12px 30px 12px;
+      border-bottom:1px solid $colorMenuTop;
+
+
       .pdf-download {
 
       }
@@ -339,6 +342,9 @@ body {
               padding:5px 0px 10px 0px;
               line-height: $fontLineHeightBase - 10%;
           }
+          v-pane-content[aria-hidden='false'] {
+            border-bottom:1px solid $colorMenuTop;
+          }
         }
         &.generalinformation {
           v-pane-content {
@@ -379,6 +385,12 @@ body {
                 v-pane {
                   v-pane-header {
                     padding-left:0px;
+
+                    v-pane-header {
+                      &[aria-expanded='false'] {
+                       border-bottom:0px solid $colorMenuTop;
+                      }
+                    }
                   }
                   v-pane-content {
                     //padding-left:32px;
@@ -387,11 +399,20 @@ body {
 
                     v-pane-header {
                       padding-left:20px;
+                      &[aria-expanded='false'] {
+                       border-bottom:0px solid $colorMenuTop;
+                      }
                     }
 
                     &[aria-hidden='false'] {
                       border:none;
                       padding-bottom:0px;
+                      border-bottom:1px solid $colorLightGrey;
+                    }
+                    v-pane-content {
+                      &[aria-hidden='false'] {
+                          border-bottom:0px solid $colorLightGrey;
+                      }
                     }
 
                     v-pane {
@@ -415,9 +436,10 @@ body {
         v-pane-content {
 
           &[aria-hidden='false'] {
-            border-bottom:1px solid $colorMenuTop;
-            padding-bottom:20px;
+            //border-bottom:1px solid $colorMenuTop;
+            padding-bottom:0px;
           }
+
           > div {
             padding-top:0px;
             padding-left:12px;
@@ -468,6 +490,11 @@ body {
         }
       }
 
+      v-pane-content {
+        &[aria-hidden='false'] {
+          border-bottom:1px solid $colorMenuTop;
+        }
+      }
       .history-item {
         display:block;
         ul {
