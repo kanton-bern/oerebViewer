@@ -374,12 +374,16 @@ body {
                 padding:0;
                 v-pane {
                   v-pane-header {
-                    padding-left:20px;
+                    padding-left:0px;
                   }
                   v-pane-content {
                     //padding-left:32px;
                     //padding-right:32px;
                     font-size:$fontSizeBase * 1;
+
+                    v-pane-header {
+                      padding-left:20px;
+                    }
 
                     &[aria-hidden='false'] {
                       border:none;
