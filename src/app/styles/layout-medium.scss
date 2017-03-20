@@ -24,7 +24,9 @@
 // Start glossary
 .contentglossary {
 
+
     dl {
+      flex-basis:100% !important;
       width:100% !important;
       padding-right:10px !important;
   }
