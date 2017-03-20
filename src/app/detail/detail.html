@@ -242,7 +242,7 @@
                                 <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
                                    title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}">
                                     <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
-                                    {{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}}<span ng-if="hextract.data.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}</span>)
+                                    {{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span ng-if="hextract.data.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}</span>
                                     <span class="history-date">
                                         {{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
                                     </span>
