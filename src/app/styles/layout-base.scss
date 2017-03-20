@@ -387,9 +387,7 @@ body {
                     padding-left:0px;
 
                     v-pane-header {
-                      &[aria-expanded='false'] {
                        border-bottom:0px solid $colorMenuTop;
-                      }
                     }
                   }
                   v-pane-content {
@@ -399,15 +397,13 @@ body {
 
                     v-pane-header {
                       padding-left:20px;
-                      &[aria-expanded='false'] {
-                       border-bottom:0px solid $colorMenuTop;
-                      }
+                      border-bottom:1px solid $colorLightGrey;
                     }
 
                     &[aria-hidden='false'] {
                       border:none;
                       padding-bottom:0px;
-                      border-bottom:1px solid $colorLightGrey;
+                      // border-bottom:1px solid $colorLightGrey;
                     }
                     v-pane-content {
                       &[aria-hidden='false'] {
@@ -418,6 +414,15 @@ body {
                     v-pane {
                       padding-left:0;
                       padding-right:0;
+                      &.is-expanded {
+                        border-bottom:1px solid $colorLightGrey;
+                      }
+
+                      &:last-child {
+                        v-pane-header {
+                          border-bottom:1px solid $colorLightGrey;
+                        }
+                      }
 
                     }
 
