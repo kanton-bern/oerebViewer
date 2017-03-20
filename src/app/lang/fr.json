@@ -71,6 +71,7 @@
     "titleInvolvedParties": "FR An diesem Auszug sind beteiligt:",
     "searchboxPlaceholder": "FR Grundstück oder Adresse suchen ...",
     "markerAlt":"FR Markiertes Grundstück",
+    "languageISO": "fr",
 
     "oerebServiceNotAvailable" : "FR Der OEREB Service des Kanton Bern ist derzeit nicht erreichbar.",
     "oerebService500": "FR Der OEREB Service des Kanton Berns hat keine Daten zu diesem Grundstück.",
