@@ -53,6 +53,7 @@
 .contentimpressum {
   .section, .partner-logo {
     .section-item, .logo-item {
+      flex-basis:100% !important;
       width:100% !important;
       padding-right:10px !important;
     }

@@ -701,6 +701,7 @@ body {
     font-size:$fontSizeBase * 1.2;
     height: calc(100vh - 40px);
     overflow-y:scroll;
+    padding-bottom:8rem; // provide some space on the bottom for certain devices issue #97
 
 
     // Logos im header
