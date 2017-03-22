@@ -108,14 +108,14 @@ body {
     position:absolute;
     top:2px;
     left:5px;
-    width:50%;
+    width:auto;
     .button {
       background-color:transparent;
       .icon-menu, .icon-cross {
           fill:$colorWhite;
       }
       .menu-opener {
-        min-width:200px;
+        //min-width:200px;
       }
 
     }
@@ -167,7 +167,7 @@ body {
     position:absolute;
     color:$colorWhite;
     p {
-      padding:0.5em 0em 0em 3.5em;
+      padding:0.5em 0em 0em 0em;
       font-size:$fontSizeBase * 1.4;
       text-transform: uppercase;
       letter-spacing: 1px;
