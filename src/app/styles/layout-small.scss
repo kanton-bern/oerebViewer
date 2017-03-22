@@ -18,6 +18,22 @@
     }
   }
 
+  // wrapper inner
+  .wrapper-inner {
+    .position-left {
+      left: ($menuOffset - $corrfactorS) * -1;
+      width:($menuOffset - $corrfactorS);
+      max-width: ($menuOffset - $corrfactorS);
+      transform:translateX(($menuOffset - $corrfactorS) * -1);
+
+      // Menu is open
+      &.active-menu {
+        left:$menuOffset - $corrfactorS;
+      }
+    }
+  }
+
+
 
   // Notifications
   .notification-wrapper {

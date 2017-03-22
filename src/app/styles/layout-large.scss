@@ -59,9 +59,10 @@
 
 // Left slider is always open
 .wrapper-inner {
+
   .position-left {
     padding-top:120px;
-    left:250px !important;
+    left: $menuOffset !important;
 
     .top-menu {
       display:none !important;
@@ -75,8 +76,8 @@
 
 // Content-wrapper needs to be shifted to the right for desktop mode
 .content-wrapper {
-  width:calc(100vw - 500px);
-  margin-left:500px;
+  width:calc(100vw - $menuOffset);
+  margin-left:$menuOffset;
 
   // content pages
   .contentpage {

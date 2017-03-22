@@ -35,6 +35,13 @@ $filterContrastHeaderImg:100%;
 $button-size : 2rem;
 $transition: .2s; // increase this to see the transformations in slow-motion
 
+// MenuAnimation-Offset with MediaQueries
+$menuOffset: 450px;
+$corrfactorM: 50px;
+$corrfactorML: 150px;
+$corrfactorS: 150px;
+$corrfactorSL: 150px;
+
 // Media-Query width
 $widthXLarge: 1300px; // Intermediate Breakpoint for large
 $widthLarge: 1200px; // Foundation Breakpoint

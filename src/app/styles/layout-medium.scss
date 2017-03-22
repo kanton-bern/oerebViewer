@@ -9,6 +9,22 @@
   }
 }
 
+// wrapper inner
+.wrapper-inner {
+  .position-left {
+    left: ($menuOffset - $corrfactorM) * -1;
+    width:($menuOffset - $corrfactorM);
+    max-width: ($menuOffset - $corrfactorM);
+    transform:translateX(($menuOffset - $corrfactorM) * -1);
+
+    // Menu is open
+    &.active-menu {
+      left:$menuOffset - $corrfactorM;
+    }
+  }
+}
+
+
 // map
 .map {
   .infobox {

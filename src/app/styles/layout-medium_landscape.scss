@@ -1,0 +1,22 @@
+// Medium Layout with landscape orientation
+@media screen and (min-width: $widthSmall) and (max-width: $widthLarge) and (orientation: landscape)  {
+
+
+// wrapper inner
+.wrapper-inner {
+  .position-left {
+    left: ($menuOffset - $corrfactorML) * -1;
+    width:($menuOffset - $corrfactorML);
+    max-width: ($menuOffset - $corrfactorML);
+    transform:translateX(($menuOffset - $corrfactorML) * -1);
+
+    // Menu is open
+    &.active-menu {
+      left:$menuOffset - $corrfactorML;
+    }
+  }
+}
+
+
+
+ } // END Medium Layout with orientation landscape

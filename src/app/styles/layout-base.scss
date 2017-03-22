@@ -44,19 +44,20 @@ body {
     padding-top:3em;
     position:absolute;
     //height:100vh;
-    left:-75vw;
-    width:75vw;
-    max-width: 500px;
+    left: $menuOffset * -1;
+    width:$menuOffset;
+    max-width: $menuOffset;
     z-index:5;
     overflow-y:auto;
     @include castShadowRight;
     background-color: $colorMenuBgnd;
     transition: all ease 1s;
+    transform:translateX($menuOffset * -1);
 
     // Menu is open
     &.active-menu {
       transition: all ease 1s;
-      left:250px;
+      left:$menuOffset;
     }
   }
 
