@@ -322,6 +322,10 @@ body {
             border-bottom:1px solid $colorLightGrey;
 
           }
+
+          v-pane-content[aria-hidden='false'] {
+            border-bottom:1px solid $colorMenuTop;
+          }
           .history-item {
             margin-top:20px;
             li {
@@ -390,6 +394,8 @@ body {
                     v-pane-header {
                        border-bottom:0px solid $colorMenuTop;
                     }
+
+
                   }
                   v-pane-content {
                     //padding-left:32px;
@@ -421,7 +427,7 @@ body {
 
                       &:last-child {
                         v-pane-header {
-                          border-bottom:1px solid $colorLightGrey;
+                           border-bottom:1px solid $colorLightGrey;
                         }
                       }
 
@@ -432,6 +438,13 @@ body {
 
                     @include contentLightLinks;
                   }
+
+                  &:last-child {
+                    v-pane-header {
+                       border-bottom:0px solid $colorLightGrey;
+                    }
+                  }
+
                 }
               }
 

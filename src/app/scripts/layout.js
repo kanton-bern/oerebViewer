@@ -10,8 +10,18 @@ if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
 
 // Firefox on Mobile
 function detectAndroidFirefox () {
-   var agent = navigator.userAgent.toLowerCase();
-   return (agent.indexOf('firefox') + agent.indexOf("android")) >= 0;
+  var isMobile = false;
+  //With locationbar.visible check if not in a webview (like an open web app)
+     //mozApps used for the open web app and with the user agent check if have MObile (used in Firefox OS)
+     if (navigator.userAgent.indexOf('Firefox') > -1 && navigator.userAgent.indexOf("Mobile") > -1) {
+       isMobile= true;
+     } else if (navigator.userAgent.indexOf('Firefox') > -1 && navigator.userAgent.indexOf("Android") > -1) {
+       isMobile = true;
+     } else if (navigator.userAgent.indexOf("Firefox") > -1) {
+       //Check Firefox Desktop
+     }
+
+  return isMobile;
 }
 
 if(detectAndroidFirefox()) {
