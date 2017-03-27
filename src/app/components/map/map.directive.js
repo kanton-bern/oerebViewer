@@ -196,12 +196,6 @@ class MapController {
     }
 
     openDetail(egrid) {
-        if (this.$state.includes('home.detail', {egrid: egrid})) {
-            this.Notification.success(
-                this.$filter('translate')('notification_alreadyactive')
-            );
-        }
-
         this.$state.go('home.detail', {egrid: egrid, restriction: 'none'});
     }
 }
