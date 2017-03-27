@@ -13,7 +13,7 @@ export function MapDirective() {
 }
 
 class MapController {
-    constructor(Config, Layers, $log, $state, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification) {
+    constructor(Config, Layers, $log, $state, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification, $filter) {
         'ngInject';
 
         this.Config = Config;
@@ -29,16 +29,17 @@ class MapController {
         this.Helpers = Helpers;
         this.Coordinates = Coordinates;
         this.Notification = Notification;
+        this.$filter = $filter;
         this.ol = ol;
 
-        var self = this;
+        let self = this;
 
         this.activeLayer = 'greyMap';
 
         // adds observer for clicks on the map
         Map.registerClickObserver(function(coordinates, force = false) {
             // close menu
-            var menuStatus = self.Helpers.getMenuStatus();
+            let menuStatus = self.Helpers.getMenuStatus();
 
             if (menuStatus)
                 self.Helpers.closeMenu();
@@ -55,7 +56,7 @@ class MapController {
             }
 
             // creates an overlay over the openlayers api
-            var popup = new Map.ol.Overlay({
+            let popup = new Map.ol.Overlay({
                 element: document.getElementById('infobox')
             });
 
@@ -66,7 +67,7 @@ class MapController {
 
             $('#object-information').hide();
 
-            var element = popup.getElement();
+            let element = popup.getElement();
 
             $(element).hide();
             $(element).show();
@@ -81,7 +82,9 @@ class MapController {
                     self.infoboxLoading = false;
                 },
                 function(data) {
-                    self.Notification.error('In diesem ÖREB Kataster sind keine Informationen zu diesem Grundstück vorhanden.');
+                    self.Notification.error(
+                        self.$filter('translate')('notification_nodata')
+                    );
                 }
             );
 
@@ -94,7 +97,7 @@ class MapController {
         Extracts.registerCurrentObserverCallback(function(reloading) {
             reloading = reloading || false;
 
-            var egrid = self.Extracts.getCurrent().egrid;
+            let egrid = self.Extracts.getCurrent().egrid;
 
             if (!reloading)
                 self.WFS.getSource(egrid).then(function (vectorSource) {
@@ -118,33 +121,12 @@ class MapController {
             this.Map.addSelectedLayer(source);
     }
 
-    // restore permalink
-    restore() {
-        if (window.location.hash.indexOf('?') !== -1) {
-
-            // try to restore center, zoom-level and rotation from the URL
-            var basedHash = window.location.hash.replace('#/?', '') + '=';
-            // var parts = hash.split('/');
-
-            var hash = this.$base64.decode(basedHash);
-            var parts = hash.split('/');
-
-            if (parts.length === 3) {
-                this.zoom = parseInt(parts[0], 10);
-                this.center = [
-                    parseFloat(parts[1]),
-                    parseFloat(parts[2])
-                ];
-            }
-        }
-    }
-
     getLocation() {
-        var self = this;
+        let self = this;
 
         // Click on Center
         setTimeout(function() {
-            var currentCenter = self.Map.getCenter();
+            let currentCenter = self.Map.getCenter();
             self.Map.click(currentCenter, true);
         }, 1000);
 
@@ -214,6 +196,12 @@ class MapController {
     }
 
     openDetail(egrid) {
+        if (this.$state.includes('home.detail', {egrid: egrid})) {
+            this.Notification.success(
+                this.$filter('translate')('notification_alreadyactive')
+            );
+        }
+
         this.$state.go('home.detail', {egrid: egrid, restriction: 'none'});
     }
 }
