@@ -24,7 +24,7 @@ export class ConfigService {
 
         // map services
         this.services = {
-            wfsPropertyMarking: 'https://gs.novu.io/proxy/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer',
+            wfsPropertyMarking: 'https://www.geoservice.apps.be.ch/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer',
             oereb: 'https://www.oereb2.apps.be.ch/OerbverSVC.svc'
         };
 
