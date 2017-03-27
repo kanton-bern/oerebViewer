@@ -80,7 +80,7 @@ export class CoordinatesService {
 
     get(name, system) {
         if (!(name in this.coordinates)) {
-            console.error('[cordinates] coordinate name doesn\'t exists');
+            console.error('[coordinates] coordinate name doesn\'t exists');
             return null;
         }
 
