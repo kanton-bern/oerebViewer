@@ -11,3 +11,7 @@
 .no-transition {
     transition: none !important;
 }
+
+.notification-wrapper.killed {
+    z-index: -2000;
+}

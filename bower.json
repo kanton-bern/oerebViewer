@@ -28,7 +28,7 @@
     "angular-carousel": "^1.0.1",
     "angular-local-storage": "^0.2.7",
     "foundation-sites": "^6.2.3",
-    "angular-ui-notification": "^0.2.0",
+    "angular-ui-notification": "^0.3.6",
     "v-accordion": "^1.6.0",
     "fetch": "^2.0.0",
     "ng-fastclick": "^1.0.2",

@@ -43,7 +43,7 @@ export class MapService {
         });
 
         // deactivates drag rotation interactions
-        var interactions = this.ol.interaction.defaults({
+        let interactions = this.ol.interaction.defaults({
             altShiftDragRotate: false,
             pinchRotate: false
         });
@@ -66,11 +66,11 @@ export class MapService {
 
         // registers 'singleclick' event listener
         this.map.on('singleclick', function (event) {
-            var coordinates = self.Coordinates.set('lastClick', Coordinates.System[2056], event.coordinate);
+            let coordinates = self.Coordinates.set('lastClick', Coordinates.System[2056], event.coordinate);
             self.notifyClickObservers(coordinates);
         });
 
-        var positionFeatureStyle = new this.ol.style.Style({
+        let positionFeatureStyle = new this.ol.style.Style({
             image: new this.ol.style.Circle({
                 radius: 6,
                 fill: new this.ol.style.Fill({color: 'rgba(230, 100, 100, 0)'}),
@@ -78,7 +78,7 @@ export class MapService {
             })
         });
 
-        var accuracyFeatureStyle = new this.ol.style.Style({
+        let accuracyFeatureStyle = new this.ol.style.Style({
             fill: new this.ol.style.Fill({color: 'rgba(100, 100, 230, 0.3)'}),
             stroke: new this.ol.style.Stroke({color: 'rgba(40, 40, 230, 1)', width: 2})
         });
@@ -99,8 +99,8 @@ export class MapService {
     }
 
     updateStatus() {
-        var self = this;
-        var view = this.map.getView();
+        let self = this;
+        let view = this.map.getView();
 
         if (view.getZoom() >= this.Config.zoom.oerebLayer) {
             self.Layers.show('oereb');
@@ -114,7 +114,7 @@ export class MapService {
     }
 
     getCenter() {
-        var center = this.map.getView().getCenter();
+        let center = this.map.getView().getCenter();
         return this.Coordinates.create(this.Coordinates.System[2056], [center[0], center[1]]);
     }
 
@@ -233,7 +233,7 @@ export class MapService {
 
     addSelectedLayer(vectorSource) {
         // Create vector layer attached to the vector source.
-        var vectorLayer = new self.ol.layer.Vector({
+        let vectorLayer = new self.ol.layer.Vector({
             source: vectorSource,
             style: new self.ol.style.Style({
                 stroke: new self.ol.style.Stroke({
@@ -257,9 +257,9 @@ export class MapService {
     }
 
     addClickedLayer(vectorSource) {
-        var self = this;
+        let self = this;
 
-        var vectorLayer = new self.ol.layer.Vector({
+        let vectorLayer = new self.ol.layer.Vector({
             source: vectorSource,
             style: new self.ol.style.Style({
                 stroke: new self.ol.style.Stroke({

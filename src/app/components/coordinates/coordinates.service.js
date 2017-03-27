@@ -2,7 +2,7 @@
      Example Usage:
 
      Coordinates.set('coordinateName', Coordinates.System[2056], [204124, 142002]);
-     var coordinates = Coordinates.get('testing', Coordinates.System[4326]);
+     let coordinates = Coordinates.get('testing', Coordinates.System[4326]);
 */
 
 export class CoordinatesService {
@@ -29,12 +29,12 @@ export class CoordinatesService {
     }
 
     create(system, coordinates) {
-        var self = this;
+        let self = this;
 
         // declare new coordinate
-        var current = {};
+        let current = {};
 
-        var coordinates4326 = coordinates;
+        let coordinates4326 = coordinates;
 
         // lets get 4326 (international coordinates first) - if not already
         if (system != this.System[4326])
@@ -55,12 +55,12 @@ export class CoordinatesService {
     }
 
     set(name, system, coordinates) {
-        var self = this;
+        let self = this;
 
         // declare new coordinate
         this.coordinates[name] = {};
 
-        var coordinates4326 = coordinates;
+        let coordinates4326 = coordinates;
 
         // lets get 4326 (international coordinates first) - if not already
         if (system != this.System[4326])

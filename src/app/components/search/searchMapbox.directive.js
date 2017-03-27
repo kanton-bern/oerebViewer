@@ -19,11 +19,11 @@ class SearchMapboxController {
 
         this.Map = Map;
 
-        var self = this;
+        let self = this;
 
 
         // Initialize the suggestion engine with mapbox
-        var placesSource = new Bloodhound({
+        let placesSource = new Bloodhound({
             limit: 3,
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -34,7 +34,7 @@ class SearchMapboxController {
                 filter: function(response) {
                     console.log(response.features);
 
-                    var mapped = $.map(response.features, function(city) {
+                    let mapped = $.map(response.features, function(city) {
                         return {
                             id:  city.id,
                             name: city.place_name,
@@ -67,7 +67,7 @@ class SearchMapboxController {
         }, function (value) {
             if (self.search !== null && typeof self.search === 'object') {
                 // center result
-                var coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.longitude, self.search.latitude]);
+                let coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.longitude, self.search.latitude]);
 
                 self.Map.setPosition(coordinates);
 

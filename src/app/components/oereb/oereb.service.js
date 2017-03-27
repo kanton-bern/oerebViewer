@@ -14,16 +14,16 @@ export class OEREBService {
     }
 
     getExtractById(egrid) {
-        var self = this;
+        let self = this;
 
-        var lang = '';
+        let lang = '';
 
         if (self.$translate.use() != undefined)
             lang = self.$translate.use();
 
         let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + lang;
 
-        var promise = this.$http.get(url,
+        let promise = this.$http.get(url,
             {
                 cache: true,
                 transformResponse: function (data) {
@@ -57,12 +57,12 @@ export class OEREBService {
     getEGRID(coordinates) {
         let self = this;
 
-        var long = coordinates[4326][1];
-        var lat = coordinates[4326][0];
+        let long = coordinates[4326][1];
+        let lat = coordinates[4326][0];
 
         let url = this.Config.services.oereb + '/getegrid/?GNSS=' + long + ',' + lat;
 
-        var promise = this.$http.get(
+        let promise = this.$http.get(
             url,
             {
                 cache: true,
@@ -80,7 +80,7 @@ export class OEREBService {
 
                     if (angular.isArray(object.GetEGRIDResponse.egrid)) {
                         let results = [];
-                        for (var i = 0; i < object.GetEGRIDResponse.egrid.length; i++) {
+                        for (let i = 0; i < object.GetEGRIDResponse.egrid.length; i++) {
                             results[i] = {
                                 'egrid': object.GetEGRIDResponse.egrid[i],
                                 'number': object.GetEGRIDResponse.number[i]
@@ -97,7 +97,7 @@ export class OEREBService {
             }
         ).catch(function(data) {
 
-            var warning = self.$filter('translate')('oerebServiceNotAvailable');
+            let warning = self.$filter('translate')('oerebServiceNotAvailable');
 
             if (data.status == 500)
                 warning = self.$filter('translate')('oerebService500');

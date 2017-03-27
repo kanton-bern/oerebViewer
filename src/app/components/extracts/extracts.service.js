@@ -67,8 +67,8 @@ export class ExtractsService {
 
             if (!reloading) {
                 // now lets remove the second one in silent
-                var loadSuccess1 = self.$filter('translate')('notification_loadsuccess1');
-                var loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
+                let loadSuccess1 = self.$filter('translate')('notification_loadsuccess1');
+                let loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
 
                 self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
             }
@@ -78,8 +78,8 @@ export class ExtractsService {
             if (data.status == 204) {
                 self.Notification.error(self.$filter('translate')('oerebService204'));
             } else {
-                var loadFailed1 = self.$filter('translate')('notification_failed1');
-                var loadFailed2 = self.$filter('translate')('notification_failed2');
+                let loadFailed1 = self.$filter('translate')('notification_failed1');
+                let loadFailed2 = self.$filter('translate')('notification_failed2');
                 self.Notification.error(loadFailed1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
             }
 
@@ -100,7 +100,7 @@ export class ExtractsService {
         let count = 0;
 
 
-        var restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
+        let restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
 
         // checks if there is only one restriction
         if (angular.isDefined(restrictionArray) && angular.isDefined(restrictionArray.SubTheme)) {
@@ -118,7 +118,7 @@ export class ExtractsService {
 
             // legalProvisions must be an array
              if (!angular.isArray(d.LegalProvisions)) {
-                 var legalProvision = d.LegalProvisions;
+                 let legalProvision = d.LegalProvisions;
                  d.LegalProvisions = [];
                  d.LegalProvisions.push(legalProvision);
              }
@@ -131,10 +131,10 @@ export class ExtractsService {
 
 
             // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
-            var complex = (d.SubTheme != d.Theme.Name);
+            let complex = (d.SubTheme != d.Theme.Name);
 
             // check if restriction type allready exists - if yes, lets just push it as a value and skip the rest
-            var doesRestrictionTypeExist = false;
+            let doesRestrictionTypeExist = false;
 
             angular.forEach(restrictions, function (value, key) {
                 if (value.code == d.SubTheme) {
@@ -144,7 +144,7 @@ export class ExtractsService {
             });
 
             if (complex) {
-                var doesRestrictionParentTypeExist = false;
+                let doesRestrictionParentTypeExist = false;
 
                 angular.forEach(restrictions, function (value, key) {
                     if (value.code == d.Theme.Code) {
@@ -154,7 +154,7 @@ export class ExtractsService {
 
                 // create a new parent theme
                 if (!doesRestrictionParentTypeExist) {
-                    var theme = {};
+                    let theme = {};
                     theme.name = d.Theme.Name;
                     theme.code = d.Theme.Code;
                     theme.complex = complex;
@@ -167,7 +167,7 @@ export class ExtractsService {
             }
 
             if (!doesRestrictionTypeExist) {
-                var theme = {};
+                let theme = {};
                 theme.name = d.SubTheme;
                 theme.code = d.SubTheme;
                 theme.parent = d.Theme.Name;
@@ -193,7 +193,7 @@ export class ExtractsService {
         let self = this;
         let foundOne = false;
 
-        for (var i = 0; i < this.extracts.length; i++) {
+        for (let i = 0; i < this.extracts.length; i++) {
             if (self.extracts[i].egrid == egrid) {
                 if (!foundOne) {
                     self.currentExtract = self.extracts[i];
@@ -283,7 +283,7 @@ export class ExtractsService {
 
         let self = this;
 
-        for (var i = 0; i < this.extracts.length; i++) {
+        for (let i = 0; i < this.extracts.length; i++) {
             if (this.extracts[i].egrid == egrid) {
 
                 if (!skip)

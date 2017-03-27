@@ -19,10 +19,10 @@ class SearchSwisstopoController {
 
         this.Map = Map;
 
-        var self = this;
+        let self = this;
 
         // Initialize the suggestion engine with swisstopo
-        var placesSource = new Bloodhound({
+        let placesSource = new Bloodhound({
             limit: 30,
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -56,7 +56,7 @@ class SearchSwisstopoController {
             if (self.search !== null && typeof self.search === 'object') {
 
                 // center result
-                var coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.attrs.lon, self.search.attrs.lat]);
+                let coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.attrs.lon, self.search.attrs.lat]);
 
                 /*if (self.search.attrs.origin == 'address') {
                     setTimeout(function() {

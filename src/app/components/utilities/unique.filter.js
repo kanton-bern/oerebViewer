@@ -8,17 +8,17 @@ export function UniqueFilter () {
         }
 
         if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-            var hashCheck = {}, newItems = [];
+            let hashCheck = {}, newItems = [];
 
-            var objectByString = function(o, s) {
+            let objectByString = function(o, s) {
                 // convert indexes to properties
                 s = s.replace(/\[(\w+)\]/g, '.$1');
                 // strip a leading dot
                 s = s.replace(/^\./, '');
 
-                var a = s.split('.');
-                for (var i = 0, n = a.length; i < n; ++i) {
-                    var k = a[i];
+                let a = s.split('.');
+                for (let i = 0, n = a.length; i < n; ++i) {
+                    let k = a[i];
                     if (k in o) {
                         o = o[k];
                     } else {
@@ -28,7 +28,7 @@ export function UniqueFilter () {
                 return o;
             };
 
-            var extractValueToCompare = function (item) {
+            let extractValueToCompare = function (item) {
                 if (angular.isObject(item) && angular.isString(filterOn)) {
                     return objectByString(item, filterOn);
                 } else {
@@ -37,9 +37,9 @@ export function UniqueFilter () {
             };
 
             angular.forEach(items, function (item) {
-                var valueToCheck, isDuplicate = false;
+                let valueToCheck, isDuplicate = false;
 
-                for (var i = 0; i < newItems.length; i++) {
+                for (let i = 0; i < newItems.length; i++) {
                     if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
                         isDuplicate = true;
                         break;

@@ -51,15 +51,15 @@ export class LayersService {
         return fetch('/app/components/layers/capabilities/greyMapWMTS.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
-            var result = self.parser.read(text);
-            var options = ol.source.WMTS.optionsFromCapabilities(result, {
+            let result = self.parser.read(text);
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
                 layer: 'a4p_a4p_hintergrund_grau_n_bk',
                 matrixSet: 'EPSG:2056'
             });
 
-            var wmtsSource = new ol.source.WMTS(options);
+            let wmtsSource = new ol.source.WMTS(options);
 
-            var wmtsLayer = new ol.layer.Tile({
+            let wmtsLayer = new ol.layer.Tile({
                 opacity: 1,
                 source: wmtsSource,
                 visible: true,
@@ -78,15 +78,15 @@ export class LayersService {
         return fetch('/app/components/layers/capabilities/cantonWMTS.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
-            var result = self.parser.read(text);
-            var options = ol.source.WMTS.optionsFromCapabilities(result, {
+            let result = self.parser.read(text);
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
                 layer: 'a4p_a4p_kanton5_n_bk',
                 matrixSet: 'EPSG:2056'
             });
 
-            var wmtsSource = new ol.source.WMTS(options);
+            let wmtsSource = new ol.source.WMTS(options);
 
-            var wmtsLayer = new ol.layer.Tile({
+            let wmtsLayer = new ol.layer.Tile({
                 opacity: 1,
                 source: wmtsSource,
                 visible: true,
@@ -108,13 +108,13 @@ export class LayersService {
         return fetch('/app/components/layers/capabilities/orthoPhotoWMTS.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
-            var result = self.parser.read(text);
-            var options = ol.source.WMTS.optionsFromCapabilities(result, {
+            let result = self.parser.read(text);
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
                 layer: 'a4p_a4p_orthofoto_n_bk',
                 matrixSet: 'EPSG:2056'
             });
 
-            var wmtsLayer = new ol.layer.Tile({
+            let wmtsLayer = new ol.layer.Tile({
                 opacity: 1,
                 source: new ol.source.WMTS(options),
                 visible: false,
@@ -150,7 +150,7 @@ export class LayersService {
 
     // checks if layer is hidden
     isHidden(name) {
-        for (var i = 0; i < this.resolvedLayers.length; i++) {
+        for (let i = 0; i < this.resolvedLayers.length; i++) {
             if (this.resolvedLayers[i].M.name == name) {
                 return !this.resolvedLayers[i].visible;
             }
@@ -160,7 +160,7 @@ export class LayersService {
 
     // hide a layer by name
     hide(name, inverse = false) {
-        for (var i = 0; i < this.resolvedLayers.length; i++) {
+        for (let i = 0; i < this.resolvedLayers.length; i++) {
             if (this.resolvedLayers[i].M.name == name) {
                 this.resolvedLayers[i].visible = inverse;
             }
@@ -175,7 +175,7 @@ export class LayersService {
     }
 
     get(callback) {
-        var layerService = this;
+        let layerService = this;
 
         let requests = this.layers.map((layer) => {
             return new Promise((resolve) => {

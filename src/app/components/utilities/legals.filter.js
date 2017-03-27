@@ -3,10 +3,10 @@ export function LegalsFilter () {
 
     return function (items, xsitype) {
 
-        var newDocumentsList = [];
-        var textList = [];
+        let newDocumentsList = [];
+        let textList = [];
 
-        var fillTextList = function (document) {
+        let fillTextList = function (document) {
             // add to textesList, if there is content
             if (document.Title.LocalisedText.Text.length != 0) {
                 textList.push(document.Title.LocalisedText.Text);
@@ -21,8 +21,8 @@ export function LegalsFilter () {
             }
         };
 
-        var isInTextList = function (document) {
-            var result = false;
+        let isInTextList = function (document) {
+            let result = false;
 
             if (document.Title.LocalisedText.Text.length != 0) {
                 result = isStringInTextList(document.Title.LocalisedText.Text);
@@ -45,7 +45,7 @@ export function LegalsFilter () {
             return result;
         };
 
-        var isStringInTextList = function (string) {
+        let isStringInTextList = function (string) {
             return (textList.indexOf(string) > -1);
         };
 
