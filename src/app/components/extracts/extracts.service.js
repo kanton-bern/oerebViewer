@@ -189,9 +189,7 @@ export class ExtractsService {
         return newExtract;
     }
 
-    setCurrent(egrid, reloading) {
-        reloading = reloading || false;
-
+    setCurrent(egrid, reloading = false) {
         let self = this;
         let foundOne = false;
 
@@ -222,9 +220,7 @@ export class ExtractsService {
         this.observers.push(callback);
     }
 
-    notifyCurrentObservers(reloading) {
-        reloading = reloading || false;
-
+    notifyCurrentObservers(reloading = false) {
         angular.forEach(this.observers, function (callback) {
             callback(reloading);
         });
@@ -245,8 +241,12 @@ export class ExtractsService {
     getRestrictionByCode() {
         let result = false;
         let self = this;
+        let current = this.getCurrent();
 
-        angular.forEach(this.getCurrent().restrictions, function (r) {
+        if (angular.isUndefined(current))
+            return result;
+
+        angular.forEach(current.restrictions, function (r) {
             if (r.code == self.currentRestrictionCode) {
                 result = r;
             }
