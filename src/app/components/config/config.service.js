@@ -8,6 +8,7 @@ export class ConfigService {
             zoomedIn: 13,
             oerebLayer: 11,
             min: 4,
+            minTablet: 3,
             minMobile: 2
         };
 

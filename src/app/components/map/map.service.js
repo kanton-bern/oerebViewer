@@ -28,13 +28,18 @@ export class MapService {
         // set projection by config
         this.projection = this.ol.proj.get(this.Config.projection.epsg);
 
+        // correct zoom
+        let zoom = this.Config.zoom.min;
+        if ($window.innerWidth < 1200) zoom = this.Config.zoom.minTablet;
+        if ($window.innerWidth < 480) zoom = this.Config.zoom.minMobile;
+
         // initialises view
         this.view = new this.ol.View({
             center: self.center,
             extent: this.Config.projection.extent,
             zoom: self.zoom,
             projection: this.projection,
-            minZoom: ($window.innerWidth < 480) ? this.Config.zoom.minMobile : this.Config.zoom.min
+            minZoom: zoom
         });
 
         // deactivates drag rotation interactions
