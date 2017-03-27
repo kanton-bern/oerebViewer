@@ -48,7 +48,7 @@ export class LayersService {
     asyncGreyMapLayer() {
         let self = this;
 
-        return fetch('/app/components/layers/capabilities/greyMapWMTS.xml').then(function (response) {
+        return fetch('https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             let result = self.parser.read(text);
@@ -75,7 +75,7 @@ export class LayersService {
     asynCantonLayer() {
         let self = this;
 
-        return fetch('/app/components/layers/capabilities/cantonWMTS.xml').then(function (response) {
+        return fetch('https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_kanton5_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             let result = self.parser.read(text);
@@ -105,7 +105,7 @@ export class LayersService {
     asyncOrthoPhotoLayer() {
         let self = this;
 
-        return fetch('/app/components/layers/capabilities/orthoPhotoWMTS.xml').then(function (response) {
+        return fetch('https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             let result = self.parser.read(text);
