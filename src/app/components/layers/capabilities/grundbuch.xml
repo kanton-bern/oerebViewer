@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Capabilities xmlns="http://www.opengis.net/wmts/1.0"
+              xmlns:ows="http://www.opengis.net/ows/1.1"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:gml="http://www.opengis.net/gml"
+              xsi:schemaLocation="http://www.opengis.net/wmts/1.0 http://schemas.opengis.net/wmts/1.0/wmtsGetCapabilities_response.xsd"
+              version="1.0.0">
+    <!-- Service Identification --> <ows:ServiceIdentification>
+    <ows:Title>a4p_a4p_mopube_n_bk</ows:Title>
+    <ows:ServiceType>OGC WMTS</ows:ServiceType>
+    <ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
+</ows:ServiceIdentification> <!-- Operations Metadata --> <ows:OperationsMetadata>
+    <ows:Operation name="GetCapabilities">
+        <ows:DCP>
+            <ows:HTTP>
+                <ows:Get xlink:href="http://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml">
+                    <ows:Constraint name="GetEncoding">
+                        <ows:AllowedValues>
+                            <ows:Value>RESTful</ows:Value>
+                        </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+                <!-- add KVP binding in 10.1 -->
+                <ows:Get xlink:href="http://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS?">
+                    <ows:Constraint name="GetEncoding">
+                        <ows:AllowedValues>
+                            <ows:Value>KVP</ows:Value>
+                        </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+            </ows:HTTP>
+        </ows:DCP>
+    </ows:Operation>
+    <ows:Operation name="GetTile">
+        <ows:DCP>
+            <ows:HTTP>
+                <ows:Get xlink:href="http://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/tile/1.0.0/">
+                    <ows:Constraint name="GetEncoding">
+                        <ows:AllowedValues>
+                            <ows:Value>RESTful</ows:Value>
+                        </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+                <ows:Get xlink:href="http://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS?">
+                    <ows:Constraint name="GetEncoding">
+                        <ows:AllowedValues>
+                            <ows:Value>KVP</ows:Value>
+                        </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+            </ows:HTTP>
+        </ows:DCP>
+    </ows:Operation>
+</ows:OperationsMetadata> <Contents>
+    <!--Layer--> <Layer>
+    <ows:Title>a4p_a4p_mopube_n_bk</ows:Title> <ows:Identifier>a4p_a4p_mopube_n_bk</ows:Identifier>
+    <ows:BoundingBox crs="urn:ogc:def:crs:EPSG::2056">
+        <ows:LowerCorner>-2.7386226870453976E7 -3.2067714028277684E7</ows:LowerCorner>
+        <ows:UpperCorner>1.248944854814982E7 3.1814328533159096E7</ows:UpperCorner>
+    </ows:BoundingBox> <ows:WGS84BoundingBox crs="urn:ogc:def:crs:OGC:2:84">
+    <ows:LowerCorner>-180.0 -90.0</ows:LowerCorner>
+    <ows:UpperCorner>180.0 90.0</ows:UpperCorner>
+</ows:WGS84BoundingBox>
+    <Style isDefault="true">
+        <ows:Title>Default Style</ows:Title>
+        <ows:Identifier>default</ows:Identifier>
+    </Style>
+    <Format>image/png</Format>
+    <TileMatrixSetLink>
+        <TileMatrixSet>default028mm</TileMatrixSet>
+    </TileMatrixSetLink>
+    <ResourceURL format="image/png" resourceType="tile" template="http://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/tile/1.0.0/a4p_a4p_mopube_n_bk/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png" />
+</Layer> <!--TileMatrixSet-->
+    <TileMatrixSet>
+        <ows:Title>TileMatrix using 0.28mm</ows:Title>
+        <ows:Abstract>The tile matrix set that has scale values calculated based on the dpi defined by OGC specification (dpi assumes 0.28mm as the physical distance of a pixel).</ows:Abstract> <ows:Identifier>default028mm</ows:Identifier>
+        <ows:SupportedCRS>urn:ogc:def:crs:EPSG::2056</ows:SupportedCRS>
+        <TileMatrix>
+            <ows:Identifier>0</ows:Identifier>
+            <ScaleDenominator>755953.8928600716</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>736</MatrixWidth> <MatrixHeight>1179</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>1</ows:Identifier>
+            <ScaleDenominator>377976.9464300358</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>1472</MatrixWidth> <MatrixHeight>2358</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>2</ows:Identifier>
+            <ScaleDenominator>170089.62589351612</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>3271</MatrixWidth> <MatrixHeight>5240</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>3</ows:Identifier>
+            <ScaleDenominator>75595.38928600716</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>7359</MatrixWidth> <MatrixHeight>11790</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>4</ows:Identifier>
+            <ScaleDenominator>37797.69464300358</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>14718</MatrixWidth> <MatrixHeight>23579</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>5</ows:Identifier>
+            <ScaleDenominator>18898.84732150179</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>29436</MatrixWidth> <MatrixHeight>47158</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>6</ows:Identifier>
+            <ScaleDenominator>11339.308392901075</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>49060</MatrixWidth> <MatrixHeight>78596</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>7</ows:Identifier>
+            <ScaleDenominator>7087.067745563172</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>78496</MatrixWidth> <MatrixHeight>125753</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>8</ows:Identifier>
+            <ScaleDenominator>5669.654196450538</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>98120</MatrixWidth> <MatrixHeight>157191</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>9</ows:Identifier>
+            <ScaleDenominator>4724.711830375448</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>117744</MatrixWidth> <MatrixHeight>188629</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>10</ows:Identifier>
+            <ScaleDenominator>2834.827098225269</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>196240</MatrixWidth> <MatrixHeight>314381</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>11</ows:Identifier>
+            <ScaleDenominator>1889.8847321501792</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>294359</MatrixWidth> <MatrixHeight>471571</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>12</ows:Identifier>
+            <ScaleDenominator>944.9423660750896</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>588718</MatrixWidth> <MatrixHeight>943142</MatrixHeight>
+        </TileMatrix>
+        <TileMatrix>
+            <ows:Identifier>13</ows:Identifier>
+            <ScaleDenominator>472.4711830375448</ScaleDenominator>
+            <TopLeftCorner>-2.73864E7 3.18145E7</TopLeftCorner> <TileWidth>256</TileWidth> <TileHeight>256</TileHeight>
+            <MatrixWidth>1177435</MatrixWidth> <MatrixHeight>1886283</MatrixHeight>
+        </TileMatrix>
+    </TileMatrixSet>
+</Contents>
+    <ServiceMetadataURL xlink:href="http://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml" /> </Capabilities>

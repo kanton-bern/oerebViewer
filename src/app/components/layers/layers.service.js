@@ -12,6 +12,7 @@ export class LayersService {
 
         // add layers
         this.add(this.asyncCantonLayer());
+        this.add(this.asyncGrundbuchMapLayer());
         this.add(this.asyncGreyMapLayer());
         this.add(this.asyncOrthoPhotoLayer());
         this.add(this.oerebLayer());
@@ -74,6 +75,33 @@ export class LayersService {
         });
     }
 
+    asyncGrundbuchMapLayer() {
+        let self = this;
+
+        return fetch('/app/components/layers/capabilities/grundbuch.xml').then(function (response) {
+                return response.text();
+        }).then(function (text) {
+            let result = self.parser.read(text);
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_mopube_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+
+            let wmtsSource = new ol.source.WMTS(options);
+
+            let wmtsLayer = new ol.layer.Tile({
+                opacity: 0.5,
+                source: wmtsSource,
+                visible: true,
+                name: 'grundbuchMap'
+            });
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_mopube_n_bk konnte nicht geladen werden.');
+        });
+    }
+
     asyncCantonLayer() {
         let self = this;
 
@@ -102,7 +130,7 @@ export class LayersService {
             self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
         });
     }
-    
+
     asyncOrthoPhotoLayer() {
         let self = this;
 
