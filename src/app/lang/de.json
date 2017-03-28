@@ -24,6 +24,7 @@
     "kantonText": "Der Kanton Bern",
     "jump_content": "Zum Inhalt springen",
     "jump_menu": "Zum Menü springen",
+    "prompt_copy": "Kopieren mit Ctrl+C oder Cmd-C, Enter",
     "notification_close": "Schliessen",
     "notification_copied": "Link zum Grundstück erfolgreich kopiert.",
     "notification_notsupported": "Leider unterstützt dieser Browser diese Funktion noch nicht.",

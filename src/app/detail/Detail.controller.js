@@ -204,10 +204,11 @@ export class DetailController {
     }
 
     copyUrlToClipboard() {
-        if (this.copyToClipboard(this.url()))
+        if (this.copyToClipboard(this.url())) {
             this.Notification.success(this.$filter('translate')('notification_copied'));
-        else
-            this.Notification.error(this.$filter('translate')('notification_notsupported'));
+        } else {
+            window.prompt(this.$filter('translate')('prompt_copy'), this.url());
+        }
     }
 
     // http://stackoverflow.com/a/33928558
@@ -217,7 +218,7 @@ export class DetailController {
             return clipboardData.setData("Text", text);
 
         } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-            var textarea = document.createElement("textarea");
+            let textarea = document.createElement("textarea");
             textarea.textContent = text;
             textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
             document.body.appendChild(textarea);
