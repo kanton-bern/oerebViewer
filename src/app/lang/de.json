@@ -26,6 +26,7 @@
     "jump_menu": "Zum Menü springen",
     "notification_close": "Schliessen",
     "notification_copied": "Link zum Grundstück erfolgreich kopiert.",
+    "notification_notsupported": "Leider unterstützt dieser Browser diese Funktion noch nicht.",
     "notification_noCommunity": "Es ist kein aktiver Auszug geladen, deshalb fehlt die Gemeinde.",
     "notification_loadsuccess1": "Die ÖREB-Daten zum Grundstück ",
     "notification_loadsuccess2": "wurden erfolgreich geladen.",

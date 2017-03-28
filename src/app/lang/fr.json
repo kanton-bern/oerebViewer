@@ -28,6 +28,7 @@
     "notification_copied": "FR Link zum Grundstück erfolgreich kopiert.",
     "notification_loadsuccess1": "FR Die Kataster-Daten zum Grundstück ",
     "notification_loadsuccess2": "FR wurden erfolgreich geladen.",
+    "notification_notsupported": "FR Leider unterstützt dieser Browser diese Funktion noch nicht.",
     "notification_noCommunity": "FR Es ist kein aktiver Auszug geladen, deshalb fehlt die Gemeinde.",
     "notification_failed1": "FR Die Kataster-Daten zum Grundstück",
     "notification_failed2": "FR konnten nicht geladen werden, oder es liegt ein Fehler in der Verbindung zum ÖREB-Dienst vor. Versuchen Sie es später noch einmal.",

@@ -206,6 +206,8 @@ export class DetailController {
     copyUrlToClipboard() {
         if (this.copyToClipboard(this.url()))
             this.Notification.success(this.$filter('translate')('notification_copied'));
+        else
+            this.Notification.error(this.$filter('translate')('notification_notsupported'));
     }
 
     // http://stackoverflow.com/a/33928558
