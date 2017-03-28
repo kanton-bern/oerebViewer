@@ -86,6 +86,7 @@ export class DetailController {
 
                     let wmsTemp = new self.Map.ol.layer.Tile({
                         /*preload: Infinity,*/
+                        opacity: 0.4,
                         visible: true,
                         source: wmsTempSource,
                         name: 'restriction-temp'

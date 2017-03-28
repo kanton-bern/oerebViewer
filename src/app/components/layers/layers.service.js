@@ -11,7 +11,7 @@ export class LayersService {
         this.parser = new ol.format.WMTSCapabilities();
 
         // add layers
-        this.add(this.asynCantonLayer());
+        this.add(this.asyncCantonLayer());
         this.add(this.asyncGreyMapLayer());
         this.add(this.asyncOrthoPhotoLayer());
         this.add(this.oerebLayer());
@@ -24,18 +24,18 @@ export class LayersService {
         let wmsOEREBSource = new this.ol.source.TileWMS(({
             url: 'https://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
             params: {
-                'LAYERS': 'GEODB.DIPANU_DIPANUF',
+                'LAYERS': 'GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF',
                 'TILED': true,
                 'VERSION': '1.3.0',
                 'FORMAT': 'image/png',
-                'CRS': 'EPSG:21781'
+                'CRS': 'EPSG:2056'
             },
             serverType: 'geoserver'
         }));
 
 
         let wmsOEREB = new this.ol.layer.Tile({
-            opacity: 0.4,
+            opacity: 1,
             visible: true,
             source: wmsOEREBSource,
             name: 'oereb'
@@ -45,6 +45,7 @@ export class LayersService {
 
         return wmsOEREB;
     }
+
 
     asyncGreyMapLayer() {
         let self = this;
@@ -73,7 +74,7 @@ export class LayersService {
         });
     }
 
-    asynCantonLayer() {
+    asyncCantonLayer() {
         let self = this;
 
         return fetch('https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_kanton5_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
@@ -96,13 +97,12 @@ export class LayersService {
 
             wmtsLayer.setZIndex(500);
 
-
             return wmtsLayer;
         }).catch(function(ex) {
             self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
         });
     }
-
+    
     asyncOrthoPhotoLayer() {
         let self = this;
 

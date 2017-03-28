@@ -210,7 +210,7 @@ export class MapService {
     }
 
     /*
-     Adds Temporary Layers. Everytime new temporary Layers are added. The old one gets removed.
+        Adds Temporary Layers. Everytime new temporary Layers are added. The old one gets removed.
      */
     addTempLayers(layers) {
         let self = this;

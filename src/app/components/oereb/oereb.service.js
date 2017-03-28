@@ -18,7 +18,7 @@ export class OEREBService {
 
         let lang = '';
 
-        if (self.$translate.use() != undefined)
+        if (self.$translate.use() !== undefined)
             lang = self.$translate.use();
 
         let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + lang;
