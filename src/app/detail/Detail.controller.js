@@ -204,30 +204,30 @@ export class DetailController {
     }
 
     copyUrlToClipboard() {
-        var success = false;
+        if (this.copyToClipboard(this.url()))
+            this.Notification.success(this.$filter('translate')('notification_copied'));
+    }
 
+    // http://stackoverflow.com/a/33928558
+    copyToClipboard(text) {
         if (window.clipboardData && window.clipboardData.setData) {
             // IE specific code path to prevent textarea being shown while dialog is visible.
-            success = clipboardData.setData("Text", this.url());
+            return clipboardData.setData("Text", text);
 
         } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
             var textarea = document.createElement("textarea");
-            textarea.textContent = this.url();
+            textarea.textContent = text;
             textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
             document.body.appendChild(textarea);
             textarea.select();
             try {
-                success = document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                return document.execCommand("copy");  // Security exception may be thrown by some browsers.
             } catch (ex) {
                 console.warn("Copy to clipboard failed.", ex);
-                success = false;
+                return false;
             } finally {
                 document.body.removeChild(textarea);
             }
         }
-
-        console.debug('ususususus');
-        if (success)
-            this.Notification.success(this.$filter('translate')('notification_copied'));
     }
 }
