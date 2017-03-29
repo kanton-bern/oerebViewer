@@ -439,11 +439,7 @@ body {
                     @include contentLightLinks;
                   }
 
-                  &:last-child {
-                    v-pane-header {
-                       border-bottom:0px solid $colorLightGrey;
-                    }
-                  }
+
 
                 }
               }
