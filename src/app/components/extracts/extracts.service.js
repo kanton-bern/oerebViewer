@@ -47,7 +47,7 @@ export class ExtractsService {
             if (d.status == 204)
                 throw d;
 
-            // Dump JSON-object to console
+            // To Debug: dump JSON-object to console
             //console.debug('extract');
             //console.debug(newExtract);
 

@@ -7,7 +7,7 @@
 
     "subtitle": "RDPPF",
     "title": "Cadastre ",
-    "mainAppTitle": "RDPPF-App",
+    "mainAppTitle": "Application RDPPF",
     "mainTitle": "FR Auszug aus dem ÖREB-Kataster",
     "appReset": "FR Alles Zurücksetzen",
     "titleMainMenu": "Menu",
@@ -19,9 +19,9 @@
     "propertyLoaded": "FR Geladenes Grundstück",
     "propertyDetail": "Plus detail",
     "bundLogo": "Logo de la Confédération suisse",
-    "bundText": "la Confédération suisse",
+    "bundText": "",
     "kantonLogo": "Logo du canton de Berne",
-    "kantonText": "Le canton de Berne",
+    "kantonText": "",
     "jump_content": "Aller au contenu",
     "jump_menu": "Aller au menu",
     "prompt_copy": "FR Kopieren mit Ctrl+C oder Cmd-C, Enter",
@@ -76,10 +76,16 @@
     "searchboxPlaceholder": "FR Grundstück oder Adresse suchen ...",
     "markerAlt":"FR Markiertes Grundstück",
     "languageISO": "fr",
-
+    "oerebText": "FR Dies ist die Applikation zum Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB)",
     "oerebServiceNotAvailable" : "FR Der OEREB Service des Kanton Bern ist derzeit nicht erreichbar.",
     "oerebService500": "FR Der OEREB Service des Kanton Berns hat keine Daten zu diesem Grundstück.",
     "oerebService204": "FR Kein Grundstück mit dieser ID.",
+    "logoBundPath": "http://files.be.ch/bve/agi/oereb/logos/eidgenossenschaft.png",
+    "logoKantonPath": "http://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif",
+    "responsibilityContent": "FR Katasterführende Stelle",
+    "responsibilityDesign": "FR Gestaltung und Frontend-Design",
+    "responsibilityBackend": "FR Technische Realisierung",
+    "responsibilityUX": "FR User Experience und Usability",
 
     "gstart" : {
         "0": "FR Liegenschaft",

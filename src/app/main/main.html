@@ -84,30 +84,41 @@
                   <div class="row">
                     <div class="columns small-12">
                       <h1>{{'titleImprint' | translate}}</h1>
+                      <!-- ÖREB-Applikation -->
+                      <h2>{{'mainAppTitle' | translate}}</h2>
+                      <div class="partner-logo full-width">
+                        <div class="logo-item">
+                        <div style="background-image:url('/assets/images/oerebkataster_logo_{{&#34;languageISO&#34;|translate}}.svg')" class="logo-oereb">
+                           </div>
+                           <p class="clearfix">{{"oerebText" | translate}}</p>
+                         </div>
+                      </div>
                       <!-- Disclaimer -->
                       <h2>{{'titleInvolvedParties' | translate }}</h2>
                       <div class="partner-logo">
                         <div class="logo-item">
-                        <div style="background-image:url('/assets/images/bund_wappen.png')" class="logo-bund">
+                        <div style="background-image:url('{{&#34;logoBundPath&#34;|translate}}')" class="logo-bund">
                            </div>
                            <p class="clearfix">{{"bundText" | translate}}</p>
                          </div>
                          <div class="logo-item">
-                        <div style="background-image:url('/assets/images/kanton_be.png')" class="logo-kanton">
+                        <div style="background-image:url('{{&#34;logoKantonPath&#34;|translate}}')" class="logo-kanton">
                         </div>
                         <p class="clearfix">{{"kantonText" | translate}}</p>
                       </div>
-                      <div class="logo-item">
-                       <div ng-if="main.extract.data.MunicipalityLogo" style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
+                      <div ng-if="main.extract.data.MunicipalityLogo" class="logo-item">
+
+                       <div style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
                             class="logo-gemeinde">
                           </div>
                           <p class="clearfix">{{"detailCommunity" | translate}} {{main.extract.data.RealEstate.Municipality}}</p>
                         </div>
-                        <div class="logo-item">
-                       <div ng-if="!main.extract.data.MunicipalityLogo" style="background-image:url('/assets/images/gde_dummy.png')"
+
+                        <div ng-if="!main.extract.data.MunicipalityLogo" class="logo-item">
+                       <div  style="background-image:url('/assets/images/gde_dummy.png')"
                                  class="logo-gemeinde">
                        </div>
-                       <p ng-if="!main.extract.data.MunicipalityLogo" class="clearfix">{{"notification_noCommunity" | translate}}</p>
+                       <p class="clearfix">{{"notification_noCommunity" | translate}}</p>
                      </div>
                      </div>
                       <h2 ng-if="main.extract.data.MunicipalityLogo">{{'titleRemarksImprint' | translate}}</h2>
@@ -126,17 +137,17 @@
                     <h2>{{ 'titleResponsibilityImprint' | translate}}</h2>
                     <section class="section">
                       <div class="section-item">
-                        <h3>Inhaltliche Verantwortung</h3>
+                        <h3>{{'responsibilityContent' | translate}}</h3>
                         <p>
-                          Bau-, Verkehrs- und Energiedirektion des Kantons Bern<br />
-                          Amt für Geoinformation<br />
-                          Reiterstrasse 11<br />
-                          3011 Bern<br />
-                          <a href="http://www.apps.be.ch/geo/de" class="url-link">Geoportal des Kantons Bern</a>
+                          {{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}
+                          <br />
+                          {{main.extract.data.PLRCadastreAuthority.Street}} {{main.extract.data.PLRCadastreAuthority.Number}}<br />
+                          {{main.extract.data.PLRCadastreAuthority.PostalCode}} {{main.extract.data.PLRCadastreAuthority.City}}<br />
+                          <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" class="url-link">{{main.extract.data.PLRCadastreAuthority.UID}}</a>
                         </p>
                       </div>
                       <div class="section-item">
-                        <h3>Usability</h3>
+                        <h3>{{'responsibilityUX' | translate}}</h3>
                           <p>
                             Team U5 Usability</br>
                             Institut für Medizinische Lehre<br />
@@ -148,7 +159,7 @@
                           </p>
                         </div>
                         <div class="section-item">
-                      <h3>Gestaltung und Frontend-Screendesign</h3>
+                      <h3>{{'responsibilityDesign' | translate}}</h3>
                         <p>
                           Sturm und Bräm GmbH<br/>
                           Monbijousstrasse 27<br />
@@ -157,7 +168,7 @@
                         </p>
                       </div>
                       <div class="section-item">
-                      <h3>Technische Realisierung</h3>
+                      <h3>{{'responsibilityBackend' | translate}}</h3>
                       <p>
                         novu GmbH<br />
                         Aarbergergasse 46<br />
@@ -167,11 +178,6 @@
                     </div>
                       </section>
 
-                      <h2>Rechtliches</h2>
-                      <section class="section">
-                        <p>Gibt es da etwas zu den Lizenzen?</p>
-                      <p>Teile dieser Applikation unterliegen den folgenden Lizenzen</p>
-                    </section>
                     </div>
                   </div>
                 </section>

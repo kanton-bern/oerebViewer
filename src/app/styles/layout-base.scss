@@ -717,7 +717,7 @@ body {
     .partner-logo {
 
       // Logos in header
-      .logo-bund, .logo-kanton, .logo-gemeinde {
+      .logo-bund, .logo-kanton, .logo-gemeinde, .logo-oereb {
         display:block;
         float:left;
         width:50px;
@@ -729,6 +729,14 @@ body {
         margin-bottom:20px;
         margin-right:20px;
 
+      }
+      .logo-oereb, .logo-kanton, .logo-bund {
+        width:300px;
+        height:100px;
+      }
+      .logo-kanton {
+        width:200px;
+        height:70px;
       }
       p {
         display:block;
@@ -775,6 +783,10 @@ body {
           flex-basis: 50%;
           padding-right:10%;
         }
+        &.full-width // full width of the logos
+          .logo-item {
+            flex-basis:100%;
+          }
       }
     }
 
