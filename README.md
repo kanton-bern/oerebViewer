@@ -26,6 +26,17 @@ Damit die Applikation auf einem Webserver installiert werden kann, müssen folge
 ## 3.1 Client-Technologie ##
 Da die gesamte Anwendungs-Logik im Client implementiert ist, wurde die Applikation vollständig mit [AngularJS, Version 1.5.11](https://angularjs.org/) realisiert. Für das Markup des Frontend wurde - basierend auf dem [Foundation Framework, v6.1](http://foundation.zurb.com/) - ein HTML/CSS(SASS)/JS-Template erstellt.
 Damit konnte eine performante und flexible Lösung gebaut werden welche kaum Anforderungen an die (Web)Server-Infrastruktur stellt: dies macht es möglich die SmartAuszug sehr einfach durch einen beliebigen Kanton zu betreiben.
+
+## 3.2 Einschränkungen ##
+### 3.2.1 SSL-Zertifikate ###
+Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden.
+
+### 3.2.2 Browser ###
+Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
+
+ * Windows (7/10): Chrome, Firefox, IE, Opera
+ * Android (5.x/6.x/7.x): Chrome
+ * iOS (7): Safari, Chrome
 ---
 
 # 4. ENTWICKLUNG UND LOKALES TESTEN #
@@ -102,34 +113,8 @@ Im ConfigService (``/src/app/components/config/config.service.js``) können  Ein
 
 ---
 
-# 7. DEFINITION DER SCHNITTSTELLEN #
-## 7.1 ÖREB JSON/XML-Auszug ##
-Der ÖREB-Auszug basiert auf der offiziellen Weisung [«ÖREB-Kataster – DATA-Extract» der swisstopo/Vermessungsdirektion](http://www.cadastre.ch/internet/kataster/de/home/services/publication/XML.html).
-
-## 7.2 WFS-Dienste ##
-Für die Markierung der Grundstücke wir der WFS-Dienst des Kanton Berns verwendet.  
-
-## 7.3 Adressauflösung ##
-Für die Adressauflösung wird der Service von [geo.admin.ch](http://api3.geo.admin.ch/) verwendet.
-
----
-
-# 8. EINSCHRÄNKUNGEN #
-## 8.1 SSL-Zertifikate ##
-Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden.
-
-## 8.2 Browser ##
-Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
-
- * Windows (7/10): Chrome, Firefox, IE, Opera
- * Android (5.x/6.x/7.x): Chrome
- * iOS (7): Safari, Chrome
-
-
----
-
-# 9. DIVERSES #
-## 9.1 Verantwortlichkeiten ##
+# 7. DIVERSES #
+## 7.1 Verantwortlichkeiten ##
 
 * Owner des Repos zur Zeit: Bernhard Sturm (bs@sturmundbreaem.ch)
 * Technische Realisierung: Tobias Schmoker (schmoker@novu.ch)
