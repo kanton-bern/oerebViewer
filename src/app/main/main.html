@@ -147,48 +147,18 @@
                         <p>{{main.extract.data.ExclusionOfLiability.Content.LocalisedText.Text}}</p>
                       </div>
                     </section>
-                    <h2>{{ 'titleResponsibilityImprint' | translate}}</h2>
-                    <section class="section">
+                    <h2 ng-if="main.extract.data.MunicipalityLogo">{{'responsibilityContent' | translate}}</h2>
+                    <section ng-if="main.extract.data.MunicipalityLogo" class="section">
                       <div class="section-item">
-                        <h3>{{'responsibilityContent' | translate}}</h3>
+                        <h3>{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</h3>
                         <p>
-                          {{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}
-                          <br />
+
+      
                           {{main.extract.data.PLRCadastreAuthority.Street}} {{main.extract.data.PLRCadastreAuthority.Number}}<br />
                           {{main.extract.data.PLRCadastreAuthority.PostalCode}} {{main.extract.data.PLRCadastreAuthority.City}}<br />
-                          <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" class="url-link">{{main.extract.data.PLRCadastreAuthority.UID}}</a>
+                          <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" class="url-link">{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</a>
                         </p>
                       </div>
-                      <div class="section-item">
-                        <h3>{{'responsibilityUX' | translate}}</h3>
-                          <p>
-                            Team U5 Usability</br>
-                            Institut für Medizinische Lehre<br />
-                            Universität Bern<br>
-                            Sulgenauweg 40<br />
-                            3007 Bern<br />
-                            <a href="https://www.iml.unibe.ch/angebote/weitere-dienstleistungen/usability" class="url-link">Team U5 Usability</a>
-
-                          </p>
-                        </div>
-                        <div class="section-item">
-                      <h3>{{'responsibilityDesign' | translate}}</h3>
-                        <p>
-                          Sturm und Bräm GmbH<br/>
-                          Monbijousstrasse 27<br />
-                          3011 Bern<br />
-                          <a href="https://www.sturmundbraem.ch" class="url-link">www.sturmundbraem.ch</a>
-                        </p>
-                      </div>
-                      <div class="section-item">
-                      <h3>{{'responsibilityBackend' | translate}}</h3>
-                      <p>
-                        novu GmbH<br />
-                        Aarbergergasse 46<br />
-                        3011 Bern<br />
-                        <a href="https://www.novu.ch" class="url-link">www.novu.ch</a>
-                      </p>
-                    </div>
                       </section>
 
                     </div>
@@ -225,56 +195,8 @@
                   </div>
                 </section>
                 <!-- END CONTENT: Glossary -->
-                <!-- CONTENT: Themenbereiche -->
-                <section class="contentpage contentthemes" ng-class="{'current': main.visibleContent == 'themes'}">
-                  <div class="nav-close">
-
-                    <button
-                            ng-click="main.showMain()"
-                            class="button svg-icon btnCloseContent">
-                        <svg class="icon icon-cross">
-                            <use xlink:href="#icon-cross"></use>
-                        </svg>
-
-                    </button>
-                    <a ng-click="main.showMain()" class="hide-for-small-only" href="">{{"notification_close" | translate}}</a>
 
 
-                  </div>
-
-                  <div class="row">
-                    <div class="columns small-12">
-                        Themenbereiche
-                        (<a ng-click="main.showMain()">Close</a>)
-                    </div>
-                  </div>
-                </section>
-                <!-- END CONTENT: Themenbereiche -->
-                <!-- CONTENT: Other content -->
-                <section class="contentpage contentinfo" ng-class="{'current': main.visibleContent == 'other'}">
-                  <div class="nav-close">
-
-                    <button
-                            ng-click="main.showMain()"
-                            class="button svg-icon btnCloseContent">
-                        <svg class="icon icon-cross">
-                            <use xlink:href="#icon-cross"></use>
-                        </svg>
-
-                    </button>
-                    <a ng-click="main.showMain()" class="hide-for-small-only" href="">{{"notification_close" | translate}}</a>
-
-
-                  </div>
-                  <div class="row">
-                    <div class="columns small-12">
-                      <h1>Was ist die ÖREB?</h1>
-                      <p>Wer in der Schweiz Land besitzt, kann dieses nicht einfach so nutzen, wie er will. Es gilt Rahmenbedingungen einzuhalten, die aufgrund von Entscheidungen des Gesetzgebers oder der Behörden entstanden sind. Diese sogenannten öffentlich-rechtlichen Eigentumsbeschränkungen (kurz ÖREB) sind für Grundeigentümerinnen und Grundeigentümer verpflichtend.</p>
-                      <p>Mit dem sich im Aufbau befindenden Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB-Kataster) werden relevante Informationen über Grundstücke leicht verfügbar. Zudem wird die Rechtssicherheit dank verbindlicher Informationen erhöht. Davon profitieren sowohl Grundstückbesitzer, als auch die verschiedenen Akteure des Immobilienmarktes, Behörden und öffentliche Verwaltungen.</p>
-                    </div>
-                  </div>
-                </section>
-                <!-- END CONTENT: Other content -->
                 <!-- *********** END CONTENT PAGE SECTIONS *********** -->
             </article>
             <footer class="footer"></footer>
