@@ -14,6 +14,14 @@
                       <use xlink:href="#icon-globe"></use>
                   </svg>
 
+                  <!-- Language-Switch
+                  You can delete or add new languages by inserting the following snippet:
+
+                  <span ng-click="main.changeLanguage('it')">
+                    <a ng-click="main.changeLanguage('it')" title="Version italiano"
+                         ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
+                  </span>
+                 -->
                   <span ng-click="main.changeLanguage('de')">
                     <a title="Deutsche Version"
                         ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
