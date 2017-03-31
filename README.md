@@ -79,6 +79,8 @@ Jeder Layer muss registriert werden. Soll der Layer standardmässig geladen werd
 ## 6.2. Bearbeiten der Sprachvariablen ##
 Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und angepasst werden. Pro Sprache existiert jeweils eine .json Datei.
 
+Es können mindestens 3 Sprachversionen gleichzeitig betrieben werden. Dazu muss in der Datei ``/src/app/main/main.html`` am Punkt ``<!-- Language-Switch`` die entsprechende Sprachversion definiert werden.
+
 ## 6.1. Allgemeine Map Konfiguration ##
 Im ConfigService (``/src/app/components/config/config.service.js``) können  Einstellungen betreffend der Map gemacht werden.  
 
