@@ -81,6 +81,19 @@ Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und ang
 
 Es können mindestens 3 Sprachversionen gleichzeitig betrieben werden. Dazu muss in der Datei ``/src/app/main/main.html`` am Punkt ``<!-- Language-Switch`` die entsprechende Sprachversion definiert werden.
 
+Das entsprechende Snippet für den Sprachwechsel sieht so aus:
+
+
+```
+#!html
+
+                  <span ng-click="main.changeLanguage('it')">
+                    <a ng-click="main.changeLanguage('it')" title="Version italiano"
+                         ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
+                  </span>
+```
+
+
 ## 6.1. Allgemeine Map Konfiguration ##
 Im ConfigService (``/src/app/components/config/config.service.js``) können  Einstellungen betreffend der Map gemacht werden.  
 
