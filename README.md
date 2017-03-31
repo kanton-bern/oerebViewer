@@ -108,8 +108,29 @@ Das entsprechende Snippet für den Sprachwechsel sieht so aus:
 ```
 
 
-## 6.1. Allgemeine Map Konfiguration ##
-Im ConfigService (``/src/app/components/config/config.service.js``) können  Einstellungen betreffend der Map gemacht werden.  
+## 6.1 Allgemeine Map Konfiguration ##
+Im ConfigService (``/src/app/components/config/config.service.js``) können Einstellungen betreffend der Map gemacht werden.  
+
+## 6.2 Konfiguration des Kantonswappen ##
+Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/app/lang/[SPRACHE].json`` abgelegt:
+
+
+```
+#!html
+
+    "logoKantonPath": "http://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif", 
+```
+
+Ist der Name nicht intergraler Bestandteil des Kantons-Logo, so kann dieser ebenfalls im selben Sprachfile definiert werden:
+
+
+```
+#!html
+
+    "kantonText": "Der Kanton Bern",
+```
+
+
 
 ---
 
