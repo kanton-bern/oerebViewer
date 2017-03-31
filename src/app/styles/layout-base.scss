@@ -79,9 +79,9 @@ body {
 
 // Close content-view
 .nav-close {
-  position:absolute;
+  position:fixed;
   right:10px;
-  top:10px;
+  top:100px;
 
   .button {
     background-color:rgba($colorDarkGrey,0.9);
