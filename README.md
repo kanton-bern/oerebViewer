@@ -12,7 +12,7 @@ Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige In
 
 ---
 
-# 2. FUNKTIONSSCHEMA DER SmartAuszug #
+# 2. FUNKTIONSSCHEMA DES SMARTAUSZUGS #
 ![oereb_client_architektur_v1_3.png](https://bitbucket.org/repo/kbojGq/images/2479633775-oereb_client_architektur_v1_3.png)
 
 ---
@@ -24,14 +24,17 @@ Damit die Applikation auf einem Webserver installiert werden kann, müssen folge
 * Der Webserver muss fähig sein HTML-Dokumente auszuliefern. Auf der Betreiberseite wird also nur eine minimale Infrastruktur benötigt.
 
 ## 3.1 Client-Technologie ##
-Da die gesamte Anwendungs-Logik im Client implementiert ist, wurde die Applikation vollständig mit [AngularJS](https://angularjs.org/) realisiert. Für das Markup des Frontend wurde - basierend auf dem [Foundation Framework](http://foundation.zurb.com/) - ein HTML/CSS(SASS)/JS-Template erstellt.
+Da die gesamte Anwendungs-Logik im Client implementiert ist, wurde die Applikation vollständig mit [AngularJS, Version 1.5.11](https://angularjs.org/) realisiert. Für das Markup des Frontend wurde - basierend auf dem [Foundation Framework, v6.1](http://foundation.zurb.com/) - ein HTML/CSS(SASS)/JS-Template erstellt.
 Damit konnte eine performante und flexible Lösung gebaut werden welche kaum Anforderungen an die (Web)Server-Infrastruktur stellt: dies macht es möglich die SmartAuszug sehr einfach durch einen beliebigen Kanton zu betreiben.
 ---
 
 # 4. ENTWICKLUNG UND LOKALES TESTEN #
 Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine installiert werden. [Weiterentwicklungen sind möglich und können via PR (Pull-Requests) beantragt werden](https://bitbucket.org/stubr/oereb-app/pull-requests/).
 
-## 4.1 Installationsanleitung ##
+## 4.1 Voraussetzungen und Vorbereitung ##
+Die Applikation kann sowohl unter einem der gängigen OS installiert werden. Vorraussetzung ist die Installation von [NodeJS](https://nodejs.org/en/). Die Installation von node.js erfolgt in Mac OS X und Windows praktisch identisch via den [Installer von NodeJS](https://nodejs.org/en/download/). Alle nachfolgenden Installationschritte basieren auf NodeJS. Damit NodeJS effektiv genutzt werden kann, werden Kenntnisse in der Verwendung eines Terminals unter dem jeweiligen OS vorausgesetzt.
+
+## 4.2 Installationsanleitung ##
 
 1. Die aktuelle Version aus diesem Repository herunterladen
 2. npm install -g bower gulp yarn
@@ -39,11 +42,11 @@ Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine inst
 4. bower install
 5. gulp serve
 
-## 4.2 Anmerkung ##
+## 4.3 Anmerkung ##
 Mit **gulp serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
 Mit **gulp build** wird eine produktive Version der App gebaut. Externe Ressourcen werden gekürzt (minified) und zusammengefasst (concatenate). Die produktive Version befindet sich im Verzeichnis /dist/. Das gesamte **/dist/** Verzeichnis muss ins Root der produktiven Umgebung kopiert werden, damit die Applikation lauffähig ist.
 
-## 4.3 Testen der Applikation ##
+## 4.4 Testen der Applikation ##
 Für Tests können die folgenden Parzellen verwendet werden:
 
 * 741 in Ittigen (Grauholzstrasse 50, 3063 Ittigen)
