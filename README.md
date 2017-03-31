@@ -13,7 +13,7 @@ Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige In
 ---
 
 # 2. FUNKTIONSSCHEMA DER SmartAuszug #
-![oereb_client_architektur_v1_2.png](https://bitbucket.org/repo/kbojGq/images/2306584680-oereb_client_architektur_v1_2.png)
+![oereb_client_architektur_v1_3.png](https://bitbucket.org/repo/kbojGq/images/2479633775-oereb_client_architektur_v1_3.png)
 
 ---
 
