@@ -131,7 +131,7 @@ Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorle
 # 9. DIVERSES #
 ## 9.1 Verantwortlichkeiten ##
 
-* Owner und Projektmanagement OEREB-App: Bernhard Sturm (bs@sturmundbreaem.ch)
+* Owner des Repos zur Zeit: Bernhard Sturm (bs@sturmundbreaem.ch)
 * Technische Realisierung: Tobias Schmoker (schmoker@novu.ch)
 * Inhaltliche Verantwortung und Projektleitung: Cornelia Nussberger (cornelia.nussberger@bve.be.ch)
 * Usability-Tests: Stephan Schallenberger (stephan.schallenberger@ufive.unibe.ch)
