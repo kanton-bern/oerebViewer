@@ -3,16 +3,16 @@
 [TOC]
 
 # 1. EINLEITUNG #
-Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige Instanz der ÖREB-Applikation zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der ÖREB-Applikation. 
+Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige Instanz der SmartAuszug zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der SmartAuszug.
 
 ## 1.1 Zu diesem Repository ##
-* Dieses Repository beinhaltet die komplette ÖREB-Applikation und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
-* Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung. 
+* Dieses Repository beinhaltet die komplette SmartAuszug und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
+* Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung.
 * Issues / Bugs und Wünsche können mit dem Issue-Tracker erfasst werden.
 
 ---
 
-# 2. FUNKTIONSSCHEMA DER ÖREB-APPLIKATION #
+# 2. FUNKTIONSSCHEMA DER SmartAuszug #
 ![oereb_client_architektur_v1_2.png](https://bitbucket.org/repo/kbojGq/images/2306584680-oereb_client_architektur_v1_2.png)
 
 ---
@@ -25,7 +25,7 @@ Damit die Applikation auf einem Webserver installiert werden kann, müssen folge
 
 ## 3.1 Client-Technologie ##
 Da die gesamte Anwendungs-Logik im Client implementiert ist, wurde die Applikation vollständig mit [AngularJS](https://angularjs.org/) realisiert. Für das Markup des Frontend wurde - basierend auf dem [Foundation Framework](http://foundation.zurb.com/) - ein HTML/CSS(SASS)/JS-Template erstellt.
-Damit konnte eine performante und flexible Lösung gebaut werden welche kaum Anforderungen an die (Web)Server-Infrastruktur stellt: dies macht es möglich die ÖREB-Applikation sehr einfach durch einen beliebigen Kanton zu betreiben.
+Damit konnte eine performante und flexible Lösung gebaut werden welche kaum Anforderungen an die (Web)Server-Infrastruktur stellt: dies macht es möglich die SmartAuszug sehr einfach durch einen beliebigen Kanton zu betreiben.
 ---
 
 # 4. ENTWICKLUNG UND LOKALES TESTEN #
@@ -62,7 +62,7 @@ Damit eine lauffähige Version auf einem externen Webserver publiziert werden ka
 
 
 ```
-Der letzte Schritt besteht aus einem gulp build. 
+Der letzte Schritt besteht aus einem gulp build.
 Damit werden alle Quelldateien komprimiert und für die Publikation auf einem externen Webserver optimiert.
 ```
 
@@ -71,7 +71,7 @@ Damit werden alle Quelldateien komprimiert und für die Publikation auf einem ex
 # 6. KONFIGURATION #
 ## 6.1. Layers ##
 Im LayersService (``/src/app/components/layers/layers.service.js``) können die bestehenden Layers angepasst werden. Im Block «LAYERS START» bis «LAYERS END» sind die Layers jeweils in einer Methode definiert. Der Rückgabewert dieser Methoden muss entweder ein [ol.Layer.Tile](http://openlayers.org/en/v3.7.0/apidoc/ol.layer.Tile.html) zurückgeben oder ein [Promise](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) mit einer ol.Layer.Tile Auflösung (das ermöglicht ein dynamisches Laden der Konfiguration von einem Fremdsystem oder aus einer separaten Datei).
- 
+
 Zusätzlich zu den normalen ol.Layer.Tile Optionen müssen weiter die Parameters ``visible: boolean`` und ``name: string`` gesetzt werden.
 
 Jeder Layer muss registriert werden. Soll der Layer standardmässig geladen werden, kann dieser im ``constructor`` des LayersService mit der Methode ``LayersService.add()`` hinzugefügt werden.
@@ -106,21 +106,21 @@ Der ÖREB-Auszug basiert auf der offiziellen Weisung [«ÖREB-Kataster – DATA-
 ## 7.2 WFS-Dienste ##
 Für die Markierung der Grundstücke wir der WFS-Dienst des Kanton Berns verwendet.  
 
-## 7.3 Adressauflösung ## 
+## 7.3 Adressauflösung ##
 Für die Adressauflösung wird der Service von [geo.admin.ch](http://api3.geo.admin.ch/) verwendet.
 
 ---
 
 # 8. EINSCHRÄNKUNGEN #
 ## 8.1 SSL-Zertifikate ##
-Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden. 
+Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden.
 
 ## 8.2 Browser ##
 Die Applikation wurde mit folgenden Browser (jeweils mit der aktuellen und vorletzten Version des jeweiligen Browsers) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
 
  * Windows (7/10): Chrome, Firefox, IE, Opera
  * Android (5.x/6.x/7.x): Chrome
- * iOS (7): Safari, Chrome 
+ * iOS (7): Safari, Chrome
 
 
 ---

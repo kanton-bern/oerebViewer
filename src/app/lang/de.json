@@ -76,7 +76,7 @@
     "searchboxPlaceholder": "Grundstück oder Adresse suchen ...",
     "markerAlt":"Markiertes Grundstück",
     "languageISO": "de",
-    "oerebText": "Dies ist die Applikation zum Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB)",
+    "oerebText": "Dies ist der SmartAuszug zum Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB)",
     "logoBundPath": "http://files.be.ch/bve/agi/oereb/logos/eidgenossenschaft.png",
     "logoKantonPath": "http://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif",
     "responsibilityContent": "Katasterführende Stelle",
