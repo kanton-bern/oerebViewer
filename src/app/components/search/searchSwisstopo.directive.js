@@ -58,12 +58,6 @@ class SearchSwisstopoController {
                 // center result
                 let coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.attrs.lon, self.search.attrs.lat]);
 
-                /*if (self.search.attrs.origin == 'address') {
-                    setTimeout(function() {
-                        $('.selectable-egrid-first').click();
-                    }, 2000);
-                }*/
-
                 self.Map.setPosition(coordinates);
                 self.Map.click(coordinates);
 

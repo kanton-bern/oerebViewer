@@ -61,7 +61,7 @@ class SearchMapboxController {
             source: placesSource.ttAdapter()
         };
 
-        // watch the home.search model for changes
+        // watch the search model for changes
         $scope.$watch(function () {
             return self.search;
         }, function (value) {

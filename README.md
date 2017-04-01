@@ -116,6 +116,14 @@ Im ConfigService (``/src/app/components/config/config.service.js``) können Eins
 * URL zum WFS-Dienst
 * URL zum externen Kartenportal
 
+### 6.3.1 Suchdienst konfigurieren / programmieren ###
+Für die Anpassung des Suchdienst, sowie für die Integration eines neuen Such- Dienstes sind erweiterte Programmierkenntnisse notwendig.
+
+Bestehende Integrationen gibt es für die API von Mapbox (searchMapbox.directive) und api3.geo.admin.ch (searchSwisstopo.directive) und können jeweils unter ``/src/app/components/search/searchDIENST.directive.js`` angepasst werden. Per Standard wird der Suchdienst von api3.geo.admin.ch verwendet.
+
+Die Directiven werden in ``/src/app/index.module.js`` importiert und auf den Selektor ‘search’ registiert. ‘search’ wird in ``/src/app/components/map/map.html `` verwendet.
+ 
+
 ## 6.4 Konfiguration des Kantonswappen ##
 Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/app/lang/[SPRACHE].json`` abgelegt:
 
