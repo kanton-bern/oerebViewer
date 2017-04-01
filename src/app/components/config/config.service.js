@@ -28,6 +28,9 @@ export class ConfigService {
             oereb: 'https://www.oereb2.apps.be.ch/OerbverSVC.svc'
         };
 
+        this.opacityRestrictionLayers = 0.7;
+
+
         // layer configurations are in: ../layers/layers.service.js
     }
 }
