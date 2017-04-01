@@ -1,8 +1,3 @@
-$(function() {
-    console.log('loaded');
-});
-
-
 // if iOS
 if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
     document.querySelector('html').className = 'no-vh-support';

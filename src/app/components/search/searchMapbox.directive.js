@@ -14,10 +14,11 @@ export function SearchMapboxDirective() {
 
 class SearchMapboxController {
 
-    constructor($scope, Map, Coordinates) {
+    constructor($scope, Map, Coordinates, $window) {
         'ngInject';
 
         this.Map = Map;
+        this.$window = $window;
 
         let self = this;
 
@@ -32,7 +33,6 @@ class SearchMapboxController {
                 wildcard: "%QUERY",
                 // rateLimitWait: 1000,
                 filter: function(response) {
-                    console.log(response.features);
 
                     let mapped = $.map(response.features, function(city) {
                         return {
@@ -46,7 +46,6 @@ class SearchMapboxController {
                         };
                     });
 
-                    console.log(mapped);
                     return mapped;
                 }
             }
@@ -76,5 +75,13 @@ class SearchMapboxController {
             }
         });
 
+    }
+
+    reset() {
+        this.search = '';
+
+        var element = this.$window.document.getElementById('search-me');
+        if(element)
+            element.focus();
     }
 }

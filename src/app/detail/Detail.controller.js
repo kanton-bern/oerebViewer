@@ -143,7 +143,6 @@ export class DetailController {
 
     getExternURL(egrid) {
         let url = this.Config.services.extern;
-        console.debug(egrid);
 
         url = url.replace('[[EGRID]]', egrid);
         url = url.replace('[[LANGUAGE]]', this.$filter('translate')('languageISO'));

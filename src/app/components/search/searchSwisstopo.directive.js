@@ -14,10 +14,11 @@ export function SearchSwisstopoDirective() {
 
 class SearchSwisstopoController {
 
-    constructor($scope, Map, Coordinates) {
+    constructor($scope, Map, Coordinates, $window) {
         'ngInject';
 
         this.Map = Map;
+        this.$window = $window;
 
         let self = this;
 
@@ -64,5 +65,13 @@ class SearchSwisstopoController {
             }
         });
 
+    }
+
+    reset() {
+        this.search = '';
+
+        var element = this.$window.document.getElementById('search-me');
+        if(element)
+            element.focus();
     }
 }
