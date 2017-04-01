@@ -108,9 +108,6 @@ class MapController {
 
         // load map
         this.map = Map.map;
-
-        // load geolocation parameters
-        this.mobileGeolocationOptions = Map.mobileGeolocationOptions;
     }
 
     drawByWFSSource(source, addLayerMethod) {
@@ -119,19 +116,6 @@ class MapController {
 
         if (addLayerMethod == 'selected')
             this.Map.addSelectedLayer(source);
-    }
-
-    getLocation() {
-        let self = this;
-
-        // Click on Center
-        setTimeout(function() {
-            let currentCenter = self.Map.getCenter();
-            self.Map.click(currentCenter, true);
-        }, 1000);
-
-        // Close main menu if open
-        this.Helpers.closeMenu();
     }
 
     geolocate() {
@@ -149,6 +133,7 @@ class MapController {
                         self.Map.click(currentCenter, true);
                     }, 1000);
 
+                    self.Helpers.closeMenu();
                 },
                 function errorCallback(error) {
 

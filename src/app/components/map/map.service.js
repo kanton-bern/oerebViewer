@@ -83,12 +83,6 @@ export class MapService {
             stroke: new this.ol.style.Stroke({color: 'rgba(40, 40, 230, 1)', width: 2})
         });
 
-        this.mobileGeolocationOptions = {
-            positionFeatureStyle: positionFeatureStyle,
-            accuracyFeatureStyle: accuracyFeatureStyle,
-            zoom: this.Config.zoom.zoomedIn,
-        };
-
         // adds layers to map
         Layers.get(function(layers) {
             layers.forEach(function(layer) {
