@@ -31,6 +31,7 @@ body {
   overflow:hidden;
   //height:100vh;
 
+
   position:absolute;
   top:0px;
   left:0px;
@@ -53,7 +54,7 @@ body {
     background-color: $colorMenuBgnd;
     transition: all ease 1s;
     transform:translateX($menuOffset * -1);
-
+    min-height:100%;
     // Menu is open
     &.active-menu {
       transition: all ease 1s;

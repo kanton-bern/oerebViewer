@@ -17,12 +17,79 @@
     max-width: ($menuOffset - $corrfactorM);
     transform:translateX(($menuOffset - $corrfactorM) * -1);
 
+    .mainnav {
+      font-size:$fontSizeBase * 0.9;
+
+      .pdf-download {
+        .small-12 {
+          margin-bottom:10px;
+        }
+      }
+
+      // Header
+      v-pane-header::after,
+      v-pane-header::before {
+
+        width:10px;
+
+      }
+
+      // history-items
+      .history {
+        .badge {
+          vertical-align: text-bottom;
+          &.secondary {
+            height:1rem;
+            min-width:1rem;
+            font-size: 0.7rem !important;
+            padding:0rem !important;
+
+          }
+        }
+      }
+
+      h1 {
+        font-size:$fontSizeBase * 1.2;
+        line-height: $fontLineHeightBase - 20%;
+        margin-bottom:5px;
+      }
+      .info-date {
+        font-size:$fontSizeBase * 0.8;
+      }
+      v-pane-header, v-pane-content, v-pane-content h3 {
+        font-size:$fontSizeBase * 0.9 !important;
+        line-height: $fontLineHeightBase - 20% !important;
+      }
+      v-pane-content {
+        v-pane-content {
+          v-pane-header {
+            padding-left:10px !important;
+          }
+          restriction {
+            padding-left:22px !important;
+          }
+        }
+
+        .row {
+          .oereb-value {
+            padding-right:10px;
+
+          }
+        }
+      }
+
+    }
+
+
     // Menu is open
     &.active-menu {
       left:$menuOffset - $corrfactorM;
     }
   }
 }
+
+
+
 
 
 // map
