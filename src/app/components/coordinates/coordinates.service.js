@@ -16,7 +16,7 @@ export class CoordinatesService {
                 'type': 2056,
                 'proj4': '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs'
             },
-            // internation
+            // international
             4326: {
                 'type': 4326,
                 'proj4': '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees'

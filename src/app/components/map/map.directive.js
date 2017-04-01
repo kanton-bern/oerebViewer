@@ -134,6 +134,46 @@ class MapController {
         this.Helpers.closeMenu();
     }
 
+    geolocate() {
+        let self = this;
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    let coordinates = self.Coordinates.create(self.Coordinates.System[4326], [position.coords.longitude, position.coords.latitude]);
+
+                    self.Map.setPosition(coordinates);
+
+                    setTimeout(function() {
+                        let currentCenter = self.Map.getCenter();
+                        self.Map.click(currentCenter, true);
+                    }, 1000);
+
+                },
+                function errorCallback(error) {
+
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            self.Notification.error(self.$filter('translate')('notification_geolocation_permission'));
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            self.Notification.error(self.$filter('translate')('notification_geolocation_coordinates'));
+                            break;
+                        default:
+                            self.Notification.error(self.$filter('translate')('notification_geolocation_unknown'));
+                            break;
+                    }
+                },
+                {
+                    maximumAge:Infinity,
+                    timeout:5000
+                }
+            );
+        } else {
+            self.Notification.error(self.$filter('translate')('notification_geolocation_browser'));
+        }
+    }
+
     zoomIn() {
         this.Map.zoomIn();
         // Close main menu if open
