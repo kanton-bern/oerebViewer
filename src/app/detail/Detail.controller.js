@@ -125,9 +125,9 @@ export class DetailController {
             return;
         }
 
-        var splitedResult = id.split("--");
-        var code = splitedResult[0];
-        var hasChildren = (splitedResult[1] == 'true');
+        let splitedResult = id.split("--");
+        let code = splitedResult[0];
+        let hasChildren = (splitedResult[1] == 'true');
 
         if (hasChildren && this.activeRestriction != null) {
             this.Extracts.setRestrictionByCode(this.activeRestriction);
@@ -139,6 +139,16 @@ export class DetailController {
             this.activeRestriction = code;
 
         }
+    }
+
+    getExternURL(egrid) {
+        let url = this.Config.services.extern;
+        console.debug(egrid);
+
+        url = url.replace('[[EGRID]]', egrid);
+        url = url.replace('[[LANGUAGE]]', this.$filter('translate')('languageISO'));
+
+        return url;
     }
 
     collapse(index, id) {

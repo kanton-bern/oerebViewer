@@ -109,7 +109,12 @@ Das entsprechende Snippet für den Sprachwechsel sieht so aus:
 
 
 ## 6.3 Allgemeine Map Konfiguration ##
-Im ConfigService (``/src/app/components/config/config.service.js``) können Einstellungen betreffend der Map gemacht werden.  
+Im ConfigService (``/src/app/components/config/config.service.js``) können Einstellungen betreffend der Map gemacht werden:
+* Zoom Einstellungen
+* Projektion (Extent und EPSG)
+* URL zum OEREB-Webservice
+* URL zum WFS-Dienst
+* URL zum externen Kartenportal
 
 ## 6.4 Konfiguration des Kantonswappen ##
 Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/app/lang/[SPRACHE].json`` abgelegt:
