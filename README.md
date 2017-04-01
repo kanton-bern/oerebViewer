@@ -110,6 +110,7 @@ Das entsprechende Snippet für den Sprachwechsel sieht so aus:
 
 ## 6.3 Allgemeine Map Konfiguration ##
 Im ConfigService (``/src/app/components/config/config.service.js``) können Einstellungen betreffend der Map gemacht werden:
+
 * Zoom Einstellungen
 * Projektion (Extent und EPSG)
 * URL zum OEREB-Webservice
@@ -117,7 +118,7 @@ Im ConfigService (``/src/app/components/config/config.service.js``) können Eins
 * URL zum externen Kartenportal
 
 ### 6.3.1 Suchdienst konfigurieren / programmieren ###
-Für die Anpassung des Suchdienst, sowie für die Integration eines neuen Such- Dienstes sind erweiterte Programmierkenntnisse notwendig.
+Für die Anpassung des Suchdienst sowie für die Integration eines neuen Suchdienstes sind erweiterte Programmierkenntnisse notwendig.
 
 Bestehende Integrationen gibt es für die API von Mapbox (searchMapbox.directive) und api3.geo.admin.ch (searchSwisstopo.directive) und können jeweils unter ``/src/app/components/search/searchDIENST.directive.js`` angepasst werden. Per Standard wird der Suchdienst von api3.geo.admin.ch verwendet.
 
