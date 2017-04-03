@@ -93,7 +93,7 @@ Jeder Layer muss registriert werden. Soll der Layer standardmässig geladen werd
 ## 6.2. Bearbeiten der Sprachvariablen ##
 Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und angepasst werden. Pro Sprache existiert jeweils eine .json Datei.
 
-Es können mindestens 3 Sprachversionen gleichzeitig betrieben werden. Dazu muss in der Datei ``/src/app/main/main.html`` am Punkt ``<!-- Language-Switch`` die entsprechende Sprachversion definiert werden.
+Es können mindestens 3 Sprachversionen gleichzeitig betrieben werden. Dazu muss in der Datei ``/src/app/main/main.html`` und in der Datei ``/src/app/detail/detail.html``  am Punkt ``<!-- Language-Switch`` die entsprechende Sprachversion definiert werden.
 
 Das entsprechende Snippet für den Sprachwechsel sieht so aus:
 
