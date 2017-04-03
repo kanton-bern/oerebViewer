@@ -51,10 +51,9 @@
 
   // Start mainnav
   .mainnav {
-      font-size:$fontSizeBase * 0.9;
+      font-size:$fontSizeBase * 1;
       line-height:$fontLineHeightBase;
 
-      font-size:$fontSizeBase * 0.9;
 
       .pdf-download {
         .small-12 {
@@ -66,7 +65,7 @@
       v-pane-header::after,
       v-pane-header::before {
 
-        width:10px !important;
+        width:16px !important;
 
       }
 
@@ -90,10 +89,10 @@
         margin-bottom:5px;
       }
       .info-date {
-        font-size:$fontSizeBase * 0.8;
+        font-size:$fontSizeBase * 0.9;
       }
       v-pane-header, v-pane-content, v-pane-content h3 {
-        font-size:$fontSizeBase * 0.9 !important;
+        font-size:$fontSizeBase * 1 !important;
         line-height: $fontLineHeightBase - 20% !important;
       }
       v-pane-content {
