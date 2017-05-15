@@ -1,10 +1,10 @@
 {
-  "name": "oerebAppV2",
-  "version": "0.0.0",
+  "name": "oerebApp",
+  "version": "1.0.0",
   "dependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "ngeo": "0.0.2"
+    "ngeo": "2.1.4"
   },
   "scripts": {
     "test": "gulp test"

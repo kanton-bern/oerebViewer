@@ -20,7 +20,7 @@ gulp.task('partials', ['markups'], function () {
             collapseWhitespace: true
         }))
         .pipe($.angularTemplatecache('templateCacheHtml.js', {
-            module: 'oerebAppV2',
+            module: 'oerebApp',
             root: 'app'
         }))
         .pipe(gulp.dest(conf.paths.tmp + '/partials/'));

@@ -41,7 +41,7 @@ import { LegalListDirective } from '../app/components/legallist/legallist.direct
 import { LegalEntryDirective } from '../app/components/legalentry/legalentry.directive';
 
 
-angular.module('oerebAppV2', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
+angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
     .constant('moment', moment)
 
     .factory('httpRequestInterceptor', HttpRequestInterceptorFactory)
