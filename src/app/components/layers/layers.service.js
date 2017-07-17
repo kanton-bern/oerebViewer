@@ -78,7 +78,8 @@ export class LayersService {
     asyncGrundbuchMapLayer() {
         let self = this;
 
-        return fetch('/app/components/layers/capabilities/grundbuch.xml').then(function (response) {
+        // https://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml
+        return fetch('https://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
                 return response.text();
         }).then(function (text) {
             let result = self.parser.read(text);
