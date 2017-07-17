@@ -31,6 +31,7 @@ class MapController {
         this.Notification = Notification;
         this.$filter = $filter;
         this.ol = ol;
+        this.currentEgrid = 0;
 
         let self = this;
 
@@ -96,10 +97,10 @@ class MapController {
 
         Extracts.registerCurrentObserverCallback(function(reloading) {
 
-            let egrid = self.Extracts.getCurrent().egrid;
+            self.currentEgrid = self.Extracts.getCurrent().egrid;
 
             if (!reloading) {
-                self.WFS.getSource(egrid).then(function (vectorSource) {
+                self.WFS.getSource(self.currentEgrid).then(function (vectorSource) {
                     self.drawByWFSSource(vectorSource, 'selected');
                     self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
                 });

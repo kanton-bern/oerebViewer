@@ -16,7 +16,8 @@
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
               <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
-                <button ng-click="map.openDetail(ele.egrid)" ng-mobile-click="map.openDetail(ele.egrid)" class="clickable">{{'infobox_plot' | translate}} {{ele.number}}</button>
+                <button ng-if="map.currentEgrid != ele.egrid" ng-click="map.openDetail(ele.egrid)" ng-mobile-click="map.openDetail(ele.egrid)" class="clickable">{{'infobox_plot' | translate}} {{ele.number}}</button>
+                <button ng-if="map.currentEgrid == ele.egrid">{{'infobox_plot' | translate}} {{ele.number}} ({{'active' | translate}})</button>
             </li>
         </ul>
     </div>
@@ -30,7 +31,6 @@
     </button>
 
     <search></search>
-
 
     <button class="button svg-icon btnGetLocation" ng-click="map.geolocate()">
         <svg class="icon icon-location-2">
