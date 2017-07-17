@@ -10,7 +10,7 @@ export class LayersService {
         this.resolvedLayers = [];
         this.parser = new ol.format.WMTSCapabilities();
 
-        // add layers
+        // register layers here
         this.add(this.asyncCantonLayer());
         this.add(this.asyncGrundbuchMapLayer());
         this.add(this.asyncGreyMapLayer());
@@ -19,9 +19,15 @@ export class LayersService {
     }
 
     /*
-        LAYERS START
+        Layer-Methods needs to return an instance of ol.layer.Tile or a Promise that will be resolved with an instance of ol.layer.Tile
+        The layers need to be registered within the constructor like so: this.add(this.layerMethod());
+     */
+
+    /*
+     Implementation of a WMS
      */
     oerebLayer() {
+        // documentation for ol.source.TileWMS: http://geoadmin.github.io/ol3/apidoc/ol.source.TileWMS.html
         let wmsOEREBSource = new this.ol.source.TileWMS(({
             url: 'https://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
             params: {
@@ -34,12 +40,12 @@ export class LayersService {
             serverType: 'geoserver'
         }));
 
-
+        // http://geoadmin.github.io/ol3/apidoc/ol.layer.Tile.html
         let wmsOEREB = new this.ol.layer.Tile({
             opacity: 1,
-            visible: true,
+            visible: true, // is visible per default
             source: wmsOEREBSource,
-            name: 'oereb'
+            name: 'oereb' // the name is necessary for interacting with this layer, see: map/map.directives.js, method: showLayer
         });
 
         wmsOEREB.setZIndex(100);
@@ -47,54 +53,67 @@ export class LayersService {
         return wmsOEREB;
     }
 
-
+    /*
+        Implementation of a WMTS - based on a Capabilites.xml
+     */
     asyncGreyMapLayer() {
         let self = this;
 
+        // fetches capabilities from a service
         return fetch('https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
             return response.text();
         }).then(function (text) {
             let result = self.parser.read(text);
+
+            // parses options based on the capabilities
             let options = ol.source.WMTS.optionsFromCapabilities(result, {
                 layer: 'a4p_a4p_hintergrund_grau_n_bk',
                 matrixSet: 'EPSG:2056'
             });
 
+            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
             let wmtsSource = new ol.source.WMTS(options);
 
-            let wmtsLayer = new ol.layer.Tile({
+            // creates ol.layer.Tile with the prepared source
+            return new ol.layer.Tile({
                 opacity: 1,
                 source: wmtsSource,
-                visible: true,
-                name: 'greyMap'
+                visible: true, // is visible per default
+                name: 'greyMap' // the name is necessary for interacting with this layer, see: map/map.directives.js, method: showLayer
             });
 
-            return wmtsLayer;
         }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
+            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.'); // warning if not accessible
         });
     }
 
+    /*
+     Implementation of a WMTS - based on a Capabilites.xml
+     */
     asyncGrundbuchMapLayer() {
         let self = this;
 
-        // https://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml
+        // fetches capabilities from a service
         return fetch('https://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml').then(function (response) {
                 return response.text();
         }).then(function (text) {
             let result = self.parser.read(text);
+
+            // parses options based on the capabilities
             let options = ol.source.WMTS.optionsFromCapabilities(result, {
                 layer: 'a4p_a4p_mopube_n_bk',
                 matrixSet: 'EPSG:2056'
             });
 
+            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
             let wmtsSource = new ol.source.WMTS(options);
 
+            // creates ol.layer.Tile with the prepared source
             let wmtsLayer = new ol.layer.Tile({
                 opacity: 0.5,
                 source: wmtsSource,
-                visible: true,
-                name: 'grundbuchMap'
+                visible: true, // is visible per default
+                name: 'grundbuchMap' // the name is necessary for interacting with this layer, see: map/map.directives.js, method: showLayer
             });
 
             return wmtsLayer;
@@ -103,6 +122,10 @@ export class LayersService {
         });
     }
 
+
+    /*
+     Implementation of a WMTS - based on a Capabilites.xml
+     */
     asyncCantonLayer() {
         let self = this;
 
@@ -132,6 +155,9 @@ export class LayersService {
         });
     }
 
+    /*
+     Implementation of a WMTS - based on a Capabilites.xml
+     */
     asyncOrthoPhotoLayer() {
         let self = this;
 
@@ -158,6 +184,9 @@ export class LayersService {
     }
 
 
+    /*
+        Implementation of OSM: http://geoadmin.github.io/ol3/apidoc/ol.source.OSM.html
+     */
     osmLayer() {
         let osmLayer = new this.ol.layer.Tile({
             source: new this.ol.source.OSM(),
@@ -171,7 +200,9 @@ export class LayersService {
         LAYERS END
      */
 
-
+    /*
+        DO NOT EDIT CODE AFTER THIS COMMENT
+     */
 
     // checks if layer is currently active
     isActive(name) {
@@ -220,7 +251,7 @@ export class LayersService {
                 }
 
             });
-        })
+        });
 
         Promise.all(requests).then(() => callback(layerService.resolvedLayers));
     }
