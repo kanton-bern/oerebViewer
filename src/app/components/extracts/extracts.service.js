@@ -29,9 +29,7 @@ export class ExtractsService {
         this.add(this.getCurrent(), true);
     }
 
-    add(newExtract, reloading) {
-        reloading = reloading || false;
-
+    add(newExtract, reloading = false) {
         let self = this;
 
         // if it's a reloading skip the first one
@@ -44,12 +42,12 @@ export class ExtractsService {
         };
 
         this.OEREB.getExtractById(newExtract.egrid).then(function (d) {
-            if (d.status == 204)
+            if (d.status === 204)
                 throw d;
 
             // To Debug: dump JSON-object to console
-            //console.debug('extract');
-            //console.debug(newExtract);
+            // console.debug('extract');
+            // console.debug(newExtract);
 
             newExtract = self.wrap(newExtract, d.data);
 
@@ -194,7 +192,7 @@ export class ExtractsService {
         let foundOne = false;
 
         for (let i = 0; i < this.extracts.length; i++) {
-            if (self.extracts[i].egrid == egrid) {
+            if (self.extracts[i].egrid === egrid) {
                 if (!foundOne) {
                     self.currentExtract = self.extracts[i];
                     foundOne = true;
@@ -204,7 +202,10 @@ export class ExtractsService {
             }
         }
 
-        self.notifyCurrentObservers(reloading);
+        // ie fix
+        setTimeout(function () {
+            self.notifyCurrentObservers(reloading);
+        }, 1);
     }
 
     getCurrent() {

@@ -95,15 +95,15 @@ class MapController {
         });
 
         Extracts.registerCurrentObserverCallback(function(reloading) {
-            reloading = reloading || false;
 
             let egrid = self.Extracts.getCurrent().egrid;
 
-            if (!reloading)
+            if (!reloading) {
                 self.WFS.getSource(egrid).then(function (vectorSource) {
                     self.drawByWFSSource(vectorSource, 'selected');
                     self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
                 });
+            }
         });
 
         // load map

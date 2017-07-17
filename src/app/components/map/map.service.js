@@ -194,7 +194,7 @@ export class MapService {
     notifyClickObservers(coordinates, force = false) {
 
         // Close main menu if open
-        if (angular.element("#menuLeftSlider").attr('aria-expanded') == 'true') {
+        if (angular.element("#menuLeftSlider").attr('aria-expanded') === 'true') {
             angular.element('#buttonShowExtract').click();
         }
 

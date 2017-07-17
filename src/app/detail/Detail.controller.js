@@ -28,7 +28,7 @@ export class DetailController {
 
         // if there are no data available
         this.noDatas = true;
-        if ($stateParams.egrid != 0) {
+        if ($stateParams.egrid !== 0) {
             this.addExtract($stateParams.egrid);
             this.noDatas = false;
         }
