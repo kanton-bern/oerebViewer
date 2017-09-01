@@ -43,10 +43,6 @@
 
 /* Underline */
 @mixin underline_mix($stop1:5px, $stop2:6px, $text-bg-color: $bg-color, $underline_color: $link-color) {
-    background: -webkit-linear-gradient(to top, transparent $stop1, $underline_color $stop1, $underline_color $stop2, transparent $stop2);
-    background: -moz-linear-gradient(to top, transparent $stop1, $underline_color $stop1, $underline_color $stop2, transparent $stop2);
-    background: -o-linear-gradient(to top, transparent $stop1, $underline_color $stop1, $underline_color $stop2, transparent $stop2);
-    background: -ms-linear-gradient(to top, transparent $stop1, $underline_color $stop1, $underline_color $stop2, transparent $stop2);
     background: linear-gradient(to top, transparent $stop1, $underline_color $stop1, $underline_color $stop2, transparent $stop2);
 
     text-shadow: 2px 1px 0px $text-bg-color, -2px 1px 0px $text-bg-color, 0px -2px 0px $text-bg-color;
@@ -326,12 +322,14 @@
     color:$colorContent;
     &:link, &:visited {
       color:$colorContent;
-      @include underline_mix(1px,2px,$colorMenuBgnd,$colorHeadContent);
+      //@include underline_mix(1px,2px,$colorMenuBgnd,$colorHeadContent);
     }
 
     &:hover, &:active {
       color:$colorContent;
-      @include underline_mix(1px,2px,$colorMenuBgnd,$colorMenuBgnd);
+      text-decoration:underline;
+      text-decoration-skip: ink;
+      //@include underline_mix(1px,2px,$colorMenuBgnd,$colorMenuBgnd);
 
     }
 
@@ -344,12 +342,14 @@
     color:$colorWhite;
     &:link, &:visited {
       color:$colorWhite;
-      @include underline_mix(1px,2px,transparent,transparent);
+      //@include underline_mix(1px,2px,transparent,transparent);
     }
 
     &:hover, &:active {
       color:$colorWhite;
-      @include underline_mix(1px,2px,$colorDarkGrey,$colorWhite);
+      text-decoration:underline;
+      text-decoration-skip: ink;
+      //@include underline_mix(1px,2px,$colorDarkGrey,$colorWhite);
 
     }
 
@@ -363,12 +363,14 @@
     color:$colorContent;
     &:link, &:visited {
       color:$colorContent;
-      @include underline_mix(1px,2px,$colorContentBgnd,$colorContent);
+      //@include underline_mix(1px,2px,$colorContentBgnd,$colorContent);
     }
 
     &:hover, &:active {
       color:$colorContent;
-      @include underline_mix(1px,2px,transparent,transparent);
+      text-decoration:underline;
+      text-decoration-skip: ink;
+      //@include underline_mix(1px,2px,transparent,transparent);
 
     }
 
@@ -380,12 +382,14 @@
     color:$colorWhite;
     &:link, &:visited {
       color:$colorWhite;
-      @include underline_mix(1px,2px,$colorHeadContent,$colorHeadContent);
+      //@include underline_mix(1px,2px,$colorHeadContent,$colorHeadContent);
     }
 
     &:hover, &:active {
       color:$colorWhite;
-      @include underline_mix(1px,2px,$colorHeadContent,$colorWhite);
+      text-decoration:underline;
+      text-decoration-skip: ink;
+      //@include underline_mix(1px,2px,$colorHeadContent,$colorWhite);
     }
 
   }
@@ -405,7 +409,8 @@
 
     &:hover, &:active {
       color:$colorWhite;
-      text-decoration: underline;
+      text-decoration:underline;
+      text-decoration-skip: ink;
       background-color: transparent;
     }
 
@@ -424,7 +429,8 @@
     }
 
     &:hover, &:active {
-      text-decoration: underline;
+      text-decoration:underline;
+      text-decoration-skip: ink;
     }
 
   }

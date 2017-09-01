@@ -189,6 +189,15 @@ body {
     font-size:$fontSizeBase * 1.2;
     // height: 80000px; // scroll issues
 
+    .menu {
+      a {
+        padding:0;
+        width:90%;
+        display:inline-block;
+        vertical-align: text-top;
+
+      }
+    }
 
     // top-bar with language
     .top-menu {
@@ -196,6 +205,8 @@ body {
       margin-top:-4px;
       background-color:$colorHeadContent;
       margin-bottom:20px;
+
+
 
       .icon {
           font-size:$fontSizeBase * 0.8;
@@ -243,7 +254,9 @@ body {
 
 
       .pdf-download {
-
+        .small-12 {
+          margin-top:1rem;
+        }
       }
 
       h1 {
@@ -304,6 +317,8 @@ body {
           margin-bottom:0px;
           div {
             padding:5px 48px 5px 12px;
+            line-height:$fontLineHeightBase - 20%;
+
             h1 {
               margin:0;
               padding:0;
@@ -394,8 +409,11 @@ body {
                   v-pane-header {
                     padding-left:0px;
 
+
                     v-pane-header {
                        border-bottom:0px solid $colorMenuTop;
+
+
                     }
 
 
@@ -404,6 +422,8 @@ body {
                     //padding-left:32px;
                     //padding-right:32px;
                     font-size:$fontSizeBase * 1;
+
+
 
                     v-pane-header {
                       padding-left:20px;
