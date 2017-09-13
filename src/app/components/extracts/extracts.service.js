@@ -30,7 +30,9 @@ export class ExtractsService {
     }
 
     add(newExtract, reloading = false) {
-        let self = this;
+        if (newExtract.egrid == 0) {
+            return;
+        }
 
         // if it's a reloading skip the first one
         this.remove(newExtract.egrid);
@@ -38,10 +40,10 @@ export class ExtractsService {
         this.Loading.show();
 
         newExtract.remove = function () {
-            self.remove(this.egrid);
+            this.remove(this.egrid);
         };
 
-        this.OEREB.getExtractById(newExtract.egrid).then(function (d) {
+        this.OEREB.getExtractById(newExtract.egrid).then((d) => {
             if (d.status === 204)
                 throw d;
 
@@ -49,40 +51,40 @@ export class ExtractsService {
             // console.debug('extract');
             // console.debug(newExtract);
 
-            newExtract = self.wrap(newExtract, d.data);
+            newExtract = this.wrap(newExtract, d.data);
 
-            self.extracts.push(newExtract);
+            this.extracts.push(newExtract);
 
-            while (self.extracts.length > 10)
-                self.extracts.shift();
+            while (this.extracts.length > 10)
+                this.extracts.shift();
 
-            self.setCurrent(newExtract.egrid, reloading);
-            self.localStorageService.set('extracts', self.extracts);
+            this.setCurrent(newExtract.egrid, reloading);
+            this.localStorageService.set('extracts', this.extracts);
 
-            // self.notifyCurrentObservers(reloading);
+            // this.notifyCurrentObservers(reloading);
 
-            self.Loading.hide();
+            this.Loading.hide();
 
             if (!reloading) {
                 // now lets remove the second one in silent
-                let loadSuccess1 = self.$filter('translate')('notification_loadsuccess1');
-                let loadSuccess2 = self.$filter('translate')('notification_loadsuccess2');
+                let loadSuccess1 = this.$filter('translate')('notification_loadsuccess1');
+                let loadSuccess2 = this.$filter('translate')('notification_loadsuccess2');
 
-                self.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
+                this.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
             }
 
-        }).catch(function (data) {
+        }).catch((data) => {
 
             if (data.status == 204) {
-                self.Notification.error(self.$filter('translate')('oerebService204'));
+                this.Notification.error(this.$filter('translate')('oerebService204'));
             } else {
-                let loadFailed1 = self.$filter('translate')('notification_failed1');
-                let loadFailed2 = self.$filter('translate')('notification_failed2');
-                self.Notification.error(loadFailed1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
+                let loadFailed1 = this.$filter('translate')('notification_failed1');
+                let loadFailed2 = this.$filter('translate')('notification_failed2');
+                this.Notification.error(loadFailed1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
             }
 
 
-            self.Loading.hide();
+            this.Loading.hide();
         });
     }
 
