@@ -23,8 +23,11 @@ export class ConfigService {
 
         // map services
         this.services = {
+            // WFS mit Grundstücken und selbständigen und dauernden Rechten. Wird für die Markierung in der Karte bei der Auswahl der Grundstücke verwendet.
             wfsPropertyMarking: 'https://www.geoservice.apps.be.ch/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer',
+            // Basis URL des OEREB-Webservice gemäss Weisung
             oereb: 'https://www.oereb2.apps.be.ch/OerbverSVC.svc',
+            // Aufruf der Karte des ÖREB-Katasters für das im Samrt-Auszug ausgewählte Grundstück. Variablen EGRID und Language.
             extern: 'http://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1=[[EGRID]]&keyname1=EGRID&project=a42pub_oereb&language=[[LANGUAGE]]&userprofile=geo'
         };
 

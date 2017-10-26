@@ -10,11 +10,23 @@ export class LayersService {
         this.resolvedLayers = [];
         this.parser = new ol.format.WMTSCapabilities();
 
-        // register layers here
+        /*
+         * REGISTER LAYERS HERE
+        */
+
+        // Geometrie der Kantonsgrenze
         this.add(this.asyncCantonLayer());
+
+        // Grundbuchplan schwarz-weiss
         this.add(this.asyncGrundbuchMapLayer());
+
+        // Grauer Hintergrund für kleine Masstäbe (ergänzend zum Grundbuchplan)
         this.add(this.asyncGreyMapLayer());
+
+        // Orthophoto für zweite Hintergrundansicht
         this.add(this.asyncOrthoPhotoLayer());
+
+        // Enthält die Umrisse der Grundstücke und selbständigen und dauernden Rechte wird dem Hintergrund überlagert
         this.add(this.oerebLayer());
     }
 
@@ -233,7 +245,7 @@ export class LayersService {
                 if (layer instanceof Promise) {
                     layer.then(function (value) {
                         if (value !== undefined)
-                        layerService.resolvedLayers.push(value);
+                            layerService.resolvedLayers.push(value);
 
                         resolve();
                     });
