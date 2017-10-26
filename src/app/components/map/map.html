@@ -47,12 +47,12 @@
             <use xlink:href="#icon-minus"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnMapAerial" ng-click="map.showLayer('orthoPhoto')" ng-if="map.activeLayer != 'orthoPhoto'">
+    <button class="button svg-icon btnMapAerial" ng-click="map.setView('satellite')" ng-if="map.activeLayer != 'satellite'">
         <svg class="icon icon-aerial">
             <use xlink:href="#icon-aerial"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnMapOrtho" ng-click="map.showLayer('greyMap')" ng-if="map.activeLayer != 'greyMap'">
+    <button class="button svg-icon btnMapOrtho" ng-click="map.setView('map')" ng-if="map.activeLayer != 'map'">
         <svg class="icon icon-map">
             <use xlink:href="#icon-map"></use>
         </svg>

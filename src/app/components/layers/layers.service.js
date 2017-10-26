@@ -31,6 +31,26 @@ export class LayersService {
     }
 
     /*
+
+     */
+
+    defaultView() {
+        return 'satellite';
+    }
+
+    setView(name) {
+        if (name === 'map') {
+            this.show('greyMap'); // layer name
+            this.hide('orthoPhoto');
+        }
+
+        if (name === 'satellite') {
+            this.show('orthoPhoto');
+            this.hide('greyMap');
+        }
+    }
+
+    /*
         Layer-Methods needs to return an instance of ol.layer.Tile or a Promise that will be resolved with an instance of ol.layer.Tile
         The layers need to be registered within the constructor like so: this.add(this.layerMethod());
      */
@@ -57,7 +77,7 @@ export class LayersService {
             opacity: 1,
             visible: true, // is visible per default
             source: wmsOEREBSource,
-            name: 'oereb' // the name is necessary for interacting with this layer, see: map/map.directives.js, method: showLayer
+            name: 'oereb' // the name is necessary for interacting with this layer, see setView method
         });
 
         wmsOEREB.setZIndex(100);
@@ -91,7 +111,7 @@ export class LayersService {
                 opacity: 1,
                 source: wmtsSource,
                 visible: true, // is visible per default
-                name: 'greyMap' // the name is necessary for interacting with this layer, see: map/map.directives.js, method: showLayer
+                name: 'greyMap' // the name is necessary for interacting with this layer, see setView method
             });
 
         }).catch(function(ex) {
@@ -125,7 +145,7 @@ export class LayersService {
                 opacity: 0.5,
                 source: wmtsSource,
                 visible: true, // is visible per default
-                name: 'grundbuchMap' // the name is necessary for interacting with this layer, see: map/map.directives.js, method: showLayer
+                name: 'grundbuchMap' // the name is necessary for interacting with this layer, see setView method
             });
 
             return wmtsLayer;

@@ -33,7 +33,7 @@ class MapController {
         this.ol = ol;
         this.currentEgrid = 0;
 
-        this.activeLayer = 'greyMap';
+        this.activeLayer = this.Layers.defaultView();
 
         // adds observer for clicks on the map
         Map.registerClickObserver((coordinates, force = false) => {
@@ -193,19 +193,9 @@ class MapController {
         this.Helpers.closeMenu();
     }
 
-    showLayer(name) {
+    setView(name) {
         this.activeLayer = name;
-
-        if (name == 'greyMap') {
-            this.Layers.show('greyMap');
-            this.Layers.hide('orthoPhoto');
-        }
-
-        if (name == 'orthoPhoto') {
-            this.Layers.show('orthoPhoto');
-            this.Layers.hide('greyMap');
-        }
-
+        this.Layers.setView(name);
         this.Helpers.closeMenu();
     }
 
