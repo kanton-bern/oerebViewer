@@ -126,9 +126,7 @@ export class ExtractsService {
              // filter for legalProvisions without Links
              /*d.LegalProvisions = d.LegalProvisions.filter(function(legalProvision) {
                 return legalProvision.TextAtWeb.LocalisedText.Text.length > 0;
-             })*/;
-
-
+             })*/
 
             // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
             let complex = (d.SubTheme != d.Theme.Name);

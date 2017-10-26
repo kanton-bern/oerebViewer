@@ -209,23 +209,13 @@ export class LayersService {
         return (this.active == name);
     }
 
-    // checks if layer is hidden
-    isHidden(name) {
-        for (let i = 0; i < this.resolvedLayers.length; i++) {
-            if (this.resolvedLayers[i].M.name == name) {
-                return !this.resolvedLayers[i].visible;
-            }
-        }
-        return false;
-    }
-
     // hide a layer by name
     hide(name, inverse = false) {
-        for (let i = 0; i < this.resolvedLayers.length; i++) {
-            if (this.resolvedLayers[i].M.name == name) {
-                this.resolvedLayers[i].visible = inverse;
+        this.resolvedLayers.forEach(layer => {
+            if (layer !== undefined && layer.M && layer.M.name == name) {
+                layer.visible = inverse;
             }
-        }
+        });
 
         return name;
     }
@@ -242,7 +232,9 @@ export class LayersService {
             return new Promise((resolve) => {
                 if (layer instanceof Promise) {
                     layer.then(function (value) {
+                        if (value !== undefined)
                         layerService.resolvedLayers.push(value);
+
                         resolve();
                     });
                 } else {

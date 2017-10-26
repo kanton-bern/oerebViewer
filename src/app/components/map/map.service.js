@@ -86,8 +86,10 @@ export class MapService {
         // adds layers to map
         Layers.get(function(layers) {
             layers.forEach(function(layer) {
-                ngeoDecorateLayer(layer);
-                self.map.addLayer(layer);
+                if (layer !== undefined) {
+                    ngeoDecorateLayer(layer);
+                    self.map.addLayer(layer);
+                }
             });
         });
     }
@@ -247,7 +249,9 @@ export class MapService {
 
         this.selectedLayer = vectorLayer;
 
-        this.addLayer(vectorLayer)
+        this.addLayer(vectorLayer);
+
+        this.click(this.getCenter());
     }
 
     addClickedLayer(vectorSource) {

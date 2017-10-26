@@ -33,27 +33,25 @@ class MapController {
         this.ol = ol;
         this.currentEgrid = 0;
 
-        let self = this;
-
         this.activeLayer = 'greyMap';
 
         // adds observer for clicks on the map
-        Map.registerClickObserver(function(coordinates, force = false) {
+        Map.registerClickObserver((coordinates, force = false) => {
             // close menu
-            let menuStatus = self.Helpers.getMenuStatus();
+            let menuStatus = this.Helpers.getMenuStatus();
 
             if (menuStatus)
-                self.Helpers.closeMenu();
+                this.Helpers.closeMenu();
 
             // close map
-            self.Map.closeSearch();
+            this.Map.closeSearch();
 
-            if (!force && (self.Map.getView().getZoom() < self.Config.zoom.oerebLayer || menuStatus)) {
+            if (!force && (this.Map.getView().getZoom() < this.Config.zoom.oerebLayer || menuStatus)) {
                 return;
             }
 
             if (force) {
-                self.Map.setZoom(self.Config.zoom.zoomedIn);
+                this.Map.setZoom(this.Config.zoom.zoomedIn);
             }
 
             // creates an overlay over the openlayers api
@@ -61,7 +59,7 @@ class MapController {
                 element: document.getElementById('infobox')
             });
 
-            self.Map.lastOverlay = popup;
+            this.Map.lastOverlay = popup;
 
             // add the overlay 'popup' to the map
             Map.addOverlay(popup);
@@ -75,34 +73,34 @@ class MapController {
 
             popup.setPosition(coordinates[2056]);
 
-            self.selectedPoint = [];
-            self.infoboxLoading = true;
-            self.OEREB.getEGRID(coordinates).then(
-                function (d) {
-                    self.selectedPoint = d.data;
-                    self.infoboxLoading = false;
+            this.selectedPoint = [];
+            this.infoboxLoading = true;
+            this.OEREB.getEGRID(coordinates).then(
+                (d) => {
+                    this.selectedPoint = d.data;
+                    this.infoboxLoading = false;
                 },
-                function(data) {
-                    self.Notification.error(
-                        self.$filter('translate')('notification_nodata')
+                (data) => {
+                    this.Notification.error(
+                        this.$filter('translate')('notification_nodata')
                     );
                 }
             );
 
-            self.WFS.getSource(coordinates).then(function (vectorSource) {
-                self.drawByWFSSource(vectorSource, 'clicked');
+            this.WFS.getSource(coordinates).then((vectorSource) => {
+                this.drawByWFSSource(vectorSource, 'clicked');
             });
 
         });
 
-        Extracts.registerCurrentObserverCallback(function(reloading) {
+        Extracts.registerCurrentObserverCallback((reloading) => {
 
-            self.currentEgrid = self.Extracts.getCurrent().egrid;
+            this.currentEgrid = this.Extracts.getCurrent().egrid;
 
             if (!reloading) {
-                self.WFS.getSource(self.currentEgrid).then(function (vectorSource) {
-                    self.drawByWFSSource(vectorSource, 'selected');
-                    self.Map.getView().fit(vectorSource.getExtent(), (self.Map.getSize()));
+                this.WFS.getSource(this.currentEgrid).then((vectorSource) => {
+                    this.drawByWFSSource(vectorSource, 'selected');
+                    this.Map.getView().fit(vectorSource.getExtent(), (this.Map.getSize()));
                 });
             }
         });
