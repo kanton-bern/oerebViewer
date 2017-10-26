@@ -31,11 +31,11 @@ export class LayersService {
     }
 
     /*
-
+        Views definitions:
      */
 
     defaultView() {
-        return 'satellite';
+        return 'map';
     }
 
     setView(name) {
