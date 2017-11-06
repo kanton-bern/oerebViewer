@@ -17,7 +17,7 @@ export class ExtractsService {
 
         // load extracts from storage if exists
         let extractsFromStorage = localStorageService.get('extracts');
-        if (extractsFromStorage != null)
+        if (extractsFromStorage !== null)
             this.extracts = extractsFromStorage;
     }
 
@@ -30,8 +30,10 @@ export class ExtractsService {
     }
 
     add(newExtract, reloading = false) {
-        if (newExtract.egrid == 0) {
-            return;
+        if (typeof newExtract === 'string') {
+            newExtract = {
+                egrid: newExtract
+            };
         }
 
         // if it's a reloading skip the first one
@@ -47,10 +49,6 @@ export class ExtractsService {
             if (d.status === 204)
                 throw d;
 
-            // To Debug: dump JSON-object to console
-            // console.debug('extract');
-            // console.debug(newExtract);
-
             newExtract = this.wrap(newExtract, d.data);
 
             this.extracts.push(newExtract);
@@ -61,12 +59,9 @@ export class ExtractsService {
             this.setCurrent(newExtract.egrid, reloading);
             this.localStorageService.set('extracts', this.extracts);
 
-            // this.notifyCurrentObservers(reloading);
-
             this.Loading.hide();
 
             if (!reloading) {
-                // now lets remove the second one in silent
                 let loadSuccess1 = this.$filter('translate')('notification_loadsuccess1');
                 let loadSuccess2 = this.$filter('translate')('notification_loadsuccess2');
 
@@ -75,7 +70,7 @@ export class ExtractsService {
 
         }).catch((data) => {
 
-            if (data.status == 204) {
+            if (data.status === 204) {
                 this.Notification.error(this.$filter('translate')('oerebService204'));
             } else {
                 let loadFailed1 = this.$filter('translate')('notification_failed1');
@@ -203,8 +198,8 @@ export class ExtractsService {
         }
 
         // ie fix
-        setTimeout(function () {
-            self.notifyCurrentObservers(reloading);
+        setTimeout(() => {
+            this.notifyCurrentObservers(reloading);
         }, 1);
     }
 
@@ -222,7 +217,7 @@ export class ExtractsService {
     }
 
     notifyCurrentObservers(reloading = false) {
-        angular.forEach(this.observers, function (callback) {
+        this.observers.forEach((callback) => {
             callback(reloading);
         });
 

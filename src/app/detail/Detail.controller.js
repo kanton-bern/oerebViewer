@@ -3,7 +3,6 @@ export class DetailController {
         'ngInject';
 
         // declarations
-        let self = this;
         this.Extracts = Extracts;
         this.$translate = $translate;
         this.Config = Config;
@@ -27,40 +26,29 @@ export class DetailController {
         this.Map.removeClickedLayer();
 
         // if there are no data available
-        this.noDatas = true;
-        if ($stateParams.egrid !== 0) {
-            this.addExtract($stateParams.egrid);
-            this.noDatas = false;
-        }
+        this.noDatas = parseInt($stateParams.egrid) === 0;
 
         // triggers restriction changed at startup
         this.restrictionChanged(false);
 
-        // if location searchpath is changed, restrictionchanges
-        $scope.$on('$locationChangeSuccess', function () {
-            self.restrictionChanged(true);
-        });
-
-        $rootScope.$on('$translateChangeSuccess', function () {
-            if ($stateParams.egrid != 0) {
-                self.Extracts.reload();
-            }
+        $scope.$on('$locationChangeSuccess', () => {
+            this.restrictionChanged(true);
         });
 
         // on restriction reload add layer to map
-        this.Extracts.registerRestrictionObserverCallback(function() {
-            self.tempLayers = [];
+        this.Extracts.registerRestrictionObserverCallback(() => {
+            this.tempLayers = [];
 
             let bbox = '';
 
-            if (angular.isDefined(self.Extracts.getRestriction()))
-                angular.forEach(self.Extracts.getRestriction().values, function (v) {
-                    bbox = Helpers.getParameterByName('bbox', v.Map.ReferenceWMS);
+            if (angular.isDefined(this.Extracts.getRestriction()))
+                angular.forEach(this.Extracts.getRestriction().values, (v) => {
+                    bbox = Helpers.getParameterByName('bbox', v.Map.ReferencerWMS);
 
                     var indexOfWMSServer = v.Map.ReferenceWMS.indexOf('WMSServer?');
 
                     if (indexOfWMSServer == -1) {
-                        var wmsTempSource = new self.Map.ol.source.TileWMS(({
+                        var wmsTempSource = new this.Map.ol.source.TileWMS(({
                             url: v.Map.ReferenceWMS,
                             params: {
                                 'TILED': true,
@@ -71,7 +59,7 @@ export class DetailController {
                     else {
                         var url = v.Map.ReferenceWMS.substr(0, indexOfWMSServer) + 'WMSServer?';
 
-                        var wmsTempSource = new self.Map.ol.source.TileWMS(({
+                        var wmsTempSource = new this.Map.ol.source.TileWMS(({
                             url: url,
                             params: {
                                 'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
@@ -84,33 +72,34 @@ export class DetailController {
                         }));
                     }
 
-                    let wmsTemp = new self.Map.ol.layer.Tile({
+                    let wmsTemp = new this.Map.ol.layer.Tile({
                         /*preload: Infinity,*/
-                        opacity: self.Config.opacityRestrictionLayers,
+                        opacity: this.Config.opacityRestrictionLayers,
                         visible: true,
                         source: wmsTempSource,
                         name: 'restriction-temp'
                     });
 
 
-                    self.tempLayers.push(wmsTemp);
+                    this.tempLayers.push(wmsTemp);
                 });
 
-
-            self.Map.addTempLayers(self.tempLayers);
+            this.Map.addTempLayers(this.tempLayers);
         });
 
+        if (!this.noDatas) {
+            this.Extracts.add($stateParams.egrid);
+        }
 
         // open detail menu on load
-        Extracts.registerCurrentObserverCallback(function() {
+        Extracts.registerCurrentObserverCallback(() => {
             Helpers.openMenu();
         });
 
         // Menubutton in header will change to cross [x] if menu is open.
-        var $menuNav = angular.element('.menu-nav');
-        var $panel = angular.element('#menuLeftSlider');
+        let $panel = angular.element('#menuLeftSlider');
 
-        if ($panel.attr('aria-expanded')=='true') {
+        if ($panel.attr('aria-expanded') === 'true') {
           $log.debug('active');
         }
     }
@@ -175,34 +164,9 @@ export class DetailController {
         );
     }
 
-    isRestrictionActive(code) {
-        var restriction = this.Extracts.getRestriction();
-        if (restriction) {
-            return restriction.code == code;
-        }
-
-        return false;
-    }
-
-    addExtract(egrid) {
-        this.Extracts.add(
-            {
-                egrid: egrid
-            }
-        )
-    }
-
-    openPDF(egrid) {
-        this.Loading.show();
-
-        this.$window.location.href = this.getPDFLink(egrid);
-    }
-
     getPDFLink(egrid) {
         return this.Config.services.oereb + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
-
     }
-
 
     showInList(item) {
         return (!item.complex || item.hasChildren);

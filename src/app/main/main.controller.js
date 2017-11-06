@@ -1,16 +1,18 @@
 export class MainController {
-    constructor($log, $translate, Extracts, Helpers, Map, $scope, $window) {
+    constructor($translate, Extracts, Helpers, Map, $scope, $rootScope, $window) {
         'ngInject';
 
         var self = this;
         this.$scope = $scope;
+        this.$rootScope = $rootScope;
         this.$translate = $translate;
         this.Extracts = Extracts;
         this.Map = Map;
         this.Helpers = Helpers;
         this.$window = $window;
         this.visibleContent = 'main';
-        var mainCtrl = this;
+        this.languageChangedByHuman = false;
+        let mainCtrl = this;
 
         Extracts.registerCurrentObserverCallback(function() {
             mainCtrl.extract = mainCtrl.Extracts.getCurrent();
@@ -25,6 +27,14 @@ export class MainController {
             }
         });
 
+        // $translate bug: this event gets triggered on init in the built version
+        $rootScope.$on('$translateChangeSuccess', () => {
+            if (this.languageChangedByHuman) {
+                this.Extracts.reload();
+            }
+        });
+
+
         this.history = Extracts.get();
     }
 
@@ -32,18 +42,13 @@ export class MainController {
         this.$window.location.href = '/';
     }
 
-    setCurrentExtract(egrid) {
-        if (egrid != this.extract.egrid) {
-            this.Extracts.setCurrent(egrid);
-        }
-    }
-
     changeLanguage(langKey) {
+        this.languageChangedByHuman = true;
         this.$translate.use(langKey);
     }
 
     isCurrentLanguage(langKey) {
-        return langKey == this.$translate.use();
+        return langKey === this.$translate.use();
     }
 
     toggleMenu() {
