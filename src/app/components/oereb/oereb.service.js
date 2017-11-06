@@ -14,19 +14,12 @@ export class OEREBService {
     }
 
     getExtractById(egrid) {
-        let self = this;
-
-        let lang = '';
-
-        if (self.$translate.use() !== undefined)
-            lang = self.$translate.use();
-
+        let lang = this.$translate.use() !== undefined ? this.$translate.use() : this.$translate.proposedLanguage();
         let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + lang;
 
-        let promise = this.$http.get(url,
-            {
+        return this.$http.get(url, {
                 cache: true,
-                transformResponse: function (data) {
+                transformResponse: (data) => {
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
 
@@ -44,16 +37,13 @@ export class OEREBService {
 
                     return false;
                 }
-            }).catch(function() {
-                self.Notification.warning(self.$filter('translate')('oerebServiceNotAvailable'));
-            });
-
-        return promise;
+            }).catch(() => {
+                this.Notification.warning(this.$filter('translate')('oerebServiceNotAvailable'));
+            }
+        );
     }
 
     getEGRID(coordinates) {
-        let self = this;
-
         let long = coordinates[4326][1];
         let lat = coordinates[4326][0];
 
@@ -63,13 +53,13 @@ export class OEREBService {
             url,
             {
                 cache: true,
-                transformResponse: function (data) {
+                transformResponse: (data) => {
                     if (data.status == 204)
                         throw data;
 
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
-                    self.$log.info(object);
+                    this.$log.info(object);
 
                     if (!object || !object.GetEGRIDResponse) {
                         return false;
@@ -92,17 +82,17 @@ export class OEREBService {
                     }];
                 }
             }
-        ).catch(function(data) {
+        ).catch((data) => {
 
-            let warning = self.$filter('translate')('oerebServiceNotAvailable');
+            let warning = this.$filter('translate')('oerebServiceNotAvailable');
 
             if (data.status == 500)
-                warning = self.$filter('translate')('oerebService500');
+                warning = this.$filter('translate')('oerebService500');
 
             if (data.status == 204)
-                warning = self.$filter('translate')('oerebService204');
+                warning = this.$filter('translate')('oerebService204');
 
-            self.Notification.warning(warning);
+            this.Notification.warning(warning);
         });
 
         return promise;
