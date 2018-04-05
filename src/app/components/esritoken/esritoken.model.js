@@ -38,8 +38,8 @@ export class EsriToken {
         let formData = new URLSearchParams();
         formData.append('username', this.username);
         formData.append('password', this.password);
-        formData.append('client', 'referer');
-        formData.append('referer', location.href.replace(location.hash,""));
+        /*formData.append('client', 'referer');
+        formData.append('referer', location.href.replace(location.hash,""));*/
         formData.append('expiration', this.interval);
         formData.append('f', 'json');
 

@@ -22,7 +22,7 @@ export class LayersService {
         this.add(this.asyncGrundbuchMapLayer());
 
         // Grauer Hintergrund für kleine Masstäbe (ergänzend zum Grundbuchplan)
-        this.add(this.asyncGreyMapLayer());
+        this.add(this.exampleWMSWithEsri());
 
         // Orthophoto für zweite Hintergrundansicht
         this.add(this.asyncOrthoPhotoLayer());
@@ -72,7 +72,7 @@ export class LayersService {
         return this.waitForToken(configuration.token).then((access_token) => {
             // documentation for ol.source.TileWMS: http://geoadmin.github.io/ol3/apidoc/ol.source.TileWMS.html
             let params = {
-                'LAYERS': 'GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF',
+                'LAYERS': '0,1,2,3,4,5,6,7,8,9,10,11,12', // list of layers: https://www.geoservice2-test.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/layers
                 'TILED': true,
                 'VERSION': '1.3.0',
                 'FORMAT': 'image/png',
