@@ -1,10 +1,11 @@
 export class LayersService {
-    constructor(Notification) {
+    constructor(Notification, EsriToken) {
         'ngInject';
 
         this.ol = ol;
         this.Map = Map;
         this.Notification = Notification;
+        this.EsriToken = EsriToken;
 
         this.layers = [];
         this.resolvedLayers = [];
@@ -58,18 +59,77 @@ export class LayersService {
     /*
      Implementation of a WMS
      */
-    oerebLayer() {
-        // documentation for ol.source.TileWMS: http://geoadmin.github.io/ol3/apidoc/ol.source.TileWMS.html
-        let wmsOEREBSource = new this.ol.source.TileWMS(({
-            url: 'https://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
-            params: {
+    exampleWMSWithEsri() {
+        let configuration = {
+            url: 'https://www.geoservice2-test.apps.be.ch/geoservice2/services/a4p/a4p_hintergrund_grau_n_bk_testmb/MapServer/WMSServer?',
+            token: this.EsriToken.register('a4p_grau', {
+                endpoint: 'https://www.geoservice2-test.apps.be.ch/geoservice2/tokens/generateToken',
+                username: 'a4p_testmb_user',
+                password: 'a4p_testmb_user',
+            }),
+        };
+
+        return this.waitForToken(configuration.token).then((access_token) => {
+            // documentation for ol.source.TileWMS: http://geoadmin.github.io/ol3/apidoc/ol.source.TileWMS.html
+            let params = {
                 'LAYERS': 'GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF',
                 'TILED': true,
                 'VERSION': '1.3.0',
                 'FORMAT': 'image/png',
                 'CRS': 'EPSG:2056'
-            },
-            serverType: 'geoserver'
+            };
+
+            if (access_token) {
+                params.token = access_token;
+            }
+
+            let wmsOEREBSource = new this.ol.source.TileWMS(({
+                url: configuration.url,
+                params: params,
+                serverType: 'geoserver',
+            }));
+
+            if (configuration.token) {
+                configuration.token.onUpdate(function (token) {
+                    params.token = token;
+                    wmsOEREBSource.updateParams({token: token});
+                });
+            }
+
+            // http://geoadmin.github.io/ol3/apidoc/ol.layer.Tile.html
+            let wmsOEREB = new this.ol.layer.Tile({
+                opacity: 1,
+                visible: true, // is visible per default
+                source: wmsOEREBSource,
+            });
+
+            wmsOEREB.setZIndex(100);
+
+            return wmsOEREB;
+        });
+    }
+
+    /*
+     Implementation of a WMS
+     */
+    oerebLayer() {
+        let configuration = {
+            url: 'https://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
+        };
+
+        // documentation for ol.source.TileWMS: http://geoadmin.github.io/ol3/apidoc/ol.source.TileWMS.html
+        let params = {
+            'LAYERS': 'GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF',
+            'TILED': true,
+            'VERSION': '1.3.0',
+            'FORMAT': 'image/png',
+            'CRS': 'EPSG:2056'
+        };
+
+        let wmsOEREBSource = new this.ol.source.TileWMS(({
+            url: configuration.url,
+            params: params,
+            serverType: 'geoserver',
         }));
 
         // http://geoadmin.github.io/ol3/apidoc/ol.layer.Tile.html
@@ -282,6 +342,21 @@ export class LayersService {
 
     add(layer) {
         this.layers.push(layer);
+    }
+
+    /**
+     * wait for token to be fetched
+     * @param {EsriToken} token
+     * @returns {Promise}
+     */
+    waitForToken(token) {
+        if (token) {
+            return new Promise(function (resolve, reject) {
+                token.onUpdateOnce(resolve)
+            })
+        }
+
+        return Promise.resolve();
     }
 }
 
