@@ -22,7 +22,7 @@ export class LayersService {
         this.add(this.asyncGrundbuchMapLayer());
 
         // Grauer Hintergrund für kleine Masstäbe (ergänzend zum Grundbuchplan)
-        this.add(this.exampleWMSWithEsri());
+        this.add(this.asyncGreyMapLayer());
 
         // Orthophoto für zweite Hintergrundansicht
         this.add(this.asyncOrthoPhotoLayer());
