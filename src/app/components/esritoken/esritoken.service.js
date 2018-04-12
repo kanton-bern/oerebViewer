@@ -6,8 +6,6 @@ export class EsriTokenService {
         'ngInject';
 
         this.tokens = {};
-
-        window.TokenManager = this
     }
 
     /**

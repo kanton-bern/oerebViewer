@@ -15,6 +15,7 @@ export class EsriToken {
 
         this.token = null;
         this.expires = null;
+        this.lastUpdate = 0;
 
         this.endpoint = options.endpoint;
         this.username = options.username;
@@ -60,7 +61,7 @@ export class EsriToken {
                 return;
             }
 
-
+            this.lastUpdate = Date.now();
             this.token = token.token;
             this.expires = token.expires;
             this.triggerUpdate();
@@ -113,5 +114,9 @@ export class EsriToken {
         this.listeners.forEach(notify);
         this.onceListeners.forEach(notify);
         this.onceListeners = [];
+    }
+
+    sinceUpdate() {
+        return Date.now() - this.lastUpdate;
     }
 }
