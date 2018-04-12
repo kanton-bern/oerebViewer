@@ -16,12 +16,12 @@ export class LayersService {
         /*
          * Global token can be used by WMTS layers as a general configuration
          */
-        /* this.globalTokenForWMTS = this.EsriToken.register('a4p_global', {
-            endpoint: 'https://www.geoservice.apps.be.ch/geoservice2/rest/tokens/generateToken',
+        /*this.globalTokenForWMTS = this.EsriToken.register('a4p_global', {
+            endpoint: 'https://www.geoservice.apps.be.ch/geoservice2/tokens/generateToken',
             username: 'a4p_testmb_user',
             password: 'a4p_testmb_user',
             interval: 59, // token for 59min
-        }); */
+        });*/
 
         /*
          * REGISTER LAYERS HERE
@@ -205,7 +205,7 @@ export class LayersService {
     asyncGrundbuchMapLayer() {
         let self = this;
         let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice1/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
             token: this.globalTokenForWMTS,
         };
 
