@@ -38,9 +38,6 @@ export class LayersService {
 
         // Orthophoto für zweite Hintergrundansicht
         this.add(this.asyncOrthoPhotoLayer());
-
-        // Enthält die Umrisse der Grundstücke und selbständigen und dauernden Rechte wird dem Hintergrund überlagert
-        this.add(this.oerebLayer());
     }
 
     /*
@@ -119,42 +116,6 @@ export class LayersService {
 
             return wmsOEREB;
         });
-    }
-
-    /*
-     Implementation of a WMS
-     */
-    oerebLayer() {
-        let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice1/services/a42pub1/a42pub_oereb_av_wms_d_bk/MapServer/WMSServer?',
-        };
-
-        // documentation for ol.source.TileWMS: http://geoadmin.github.io/ol3/apidoc/ol.source.TileWMS.html
-        let params = {
-            'LAYERS': 'GEODB.DIPANU_DIPANUF_SR,GEODB.DIPANU_DIPANUF',
-            'TILED': true,
-            'VERSION': '1.3.0',
-            'FORMAT': 'image/png',
-            'CRS': 'EPSG:2056'
-        };
-
-        let wmsOEREBSource = new this.ol.source.TileWMS(({
-            url: configuration.url,
-            params: params,
-            serverType: 'geoserver',
-        }));
-
-        // http://geoadmin.github.io/ol3/apidoc/ol.layer.Tile.html
-        let wmsOEREB = new this.ol.layer.Tile({
-            opacity: 1,
-            visible: true, // is visible per default
-            source: wmsOEREBSource,
-            name: 'oereb' // the name is necessary for interacting with this layer, see setView method
-        });
-
-        wmsOEREB.setZIndex(100);
-
-        return wmsOEREB;
     }
 
     /*
