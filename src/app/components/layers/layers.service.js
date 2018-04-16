@@ -191,7 +191,7 @@ export class LayersService {
 
             // creates ol.layer.Tile with the prepared source
             let wmtsLayer = new ol.layer.Tile({
-                opacity: 0.5,
+                opacity: 1,
                 source: wmtsSource,
                 visible: true, // is visible per default
                 name: 'grundbuchMap' // the name is necessary for interacting with this layer, see setView method
