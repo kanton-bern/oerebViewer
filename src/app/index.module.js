@@ -28,7 +28,7 @@ import { OEREBService } from '../app/components/oereb/oereb.service';
 import { WFSService } from '../app/components/wfs/wfs.service';
 
 // search imports
-import { SearchSwisstopoDirective } from '../app/components/search/searchSwisstopo.directive';
+import { SearchDirective } from '../app/components/search/search.directive';
 // import { SearchMapboxDirective } from '../app/components/search/searchMapbox.directive';
 
 // utilities imports
@@ -71,7 +71,7 @@ angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick',
     .directive('ngMobileClick', MobileClickDirective)
     .directive('map', MapDirective)
     .directive('loading', LoadingDirective)
-    .directive('search', SearchSwisstopoDirective)
+    .directive('search', SearchDirective)
     .directive('restriction', RestrictionDirective)
     .directive('legalList', LegalListDirective)
     .directive('legalEntry', LegalEntryDirective)
