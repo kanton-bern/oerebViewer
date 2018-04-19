@@ -28,7 +28,7 @@ import { OEREBService } from '../app/components/oereb/oereb.service';
 import { WFSService } from '../app/components/wfs/wfs.service';
 
 // search imports
-import { SearchSwisstopoDirective } from '../app/components/search/searchSwisstopo.directive';
+import { SearchDirective } from '../app/components/search/search.directive';
 // import { SearchMapboxDirective } from '../app/components/search/searchMapbox.directive';
 
 // utilities imports
@@ -39,6 +39,7 @@ import { LoadingService } from '../app/components/loading/loading.service';
 import { MobileClickDirective } from '../app/components/mobileclick/mobileclick.directive';
 import { LegalListDirective } from '../app/components/legallist/legallist.directive';
 import { LegalEntryDirective } from '../app/components/legalentry/legalentry.directive';
+import { EsriTokenService } from '../app/components/esritoken/esritoken.service';
 
 
 angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
@@ -56,6 +57,7 @@ angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick',
     .service('Helpers', HelpersService)
     .service('OEREB', OEREBService)
     .service('WFS', WFSService)
+    .service('EsriToken', EsriTokenService)
     .service('Layers', LayersService)
     .service('Extracts', ExtractsService)
     .service('Loading', LoadingService)
@@ -69,7 +71,7 @@ angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick',
     .directive('ngMobileClick', MobileClickDirective)
     .directive('map', MapDirective)
     .directive('loading', LoadingDirective)
-    .directive('search', SearchSwisstopoDirective)
+    .directive('search', SearchDirective)
     .directive('restriction', RestrictionDirective)
     .directive('legalList', LegalListDirective)
     .directive('legalEntry', LegalEntryDirective)

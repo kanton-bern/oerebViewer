@@ -1,10 +1,10 @@
-export function SearchSwisstopoDirective() {
+export function SearchDirective() {
     'ngInject';
 
     let directive = {
         restrict: 'E',
         templateUrl: 'app/components/search/search.html',
-        controller: SearchSwisstopoController,
+        controller: SearchController,
         controllerAs: 'search',
         bindToController: true
     };
@@ -12,7 +12,7 @@ export function SearchSwisstopoDirective() {
     return directive;
 }
 
-class SearchSwisstopoController {
+class SearchController {
 
     constructor($scope, Map, Coordinates, $window) {
         'ngInject';
@@ -28,7 +28,7 @@ class SearchSwisstopoController {
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-                url: 'https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=%QUERY&type=locations',
+                url: 'https://159.144.217.45/?searchText=%QUERY&type=locations',
                 wildcard: '%QUERY',
                 filter: function (locations) {
                     return locations.results;
