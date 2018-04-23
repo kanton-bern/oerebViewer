@@ -28,7 +28,7 @@ class SearchController {
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-                url: 'https://159.144.217.45/?searchText=%QUERY&type=locations',
+                url: 'https://oerebsearch-test.apps.be.ch/?searchText=%QUERY&type=locations',
                 wildcard: '%QUERY',
                 filter: function (locations) {
                     return locations.results;
