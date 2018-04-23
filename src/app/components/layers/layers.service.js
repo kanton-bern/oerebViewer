@@ -97,7 +97,7 @@ export class LayersService {
                 name: 'cantonMap'
             });
 
-            wmtsLayer.setZIndex(1);
+            wmtsLayer.setZIndex(100);
 
             return wmtsLayer;
         }).catch(function(ex) {
@@ -143,7 +143,7 @@ export class LayersService {
                 name: 'grundbuchMap' // the name is necessary for interacting with this layer, see setView method
             });
 
-            wmtsLayer.setZIndex(2);
+            wmtsLayer.setZIndex(200);
 
             return wmtsLayer;
         }).catch(function(ex) {
@@ -229,7 +229,7 @@ export class LayersService {
                 name: 'orthoPhoto'
             });
 
-            wmtsLayer.setZIndex(3);
+            wmtsLayer.setZIndex(300);
 
             return wmtsLayer;
         }).catch(function(ex) {
