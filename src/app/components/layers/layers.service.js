@@ -43,7 +43,6 @@ export class LayersService {
     /*
         Views definitions:
      */
-
     defaultView() {
         return 'map';
     }
@@ -65,9 +64,182 @@ export class LayersService {
         The layers need to be registered within the constructor like so: this.add(this.layerMethod());
      */
 
+
     /*
-     Implementation of a WMS
+     Implementation of a WMTS - based on a Capabilites.xml
      */
+    asyncCantonLayer() {
+        let self = this;
+        let configuration = {
+            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_kanton5_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+            token: this.globalTokenForWMTS,
+        };
+
+        return this.waitForToken(configuration.token).then(function () {
+            return fetch(configuration.url).then(function (response) {
+                return response.text();
+            })
+        }).then(function (text) {
+            let result = self.parser.read(text);
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_kanton5_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+            self.applyTokeToWMTSOptions(configuration.token, options);
+
+            let wmtsSource = new ol.source.WMTS(options);
+            self.refreshOnInvalidToken(configuration.token, wmtsSource);
+
+            let wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: wmtsSource,
+                visible: true,
+                name: 'cantonMap'
+            });
+
+            wmtsLayer.setZIndex(500);
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
+        });
+    }
+
+
+    /*
+     Implementation of a WMTS - based on a Capabilites.xml
+     */
+    asyncGrundbuchMapLayer() {
+        let self = this;
+        let configuration = {
+            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+            token: this.globalTokenForWMTS,
+        };
+
+        // fetches capabilities from a service
+        return this.waitForToken(configuration.token).then(function () {
+            return fetch(configuration.url).then(function (response) {
+                return response.text();
+            })
+        }).then(function (text) {
+            let result = self.parser.read(text);
+
+            // parses options based on the capabilities
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_mopube_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+            self.applyTokeToWMTSOptions(configuration.token, options);
+
+            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
+            let wmtsSource = new ol.source.WMTS(options);
+            self.refreshOnInvalidToken(configuration.token, wmtsSource);
+
+            // creates ol.layer.Tile with the prepared source
+            let wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: wmtsSource,
+                visible: true, // is visible per default
+                name: 'grundbuchMap' // the name is necessary for interacting with this layer, see setView method
+            });
+
+            wmtsLayer.setZIndex(300);
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_mopube_n_bk konnte nicht geladen werden.');
+        });
+    }
+
+
+    /*
+        Implementation of a WMTS - based on a Capabilites.xml
+     */
+    asyncGreyMapLayer() {
+        let self = this;
+        let configuration = {
+            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+            token: this.globalTokenForWMTS,
+        };
+
+        // fetches capabilities from a service
+        return this.waitForToken(configuration.token).then(function () {
+            return fetch(configuration.url).then(function (response) {
+                return response.text();
+            })
+        }).then(function (text) {
+            let result = self.parser.read(text);
+
+            // parses options based on the capabilities
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_hintergrund_grau_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+            self.applyTokeToWMTSOptions(configuration.token, options);
+
+            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
+            let wmtsSource = new ol.source.WMTS(options);
+            self.refreshOnInvalidToken(configuration.token, wmtsSource);
+
+            // creates ol.layer.Tile with the prepared source
+            let wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: wmtsSource,
+                visible: true, // is visible per default
+                name: 'greyMap' // the name is necessary for interacting with this layer, see setView method
+            });
+
+            //wmtsLayer.setZIndex(100);
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.'); // warning if not accessible
+        });
+    }
+
+    /*
+     Implementation of a WMTS - based on a Capabilites.xml
+     */
+    asyncOrthoPhotoLayer() {
+        let self = this;
+        let configuration = {
+            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+            token: this.globalTokenForWMTS,
+        };
+
+        return this.waitForToken(configuration.token).then(function () {
+            return fetch(configuration.url).then(function (response) {
+                return response.text();
+            })
+        }).then(function (text) {
+            let result = self.parser.read(text);
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_orthofoto_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+            self.applyTokeToWMTSOptions(configuration.token, options);
+
+            let wmtsSource = new ol.source.WMTS(options);
+            self.refreshOnInvalidToken(configuration.token, wmtsSource);
+
+            let wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: wmtsSource,
+                visible: false,
+                name: 'orthoPhoto'
+            });
+
+            // wmtsLayer.setZIndex(700);
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_a4p_orthofoto_n_bk konnte nicht geladen werden.');
+        });
+    }
+
+    /*
+    Example Implementation of a WMS
+   */
     exampleWMSWithEsri() {
         let configuration = {
             url: 'https://www.geoservice2-test.apps.be.ch/geoservice2/services/a4p/a4p_hintergrund_grau_n_bk_testmb/MapServer/WMSServer?',
@@ -115,170 +287,6 @@ export class LayersService {
             wmsOEREB.setZIndex(100);
 
             return wmsOEREB;
-        });
-    }
-
-    /*
-        Implementation of a WMTS - based on a Capabilites.xml
-     */
-    asyncGreyMapLayer() {
-        let self = this;
-        let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
-            token: this.globalTokenForWMTS,
-        };
-
-        // fetches capabilities from a service
-        return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
-                return response.text();
-            })
-        }).then(function (text) {
-            let result = self.parser.read(text);
-
-            // parses options based on the capabilities
-            let options = ol.source.WMTS.optionsFromCapabilities(result, {
-                layer: 'a4p_a4p_hintergrund_grau_n_bk',
-                matrixSet: 'EPSG:2056'
-            });
-            self.applyTokeToWMTSOptions(configuration.token, options);
-
-            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
-            let wmtsSource = new ol.source.WMTS(options);
-            self.refreshOnInvalidToken(configuration.token, wmtsSource);
-
-            // creates ol.layer.Tile with the prepared source
-            return new ol.layer.Tile({
-                opacity: 1,
-                source: wmtsSource,
-                visible: true, // is visible per default
-                name: 'greyMap' // the name is necessary for interacting with this layer, see setView method
-            });
-
-        }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.'); // warning if not accessible
-        });
-    }
-
-    /*
-     Implementation of a WMTS - based on a Capabilites.xml
-     */
-    asyncGrundbuchMapLayer() {
-        let self = this;
-        let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
-            token: this.globalTokenForWMTS,
-        };
-
-        // fetches capabilities from a service
-        return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
-                return response.text();
-            })
-        }).then(function (text) {
-            let result = self.parser.read(text);
-
-            // parses options based on the capabilities
-            let options = ol.source.WMTS.optionsFromCapabilities(result, {
-                layer: 'a4p_a4p_mopube_n_bk',
-                matrixSet: 'EPSG:2056'
-            });
-            self.applyTokeToWMTSOptions(configuration.token, options);
-
-            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
-            let wmtsSource = new ol.source.WMTS(options);
-            self.refreshOnInvalidToken(configuration.token, wmtsSource);
-
-            // creates ol.layer.Tile with the prepared source
-            let wmtsLayer = new ol.layer.Tile({
-                opacity: 1,
-                source: wmtsSource,
-                visible: true, // is visible per default
-                name: 'grundbuchMap' // the name is necessary for interacting with this layer, see setView method
-            });
-
-            return wmtsLayer;
-        }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_mopube_n_bk konnte nicht geladen werden.');
-        });
-    }
-
-
-    /*
-     Implementation of a WMTS - based on a Capabilites.xml
-     */
-    asyncCantonLayer() {
-        let self = this;
-        let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_kanton5_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
-            token: this.globalTokenForWMTS,
-        };
-
-        return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
-                return response.text();
-            })
-        }).then(function (text) {
-            let result = self.parser.read(text);
-            let options = ol.source.WMTS.optionsFromCapabilities(result, {
-                layer: 'a4p_a4p_kanton5_n_bk',
-                matrixSet: 'EPSG:2056'
-            });
-            self.applyTokeToWMTSOptions(configuration.token, options);
-
-            let wmtsSource = new ol.source.WMTS(options);
-            self.refreshOnInvalidToken(configuration.token, wmtsSource);
-
-            let wmtsLayer = new ol.layer.Tile({
-                opacity: 1,
-                source: wmtsSource,
-                visible: true,
-                name: 'cantonMap'
-            });
-
-            wmtsLayer.setZIndex(500);
-
-            return wmtsLayer;
-        }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
-        });
-    }
-
-    /*
-     Implementation of a WMTS - based on a Capabilites.xml
-     */
-    asyncOrthoPhotoLayer() {
-        let self = this;
-        let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
-            token: this.globalTokenForWMTS,
-        };
-
-        return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
-                return response.text();
-            })
-        }).then(function (text) {
-            let result = self.parser.read(text);
-            let options = ol.source.WMTS.optionsFromCapabilities(result, {
-                layer: 'a4p_a4p_orthofoto_n_bk',
-                matrixSet: 'EPSG:2056'
-            });
-            self.applyTokeToWMTSOptions(configuration.token, options);
-
-            let wmtsSource = new ol.source.WMTS(options);
-            self.refreshOnInvalidToken(configuration.token, wmtsSource);
-
-            let wmtsLayer = new ol.layer.Tile({
-                opacity: 1,
-                source: wmtsSource,
-                visible: false,
-                name: 'orthoPhoto'
-            });
-
-            return wmtsLayer;
-        }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_orthofoto_n_bk konnte nicht geladen werden.');
         });
     }
 
