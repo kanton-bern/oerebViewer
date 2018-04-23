@@ -97,11 +97,11 @@ export class LayersService {
                 name: 'cantonMap'
             });
 
-            wmtsLayer.setZIndex(100);
+            wmtsLayer.setZIndex(500);
 
             return wmtsLayer;
         }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
+            self.Notification.warning('a4p_a4p_kanton5_n_bk konnte nicht geladen werden.');
         });
     }
 
