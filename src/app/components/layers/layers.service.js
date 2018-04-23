@@ -189,7 +189,7 @@ export class LayersService {
                 name: 'greyMap' // the name is necessary for interacting with this layer, see setView method
             });
 
-            //wmtsLayer.setZIndex(100);
+            wmtsLayer.setZIndex(100);
 
             return wmtsLayer;
         }).catch(function(ex) {
@@ -229,7 +229,7 @@ export class LayersService {
                 name: 'orthoPhoto'
             });
 
-            // wmtsLayer.setZIndex(700);
+            wmtsLayer.setZIndex(100);
 
             return wmtsLayer;
         }).catch(function(ex) {
