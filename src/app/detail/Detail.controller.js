@@ -133,8 +133,8 @@ export class DetailController {
     getExternURL(egrid) {
         let url = this.Config.services.extern;
 
-        url = url.replace('[[EGRID]]', egrid);
-        url = url.replace('[[LANGUAGE]]', this.$filter('translate')('languageISO'));
+        url = url.replace(/-EGRID-/g, egrid);
+        url = url.replace(/-LANGUAGE-/g, this.$filter('translate')('languageISO').toUpperCase());
 
         return url;
     }
