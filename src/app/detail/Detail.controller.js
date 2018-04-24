@@ -72,7 +72,7 @@ export class DetailController {
                         }));
                     }
 
-                    let wmsTemp = new this.Map.ol.layer.Tile({
+                    let layer = new this.Map.ol.layer.Tile({
                         /*preload: Infinity,*/
                         opacity: this.Config.opacityRestrictionLayers,
                         visible: true,
@@ -80,8 +80,9 @@ export class DetailController {
                         name: 'restriction-temp'
                     });
 
+                    layer.setZIndex(50);
 
-                    this.tempLayers.push(wmsTemp);
+                    this.tempLayers.push(layer);
                 });
 
             this.Map.addTempLayers(this.tempLayers);

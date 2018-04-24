@@ -24,6 +24,7 @@ export class WFSService {
             return response.text();
         }).then(function(xml) {
             let features = new ol.format.WFS().readFeatures(xml);
+
             let vectorSource = new self.ol.source.Vector({
                 features: features
             });
