@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "del": "^2.2.0",
-    "ngeo": "^2.1.4"
+    "ngeo": "^2.1.4",
+    "npm": "^6.0.0"
   },
   "scripts": {
     "test": "gulp test"
