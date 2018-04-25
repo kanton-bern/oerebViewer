@@ -30,10 +30,6 @@
                     <a ng-click="main.changeLanguage('fr')" title="Version française"
                          ng-class="{'is-active': main.isCurrentLanguage('fr')}">Français</a>
                   </span>
-                  <span ng-click="main.changeLanguage('it')">
-                    <a ng-click="main.changeLanguage('it')" title="Version italiano"
-                         ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
-                  </span>
               </div>
 
 
@@ -153,7 +149,7 @@
                         <h3>{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</h3>
                         <p>
 
-      
+
                           {{main.extract.data.PLRCadastreAuthority.Street}} {{main.extract.data.PLRCadastreAuthority.Number}}<br />
                           {{main.extract.data.PLRCadastreAuthority.PostalCode}} {{main.extract.data.PLRCadastreAuthority.City}}<br />
                           <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" class="url-link">{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</a>
