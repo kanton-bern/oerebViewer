@@ -26,7 +26,8 @@ export class EsriToken {
 
         this.refreshId = null;
         if (this.auto) {
-            this.fetchToken();
+            this.fetchToken()
+                .catch((err) => console.error(err));
         }
     }
 
@@ -46,7 +47,10 @@ export class EsriToken {
 
         return fetch(this.endpoint, {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            }
         })
             .then((response) => response.json())
             .then(this.handleResponse.bind(this))
