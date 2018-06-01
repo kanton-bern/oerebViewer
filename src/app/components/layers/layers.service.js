@@ -245,8 +245,8 @@ export class LayersService {
             url: 'https://www.geoservice2-test.apps.be.ch/geoservice2/services/a4p/a4p_hintergrund_grau_n_bk_testmb/MapServer/WMSServer?',
             token: this.EsriToken.register('a4p_grau', {
                 endpoint: 'https://www.geoservice2-test.apps.be.ch/geoservice2/tokens/generateToken',
-                username: 'a4p_testmb_user',
-                password: 'a4p_testmb_user',
+                username: '{username_placeholder}',
+                password: '{password_placeholder}',
             }),
         };
 
