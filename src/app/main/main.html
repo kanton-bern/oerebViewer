@@ -142,9 +142,9 @@
                         <h3>{{ 'titleBaseData' | translate}}</h3>
                         <p>{{main.extract.data.BaseData.LocalisedText.Text}}</p>
                       </div>
-                      <div class="section-item">
-                        <h3>{{main.extract.data.ExclusionOfLiability.Title.LocalisedText.Text}}</h3>
-                        <p>{{main.extract.data.ExclusionOfLiability.Content.LocalisedText.Text}}</p>
+                      <div ng-repeat="LiabilityItem in main.extract.data.ExclusionOfLiability" class="section-item">
+                        <h3>{{LiabilityItem.Title.LocalisedText.Text}}</h3>
+                        <p>{{LiabilityItem.Content.LocalisedText.Text}}</p>
                       </div>
                     </section>
                     <h2 ng-if="main.extract.data.MunicipalityLogo">{{'responsibilityContent' | translate}}</h2>
