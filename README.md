@@ -1,6 +1,27 @@
 **INHALT**
 
-[TOC]
+- [1. EINLEITUNG](#1-einleitung)
+  * [1.1 Zu diesem Repository](#11-zu-diesem-repository)
+- [2. FUNKTIONSSCHEMA DES SMARTAUSZUGS](#2-funktionsschema-des-smartauszugs)
+- [3. TECHNISCHE VORAUSSETZUNGEN](#3-technische-voraussetzungen)
+  * [3.1 Client-Technologie](#31-client-technologie)
+  * [3.2 Einschränkungen](#32-einschr-nkungen)
+    + [3.2.1 SSL-Zertifikate](#321-ssl-zertifikate)
+    + [3.2.2 Browser](#322-browser)
+- [4. ENTWICKLUNG UND LOKALES TESTEN](#4-entwicklung-und-lokales-testen)
+  * [4.1 Voraussetzungen und Vorbereitung](#41-voraussetzungen-und-vorbereitung)
+  * [4.2 Installationsanleitung](#42-installationsanleitung)
+  * [4.3 Anmerkung](#43-anmerkung)
+  * [4.4 Testen der Applikation](#44-testen-der-applikation)
+- [5. ERSTELLEN EINES LAUFFÄHIGEN BUILD](#5-erstellen-eines-lauff-higen-build)
+- [6. KONFIGURATION](#6-konfiguration)
+  * [6.1. Layers](#61-layers)
+  * [6.2. Bearbeiten der Sprachvariablen](#62-bearbeiten-der-sprachvariablen)
+  * [6.3 Allgemeine Map Konfiguration](#63-allgemeine-map-konfiguration)
+    + [6.3.1 Suchdienst konfigurieren / programmieren](#631-suchdienst-konfigurieren---programmieren)
+  * [6.4 Konfiguration des Kantonswappen](#64-konfiguration-des-kantonswappen)
+- [7. DIVERSES](#7-diverses)
+  * [7.1 Verantwortlichkeiten](#71-verantwortlichkeiten)
 
 # 1. EINLEITUNG #
 Dieses Repository beinhaltet den vollständigen Quelltext um eine lauffähige Instanz der SmartAuszug zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der SmartAuszug.
