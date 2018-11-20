@@ -730,7 +730,7 @@ body {
     background-color: $colorContentBgnd;
     position: relative;
     margin-top:44px;
-    font-size:$fontSizeBase * 1.2;
+    font-size:$fontSizeBase * 1.22;
     height: calc(100vh - 40px);
     overflow-y:scroll;
     padding-bottom:8rem; // provide some space on the bottom for certain devices issue #97
@@ -765,6 +765,7 @@ body {
         display:block;
         margin-left:20px;
       }
+
 
     }
 
@@ -816,6 +817,13 @@ body {
     // end imprint
 
 
+  }
+
+  .url-link:link, .url-link:visited {
+    text-decoration:underline;
+  }
+  .url-link:hover, .url-link:active {
+    text-decoration:none;
   }
 
 
