@@ -53,7 +53,9 @@
   .mainnav {
       font-size:$fontSizeBase * 1;
       line-height:$fontLineHeightBase;
-
+      .icon {
+        height:1rem;
+      }
 
       .pdf-download {
         .small-12 {

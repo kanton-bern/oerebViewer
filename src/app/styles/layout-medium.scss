@@ -18,8 +18,11 @@
     transform:translateX(($menuOffset - $corrfactorM) * -1);
 
     .mainnav {
-      font-size:$fontSizeBase * 0.9;
+      font-size:$fontSizeBase * 1;
 
+      .icon {
+        height: 1rem;
+      }
       .pdf-download {
         .small-12 {
           margin-bottom:10px;
@@ -57,7 +60,7 @@
         font-size:$fontSizeBase * 0.8;
       }
       v-pane-header, v-pane-content, v-pane-content h3 {
-        font-size:$fontSizeBase * 0.9 !important;
+        font-size:$fontSizeBase * 1 !important;
         line-height: $fontLineHeightBase - 20% !important;
       }
       v-pane-content {

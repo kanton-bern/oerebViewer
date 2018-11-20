@@ -3,10 +3,10 @@
 
 // Header is bigger in Desktop-Mode
 .header {
-  height: 80px;
+  height: 60px;
 
   .header-title {
-    top:25px;
+    top:10px;
     width:30%;
     margin-left:auto;
     margin-right:auto;
@@ -17,7 +17,7 @@
   .menu-nav {
     width:auto;
     .lang-selector {
-      padding:25px 0px 0px 10px;
+      padding:15px 0px 0px 10px;
 
       text-align: right;
       span {
@@ -36,7 +36,7 @@
   }
 
   .mainlogo {
-    top:20px;
+    top:5px;
     right:30px;
     p {
       font-size:$fontSizeBase * 1.6;
