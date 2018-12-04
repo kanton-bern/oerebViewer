@@ -851,14 +851,14 @@ body {
 
 // Spinners and Loaders
 .spinner-wrapper {
-  @include showSpinnerPulse($colorBlack);
+  // @include showSpinnerPulse($colorBlack);
   z-index:6000; // has to be the topmost element
   position:absolute;
   width:120px;
   height:120px;
   top:calc(50vh - 120px);
   left:calc(50vw - 60px);
-  @include showSpinnerLoader($colorWhite);
+  @include showSpinnerLoader($colorMain);
 
 }
 // END Spinners and loaders
