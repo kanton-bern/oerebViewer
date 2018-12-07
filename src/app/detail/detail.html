@@ -85,7 +85,7 @@
                 <!-- Restrictions -->
                 <v-pane expanded class="restrictions" id="toogleExpand">
                     <v-pane-header>
-                        {{"detailConcernedThemes1" | translate}}
+                        <span class="secondary badge">{{main.extract.restrictions.length}}</span>{{"detailConcernedThemes1" | translate}} 
                     </v-pane-header>
 
                     <v-pane-content>
@@ -154,7 +154,7 @@
                 <!-- NoRestrictions -->
                 <v-pane class="norestrictions">
                     <v-pane-header>
-                        {{"detailNoRestrictions" | translate}}
+                        <span class="secondary badge">{{main.extract.ncthemes.length}}</span> {{"detailNoRestrictions" | translate}}
                     </v-pane-header>
 
                     <v-pane-content>
@@ -234,7 +234,7 @@
                 <!-- History -->
                 <v-pane class="history">
                     <v-pane-header>
-                        {{"detailPropertyHistory" | translate}} <span class="secondary badge">{{main.history.length}}</span>
+                        <span class="secondary badge">{{main.history.length}}</span>  {{"detailPropertyHistory" | translate}}
                     </v-pane-header>
 
                     <v-pane-content class="history-item">

@@ -313,7 +313,20 @@ body {
           margin-right:12px;
 
         }
-        v-pane-header {
+        v-pane-header, 
+        .history {
+            .badge {
+              vertical-align: middle;
+              &.secondary {
+                color:$colorWhite;
+                min-width:1.4rem;
+                height:1.4rem;
+                font-size: 0.8rem;
+                margin-right:5px;
+                line-height:1;
+              }
+            }
+
           border-bottom:1px solid $colorHeadContent;
           margin-bottom:0px;
           div {
@@ -518,17 +531,10 @@ body {
     // history-items
     .history {
       .badge {
-        vertical-align: text-bottom;
         &.secondary {
-          color:$colorWhite;
-          min-width:1.2rem;
-          height:1.2rem;
-          font-size: 0.8rem !important;
-          padding:0rem !important;
-
+          line-height:1.2 !important;
         }
       }
-
       v-pane-content {
         &[aria-hidden='false'] {
           border-bottom:1px solid $colorMenuTop;

@@ -71,15 +71,19 @@
 
       }
 
-      // history-items
-      .history {
+      v-pane-header {
         .badge {
-          vertical-align: text-bottom;
           &.secondary {
-            height:1rem;
-            min-width:1rem;
-            font-size: 0.7rem !important;
-            padding:0rem !important;
+            
+          }
+        }
+      }
+
+      // history-items
+      .history, v-pane-header {
+        .badge {
+          &.secondary {
+       
 
           }
         }
@@ -100,6 +104,14 @@
       v-pane-content {
         v-pane-content {
           v-pane-header {
+              .badge {
+               
+                &.secondary {
+                  color:$colorWhite;
+        
+                }
+              }
+
             padding-left:10px !important;
           }
           restriction {
