@@ -79,7 +79,7 @@
           </div>
 
 
-            <v-accordion class="vAccordion--default" ng-if="!detail.noDatas" control="accordion" oncollapse="detail.collapse(index, null)" onexpand="detail.expand(index, id)">
+            <v-accordion class="vAccordion--default" ng-click="main.showMain()" ng-if="!detail.noDatas" control="accordion" oncollapse="detail.collapse(index, null)" onexpand="detail.expand(index, id)">
 
 
                 <!-- Restrictions -->
