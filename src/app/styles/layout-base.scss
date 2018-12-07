@@ -299,9 +299,9 @@ body {
       // no-restrictions found
       .no-restrictions {
         padding-left:10px;
-        padding-bottom:5px;
+        padding-bottom:10px;
         display:inline-block;
-        padding-top:5px;
+        padding-top:10px;
       }
 
       v-pane {
@@ -317,7 +317,7 @@ body {
           border-bottom:1px solid $colorHeadContent;
           margin-bottom:0px;
           div {
-            padding:5px 48px 5px 12px;
+            padding:10px 48px 10px 12px;
             line-height:$fontLineHeightBase - 20%;
 
             h1 {
@@ -581,7 +581,7 @@ body {
       &.contentLinks {
 
         li {
-          padding:4px 12px 4px 12px;
+          padding:10px 12px 10px 12px;
           border-bottom:1px solid $colorHeadContent;
           cursor:pointer;
 
