@@ -68,6 +68,10 @@ export class ExtractsService {
                 this.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
             }
 
+            setTimeout(() => {
+                this.Helpers.openMenu();
+            }, 800);
+
         }).catch((data) => {
 
             if (data.status === 204) {
