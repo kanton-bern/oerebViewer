@@ -3,7 +3,6 @@ export class LayersService {
         'ngInject';
 
         this.ol = ol;
-        this.Map = Map;
         this.Notification = Notification;
         this.EsriToken = EsriToken;
 
@@ -18,8 +17,8 @@ export class LayersService {
          */
         this.globalTokenForWMTS = this.EsriToken.register('a4p_global', {
             endpoint: 'https://www.geoservice.apps.be.ch/geoservice2/tokens/generateToken',
-            username: '{username_placeholder}',
-            password: '{username_password}',
+            username: process.env.TOKEN_USERNAME,
+            password: process.env.TOKEN_PASSWORD,
             interval: 59, // token for 59min
         });
 
@@ -245,8 +244,8 @@ export class LayersService {
             url: 'https://www.geoservice2-test.apps.be.ch/geoservice2/services/a4p/a4p_hintergrund_grau_n_bk_testmb/MapServer/WMSServer?',
             token: this.EsriToken.register('a4p_grau', {
                 endpoint: 'https://www.geoservice2-test.apps.be.ch/geoservice2/tokens/generateToken',
-                username: '{username_placeholder}',
-                password: '{password_placeholder}',
+                username: 'example_login',
+                password: 'example_password',
             }),
         };
 

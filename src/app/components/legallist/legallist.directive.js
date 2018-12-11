@@ -3,7 +3,7 @@ export function LegalListDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/legallist/legallist.html',
+        template: require('./legallist.html'),
         scope: {
             documents: '=',
             title: '=',

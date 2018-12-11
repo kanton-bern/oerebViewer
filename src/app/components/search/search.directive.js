@@ -3,7 +3,7 @@ export function SearchDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/search/search.html',
+        template: require('./search.html'),
         controller: SearchController,
         controllerAs: 'search',
         bindToController: true
