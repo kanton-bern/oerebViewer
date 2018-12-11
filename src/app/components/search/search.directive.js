@@ -24,7 +24,6 @@ class SearchController {
 
         // Initialize the suggestion engine with swisstopo
         let placesSource = new Bloodhound({
-            limit: 30,
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
@@ -40,6 +39,7 @@ class SearchController {
 
         // load places into the typeahead directive
         this.places = {
+            limit: 10,
             displayKey: function (location) {
                 // let's remove some unwanted markup in the returned locations
                 let returnLocation = location.attrs.label.replace('<b>', '').replace('</b>', '');
