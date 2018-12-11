@@ -1,0 +1,16 @@
+<div class="notification-wrapper">
+  <div class="callout">
+        <p ng-bind-html="message">{{element.message | translate}}</p>
+        <button type="button" role="button" aria-label="{{'notification_close' | translate}}" data-close
+                class="button svg-icon notification-close">
+            <svg class="icon icon-cross">
+                <use xlink:href="#icon-cross"></use>
+            </svg>
+        </button>
+        <!-- Nur bei modalen notifications verwenden...
+        <button type="button" role="button" aria-label="Close" data-close ng-click="button.callback()" class="button svg-icon success notification-button hollow">
+                {{button.label | translate}}
+        </button>
+      -->
+    </div>
+</div>

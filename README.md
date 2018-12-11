@@ -19,11 +19,7 @@
   * [6.2. Bearbeiten der Sprachvariablen](#62-bearbeiten-der-sprachvariablen)
   * [6.3 Allgemeine Map Konfiguration](#63-allgemeine-map-konfiguration)
     + [6.3.1 Suchdienst konfigurieren / programmieren](#631-suchdienst-konfigurieren---programmieren)
-<<<<<<< HEAD
   * [6.4 Konfiguration des Kantonswappens](#64-konfiguration-des-kantonswappens)
-=======
-  * [6.4 Konfiguration des Kantonswappen](#64-konfiguration-des-kantonswappen)
->>>>>>> 2cf2948a07790029981d066dddf9106241ebf2de
 - [7. DIVERSES](#7-diverses)
   * [7.1 Verantwortlichkeiten](#71-verantwortlichkeiten)
 
@@ -73,14 +69,13 @@ Die Applikation kann unter einem der gängigen OS installiert werden. Vorrausset
 ## 4.2 Installationsanleitung ##
 
 1. Die aktuelle Version aus diesem Repository herunterladen
-2. npm install -g bower gulp yarn
-3. yarn
-4. bower install
-5. gulp serve
+2. Die Datei .env.example kopieren und zu .env umbenennen.
+3. npm install
+4. npm run serve
 
 ## 4.3 Anmerkung ##
-Mit **gulp serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
-Mit **gulp build** wird eine produktive Version der App gebaut. Externe Ressourcen werden gekürzt (minified) und zusammengefasst (concatenate). Die produktive Version befindet sich im Verzeichnis /dist/. Das gesamte **/dist/** Verzeichnis muss ins Root der produktiven Umgebung kopiert werden, damit die Applikation lauffähig ist.
+Mit **npm run serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
+Mit **npm run build** wird eine produktive Version der App gebaut. Externe Ressourcen werden gekürzt (minified) und zusammengefasst (concatenate). Die produktive Version befindet sich im Verzeichnis /dist/. Das gesamte **/dist/** Verzeichnis muss ins Root der produktiven Umgebung kopiert werden, damit die Applikation lauffähig ist.
 
 ## 4.4 Testen der Applikation ##
 Für Tests können die folgenden Parzellen verwendet werden:
@@ -94,14 +89,12 @@ Für Tests können die folgenden Parzellen verwendet werden:
 Damit eine lauffähige Version auf einem externen Webserver publiziert werden kann, muss zuerst ein so genannter **"Build"** aus den Source-Files der Applikation erzeugt werden. Dies geschieht direkt aus der **Entwicklungsinstallation** heraus. Zuerst wird - wie in Kapitel 4.1 beschrieben eine Entwicklungsumgebung erzeugt:
 
 1. Die aktuelle Version aus diesem Repository herunterladen
-2. npm install -g bower gulp yarn
-3. yarn
-4. bower install
-5. **gulp build**
-
+2. Die Datei .env.example kopieren und zu .env umbenennen.
+3. npm install
+4. **npm run build**
 
 ```
-Der letzte Schritt besteht aus einem gulp build.
+Der letzte Schritt besteht aus einem npm run build.
 Damit werden alle Quelldateien komprimiert und für die Publikation auf einem externen Webserver optimiert.
 ```
 
@@ -116,7 +109,7 @@ Zusätzlich zu den normalen ol.Layer.Tile Optionen müssen weiter die Parameter 
 Jeder Layer muss registriert werden. Soll der Layer standardmässig geladen werden, kann dieser im ``constructor`` des LayersService mit der Methode ``LayersService.add()`` hinzugefügt werden.
 
 ## 6.2. Bearbeiten der Sprachvariablen ##
-Die Sprachvariablen können im Verzeichnis ``/src/app/lang/`` eingesehen und angepasst werden. Pro Sprache existiert jeweils eine .json Datei.
+Die Sprachvariablen können im Verzeichnis ``/src/public/lang/`` eingesehen und angepasst werden. Pro Sprache existiert jeweils eine .json Datei.
 
 Es können mindestens 3 Sprachversionen gleichzeitig betrieben werden. Dazu muss in der Datei ``/src/app/main/main.html`` und in der Datei ``/src/app/detail/detail.html``  am Punkt ``<!-- Language-Switch`` die entsprechende Sprachversion definiert werden.
 
@@ -151,7 +144,7 @@ Die Directives werden in ``/src/app/index.module.js`` importiert und auf den Sel
  
 
 ## 6.4 Konfiguration des Kantonswappens ##
-Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/app/lang/[SPRACHE].json`` abgelegt:
+Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/public/lang/[SPRACHE].json`` abgelegt:
 
 
 ```
