@@ -37,6 +37,18 @@
 
       }
 
+      v-pane-header {
+          .badge {
+            &.secondary {
+              right:30px;
+            }
+          }
+          div { // ng-transclude
+            padding-right:20%;
+
+          }
+      }
+
       // history-items
       .history {
 

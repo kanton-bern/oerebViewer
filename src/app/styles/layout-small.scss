@@ -72,22 +72,17 @@
       }
 
       v-pane-header {
+        div { // ng-transclude
+          padding-right:30% !important;
+        }
         .badge {
           &.secondary {
-            
+            color:$colorWhite;
+            right:35px !important;
           }
         }
       }
 
-      // history-items
-      .history, v-pane-header {
-        .badge {
-          &.secondary {
-       
-
-          }
-        }
-      }
 
       h1 {
         font-size:$fontSizeBase * 1.2;
@@ -104,16 +99,11 @@
       v-pane-content {
         v-pane-content {
           v-pane-header {
-              .badge {
-               
-                &.secondary {
-                  color:$colorWhite;
-        
-                }
-              }
 
             padding-left:10px !important;
+
           }
+
           restriction {
             padding-left:22px !important;
           }
