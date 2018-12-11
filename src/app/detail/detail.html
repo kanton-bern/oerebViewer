@@ -1,33 +1,6 @@
 <aside id="menuLeftSlider" class="position-left" ng-class="{'active-menu': main.menuStatus}" ng-swipe-left="main.swipeLeft()">
 
     <nav id="mainNav" class="mainnav mobile clearfix">
-        <div class="row top-menu">
-          <div class="small-8">
-          </div>
-            <div class="small-12 lang-selector">
-                <svg class="icon icon-globe">
-                    <use xlink:href="#icon-globe"></use>
-                </svg>
-
-                <!-- Language-Switch
-                You can delete or add new languages by inserting the following snippet:
-
-                <span ng-click="main.changeLanguage('it')">
-                  <a ng-click="main.changeLanguage('it')" title="Version italiano"
-                       ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
-                </span>
-               -->
-
-                <span ng-click="main.changeLanguage('de')">
-                    <a title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
-                </span>
-                <span>
-                    <a ng-click="main.changeLanguage('fr')" title="Version française"
-                       ng-class="{'is-active': main.isCurrentLanguage('fr')}">Français</a>
-                </span>
-            </div>
-        </div>
-
 
 
         <div class="menu vertical">
@@ -271,5 +244,33 @@
             </ul>
 
         </div>
+
+        <div class="row top-menu">
+              <div class="small-12 lang-selector">
+                  <svg class="icon icon-globe">
+                      <use xlink:href="#icon-globe"></use>
+                  </svg>
+  
+                  <!-- Language-Switch
+                  You can delete or add new languages by inserting the following snippet:
+  
+                  <span ng-click="main.changeLanguage('it')">
+                    <a ng-click="main.changeLanguage('it')" title="Version italiano"
+                         ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
+                  </span>
+                 -->
+  
+                  <span ng-click="main.changeLanguage('de')">
+                      <a title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
+                  </span>
+                  <span>
+                      <a ng-click="main.changeLanguage('fr')" title="Version française"
+                         ng-class="{'is-active': main.isCurrentLanguage('fr')}">Français</a>
+                  </span>
+              </div>
+              <div class="small-8">
+            </div>
+          </div>
+
     </nav>
 </aside>

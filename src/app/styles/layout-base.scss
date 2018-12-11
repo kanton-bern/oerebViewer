@@ -204,26 +204,27 @@ body {
     .top-menu {
       padding:12px 12px 8px 12px;
       margin-top:-4px;
-      background-color:$colorHeadContent;
+      background-color:$colorMenuBgnd;
       margin-bottom:20px;
+      color:$colorHeadContent;
 
 
 
       .icon {
           font-size:$fontSizeBase * 0.8;
           vertical-align: middle;
-          fill:$colorWhite !important;
+          fill:$colorDarkGrey !important;
       }
 
 
       .lang-selector {
 
-        text-align: right;
 
         span {
+          color:$colorDarkGrey;
           @include menuLinks();
           a {
-
+            color:$colorDarkGrey;
           }
           .is-active {
             display:none;
@@ -327,23 +328,28 @@ body {
                 right:40px;
                 top:calc(50% - 0.7rem);
                 position:absolute;
-                background-color: $colorHeadContent;
+                background-color: $colorDarkGrey;
               }
             }
 
           border-bottom:1px solid $colorHeadContent;
           margin-bottom:0px;
-          div { // ng-transclude
+          > div { // ng-transclude
             padding:10px 42px 10px 12px;
             line-height:$fontLineHeightBase - 20%;
             position:relative;
+            color:$colorDarkGrey;
             h1 {
               margin:0;
               padding:0;
             }
+            &:hover {
+              color:$colorWhite;
+            }
           }
           &:hover {
             background-color: $colorHeadContent;
+            color:$colorWhite;
             &::after,
             &::before {
                 background-color: $colorWhite;
@@ -351,6 +357,9 @@ body {
             .ng-binding {
               color:$colorWhite !important;
             }
+          }
+          &:focus {
+            color:$colorDarkGrey;
           }
         }
         &.is-expanded { // open
@@ -371,8 +380,16 @@ body {
           }
         }
         v-pane-header[aria-expanded^="true"]{
-          @include fontBold;
+          @include fontNormal;
+          background-color: $colorHeadContent;
+          
+          > div {
+            color:$colorWhite !important;
+          }
 
+          &:before {
+            background-color: $colorWhite;
+          }
         }
 
         // no-restrictions or missing
