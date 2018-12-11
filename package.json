@@ -5,7 +5,8 @@
     "scripts": {
         "build": "rimraf dist && webpack --bail --progress --profile",
         "server": "webpack-dev-server --history-api-fallback --inline --progress",
-        "start": "npm run server"
+        "start": "npm run server",
+        "serve": "npm run server"
     },
     "repository": {
         "type": "git",
