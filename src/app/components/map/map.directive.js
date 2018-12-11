@@ -77,7 +77,7 @@ class MapController {
             this.infoboxLoading = true;
             this.OEREB.getEGRID(coordinates).then(
                 (d) => {
-                    this.selectedPoint = d.data;
+                    this.selectedPoint = d.data || [];
                     this.infoboxLoading = false;
                 },
                 (data) => {
