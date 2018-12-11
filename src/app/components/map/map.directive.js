@@ -3,7 +3,7 @@ export function MapDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/map/map.html',
+        template: require('./map.html'),
         controller: MapController,
         controllerAs: 'map',
         bindToController: true
@@ -77,7 +77,7 @@ class MapController {
             this.infoboxLoading = true;
             this.OEREB.getEGRID(coordinates).then(
                 (d) => {
-                    this.selectedPoint = d.data;
+                    this.selectedPoint = d.data || [];
                     this.infoboxLoading = false;
                 },
                 (data) => {
@@ -211,5 +211,10 @@ class MapController {
 
     openDetail(egrid) {
         this.$state.go('home.detail', {egrid: egrid, restriction: 'none'});
+    }
+
+    showDetail(egrid) {
+        this.Helpers.openMenu();
+        this.Map.hideOverlay();
     }
 }

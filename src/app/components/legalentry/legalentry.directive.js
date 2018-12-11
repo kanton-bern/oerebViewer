@@ -3,7 +3,7 @@ export function LegalEntryDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/legalentry/legalentry.html',
+        template: require('./legalentry.html'),
         scope: {
             document: '=',
             icon: '='

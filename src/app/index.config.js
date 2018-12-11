@@ -6,7 +6,7 @@ export function Config($logProvider, $translateProvider, localStorageServiceProv
 
     // language
     $translateProvider.useStaticFilesLoader({
-        prefix: '../app/lang/',
+        prefix: '/lang/',
         suffix: '.json'
     });
 
@@ -28,6 +28,6 @@ export function Config($logProvider, $translateProvider, localStorageServiceProv
         horizontalSpacing: 0,
         positionX: 'right',
         positionY: 'top',
-        templateUrl: 'app/ui-notification.html'
+        templateUrl: 'ui-notification.html',
     });
 }
