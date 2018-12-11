@@ -12,6 +12,8 @@
     "appReset": "Réinitialiser tout",
     "titleMainMenu": "Menu",
     "titleMainMenuClose": "Menu",
+    "no_property_yet_title": "Aucune bein-fonds chargé!",
+    "no_property_yet_text": "Naviguez sur le bein-fonds souhaitée et démarrez l'évaluation.",
     "no_property_loaded": "Veuillez séléctionner un bien-fonds",
     "no_property_found": "Ce bien-fonds se situe à l'extérieur des zones disposant d'une Mensuration Officielle de qualité suffisante, il n'est pas possible démarrer l'évaluation:.",
     "noRestrictions": "Aucune",

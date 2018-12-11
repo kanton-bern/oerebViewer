@@ -33,7 +33,12 @@
         <div class="menu vertical">
           <div class="row intro-row">
             <div class="small-12">
-              <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.data.RealEstate.Number}} {{"detailConcernedThemes2" | translate}} {{main.extract.data.RealEstate.Municipality}}
+                <div ng-class="{'hidden' : !detail.noDatas}">
+                    <strong>{{'no_property_yet_title' | translate}}</strong>
+                    <br />{{'no_property_yet_text' | translate}}
+                </div>
+
+                <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.data.RealEstate.Number}} {{"detailConcernedThemes2" | translate}} {{main.extract.data.RealEstate.Municipality}}
                   <span ng-if="main.extract.data.RealEstate.SubunitOfLandRegister && main.extract.data.RealEstate.Municipality != main.extract.data.RealEstate.SubunitOfLandRegister">, {{main.extract.data.RealEstate.SubunitOfLandRegister}}</span>
             </h1>
               <p ng-class="{'hidden': detail.noDatas}" class="info-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</p>

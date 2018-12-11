@@ -12,6 +12,8 @@
     "mainTitle": "Auszug aus dem ÖREB-Kataster",
     "titleMainMenu": "Menü",
     "titleMainMenuClose": "Menü",
+    "no_property_yet_title": "Kein Grundstück geladen!",
+    "no_property_yet_text": "Navigieren Sie zum gewünschten Grundstück und starten Sie die Auswertung.",
     "no_property_loaded": "Bitte wählen Sie ein Grundstück aus.",
     "no_property_found": "Für dieses Grundstücke kann keine Auswertung erstellt werden, da die Daten der amtlichen Vermessung nicht in ausreichender Qualität vorliegen.",
     "propertyLoaded": "Geladenes Grundstück",
