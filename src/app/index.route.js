@@ -4,7 +4,7 @@ export function RouterConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: 'app/main/main.html',
+            template: require('./main/main.html'),
             controller: 'MainController',
             controllerAs: 'main'
         })
@@ -14,7 +14,7 @@ export function RouterConfig($stateProvider, $urlRouterProvider) {
                 egrid: ''
             },
             reloadOnSearch: false,
-            templateUrl: 'app/detail/detail.html',
+            template: require('./detail/detail.html'),
             controller: 'DetailController',
             controllerAs: 'detail'
         });

@@ -3,7 +3,7 @@ export function MapDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/map/map.html',
+        template: require('./map.html'),
         controller: MapController,
         controllerAs: 'map',
         bindToController: true

@@ -1,4 +1,27 @@
 /* global moment:false */
+import angular from 'angular';
+import moment from 'moment';
+import 'angular-animate';
+import 'angular-cookies';
+import 'angular-touch';
+import 'angular-sanitize';
+import 'v-accordion';
+import 'angular-messages';
+import 'angular-aria';
+import 'angular-resource';
+import 'angular-ui-router';
+import 'angular-local-storage';
+import 'angular-ui-notification';
+import 'angular-ui-date';
+import 'angular-base64';
+import 'angular-typeahead';
+import 'angular-translate';
+import 'angular-translate-storage-local';
+import 'angular-translate-storage-cookie';
+import 'angular-translate-loader-static-files';
+import 'angular-carousel';
+import 'angular-gettext';
+import 'floatthead';
 
 // core imports
 import { Config } from './index.config';
@@ -29,7 +52,6 @@ import { WFSService } from '../app/components/wfs/wfs.service';
 
 // search imports
 import { SearchDirective } from '../app/components/search/search.directive';
-// import { SearchMapboxDirective } from '../app/components/search/searchMapbox.directive';
 
 // utilities imports
 import { HelpersService } from '../app/components/helpers/helpers.service';
@@ -42,7 +64,26 @@ import { LegalEntryDirective } from '../app/components/legalentry/legalentry.dir
 import { EsriTokenService } from '../app/components/esritoken/esritoken.service';
 
 
-angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick', 'ngSanitize', 'vAccordion', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'LocalStorageModule', 'ui-notification', 'base64', 'ngeo', 'siyfion.sfTypeahead', 'pascalprecht.translate', 'angular-carousel'])
+const MODULE_NAME = 'oerebApp';
+
+angular.module(MODULE_NAME, [
+    'ngAnimate',
+    'ngCookies',
+    'ngTouch',
+    'ngSanitize',
+    'vAccordion',
+    'ngMessages',
+    'ngAria',
+    'ngResource',
+    'ui.router',
+    'LocalStorageModule',
+    'ui-notification',
+    'base64',
+    'ngeo',
+    'siyfion.sfTypeahead',
+    'pascalprecht.translate',
+    'angular-carousel'
+])
     .constant('moment', moment)
 
     .factory('httpRequestInterceptor', HttpRequestInterceptorFactory)
@@ -79,3 +120,5 @@ angular.module('oerebApp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng-fastclick',
     // register filters
     .filter('unique', UniqueFilter)
     .filter('legals', LegalsFilter);
+
+export default MODULE_NAME;
