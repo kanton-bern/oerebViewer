@@ -212,4 +212,9 @@ class MapController {
     openDetail(egrid) {
         this.$state.go('home.detail', {egrid: egrid, restriction: 'none'});
     }
+
+    showDetail(egrid) {
+        this.Helpers.openMenu();
+        this.Map.hideOverlay();
+    }
 }
