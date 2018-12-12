@@ -80,7 +80,10 @@ module.exports = function makeWebpackConfig() {
             // Transpile .js files using babel-loader
             // Compiles ES6 and ES7 into ES5 code
             test: /\.js$/,
-            loader: 'babel-loader',
+            use: [
+                {loader: 'ng-annotate-loader'},
+                {loader: 'babel-loader'},
+            ],
             exclude: /node_modules/
         }, {
             // CSS LOADER
@@ -196,9 +199,9 @@ module.exports = function makeWebpackConfig() {
             // Only emit files when there are no errors
             new webpack.NoEmitOnErrorsPlugin(),
 
-            // // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-            // // Minify all javascript, switch loaders to minimizing mode
-            // new webpack.optimize.UglifyJsPlugin(),
+            // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+            // Minify all javascript, switch loaders to minimizing mode
+            new webpack.optimize.UglifyJsPlugin(),
 
             // Copy assets from the public folder
             // Reference: https://github.com/kevlened/copy-webpack-plugin
@@ -222,7 +225,7 @@ module.exports = function makeWebpackConfig() {
         alias: {
             'jquery-ui/datepicker': 'jquery-ui/ui/widgets/datepicker',
         }
-    }
+    };
 
     return config;
 }();
