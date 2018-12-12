@@ -49,7 +49,7 @@
             </div>
 
             <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
-                <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
+                <h2><button ng-click="main.centerObject()">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</button></h2>
             </div>
             <a ng-click="main.reloadPage()" title="{{'appReset' | translate}}" class="mainlogo">
                 <p><span class="oereb-title">{{'title'|translate}}</span><span>{{ 'subtitle' | translate }}</span></p>

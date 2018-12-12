@@ -13,7 +13,7 @@ export function MapDirective() {
 }
 
 class MapController {
-    constructor(Config, Layers, $log, $state, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification, $filter) {
+    constructor(Config, Layers, $log, $state, $base64, $window, OEREB, WFS, Extracts, Map, Helpers, Coordinates, Notification, $filter, $scope) {
         'ngInject';
 
         this.Config = Config;
@@ -31,6 +31,8 @@ class MapController {
         this.Notification = Notification;
         this.$filter = $filter;
         this.ol = ol;
+        this.$scope = $scope;
+
         this.currentEgrid = 0;
 
         this.activeLayer = this.Layers.defaultView();
@@ -40,8 +42,9 @@ class MapController {
             // close menu
             let menuStatus = this.Helpers.getMenuStatus();
 
-            if (menuStatus)
+            if (menuStatus) {
                 this.Helpers.closeMenu();
+            }
 
             // close map
             this.Map.closeSearch();
@@ -98,11 +101,12 @@ class MapController {
             this.currentEgrid = this.Extracts.getCurrent().egrid;
 
             if (!reloading) {
-                this.WFS.getSource(this.currentEgrid).then((vectorSource) => {
-                    this.drawByWFSSource(vectorSource, 'selected');
-                    this.Map.getView().fit(vectorSource.getExtent(), (this.Map.getSize()));
-                });
+                this.centerObject();
             }
+        });
+
+        Map.registerCenterObjectCallback(this.$scope, () => {
+            this.centerObject();
         });
 
         // load map
@@ -110,11 +114,13 @@ class MapController {
     }
 
     drawByWFSSource(source, addLayerMethod) {
-        if (addLayerMethod == 'clicked')
+        if (addLayerMethod == 'clicked') {
             this.Map.addClickedLayer(source);
+        }
 
-        if (addLayerMethod == 'selected')
+        if (addLayerMethod == 'selected') {
             this.Map.addSelectedLayer(source);
+        }
     }
 
     geolocate() {
@@ -122,12 +128,12 @@ class MapController {
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                function(position) {
+                function (position) {
                     let coordinates = self.Coordinates.create(self.Coordinates.System[4326], [position.coords.longitude, position.coords.latitude]);
 
                     self.Map.setPosition(coordinates);
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         let currentCenter = self.Map.getCenter();
                         self.Map.click(currentCenter, true);
                     }, 1000);
@@ -136,7 +142,7 @@ class MapController {
                 },
                 function errorCallback(error) {
 
-                    switch(error.code) {
+                    switch (error.code) {
                         case error.PERMISSION_DENIED:
                             self.Notification.error(self.$filter('translate')('notification_geolocation_permission'));
                             break;
@@ -149,8 +155,8 @@ class MapController {
                     }
                 },
                 {
-                    maximumAge:Infinity,
-                    timeout:5000
+                    maximumAge: Infinity,
+                    timeout: 5000
                 }
             );
         } else {
@@ -166,12 +172,13 @@ class MapController {
     }
 
     noData() {
-      return this.Detail.noDatas();
+        return this.Detail.noDatas();
     }
 
     removeOverlay() {
-        if (angular.isDefined(this.Map.lastOverlay))
+        if (angular.isDefined(this.Map.lastOverlay)) {
             return this.Map.removeOverlay(this.Map.lastOverlay);
+        }
         return false;
 
         // Close main menu if open
@@ -179,8 +186,9 @@ class MapController {
     }
 
     showOverlay() {
-        if (angular.isDefined(this.Map.lastOverlay))
+        if (angular.isDefined(this.Map.lastOverlay)) {
             return this.Map.addOverlay(this.Map.lastOverlay);
+        }
 
         // Close main menu if open
         this.Helpers.closeMenu();
@@ -216,5 +224,14 @@ class MapController {
     showDetail(egrid) {
         this.Helpers.openMenu();
         this.Map.hideOverlay();
+    }
+
+    centerObject() {
+        if (this.currentEgrid) {
+            this.WFS.getSource(this.currentEgrid).then((vectorSource) => {
+                this.drawByWFSSource(vectorSource, 'selected');
+                this.Map.getView().fit(vectorSource.getExtent(), (this.Map.getSize()));
+            });
+        }
     }
 }
