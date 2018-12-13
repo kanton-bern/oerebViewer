@@ -64,7 +64,7 @@ Die Applikation wurde mit folgenden Browsern (jeweils mit der aktuellen und vorl
 Die Applikation kann relativ einfach auf einer lokalen Entwicklungsmaschine installiert werden. [Weiterentwicklungen sind möglich und können via PR (Pull-Requests) beantragt werden](https://github.com/kanton-bern/oerebViewer/pulls).
 
 ## 4.1 Voraussetzungen und Vorbereitung ##
-Die Applikation kann unter einem der gängigen OS installiert werden. Vorraussetzung ist die Installation von [NodeJS](https://nodejs.org/en/). Die Installation von node.js erfolgt in Mac OS X und Windows praktisch identisch via den [Installer von NodeJS](https://nodejs.org/en/download/). Alle nachfolgenden Installationschritte basieren auf NodeJS. Damit NodeJS effektiv genutzt werden kann, werden Kenntnisse in der Verwendung eines Terminals unter dem jeweiligen OS vorausgesetzt. Wird das Windows Subsystem Linux verwendet (WSL), so empfiehlts sich die Installation von nodeJS unter nvm:
+Die Applikation kann unter einem der gängigen OS installiert werden. Vorraussetzung ist die Installation von [NodeJS](https://nodejs.org/en/). Die Installation von node.js erfolgt in Mac OS X und Windows praktisch identisch via den [Installer von NodeJS](https://nodejs.org/en/download/). Alle nachfolgenden Installationschritte basieren auf NodeJS. Damit NodeJS effektiv genutzt werden kann, werden Kenntnisse in der Verwendung eines Terminals unter dem jeweiligen OS vorausgesetzt. Wird das Windows Subsystem Linux verwendet (WSL), so empfiehlt sich die Installation von nodeJS unter nvm:
 
 ```bash
 $ touch ~/.bashrc
