@@ -52,7 +52,10 @@
                 <h2><button ng-if="!details.noData" ng-click="main.centerObject()">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</button></h2>
             </div>
             <a ng-click="main.reloadPage()" title="{{'appReset' | translate}}" class="mainlogo">
-                <p><span class="oereb-title">{{'title'|translate}}</span><span>{{ 'subtitle' | translate }}</span></p>
+                <p><svg class="icon icon-reload">
+                    <use xlink:href="#icon-reload"></use>
+                </svg>
+                <span class="oereb-title">{{'title'|translate}}</span><span>{{ 'subtitle' | translate }}</span></p>
             </a>
         </div>
     </div>

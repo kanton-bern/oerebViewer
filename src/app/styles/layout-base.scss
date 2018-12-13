@@ -78,6 +78,12 @@ body {
 .icon {
   @include icon_svg();
   margin:1px 1px 0px 0px;
+
+  &.icon-reload {
+    margin-right:2px;
+    font-size:1rem;
+    vertical-align: bottom;
+  }
 }
 // End SVG-Icons
 
