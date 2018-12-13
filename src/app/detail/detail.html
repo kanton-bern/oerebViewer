@@ -32,16 +32,6 @@
                       </svg>
                       <a class="external-link" target="_blank" ng-href="{{detail.getExternURL(main.extract.egrid)}}" title="{{'detailPropertyGISMap' | translate}}">{{"detailPropertyGISMap" | translate}}</a>
                   </div>
-                  <!--
-                    TODO: Über Mail teilen. Wirklich implementieren? - Issue #80
-                    <div class="small-12">
-                        <svg class="icon icon-mail">
-                            <use xlink:href="#icon-mail"></use>
-                        </svg>
-
-                        <a class="external-link" target="_blank" href="mailto:empfaenger@example.com?body={{detail.url()}}&subject={{'title' | translate}}">Über Mail teilen</a>
-                    </div>
-                  -->
 
                   <div class="small-12">
                       <svg class="icon icon-inbox">
@@ -209,7 +199,9 @@
                 </v-pane>
                 <!-- / General Information -->
 
-                <!-- History -->
+                <!-- History 
+                 This will be shown if ther is actual data loaded (!detail.noDatas)
+                -->
                 <v-pane class="history">
                     <v-pane-header>
                          {{"detailPropertyHistory" | translate}}<span class="secondary badge">{{main.history.length}}</span> 
@@ -235,6 +227,34 @@
                 <!-- / History -->
 
 
+            </v-accordion>
+            <v-accordion class="vAccordion--default" ng-click="main.showMain()" ng-if="detail.noDatas" control="accordion" oncollapse="detail.collapse(index, null)" onexpand="detail.expand(index, id)">
+                <!-- History 
+                This will be shown if no data is loaded (detail.noDatas)
+                -->
+                <v-pane class="history">
+                    <v-pane-header>
+                        {{"detailPropertyHistory" | translate}}<span class="secondary badge">{{main.history.length}}</span> 
+                    </v-pane-header>
+
+                    <v-pane-content class="history-item">
+                        <!-- nested accordion -->
+                        <ul>
+                            <li ng-repeat="hextract in main.history track by $index">
+                                <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
+                                title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}">
+                                    <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
+                                    {{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span ng-if="hextract.data.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}</span>
+                                    <span class="history-date">
+                                        {{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- copy to clipboard -->
+                    </v-pane-content>
+                </v-pane>
+                <!-- / History -->
             </v-accordion>
 
 
