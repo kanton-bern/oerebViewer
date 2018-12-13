@@ -401,6 +401,7 @@ body {
         // no-restrictions or missing
         &.norestrictions,
         &.missingrestrictions {
+          filter:opacity(40%);
             .ng-binding {
               color:darken($colorMenuTop,15%);
               padding:5px 0px 10px 0px;
