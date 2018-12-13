@@ -40,7 +40,7 @@
             <use xlink:href="#icon-location-2"></use>
         </svg>
     </button>
-    <button class="button svg-icon btnCenterObject" ng-click="map.centerObject()">
+    <button ng-if="!details.noData" class="button svg-icon btnCenterObject" ng-click="map.centerObject()">
             <svg class="icon icon-zoomToCenter">
                 <use xlink:href="#icon-zoomToCenter"></use>
             </svg>
