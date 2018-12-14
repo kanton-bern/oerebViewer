@@ -378,7 +378,7 @@ body {
             border-bottom:1px solid $colorMenuTop;
           }
           .history-item {
-            margin-top:20px;
+            padding-top:20px;
             li {
               line-height:$fontLineHeightBase - 10%;
               margin-bottom:10px;
@@ -401,7 +401,8 @@ body {
         // no-restrictions or missing
         &.norestrictions,
         &.missingrestrictions {
-          filter:opacity(40%);
+          //filter:opacity(40%);
+          opacity:0.4;
             .ng-binding {
               color:darken($colorMenuTop,15%);
               padding:5px 0px 10px 0px;
@@ -409,6 +410,7 @@ body {
           }
           v-pane-content[aria-hidden='false'] {
             border-bottom:1px solid $colorMenuTop;
+            background-color: $colorContentBgnd;
           }
         }
         &.generalinformation {
@@ -454,10 +456,11 @@ body {
               v-accordion {
                 margin:0;
                 padding:0;
+                background-color: $colorContentBgnd;
                 v-pane {
                   v-pane-header {
                     padding-left:0px;
-
+                    font-size:$fontSizeBase * 1;
 
                     v-pane-header {
                        border-bottom:0px solid $colorMenuTop;
@@ -565,12 +568,14 @@ body {
 
     // history-items
     .history {
+
       .badge {
         &.secondary {
           line-height:1.2 !important;
         }
       }
       v-pane-content {
+        background-color:$colorContentBgnd;
         &[aria-hidden='false'] {
           border-bottom:1px solid $colorMenuTop;
         }
