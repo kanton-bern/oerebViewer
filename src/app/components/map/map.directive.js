@@ -224,6 +224,7 @@ class MapController {
     showDetail(egrid) {
         this.Helpers.openMenu();
         this.Map.hideOverlay();
+        this.Map.removeClickedLayer();
     }
 
     centerObject() {
