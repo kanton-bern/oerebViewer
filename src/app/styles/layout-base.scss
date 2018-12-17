@@ -330,7 +330,7 @@ body {
                 height:1.4rem;
                 font-size: 0.8rem;
                 font-weight: normal;
-                line-height:1;
+                line-height:1.2;
                 right:40px;
                 top:calc(50% - 0.7rem);
                 position:absolute;
@@ -403,13 +403,16 @@ body {
         &.missingrestrictions {
           //filter:opacity(40%);
           opacity:0.4;
-            li {
-              color:darken($colorMenuTop,15%);
-              padding:10px 12px 10px 12px;
-              border-bottom:1px solid $colorLightGrey;
-              font-size: $fontSizeBase * 1;
-              line-height: $fontLineHeightBase - 10%;
-          }
+            ul {
+              li {
+                color:darken($colorMenuTop,15%);
+                padding:10px 12px 10px 12px;
+                border-bottom:1px solid $colorLightGrey;
+                font-size: $fontSizeBase * 1;
+                line-height: $fontLineHeightBase - 10%;
+              }
+            }
+            
           v-pane-content[aria-hidden='false'] {
             border-bottom:1px solid $colorMenuTop;
             background-color: $colorContentBgnd;
