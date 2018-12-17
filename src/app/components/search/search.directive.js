@@ -14,11 +14,12 @@ export function SearchDirective() {
 
 class SearchController {
 
-    constructor($scope, Map, Coordinates, $window) {
+    constructor($scope, Map, Coordinates, $window, $element) {
         'ngInject';
 
         this.Map = Map;
         this.$window = $window;
+        this.$element = $element;
 
         let self = this;
 
@@ -55,6 +56,8 @@ class SearchController {
             return self.search;
         }, function (value) {
             if (self.search !== null && typeof self.search === 'object') {
+                // blur input
+                self.$element.find('input').blur();
 
                 // center result
                 let coordinates = Coordinates.set('search', Coordinates.System[4326], [self.search.attrs.lon, self.search.attrs.lat]);
