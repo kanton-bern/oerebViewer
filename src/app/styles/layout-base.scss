@@ -159,7 +159,7 @@ body {
     h2 {
       color:$colorWhite;
       @include fontNormal;
-      font-size:$fontSizeBase * 1.2;
+      font-size:$fontSizeBase * 1.22;
 
       &.hint {
         font-size: $fontSizeBase * 1;
