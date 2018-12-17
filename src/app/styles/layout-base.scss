@@ -403,9 +403,11 @@ body {
         &.missingrestrictions {
           //filter:opacity(40%);
           opacity:0.4;
-            .ng-binding {
+            li {
               color:darken($colorMenuTop,15%);
-              padding:5px 0px 10px 0px;
+              padding:10px 12px 10px 12px;
+              border-bottom:1px solid $colorLightGrey;
+              font-size: $fontSizeBase * 1;
               line-height: $fontLineHeightBase - 10%;
           }
           v-pane-content[aria-hidden='false'] {
@@ -531,9 +533,7 @@ body {
           }
 
           > div {
-            padding-top:0px;
-            padding-left:12px;
-            padding-right:12px;
+            padding:0;
           }
 
           .pdf-download {
@@ -557,6 +557,8 @@ body {
             }
             &.property-info {
               border-bottom:1px dotted $colorMenuTop;
+              padding-left:12px;
+              padding-right:12px;
 
             }
 
@@ -586,6 +588,8 @@ body {
           li {
             display:block;
             min-height:60px;
+            padding-left:12px;
+            padding-right:12px;
             .logo-gemeinde {
               width:32px;
               display:inline-block;

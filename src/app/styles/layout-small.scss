@@ -85,7 +85,7 @@
 
 
       h1 {
-        font-size:$fontSizeBase * 1.2;
+        font-size:$fontSizeBase * 1.22;
         line-height: $fontLineHeightBase - 20%;
         margin-bottom:5px;
       }
@@ -97,6 +97,11 @@
         line-height: $fontLineHeightBase - 20% !important;
       }
       v-pane-content {
+        ul {
+          li {
+            font-size: $fontSizeBase * 0.88 !important;
+          }
+        }
         v-pane-content {
           v-pane-header {
 
@@ -132,6 +137,22 @@
         }
       }
 
+      v-accordion[class^='vAccordion']  {
+        .restrictions {
+          v-pane-content {
+            > div {
+              v-accordion {
+                v-pane {
+                  v-pane-header {
+                    font-size: $fontSizeBase * .88 !important;
+                  }
+                }
+              }
+            }
+          }   
+        }
+      }
+         
 
   }
 
