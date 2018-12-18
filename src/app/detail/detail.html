@@ -53,7 +53,8 @@
                 <!-- Restrictions -->
                 <v-pane expanded class="restrictions" id="toogleExpand">
                     <v-pane-header>
-                        {{"detailConcernedThemes1" | translate}}<span class="secondary badge">{{main.extract.themes.length}}</span> 
+                        {{"detailConcernedThemes1" | translate}}<span ng-if="main.extract.restrictions.length != 0" class="secondary badge">{{main.extract.themes.length}}</span>
+                        <span ng-if="main.extract.restrictions.length == 0" class="secondary badge">0</span> 
                     </v-pane-header>
 
                     <v-pane-content>
