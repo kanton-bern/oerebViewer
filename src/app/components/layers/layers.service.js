@@ -106,7 +106,6 @@ export class LayersService {
      Implementation of a WMTS - based on a Capabilites.xml
      */
     asyncGrundbuchMapLayer() {
-        console.log(this.globalTokenForWMTS)
         let self = this;
         let configuration = {
             url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_mopube_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
@@ -147,7 +146,7 @@ export class LayersService {
             self.Notification.warning('a4p_a4p_mopube_n_bk konnte nicht geladen werden.');
         });
     }
-    
+
     /*
      Implementation of a WMTS - based on a Capabilites.xml
      */
