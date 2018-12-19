@@ -389,6 +389,7 @@ body {
           @include fontNormal;
           background-color: $colorHeadContent;
           
+          > div *,
           > div {
             color:$colorWhite !important;
           }
@@ -400,7 +401,8 @@ body {
 
         // no-restrictions or missing
         &.norestrictions,
-        &.missingrestrictions {
+        &.missingrestrictions,
+        .norestrictions_found {
           //filter:opacity(40%);
           opacity:0.4;
             ul {

@@ -50,24 +50,21 @@
             <v-accordion class="vAccordion--default" ng-click="main.showMain()" ng-if="!detail.noDatas" control="accordion" oncollapse="detail.collapse(index, null)" onexpand="detail.expand(index, id)">
 
 
-                <!-- Restrictions -->
-                <v-pane expanded class="restrictions" id="toogleExpand">
-                    <v-pane-header>
-                        {{"detailConcernedThemes1" | translate}}<span ng-if="main.extract.restrictions.length != 0" class="secondary badge">{{main.extract.themes.length}}</span>
-                        <span ng-if="main.extract.restrictions.length == 0" class="secondary badge">0</span> 
+                <!-- Restrictions, but if no restrictions found, the entire v-pane will be greyed out -->
+                <v-pane expanded class="restrictions" id="toogleExpand">  
+                    <v-pane-header><wrapper ng-if="main.extract.restrictions.length == 0" class="norestrictions_found">
+                        {{"detailConcernedThemes1" | translate}}
+                        <span class="secondary badge">0</span> 
+                    </wrapper>
+                    <wrapper ng-if="main.extract.restrictions.length > 0">
+                        {{"detailConcernedThemes1" | translate}}<span class="secondary badge">{{main.extract.themes.length}}</span> 
+                    </wrapper>
                     </v-pane-header>
 
                     <v-pane-content>
 
-                        <!-- sometimes there are themes but no restrictions
-                        <ul ng-if="main.extract.restrictions.length == 0 && main.extract.themes.length > 0">
-                            <li ng-repeat="theme in main.extract.themes track by $index">
-                                {{ theme.Name }}
-                            </li>
-                        </ul>-->
-
                         <!-- neither restrictions nor themes -->
-                        <div ng-if="main.extract.restrictions.length == 0">
+                        <div ng-if="main.extract.restrictions.length == 0" class="norestrictions_found">
                             <span class="no-restrictions">
                             {{"noRestrictions" | translate}}
                           </span>
