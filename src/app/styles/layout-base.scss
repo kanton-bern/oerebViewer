@@ -401,8 +401,7 @@ body {
 
         // no-restrictions or missing
         &.norestrictions,
-        &.missingrestrictions,
-        .norestrictions_found {
+        &.missingrestrictions {
           //filter:opacity(40%);
           opacity:0.4;
             ul {
@@ -419,6 +418,18 @@ body {
             border-bottom:1px solid $colorMenuTop;
             background-color: $colorContentBgnd;
           }
+        }
+        // No restrictions were found
+        .norestrictions_found {
+          .no-restrictions  {
+            width:100%;
+            margin:0;
+            padding:10px 12px 12px 10px;
+            background-color: $colorContentBgnd;
+            line-height:1;
+            font-size:$fontSizeBase * 1;
+          }
+
         }
         &.generalinformation {
           v-pane-content {
