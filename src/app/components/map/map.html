@@ -5,21 +5,23 @@
       <img src="assets/images/oereb_marker.svg" alt="{{'markerAlt' | translate}}" />
   </div>
 
-    <div ng-if="infoboxLoading">
+    <div ng-if="map.infoboxLoading">
         {{'infobox_loading' | translate}}
     </div>
 
-    <div ng-if="!infoboxLoading">
+    <div ng-if="!map.infoboxLoading && map.selectedPoint.length > 0">
         <strong>{{ 'infobox_property' | translate }}</strong>
 
-        <div ng-if="map.selectedPoint.length == 0">{{'no_propery_found' | translate}}</div>
         <ul>
             <li ng-repeat="ele in map.selectedPoint">
-              <!-- [bs][todo] zusätzlich noch die grundstückart angeben, wenn irgendwie möglich -->
                 <button ng-if="map.currentEgrid != ele.egrid" ng-click="map.openDetail(ele.egrid)" ng-mobile-click="map.openDetail(ele.egrid)" class="clickable">{{'infobox_plot' | translate}} {{ele.number}}</button>
-                <button ng-if="map.currentEgrid == ele.egrid">{{'infobox_plot' | translate}} {{ele.number}} ({{'active' | translate}})</button>
+                <button ng-if="map.currentEgrid == ele.egrid" ng-click="map.showDetail(ele.egrid)" ng-mobile-click="map.showDetail(ele.egrid)" class="clickable">{{'infobox_plot' | translate}} {{ele.number}} ({{'active' | translate}})</button>
             </li>
         </ul>
+    </div>
+
+    <div ng-if="!map.infoboxLoading && map.selectedPoint.length == 0">
+        <div>{{'no_property_found' | translate}}</div>
     </div>
 </div>
 
@@ -36,6 +38,11 @@
         <svg class="icon icon-location-2">
             <use xlink:href="#icon-location-2"></use>
         </svg>
+    </button>
+    <button ng-if="map.currentEgrid != 0" class="button svg-icon btnCenterObject" ng-click="map.centerObject()">
+            <svg class="icon icon-zoomToCenter">
+                <use xlink:href="#icon-zoomToCenter"></use>
+            </svg>
     </button>
     <button ng-click="map.zoomIn()" class="button svg-icon btnZoomIn hide-for-small-only">
         <svg class="icon icon-plus">

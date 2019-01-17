@@ -77,6 +77,13 @@ body {
 }
 .icon {
   @include icon_svg();
+  margin:1px 1px 0px 0px;
+
+  &.icon-reload {
+    margin-right:2px;
+    font-size:1rem;
+    vertical-align: bottom;
+  }
 }
 // End SVG-Icons
 
@@ -152,7 +159,7 @@ body {
     h2 {
       color:$colorWhite;
       @include fontNormal;
-      font-size:$fontSizeBase * 1.2;
+      font-size:$fontSizeBase * 1.22;
 
       &.hint {
         font-size: $fontSizeBase * 1;
@@ -186,7 +193,7 @@ body {
 
 // Start mainnav
 .mainnav {
-    font-size:$fontSizeBase * 1.2;
+    font-size:$fontSizeBase * 1.22;
     // height: 80000px; // scroll issues
 
     .menu {
@@ -203,26 +210,27 @@ body {
     .top-menu {
       padding:12px 12px 8px 12px;
       margin-top:-4px;
-      background-color:$colorHeadContent;
+      background-color:$colorMenuBgnd;
       margin-bottom:20px;
+      color:$colorHeadContent;
 
 
 
       .icon {
           font-size:$fontSizeBase * 0.8;
           vertical-align: middle;
-          fill:$colorWhite !important;
+          fill:$colorDarkGrey !important;
       }
 
 
       .lang-selector {
 
-        text-align: right;
 
         span {
+          color:$colorDarkGrey;
           @include menuLinks();
           a {
-
+            color:$colorDarkGrey;
           }
           .is-active {
             display:none;
@@ -251,7 +259,7 @@ body {
     .intro-row {
       padding:12px 12px 30px 12px;
       border-bottom:1px solid $colorMenuTop;
-
+      margin: 0;
 
       .pdf-download {
         .small-12 {
@@ -271,11 +279,10 @@ body {
       }
     }
     .icon {
-      height: $fontSizeBase * 1.2;
+      height: $fontSizeBase * 1.22;
       cursor:default;
       fill:$colorContent !important;
       margin-left:-4px;
-      vertical-align: text-bottom;
     }
 
 
@@ -299,8 +306,9 @@ body {
       // no-restrictions found
       .no-restrictions {
         padding-left:10px;
+        padding-bottom:10px;
         display:inline-block;
-        padding-top:5px;
+        padding-top:10px;
       }
 
       v-pane {
@@ -312,20 +320,42 @@ body {
           margin-right:12px;
 
         }
-        v-pane-header {
+        v-pane-header, 
+        .history {
+            .badge {
+              vertical-align: middle;
+              &.secondary {
+                color:$colorWhite;
+                min-width:1.4rem;
+                height:1.4rem;
+                font-size: 0.8rem;
+                font-weight: normal;
+                line-height:1.2;
+                right:40px;
+                top:calc(50% - 0.7rem);
+                position:absolute;
+                background-color: $colorDarkGrey;
+              }
+            }
+
           border-bottom:1px solid $colorHeadContent;
           margin-bottom:0px;
-          div {
-            padding:5px 48px 5px 12px;
+          > div { // ng-transclude
+            padding:10px 42px 10px 12px;
             line-height:$fontLineHeightBase - 20%;
-
+            position:relative;
+            color:$colorDarkGrey;
             h1 {
               margin:0;
               padding:0;
             }
+            &:hover {
+              color:$colorWhite;
+            }
           }
           &:hover {
             background-color: $colorHeadContent;
+            color:$colorWhite;
             &::after,
             &::before {
                 background-color: $colorWhite;
@@ -333,6 +363,9 @@ body {
             .ng-binding {
               color:$colorWhite !important;
             }
+          }
+          &:focus {
+            color:$colorDarkGrey;
           }
         }
         &.is-expanded { // open
@@ -345,7 +378,7 @@ body {
             border-bottom:1px solid $colorMenuTop;
           }
           .history-item {
-            margin-top:20px;
+            padding-top:20px;
             li {
               line-height:$fontLineHeightBase - 10%;
               margin-bottom:10px;
@@ -353,21 +386,50 @@ body {
           }
         }
         v-pane-header[aria-expanded^="true"]{
-          @include fontBold;
+          @include fontNormal;
+          background-color: $colorHeadContent;
+          
+          > div *,
+          > div {
+            color:$colorWhite !important;
+          }
 
+          &:before {
+            background-color: $colorWhite;
+          }
         }
 
         // no-restrictions or missing
         &.norestrictions,
         &.missingrestrictions {
-            .ng-binding {
-              color:darken($colorMenuTop,15%);
-              padding:5px 0px 10px 0px;
-              line-height: $fontLineHeightBase - 10%;
-          }
+          //filter:opacity(40%);
+          opacity:0.4;
+            ul {
+              li {
+                color:darken($colorMenuTop,15%);
+                padding:10px 12px 10px 12px;
+                border-bottom:1px solid $colorLightGrey;
+                font-size: $fontSizeBase * 1;
+                line-height: $fontLineHeightBase - 10%;
+              }
+            }
+            
           v-pane-content[aria-hidden='false'] {
             border-bottom:1px solid $colorMenuTop;
+            background-color: $colorContentBgnd;
           }
+        }
+        // No restrictions were found
+        .norestrictions_found {
+          .no-restrictions  {
+            width:100%;
+            margin:0;
+            padding:10px 12px 12px 10px;
+            background-color: $colorContentBgnd;
+            line-height:1;
+            font-size:$fontSizeBase * 1;
+          }
+
         }
         &.generalinformation {
           v-pane-content {
@@ -376,6 +438,13 @@ body {
           }
         }
         &.restrictions {
+          v-pane-header {
+            .badge {
+              &.secondary {
+                line-height:1.2;
+              }
+            }
+          }
           v-pane-content {
 
 
@@ -405,10 +474,11 @@ body {
               v-accordion {
                 margin:0;
                 padding:0;
+                background-color: $colorContentBgnd;
                 v-pane {
                   v-pane-header {
                     padding-left:0px;
-
+                    font-size:$fontSizeBase * 1;
 
                     v-pane-header {
                        border-bottom:0px solid $colorMenuTop;
@@ -479,9 +549,7 @@ body {
           }
 
           > div {
-            padding-top:0px;
-            padding-left:12px;
-            padding-right:12px;
+            padding:0;
           }
 
           .pdf-download {
@@ -505,6 +573,8 @@ body {
             }
             &.property-info {
               border-bottom:1px dotted $colorMenuTop;
+              padding-left:12px;
+              padding-right:12px;
 
             }
 
@@ -516,19 +586,14 @@ body {
 
     // history-items
     .history {
-      .badge {
-        vertical-align: text-bottom;
-        &.secondary {
-          color:$colorWhite;
-          min-width:1.2rem;
-          height:1.2rem;
-          font-size: 0.8rem !important;
-          padding:0rem !important;
 
+      .badge {
+        &.secondary {
+          line-height:1.2 !important;
         }
       }
-
       v-pane-content {
+        background-color:$colorContentBgnd;
         &[aria-hidden='false'] {
           border-bottom:1px solid $colorMenuTop;
         }
@@ -539,12 +604,14 @@ body {
           li {
             display:block;
             min-height:60px;
+            padding-left:12px;
+            padding-right:12px;
             .logo-gemeinde {
               width:32px;
               display:inline-block;
               float:left;
               margin-right:10px;
-              margin-bottom:10px;
+              margin-bottom:20px;
               background-size: contain;
               background-repeat: no-repeat;
               background-position: top center;
@@ -561,7 +628,7 @@ body {
               font-size:$fontSizeBase * 0.8;
               color:$colorContentGrey;
               display:block;
-              margin-top:0em;
+              margin-top:0.3em;
             }
           }
         }
@@ -580,7 +647,7 @@ body {
       &.contentLinks {
 
         li {
-          padding:4px 12px 4px 12px;
+          padding:10px 12px 10px 12px;
           border-bottom:1px solid $colorHeadContent;
           cursor:pointer;
 
@@ -730,7 +797,7 @@ body {
     background-color: $colorContentBgnd;
     position: relative;
     margin-top:44px;
-    font-size:$fontSizeBase * 1.2;
+    font-size:$fontSizeBase * 1.22;
     height: calc(100vh - 40px);
     overflow-y:scroll;
     padding-bottom:8rem; // provide some space on the bottom for certain devices issue #97
@@ -765,6 +832,7 @@ body {
         display:block;
         margin-left:20px;
       }
+
 
     }
 
@@ -818,6 +886,13 @@ body {
 
   }
 
+  .url-link:link, .url-link:visited {
+    text-decoration:underline;
+  }
+  .url-link:hover, .url-link:active {
+    text-decoration:none;
+  }
+
 
 
 }
@@ -843,14 +918,14 @@ body {
 
 // Spinners and Loaders
 .spinner-wrapper {
-  @include showSpinnerPulse($colorBlack);
+  // @include showSpinnerPulse($colorBlack);
   z-index:6000; // has to be the topmost element
   position:absolute;
   width:120px;
   height:120px;
   top:calc(50vh - 120px);
   left:calc(50vw - 60px);
-  @include showSpinnerLoader($colorWhite);
+  @include showSpinnerLoader($colorMain);
 
 }
 // END Spinners and loaders

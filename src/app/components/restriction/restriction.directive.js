@@ -3,7 +3,7 @@ export function RestrictionDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/restriction/restriction.html',
+        template: require('./restriction.html'),
         scope: {
             data: '=',
         },

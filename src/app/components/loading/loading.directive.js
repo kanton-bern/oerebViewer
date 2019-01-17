@@ -3,7 +3,7 @@ export function LoadingDirective() {
 
     let directive = {
         restrict: 'E',
-        templateUrl: 'app/components/loading/loading.html',
+        template: require('./loading.html'),
         controller: LoadingController,
         controllerAs: 'loading',
         bindToController: true

@@ -30,10 +30,6 @@
                     <a ng-click="main.changeLanguage('fr')" title="Version française"
                          ng-class="{'is-active': main.isCurrentLanguage('fr')}">Français</a>
                   </span>
-                  <span ng-click="main.changeLanguage('it')">
-                    <a ng-click="main.changeLanguage('it')" title="Version italiano"
-                         ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
-                  </span>
               </div>
 
 
@@ -53,10 +49,11 @@
             </div>
 
             <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
-                <h2>{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</h2>
+                <h2><button ng-if="!details.noData" ng-click="main.centerObject()">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</button></h2>
             </div>
             <a ng-click="main.reloadPage()" title="{{'appReset' | translate}}" class="mainlogo">
-                <p><span class="oereb-title">{{'title'|translate}}</span><span>{{ 'subtitle' | translate }}</span></p>
+                <p>
+                <span class="oereb-title">{{'title'|translate}}</span><span>{{ 'subtitle' | translate }}</span></p>
             </a>
         </div>
     </div>
@@ -153,10 +150,10 @@
                         <h3>{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</h3>
                         <p>
 
-      
+
                           {{main.extract.data.PLRCadastreAuthority.Street}} {{main.extract.data.PLRCadastreAuthority.Number}}<br />
                           {{main.extract.data.PLRCadastreAuthority.PostalCode}} {{main.extract.data.PLRCadastreAuthority.City}}<br />
-                          <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" class="url-link">{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</a>
+                          <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" target="_blank" class="url-link">{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</a>
                         </p>
                       </div>
                       </section>

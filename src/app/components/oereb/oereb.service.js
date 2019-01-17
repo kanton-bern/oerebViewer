@@ -59,7 +59,6 @@ export class OEREBService {
 
                     let x2js = new X2JS();
                     let object = x2js.xml_str2json(data);
-                    this.$log.info(object);
 
                     if (!object || !object.GetEGRIDResponse) {
                         return false;

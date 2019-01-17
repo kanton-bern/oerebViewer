@@ -28,7 +28,7 @@ export class ConfigService {
             // Basis URL des OEREB-Webservice gemäss Weisung
             oereb: 'https://www.oereb2.apps.be.ch/OerbverSVC.svc',
             // Aufruf der Karte des ÖREB-Katasters für das im Samrt-Auszug ausgewählte Grundstück. Variablen EGRID und Language.
-            extern: 'https://www.map.apps.be.ch/pub/synserver?query1=egrid&keyvalue1=-EGRID-&keyname1=EGRID&project=a42pub_oereb_oeffen_-LANGUAGE-&language=-LANGUAGE-&userprofile=geo&cient=auto'
+            extern: 'https://www.map.apps.be.ch/pub/externalcall.jsp?query1=egrid&keyvalue1=-EGRID-&keyname1=EGRID&project=a42pub_oereb_oeffen_-LANGUAGE-&language=-LANGUAGE-&userprofile=geo&client=auto'
         };
 
         this.opacityRestrictionLayers = 0.7;

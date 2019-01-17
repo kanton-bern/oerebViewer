@@ -90,4 +90,7 @@ export class MainController {
         this.Helpers.closeMenu();
     }
 
+    centerObject(){
+        this.Map.centerObject()
+    }
 }

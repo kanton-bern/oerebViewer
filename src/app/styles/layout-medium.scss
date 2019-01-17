@@ -17,9 +17,12 @@
     max-width: ($menuOffset - $corrfactorM);
     transform:translateX(($menuOffset - $corrfactorM) * -1);
 
-    .mainnav {
-      font-size:$fontSizeBase * 0.9;
+     .mainnav {
+      font-size:$fontSizeBase * 1;
 
+      .icon {
+        height: 1rem;
+      }
       .pdf-download {
         .small-12 {
           margin-bottom:10px;
@@ -34,22 +37,20 @@
 
       }
 
-      // history-items
-      .history {
-        .badge {
-          vertical-align: text-bottom;
-          &.secondary {
-            height:1rem;
-            min-width:1rem;
-            font-size: 0.7rem !important;
-            padding:0rem !important;
-
+      v-pane-header {
+          .badge {
+            &.secondary {
+              right:30px;
+              line-height:1.2;
+            }
           }
-        }
+          div { // ng-transclude
+            padding-right:20%;
+          }
       }
 
       h1 {
-        font-size:$fontSizeBase * 1.2;
+        font-size:$fontSizeBase * 1.22;
         line-height: $fontLineHeightBase - 20%;
         margin-bottom:5px;
       }
@@ -57,10 +58,15 @@
         font-size:$fontSizeBase * 0.8;
       }
       v-pane-header, v-pane-content, v-pane-content h3 {
-        font-size:$fontSizeBase * 0.9 !important;
+        font-size:$fontSizeBase * 1 !important;
         line-height: $fontLineHeightBase - 20% !important;
       }
       v-pane-content {
+        ul {
+          li {
+            font-size: $fontSizeBase * 0.92;
+          }
+        }
         v-pane-content {
           v-pane-header {
             padding-left:10px !important;
@@ -77,6 +83,23 @@
           }
         }
       }
+
+      v-accordion[class^='vAccordion']  {
+        .restrictions {
+          v-pane-content {
+            > div {
+              v-accordion {
+                v-pane {
+                  v-pane-header {
+                    font-size: $fontSizeBase * .92 !important;
+                  }
+                }
+              }
+            }
+          }   
+        }
+      }
+    
 
     }
 

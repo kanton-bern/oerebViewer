@@ -1,5 +1,7 @@
+const MAP_CENTER_OBJECT_EVENT = 'map-center-object-event';
+
 export class MapService {
-    constructor(ngeoDecorateLayer, Config, Layers, Helpers, Coordinates, $window) {
+    constructor(ngeoDecorateLayer, Config, Layers, Helpers, Coordinates, $window, $rootScope) {
         'ngInject';
 
         // declarations
@@ -8,6 +10,7 @@ export class MapService {
         this.Layers = Layers;
         this.Coordinates = Coordinates;
         this.Helpers = Helpers;
+        this.$rootScope = $rootScope;
 
         // default definitions
         this.tempLayers = [];
@@ -300,5 +303,17 @@ export class MapService {
 
     getSize() {
         return this.map.getSize();
+    }
+
+    registerCenterObjectCallback(scope, callback){
+        var deregister = this.$rootScope.$on(MAP_CENTER_OBJECT_EVENT, callback);
+        scope.$on('$destroy', deregister);
+    }
+
+    /**
+     * delegate to subscribed maps directives
+     */
+    centerObject(){
+        this.$rootScope.$broadcast(MAP_CENTER_OBJECT_EVENT);
     }
 }

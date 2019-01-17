@@ -3,7 +3,6 @@ export class LayersService {
         'ngInject';
 
         this.ol = ol;
-        this.Map = Map;
         this.Notification = Notification;
         this.EsriToken = EsriToken;
 
@@ -18,8 +17,8 @@ export class LayersService {
          */
         this.globalTokenForWMTS = this.EsriToken.register('a4p_global', {
             endpoint: 'https://www.geoservice.apps.be.ch/geoservice2/tokens/generateToken',
-            username: '{username_placeholder}',
-            password: '{username_password}',
+            username: process.env.TOKEN_USERNAME,
+            password: process.env.TOKEN_PASSWORD,
             interval: 59, // token for 59min
         });
 
@@ -32,9 +31,6 @@ export class LayersService {
 
         // Grundbuchplan schwarz-weiss
         this.add(this.asyncGrundbuchMapLayer());
-
-        // Grauer Hintergrund für kleine Masstäbe (ergänzend zum Grundbuchplan)
-        this.add(this.asyncGreyMapLayer());
 
         // Orthophoto für zweite Hintergrundansicht
         this.add(this.asyncOrthoPhotoLayer());
@@ -76,7 +72,7 @@ export class LayersService {
         };
 
         return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
+            return fetch(configuration.url + '?token=' + configuration.token.token).then(function (response) {
                 return response.text();
             })
         }).then(function (text) {
@@ -118,7 +114,7 @@ export class LayersService {
 
         // fetches capabilities from a service
         return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
+            return fetch(configuration.url + '?token=' + configuration.token.token).then(function (response) {
                 return response.text();
             })
         }).then(function (text) {
@@ -151,52 +147,6 @@ export class LayersService {
         });
     }
 
-
-    /*
-        Implementation of a WMTS - based on a Capabilites.xml
-     */
-    asyncGreyMapLayer() {
-        let self = this;
-        let configuration = {
-            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
-            token: this.globalTokenForWMTS,
-        };
-
-        // fetches capabilities from a service
-        return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
-                return response.text();
-            })
-        }).then(function (text) {
-            let result = self.parser.read(text);
-
-            // parses options based on the capabilities
-            let options = ol.source.WMTS.optionsFromCapabilities(result, {
-                layer: 'a4p_a4p_hintergrund_grau_n_bk',
-                matrixSet: 'EPSG:2056'
-            });
-            self.applyTokeToWMTSOptions(configuration.token, options);
-
-            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
-            let wmtsSource = new ol.source.WMTS(options);
-            self.refreshOnInvalidToken(configuration.token, wmtsSource);
-
-            // creates ol.layer.Tile with the prepared source
-            let wmtsLayer = new ol.layer.Tile({
-                opacity: 1,
-                source: wmtsSource,
-                visible: true, // is visible per default
-                name: 'greyMap' // the name is necessary for interacting with this layer, see setView method
-            });
-
-            wmtsLayer.setZIndex(1);
-
-            return wmtsLayer;
-        }).catch(function(ex) {
-            self.Notification.warning('a4p_a4p_hintergrund_grau_n_bk konnte nicht geladen werden.'); // warning if not accessible
-        });
-    }
-
     /*
      Implementation of a WMTS - based on a Capabilites.xml
      */
@@ -208,7 +158,7 @@ export class LayersService {
         };
 
         return this.waitForToken(configuration.token).then(function () {
-            return fetch(configuration.url).then(function (response) {
+            return fetch(configuration.url + '?token=' + configuration.token.token).then(function (response) {
                 return response.text();
             })
         }).then(function (text) {
@@ -245,8 +195,8 @@ export class LayersService {
             url: 'https://www.geoservice2-test.apps.be.ch/geoservice2/services/a4p/a4p_hintergrund_grau_n_bk_testmb/MapServer/WMSServer?',
             token: this.EsriToken.register('a4p_grau', {
                 endpoint: 'https://www.geoservice2-test.apps.be.ch/geoservice2/tokens/generateToken',
-                username: '{username_placeholder}',
-                password: '{password_placeholder}',
+                username: 'example_login',
+                password: 'example_password',
             }),
         };
 
