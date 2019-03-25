@@ -26,7 +26,10 @@ export class ExtractsService {
     }
 
     reload() {
-        this.add(this.getCurrent(), true);
+        let currentExtract = this.getCurrent()
+        if (currentExtract) {
+            this.add(currentExtract, true);
+        }
     }
 
     add(newExtract, reloading = false) {
@@ -208,10 +211,6 @@ export class ExtractsService {
     }
 
     getCurrent() {
-        if (angular.isUndefined(this.currentExtract)) {
-            this.currentExtract = this.extracts[0];
-        }
-
         return this.currentExtract;
     }
 
