@@ -39,16 +39,33 @@ export class DetailController {
         this.Extracts.registerRestrictionObserverCallback(() => {
             this.tempLayers = [];
 
+            const unique = (function () {
+                const tempLayerHash = [];
+                return function (source) {
+                    const hash = source.getUrls().join();
+                    if (tempLayerHash.indexOf(hash) === -1) {
+                        tempLayerHash.push(hash);
+                        return {
+                            then: callback => callback()
+                        }
+                    }
+                    return {
+                        then: callback => {} // noop
+                    }
+                }
+            })();
+
             let bbox = '';
 
             if (angular.isDefined(this.Extracts.getRestriction()))
                 angular.forEach(this.Extracts.getRestriction().values, (v) => {
                     bbox = Helpers.getParameterByName('bbox', v.Map.ReferencerWMS);
 
-                    var indexOfWMSServer = v.Map.ReferenceWMS.indexOf('WMSServer?');
+                    let indexOfWMSServer = v.Map.ReferenceWMS.indexOf('WMSServer?');
+                    let wmsTempSource;
 
-                    if (indexOfWMSServer == -1) {
-                        var wmsTempSource = new this.Map.ol.source.TileWMS(({
+                    if (indexOfWMSServer === -1) {
+                        wmsTempSource = new this.Map.ol.source.TileWMS(({
                             url: v.Map.ReferenceWMS,
                             params: {
                                 'TILED': true,
@@ -57,9 +74,9 @@ export class DetailController {
                         }));
                     }
                     else {
-                        var url = v.Map.ReferenceWMS.substr(0, indexOfWMSServer) + 'WMSServer?';
+                        let url = v.Map.ReferenceWMS.substr(0, indexOfWMSServer) + 'WMSServer?';
 
-                        var wmsTempSource = new this.Map.ol.source.TileWMS(({
+                        wmsTempSource = new this.Map.ol.source.TileWMS(({
                             url: url,
                             params: {
                                 'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
@@ -82,7 +99,10 @@ export class DetailController {
 
                     layer.setZIndex(50);
 
-                    this.tempLayers.push(layer);
+                    unique(wmsTempSource)
+                      .then(() => {
+                          this.tempLayers.push(layer);
+                      });
                 });
 
             this.Map.addTempLayers(this.tempLayers);
