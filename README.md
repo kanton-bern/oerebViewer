@@ -73,6 +73,15 @@ $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh |
 $ nvm install node
 ```
 
+Bitte beachten Sie, dass sich zur Zeit die Applikation nur mit einer node-Version < 12.0 builden lässt. Aktuell ist die v11.4.0 eine lauffähige Version. Bitte prüfen Sie dies mit einem:
+
+```bash
+node -v
+```
+
+
+
+
 ## 4.2 Installationsanleitung ##
 
 1. Die aktuelle Version aus diesem Repository herunterladen
