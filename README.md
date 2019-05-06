@@ -26,6 +26,8 @@
 # 1. EINLEITUNG #
 Dieses Repository beinhaltet den vollständigen Quelltext, um eine lauffähige Instanz des SmartAuszugs zu erstellen. Die vordefinierten Dienste sind auf den Kanton Bern zugeschnitten, können jedoch einfach für andere Kantone angepasst werden. Dieses README dient als Dokumentation und hilft bei der Installation der SmartAuszug.
 
+Beim oerebViewer handelt es sich um Open-Source Software des Katon Berns, die unter einer [FreeBSD-3 Lizenz](license.txt) zur Verfügung gestellt wird.
+
 ## 1.1 Zu diesem Repository ##
 * Dieses Repository beinhaltet den kompletten SmartAuszug und es kann eine selbständige Installation der Applikation aus diesem Repository erzeugt werden.
 * Ebenfalls findet sich hier die komplette Historie mit Versionierung der Entwicklung.
