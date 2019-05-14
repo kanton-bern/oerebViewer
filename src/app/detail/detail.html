@@ -51,13 +51,13 @@
 
 
                 <!-- Restrictions, but if no restrictions found, the entire v-pane will be greyed out -->
-                <v-pane expanded class="restrictions" id="toogleExpand">  
+                <v-pane expanded class="restrictions" id="toogleExpand">
                     <v-pane-header><wrapper ng-if="main.extract.restrictions.length == 0" class="norestrictions_found">
                         {{"detailConcernedThemes1" | translate}}
-                        <span class="secondary badge">0</span> 
+                        <span class="secondary badge">0</span>
                     </wrapper>
                     <wrapper ng-if="main.extract.restrictions.length > 0">
-                        {{"detailConcernedThemes1" | translate}}<span class="secondary badge">{{main.extract.themes.length}}</span> 
+                        {{"detailConcernedThemes1" | translate}}<span class="secondary badge">{{main.extract.themes.length}}</span>
                     </wrapper>
                     </v-pane-header>
 
@@ -125,7 +125,7 @@
                         <!-- nested accordion -->
                         <ul>
                             <li ng-repeat="theme in main.extract.ncthemes track by $index">
-                                {{ theme.Name }}
+                                {{ theme.Text.Text }}
                             </li>
                         </ul>
                     </v-pane-content>
@@ -142,7 +142,7 @@
                         <!-- nested accordion -->
                         <ul>
                             <li ng-repeat="theme in main.extract.wdthemes track by $index">
-                                {{ theme.Name }}
+                                {{ theme.Text.Text }}
                             </li>
                         </ul>
                     </v-pane-content>
@@ -195,12 +195,12 @@
                 </v-pane>
                 <!-- / General Information -->
 
-                <!-- History 
+                <!-- History
                  This will be shown if ther is actual data loaded (!detail.noDatas)
                 -->
                 <v-pane class="history">
                     <v-pane-header>
-                         {{"detailPropertyHistory" | translate}}<span class="secondary badge">{{main.history.length}}</span> 
+                         {{"detailPropertyHistory" | translate}}<span class="secondary badge">{{main.history.length}}</span>
                     </v-pane-header>
 
                     <v-pane-content class="history-item">
@@ -225,12 +225,12 @@
 
             </v-accordion>
             <v-accordion class="vAccordion--default" ng-click="main.showMain()" ng-if="detail.noDatas" control="accordion" oncollapse="detail.collapse(index, null)" onexpand="detail.expand(index, id)">
-                <!-- History 
+                <!-- History
                 This will be shown if no data is loaded (detail.noDatas)
                 -->
                 <v-pane class="history">
                     <v-pane-header>
-                        {{"detailPropertyHistory" | translate}}<span class="secondary badge">{{main.history.length}}</span> 
+                        {{"detailPropertyHistory" | translate}}<span class="secondary badge">{{main.history.length}}</span>
                     </v-pane-header>
 
                     <v-pane-content class="history-item">
@@ -266,16 +266,16 @@
                   <svg class="icon icon-globe">
                       <use xlink:href="#icon-globe"></use>
                   </svg>
-  
+
                   <!-- Language-Switch
                   You can delete or add new languages by inserting the following snippet:
-  
+
                   <span ng-click="main.changeLanguage('it')">
                     <a ng-click="main.changeLanguage('it')" title="Version italiano"
                          ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
                   </span>
                  -->
-  
+
                   <span ng-click="main.changeLanguage('de')">
                       <a title="Deutsche Version" ng-class="{'is-active': main.isCurrentLanguage('de')}">Deutsch</a>
                   </span>

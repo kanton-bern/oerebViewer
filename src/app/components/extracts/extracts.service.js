@@ -48,16 +48,18 @@ export class ExtractsService {
             this.remove(this.egrid);
         };
 
-        this.OEREB.getExtractById(newExtract.egrid).then((d) => {
-            if (d.status === 204)
-                throw d;
+        this.OEREB.getExtractById(newExtract.egrid).then((response) => {
+            if (response.status === 204) {
+                throw "No Content";
+            }
 
-            newExtract = this.wrap(newExtract, d.data);
+            newExtract = this.wrap(newExtract, response.data);
 
             this.extracts.push(newExtract);
 
-            while (this.extracts.length > 10)
+            while (this.extracts.length > 10) {
                 this.extracts.shift();
+            }
 
             this.setCurrent(newExtract.egrid, reloading);
             this.localStorageService.set('extracts', this.extracts);
@@ -99,8 +101,7 @@ export class ExtractsService {
         newExtract.layers = [];
 
         let restrictions = [];
-        let count = 0;
-
+        let wrap = 0;
 
         let restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
 
@@ -110,13 +111,11 @@ export class ExtractsService {
             restrictionArray.push(newExtract.data.RealEstate.RestrictionOnLandownership);
         }
 
-
         angular.forEach(restrictionArray, function (d) {
 
-            if (angular.isUndefined(d.SubTheme))
+            if (angular.isUndefined(d.SubTheme)) {
                 return false;
-
-
+            }
 
             // legalProvisions must be an array
              if (!angular.isArray(d.LegalProvisions)) {
@@ -125,13 +124,9 @@ export class ExtractsService {
                  d.LegalProvisions.push(legalProvision);
              }
 
-             // filter for legalProvisions without Links
-             /*d.LegalProvisions = d.LegalProvisions.filter(function(legalProvision) {
-                return legalProvision.TextAtWeb.LocalisedText.Text.length > 0;
-             })*/
-
             // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
             let complex = (d.SubTheme != d.Theme.Name);
+            console.log(complexe)
 
             // check if restriction type allready exists - if yes, lets just push it as a value and skip the rest
             let doesRestrictionTypeExist = false;
@@ -186,6 +181,7 @@ export class ExtractsService {
         newExtract.restrictions = restrictions;
         newExtract.restrictionLength = Object.keys(restrictions).length;
 
+        console.log(newExtract)
         return newExtract;
     }
 

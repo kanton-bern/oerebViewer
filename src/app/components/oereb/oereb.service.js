@@ -15,27 +15,22 @@ export class OEREBService {
 
     getExtractById(egrid) {
         let lang = this.$translate.use() !== undefined ? this.$translate.use() : this.$translate.proposedLanguage();
-        let url = this.Config.services.oereb + '/' + this.reducedExtractPath + egrid + '?lang=' + lang;
+        let url = 'http://localhost:8080/assets/weisung/1_DE_PYRAMID.json'; // todo: make dynamic
 
         return this.$http.get(url, {
-                cache: true,
-                transformResponse: (data) => {
-                    let x2js = new X2JS();
-                    let object = x2js.xml_str2json(data);
+                cache: false,
+                transformResponse: (response) => {
+                    let data = JSON.parse(response);
 
-                    if (!angular.isObject(object))
+                    if (!angular.isObject(data)) {
                         return false;
-
-                    if (angular.isDefined(object.GetExtractByIdResponse)) {
-                        return object.GetExtractByIdResponse.Extract;
                     }
 
-                    if (!object.GetEGRIDResponse) {
-                        object.error = true;
-                        return object;
+                    if (! angular.isDefined(data.GetExtractByIdResponse)) {
+                        return false;
                     }
 
-                    return false;
+                    return data.GetExtractByIdResponse.extract;
                 }
             }).catch(() => {
                 this.Notification.warning(this.$filter('translate')('oerebServiceNotAvailable'));
