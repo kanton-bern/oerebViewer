@@ -73,7 +73,7 @@
 
                             <v-pane ng-repeat="restriction in main.extract.restrictions  | filter: detail.showInList track by $index" id="{{ restriction.code }}--{{ restriction.hasChildren }}">
                                 <v-pane-header>
-                                    {{ restriction.name }}
+                                    {{ restriction.Text.Text }}
                                 </v-pane-header>
 
                                 <v-pane-content>
@@ -85,7 +85,7 @@
                                             <v-pane ng-repeat="subRestriction in main.extract.restrictions | filter:{parent:restriction.name} track by $index" id="{{ subRestriction.code }}--{{ subRestriction.hasChildren }}">
 
                                                 <v-pane-header>
-                                                    {{ subRestriction.name }}
+                                                    {{ subRestriction.Text.Text }}
                                                 </v-pane-header>
 
                                                 <v-pane-content>
