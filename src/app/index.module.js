@@ -12,7 +12,6 @@ import 'angular-resource';
 import 'angular-ui-router';
 import 'angular-local-storage';
 import 'angular-ui-notification';
-import 'angular-ui-date';
 import 'angular-base64';
 import 'angular-typeahead';
 import 'angular-translate';
