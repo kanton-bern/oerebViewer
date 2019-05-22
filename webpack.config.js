@@ -9,6 +9,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var Dotenv = require('dotenv-webpack');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /**
  * Env
@@ -84,7 +85,7 @@ module.exports = function makeWebpackConfig() {
                 {loader: 'ng-annotate-loader'},
                 {loader: 'babel-loader'},
             ],
-            exclude: /node_modules/
+            exclude: [/node_modules/]
         }, {
             // CSS LOADER
             // Reference: https://github.com/webpack/css-loader
@@ -99,9 +100,9 @@ module.exports = function makeWebpackConfig() {
             // Reference: https://github.com/webpack/style-loader
             // Use style-loader in development.
 
-            loader: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: [
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
                     {loader: 'css-loader', query: {sourceMap: true}},
                     {loader: 'postcss-loader'}
                 ],
@@ -120,9 +121,9 @@ module.exports = function makeWebpackConfig() {
             // Reference: https://github.com/webpack/style-loader
             // Use style-loader in development.
 
-            loader: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: [
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
                     {loader: 'css-loader', query: {sourceMap: true}},
                     {loader: 'sass-loader'}
                 ],
@@ -201,7 +202,7 @@ module.exports = function makeWebpackConfig() {
 
             // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
             // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin(),
+            new UglifyJsPlugin(),
 
             // Copy assets from the public folder
             // Reference: https://github.com/kevlened/copy-webpack-plugin
