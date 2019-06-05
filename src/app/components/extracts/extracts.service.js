@@ -70,7 +70,7 @@ export class ExtractsService {
                 let loadSuccess1 = this.$filter('translate')('notification_loadsuccess1');
                 let loadSuccess2 = this.$filter('translate')('notification_loadsuccess2');
 
-                this.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
+                this.Notification.success(loadSuccess1 + ' ' + newExtract.RealEstate.Number + ' (' + newExtract.RealEstate.Municipality + ') ' + loadSuccess2);
             }
 
             setTimeout(() => {
@@ -79,109 +79,60 @@ export class ExtractsService {
 
         }).catch((data) => {
 
+            console.error('whoops', data)
+
             if (data.status === 204) {
                 this.Notification.error(this.$filter('translate')('oerebService204'));
             } else {
                 let loadFailed1 = this.$filter('translate')('notification_failed1');
                 let loadFailed2 = this.$filter('translate')('notification_failed2');
-                this.Notification.error(loadFailed1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
+                this.Notification.error(loadFailed1 + ' ' + newExtract.RealEstate.Number + ' (' + newExtract.RealEstate.Municipality + ') ' + loadFailed2);
             }
-
 
             this.Loading.hide();
         });
     }
 
-    wrap(newExtract, data) {
-        newExtract.data = data;
+    groupBy(xs, key) {
+        // https://stackoverflow.com/questions/14446511/most-efficient-method-to-groupby-on-a-array-of-objects
+        return xs.reduce(function (rv, x) { let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); if (el) { el.values.push(x); } else { rv.push({ key: v, values: [x] }); } return rv; }, []);
+    }
 
-        newExtract.themes = (data.ConcernedTheme instanceof Array) ? data.ConcernedTheme : [data.ConcernedTheme];
-        newExtract.ncthemes = (data.NotConcernedTheme instanceof Array) ? data.NotConcernedTheme : [data.NotConcernedTheme];
-        newExtract.wdthemes = (data.ThemeWithoutData instanceof Array) ? data.ThemeWithoutData : [data.ThemeWithoutData];
+    wrap(newExtract, data) {
+        Object.assign(newExtract, data);
+
         newExtract.layers = [];
 
-        let restrictions = [];
-        let wrap = 0;
+        let allRestrictions = newExtract.RealEstate.RestrictionOnLandownership;
 
-        let restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
+        // loop all concerned themes and get their restrictions
+        newExtract.ConcernedTheme.map((theme) => {
+            let restrictions = null;
 
-        // checks if there is only one restriction
-        if (angular.isDefined(restrictionArray) && angular.isDefined(restrictionArray.SubTheme)) {
-            restrictionArray = [];
-            restrictionArray.push(newExtract.data.RealEstate.RestrictionOnLandownership);
-        }
-
-        angular.forEach(restrictionArray, function (d) {
-
-            if (angular.isUndefined(d.SubTheme)) {
-                return false;
-            }
-
-            // legalProvisions must be an array
-             if (!angular.isArray(d.LegalProvisions)) {
-                 let legalProvision = d.LegalProvisions;
-                 d.LegalProvisions = [];
-                 d.LegalProvisions.push(legalProvision);
-             }
-
-            // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
-            let complex = (d.SubTheme != d.Theme.Name);
-            console.log(complexe)
-
-            // check if restriction type allready exists - if yes, lets just push it as a value and skip the rest
-            let doesRestrictionTypeExist = false;
-
-            angular.forEach(restrictions, function (value, key) {
-                if (value.code == d.SubTheme) {
-                    value.values.push(d);
-                    doesRestrictionTypeExist = true;
-                }
+            let filteredRestrictions = allRestrictions.filter(restriction => {
+                return restriction.Theme.Code === theme.Code;
             });
 
-            if (complex) {
-                let doesRestrictionParentTypeExist = false;
+            // check if the given theme has subthemes
+            let hasChildren = filteredRestrictions.some(restriction => restriction.SubTheme);
 
-                angular.forEach(restrictions, function (value, key) {
-                    if (value.code == d.Theme.Code) {
-                        doesRestrictionParentTypeExist = true;
-                    }
+            restrictions = filteredRestrictions;
+            if (! hasChildren) {
+                return Object.assign(theme, {
+                    values: restrictions,
+                    hasChildren: false,
                 });
-
-                // create a new parent theme
-                if (!doesRestrictionParentTypeExist) {
-                    let theme = {};
-                    theme.name = d.Theme.Name;
-                    theme.code = d.Theme.Code;
-                    theme.complex = complex;
-                    theme.hasChildren = true;
-                    theme.values = []; // empty!
-                    theme.index = count++;
-
-                    restrictions.push(theme);
-                }
             }
 
-            if (!doesRestrictionTypeExist) {
-                let theme = {};
-                theme.name = d.SubTheme;
-                theme.code = d.SubTheme;
-                theme.parent = d.Theme.Name;
-                theme.complex = complex;
-                theme.hasChildren = false;
-                theme.values = [];
+            return Object.assign(theme, {
+                SubThemes: this.groupBy(filteredRestrictions, restriction => restriction.SubTheme),
+                hasChildren: true,
+            });
 
-                theme.values.push(d);
-                theme.index = count++;
+        })
 
-                restrictions.push(theme);
-            }
+        console.log(newExtract);
 
-        });
-
-        newExtract.restrictions = restrictions;
-        newExtract.restrictionLength = Object.keys(restrictions).length;
-
-        console.log(newExtract)
         return newExtract;
     }
 

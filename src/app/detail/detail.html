@@ -11,10 +11,10 @@
                     <br />{{'no_property_yet_text' | translate}}
                 </div>
 
-                <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.data.RealEstate.Number}} {{"detailConcernedThemes2" | translate}} {{main.extract.data.RealEstate.Municipality}}
-                  <span ng-if="main.extract.data.RealEstate.SubunitOfLandRegister && main.extract.data.RealEstate.Municipality != main.extract.data.RealEstate.SubunitOfLandRegister">, {{main.extract.data.RealEstate.SubunitOfLandRegister}}</span>
+                <h1 ng-class="{'hidden': detail.noDatas}">{{"propertyLoaded" | translate}}: {{main.extract.RealEstate.Number}} {{"detailConcernedThemes2" | translate}} {{main.extract.RealEstate.Municipality}}
+                  <span ng-if="main.extract.RealEstate.SubunitOfLandRegister && main.extract.RealEstate.Municipality != main.extract.RealEstate.SubunitOfLandRegister">, {{main.extract.RealEstate.SubunitOfLandRegister}}</span>
             </h1>
-              <p ng-class="{'hidden': detail.noDatas}" class="info-date">{{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</p>
+              <p ng-class="{'hidden': detail.noDatas}" class="info-date">{{main.extract.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}</p>
               <div class="pdf-download" ng-class="{'hidden': detail.noDatas}">
 
                   <div class="small-12">
@@ -52,44 +52,44 @@
 
                 <!-- Restrictions, but if no restrictions found, the entire v-pane will be greyed out -->
                 <v-pane expanded class="restrictions" id="toogleExpand">
-                    <v-pane-header><wrapper ng-if="main.extract.restrictions.length == 0" class="norestrictions_found">
+                    <v-pane-header><wrapper ng-if="main.extract.ConcernedTheme.length == 0" class="norestrictions_found">
                         {{"detailConcernedThemes1" | translate}}
                         <span class="secondary badge">0</span>
                     </wrapper>
-                    <wrapper ng-if="main.extract.restrictions.length > 0">
-                        {{"detailConcernedThemes1" | translate}}<span class="secondary badge">{{main.extract.themes.length}}</span>
+                    <wrapper ng-if="main.extract.ConcernedTheme.length > 0">
+                        {{"detailConcernedThemes1" | translate}}<span class="secondary badge">{{main.extract.ConcernedTheme.length}}</span>
                     </wrapper>
                     </v-pane-header>
 
                     <v-pane-content>
 
                         <!-- neither restrictions nor themes -->
-                        <div ng-if="main.extract.restrictions.length == 0" class="norestrictions_found">
+                        <div ng-if="main.extract.ConcernedTheme.length == 0" class="norestrictions_found">
                             <div class="no-restrictions">{{"noRestrictions" | translate}}</div>
                         </div>
 
                         <!-- if restrictions -->
-                        <v-accordion ng-show="main.extract.restrictions.length > 0" control="accordion" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
+                        <v-accordion ng-show="main.extract.ConcernedTheme.length > 0" control="accordion" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
 
-                            <v-pane ng-repeat="restriction in main.extract.restrictions  | filter: detail.showInList track by $index" id="{{ restriction.code }}--{{ restriction.hasChildren }}">
+                            <v-pane ng-repeat="theme in main.extract.ConcernedTheme track by $index" id="{{ theme.Code }}">
                                 <v-pane-header>
-                                    {{ restriction.Text.Text }}
+                                    {{ theme.Text.Text }}
                                 </v-pane-header>
 
                                 <v-pane-content>
 
-                                    <div ng-if="restriction.hasChildren" class="may-has-children">
+                                    <div ng-if="theme.hasChildren" class="may-has-children">
 
-                                        <v-accordion ng-if="main.extract.restrictions.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
+                                        <v-accordion ng-if="theme.restrictions.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
 
-                                            <v-pane ng-repeat="subRestriction in main.extract.restrictions | filter:{parent:restriction.name} track by $index" id="{{ subRestriction.code }}--{{ subRestriction.hasChildren }}">
+                                            <v-pane ng-repeat="subTheme in theme.restrictions track by $index" id="{{ restriction.key }}--{{ theme.hasChildren }}">
 
                                                 <v-pane-header>
-                                                    {{ subRestriction.Text.Text }}
+                                                    {{restriction.key}}
                                                 </v-pane-header>
 
                                                 <v-pane-content>
-                                                    <restriction data="subRestriction"></restriction>
+                                                    <restriction data="subTheme"></restriction>
                                                 </v-pane-content>
 
                                             </v-pane>
@@ -98,8 +98,8 @@
 
                                     </div>
 
-                                    <div ng-if="!restriction.hasChildren" class="may-has-children">
-                                        <restriction data="restriction"></restriction>
+                                    <div ng-if="!theme.hasChildren" class="may-has-children">
+                                        <restriction data="theme"></restriction>
                                     </div>
 
                                 </v-pane-content>
@@ -118,13 +118,13 @@
                 <!-- NoRestrictions -->
                 <v-pane class="norestrictions">
                     <v-pane-header>
-                        {{"detailNoRestrictions" | translate}}<span class="secondary badge">{{main.extract.ncthemes.length}}</span>
+                        {{"detailNoRestrictions" | translate}}<span class="secondary badge">{{main.extract.NotConcernedTheme.length}}</span>
                     </v-pane-header>
 
                     <v-pane-content>
                         <!-- nested accordion -->
                         <ul>
-                            <li ng-repeat="theme in main.extract.ncthemes track by $index">
+                            <li ng-repeat="theme in main.extract.NotConcernedTheme track by $index">
                                 {{ theme.Text.Text }}
                             </li>
                         </ul>
@@ -135,13 +135,13 @@
                 <!-- Missing Restrictions -->
                 <v-pane class="missingrestrictions">
                     <v-pane-header>
-                        {{"detailMissingRestrictions" | translate}}<span class="secondary badge">{{main.extract.wdthemes.length}}</span>
+                        {{"detailMissingRestrictions" | translate}}<span class="secondary badge">{{main.extract.ThemeWithoutData.length}}</span>
                     </v-pane-header>
 
                     <v-pane-content>
                         <!-- nested accordion -->
                         <ul>
-                            <li ng-repeat="theme in main.extract.wdthemes track by $index">
+                            <li ng-repeat="theme in main.extract.ThemeWithoutData track by $index">
                                 {{ theme.Text.Text }}
                             </li>
                         </ul>
@@ -152,7 +152,7 @@
                 <!-- General Information -->
                 <v-pane class="generalinformation">
                     <v-pane-header>
-                        {{"propertyDetail" | translate}} {{main.extract.data.RealEstate.Number}}
+                        {{"propertyDetail" | translate}} {{main.extract.RealEstate.Number}}
                     </v-pane-header>
 
                     <v-pane-content>
@@ -161,7 +161,7 @@
                         <div class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailRealEstateNr" | translate}}</div>
                             <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Number}}</div>
+                            <div class="medium-7 oereb-value">{{main.extract.RealEstate.Number}}</div>
                         </div>
                         <div class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailEGRID" | translate}}</div>
@@ -171,21 +171,21 @@
                         <div class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailCommunityBFS" | translate}}</div>
                             <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.Municipality}}
-                                ({{main.extract.data.RealEstate.FosNr}})
+                            <div class="medium-7 oereb-value">{{main.extract.RealEstate.Municipality}}
+                                ({{main.extract.RealEstate.FosNr}})
                             </div>
                         </div>
 
-                        <div ng-if="main.extract.data.RealEstate.SubunitOfLandRegister" class="row property-info">
+                        <div ng-if="main.extract.RealEstate.SubunitOfLandRegister" class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailSubUnitOfLandRegister" | translate}}</div>
                             <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.SubunitOfLandRegister}}</div>
+                            <div class="medium-7 oereb-value">{{main.extract.RealEstate.SubunitOfLandRegister}}</div>
                         </div>
 
                         <div class="row property-info">
                             <div class="medium-4 oereb-label">{{"detailRealEstateArea" | translate}}</div>
                             <div class="medium-1"></div>
-                            <div class="medium-7 oereb-value">{{main.extract.data.RealEstate.LandRegistryArea}}
+                            <div class="medium-7 oereb-value">{{main.extract.RealEstate.LandRegistryArea}}
                                 m<sup>2</sup></div>
                         </div>
 
@@ -208,11 +208,11 @@
                         <ul>
                             <li ng-repeat="hextract in main.history track by $index">
                                 <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
-                                   title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}">
-                                    <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
-                                    {{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span ng-if="hextract.data.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}</span>
+                                   title="{{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}">
+                                    <div ng-style="{'background-image': 'url(' + hextract.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
+                                    {{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}} ({{hextract.RealEstate.FosNr}})<span ng-if="hextract.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}</span>
                                     <span class="history-date">
-                                        {{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
+                                        {{main.extract.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
                                     </span>
                                 </a>
                             </li>
@@ -238,11 +238,11 @@
                         <ul>
                             <li ng-repeat="hextract in main.history track by $index">
                                 <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
-                                title="{{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}">
-                                    <div ng-style="{'background-image': 'url(' + hextract.data.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
-                                    {{'detailLinkRealEstate' | translate}} {{hextract.data.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.data.RealEstate.Municipality}} ({{hextract.data.RealEstate.FosNr}})<span ng-if="hextract.data.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.data.RealEstate.SubunitOfLandRegister}}</span>
+                                title="{{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}">
+                                    <div ng-style="{'background-image': 'url(' + hextract.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
+                                    {{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}} ({{hextract.RealEstate.FosNr}})<span ng-if="hextract.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}</span>
                                     <span class="history-date">
-                                        {{main.extract.data.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
+                                        {{main.extract.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
                                     </span>
                                 </a>
                             </li>

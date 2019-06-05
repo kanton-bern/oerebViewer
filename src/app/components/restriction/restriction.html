@@ -2,10 +2,14 @@
     <h3>{{"restrictionConcernedKey" | translate}}</h3>
 </div>
 
-<div ng-repeat="v in restriction.data.values | unique:'Information.LocalisedText.Text'" class="accordion-navigation">
+<div ng-repeat="v in theme.data.values | unique:'Information.Text'" class="accordion-navigation">
     <div class="row restriction-info">
-        <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.Symbol}}" /></div>
-        <div class="small-10 medium-7 oereb-value">{{v.Information.LocalisedText.Text}}</div>
+        <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.SymbolRef}}" /></div>
+        <div class="small-10 medium-7 oereb-value">
+            <span ng-repeat="information in v.Information">
+                {{ information.Text }}
+            </span>
+        </div>
         <div class="small-2 show-for-small-only"></div>
         <div ng-if="v.TypeCodelist == 'Polygon'" class="small-10 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
         <div ng-if="v.TypeCodelist == 'Polyline'" class="small-10 medium-4 oereb-area">{{v.Area}}m</div>
@@ -18,7 +22,7 @@
         <svg class="icon icon-layers">
             <use xlink:href="#icon-layers"></use>
         </svg>
-        <a class="external-link" target="_blank" href="{{restriction.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{restriction.data.name}})</a>
+        <a class="external-link" target="_blank" href="{{theme.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{theme.data.Text.Text}})</a>
     </div>
 </div>
 
@@ -29,23 +33,24 @@
 -->
 
 <!-- LegalProvisions -->
-<legal-list title="'restrictionLegalProvision'" documents="restriction.data.values" xsitype="'LegalProvisions'" entryicon="'icon-file'"></legal-list>
+<legal-list title="'restrictionLegalProvision'" documents="theme.data.values" xsitype="'LegalProvision'" entryicon="'icon-file'"></legal-list>
 
-<!-- Documents -->
-<legal-list title="'restrictionLegal'" documents="restriction.data.values" xsitype="'Document'" entryicon="'icon-open'"></legal-list>
+<!-- Documents (Gesetzliche Grundlagen) -->
+a
+<legal-list title="'restrictionLegal'" documents="theme.data.values" xsitype="'Law'" entryicon="'icon-open'"></legal-list>
+b
 
-<!-- References -->
-<legal-list title="'restrictionReference'" documents="restriction.data.values" xsitype="'Reference'" entryicon="'icon-open'"></legal-list>
-
+<!-- References (Weitere Informationen und Hinweise) -->
+<legal-list title="'restrictionReference'" documents="theme.data.values" xsitype="'Reference'" entryicon="'icon-open'"></legal-list>
 
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
 </div>
-<div ng-repeat="v in restriction.data.values | unique:'ResponsibleOffice.Name.LocalisedText.Text'" class="row more-info pdf-list">
+<div ng-repeat="v in theme.data.values | unique:'ResponsibleOffice.Name[0].Text'" class="row more-info pdf-list">
     <div class="small-12">
         <svg class="icon icon-open">
             <use xlink:href="#icon-open"></use>
         </svg>
-        <a class="external-link" target="_blank" href="{{v.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name.LocalisedText.Text}}</a>
+        <a class="external-link" target="_blank" href="{{v.ResponsibleOffice.OfficeAtWeb}}" title="Link">{{v.ResponsibleOffice.Name[0].Text}}</a>
     </div>
 </div>
