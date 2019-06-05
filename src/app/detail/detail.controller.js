@@ -36,7 +36,7 @@ export class DetailController {
         });
 
         // on restriction reload add layer to map
-        this.Extracts.registerRestrictionObserverCallback(() => {
+        this.Extracts.registerRestrictionObserverCallback((code) => {
             this.tempLayers = [];
 
             const unique = (function () {
@@ -143,11 +143,9 @@ export class DetailController {
             this.Extracts.setRestrictionByCode(this.activeRestriction);
         }
 
-
         if (!hasChildren && code != null) {
             this.Extracts.setRestrictionByCode(code);
             this.activeRestriction = code;
-
         }
     }
 
@@ -191,7 +189,6 @@ export class DetailController {
 
 
     restrictionsOf(extract, theme) {
-        console.log(theme.Code)
         return extract.RealEstate.RestrictionOnLandownership.filter((restriction => {
             // only top level restrictions will be parsed. sub themes are ignored
             if (angular.isDefined(theme.SubTheme)) {

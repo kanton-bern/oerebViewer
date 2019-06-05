@@ -131,8 +131,6 @@ export class ExtractsService {
 
         })
 
-        console.log(newExtract);
-
         return newExtract;
     }
 
@@ -178,10 +176,13 @@ export class ExtractsService {
         this.currentRestrictionChanged = true;
         this.currentRestrictionCode = code;
 
+        console.warn('new restriction by code: ' + code)
+
         this.$location.search('restriction', code);
 
-        if (notify)
+        if (notify) {
             this.notifyRestrictionObservers();
+        }
     }
 
     getRestrictionByCode() {
@@ -189,14 +190,25 @@ export class ExtractsService {
         let self = this;
         let current = this.getCurrent();
 
-        if (angular.isUndefined(current))
+        if (angular.isUndefined(current)) {
             return result;
+        }
 
-        angular.forEach(current.restrictions, function (r) {
-            if (r.code == self.currentRestrictionCode) {
-                result = r;
+        current.ConcernedTheme.forEach((theme) => {
+            if (theme.Code == this.currentRestrictionCode) {
+                result = theme;
+                return;
             }
-        });
+
+            if (theme.hasChildren) {
+                theme.SubThemes.forEach((subTheme) => {
+                    if (subTheme.key == this.currentRestrictionCode) {
+                        result = subTheme;
+                        return;
+                    }
+                })
+            }
+        })
 
         return result;
     }
@@ -215,8 +227,8 @@ export class ExtractsService {
     }
 
     notifyRestrictionObservers() {
-        angular.forEach(this.restrictionObservers, function (callback) {
-            callback();
+        angular.forEach(this.restrictionObservers, (callback) => {
+            callback(this.currentRestrictionCode);
         });
     }
 

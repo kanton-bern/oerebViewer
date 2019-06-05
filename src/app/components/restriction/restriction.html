@@ -2,7 +2,7 @@
     <h3>{{"restrictionConcernedKey" | translate}}</h3>
 </div>
 
-<div ng-repeat="v in theme.data.values | unique:'Information.Text'" class="accordion-navigation">
+<div ng-repeat="v in theme.data.values | unique:'Information[0].Text'" class="accordion-navigation">
     <div class="row restriction-info">
         <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.SymbolRef}}" /></div>
         <div class="small-10 medium-7 oereb-value">
@@ -11,9 +11,15 @@
             </span>
         </div>
         <div class="small-2 show-for-small-only"></div>
-        <div ng-if="v.TypeCodelist == 'Polygon'" class="small-10 medium-4 oereb-area">{{v.Area}}m² ({{v.PartInPercent}}%)</div>
-        <div ng-if="v.TypeCodelist == 'Polyline'" class="small-10 medium-4 oereb-area">{{v.Area}}m</div>
-        <div ng-if="v.TypeCodelist == 'Point'" class="small-10 medium-4 oereb-area">{{v.Area}} Anzahl</div>
+        <div ng-if="v.TypeCodelist == 'Polygon'" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m² ({{v.PartInPercent}}%)</div>
+        <div ng-if="v.TypeCodelist == 'Polyline'" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m</div>
+        <div ng-if="v.TypeCodelist == 'Point'" class="small-10 medium-4 oereb-area">{{v.AreaShare}} Anzahl</div>
+        <div ng-if="v.TypeCodelist == 't.b.d'" class="small-10 medium-4 oereb-area">
+            {{v.AreaShare}}
+            <span ng-if="v.PartInPercent">
+                ({{v.PartInPercent}}%)
+            </span>
+        </div>
     </div>
 </div>
 
@@ -22,7 +28,8 @@
         <svg class="icon icon-layers">
             <use xlink:href="#icon-layers"></use>
         </svg>
-        <a class="external-link" target="_blank" href="{{theme.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{theme.data.Text.Text}})</a>
+
+        <a class="external-link" target="_blank" href="{{theme.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{theme.data.key}})</a>
     </div>
 </div>
 

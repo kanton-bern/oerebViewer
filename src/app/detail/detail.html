@@ -81,7 +81,7 @@
                                     <div ng-if="theme.hasChildren" class="may-has-children">
                                         <v-accordion ng-if="theme.SubThemes.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
 
-                                            <v-pane ng-repeat="subTheme in theme.SubThemes track by $index" id="{{ theme.key }}--{{ subTheme.hasChildren }}">
+                                            <v-pane ng-repeat="subTheme in theme.SubThemes track by $index" id="{{ subTheme.key }}--{{ subTheme.hasChildren }}">
 
                                                 <v-pane-header>
                                                     {{subTheme.key}}
