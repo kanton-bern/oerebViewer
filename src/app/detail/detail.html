@@ -79,13 +79,12 @@
                                 <v-pane-content>
 
                                     <div ng-if="theme.hasChildren" class="may-has-children">
+                                        <v-accordion ng-if="theme.SubThemes.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
 
-                                        <v-accordion ng-if="theme.restrictions.length > 0" oncollapse="detail.collapse(index, id)" onexpand="detail.expand(index, id)">
-
-                                            <v-pane ng-repeat="subTheme in theme.restrictions track by $index" id="{{ restriction.key }}--{{ theme.hasChildren }}">
+                                            <v-pane ng-repeat="subTheme in theme.SubThemes track by $index" id="{{ theme.key }}--{{ subTheme.hasChildren }}">
 
                                                 <v-pane-header>
-                                                    {{restriction.key}}
+                                                    {{subTheme.key}}
                                                 </v-pane-header>
 
                                                 <v-pane-content>

@@ -189,6 +189,19 @@ export class DetailController {
         return this.Config.services.oereb + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
     }
 
+
+    restrictionsOf(extract, theme) {
+        console.log(theme.Code)
+        return extract.RealEstate.RestrictionOnLandownership.filter((restriction => {
+            // only top level restrictions will be parsed. sub themes are ignored
+            if (angular.isDefined(theme.SubTheme)) {
+                return false;
+            }
+
+            return restriction.Theme.Code === theme.Code;
+        }));
+    }
+
     showInList(item) {
         return (!item.complex || item.hasChildren);
     }
