@@ -47,8 +47,7 @@
         "proj4": "^2.5.0",
         "typeahead.js": "^0.11.1",
         "url-search-params": "^1.1.0",
-        "v-accordion": "^1.6.0",
-        "x2js": "github:abdmob/x2js"
+        "v-accordion": "^1.6.0"
     },
     "devDependencies": {
         "angular-mocks": "^1.7.8",
