@@ -13,7 +13,7 @@ export class OEREBService {
 
     getExtractById(egrid) {
         let lang = this.$translate.use() !== undefined ? this.$translate.use() : this.$translate.proposedLanguage();
-        let url = this.Config.services.oereb + '/extract/reduced/json/' + egrid + '?lang=' + lang;
+        let url = this.Config.services.oereb + '/extract/reduced/json/' + egrid + '?LANG=' + lang;
 
         return this.$http.get(url, {
                 cache: false,
