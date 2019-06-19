@@ -11,15 +11,9 @@
             </span>
         </div>
         <div class="small-2 show-for-small-only"></div>
-        <div ng-if="v.TypeCodelist == 'Polygon'" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m² ({{v.PartInPercent}}%)</div>
-        <div ng-if="v.TypeCodelist == 'Polyline'" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m</div>
-        <div ng-if="v.TypeCodelist == 'Point'" class="small-10 medium-4 oereb-area">{{v.AreaShare}} Anzahl</div>
-        <div ng-if="v.TypeCodelist == 't.b.d'" class="small-10 medium-4 oereb-area">
-            {{v.AreaShare}}
-            <span ng-if="v.PartInPercent">
-                ({{v.PartInPercent}}%)
-            </span>
-        </div>
+        <div ng-if="v.AreaShare" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m² ({{v.PartInPercent}}%)</div>
+        <div ng-if="v.LengthShare" class="small-10 medium-4 oereb-area">{{v.LengthShare}}m</div>
+        <div ng-if="v.NrOfPoints" class="small-10 medium-4 oereb-area">{{"amount" | translate}}: {{v.NrOfPoints}}</div>
     </div>
 </div>
 
