@@ -176,8 +176,6 @@ export class ExtractsService {
         this.currentRestrictionChanged = true;
         this.currentRestrictionCode = code;
 
-        console.warn('new restriction by code: ' + code)
-
         this.$location.search('restriction', code);
 
         if (notify) {
