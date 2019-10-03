@@ -208,7 +208,7 @@
                             <li ng-repeat="hextract in main.history track by $index">
                                 <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
                                    title="{{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}">
-                                    <div ng-style="{'background-image': 'url(' + hextract.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
+                                    <div ng-style="{'background-image': 'url(' + hextract.MunicipalityLogoRef + ')'}" class="logo-gemeinde"></div>
                                     {{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}} ({{hextract.RealEstate.FosNr}})<span ng-if="hextract.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}</span>
                                     <span class="history-date">
                                         {{main.extract.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
@@ -238,7 +238,7 @@
                             <li ng-repeat="hextract in main.history track by $index">
                                 <a ui-sref="home.detail({egrid: hextract.egrid, restriction: ''})"
                                 title="{{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}}, {{'detailSubUnitOfLandRegister' | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}">
-                                    <div ng-style="{'background-image': 'url(' + hextract.MunicipalityLogo + ')'}" class="logo-gemeinde"></div>
+                                    <div ng-style="{'background-image': 'url(' + hextract.MunicipalityLogoRef + ')'}" class="logo-gemeinde"></div>
                                     {{'detailLinkRealEstate' | translate}} {{hextract.RealEstate.Number}}, {{'detailCommunity' | translate}} {{hextract.RealEstate.Municipality}} ({{hextract.RealEstate.FosNr}})<span ng-if="hextract.RealEstate.SubunitOfLandRegister">, {{"detailSubUnitOfLandRegister" | translate}}: {{hextract.RealEstate.SubunitOfLandRegister}}</span>
                                     <span class="history-date">
                                         {{main.extract.CreationDate | date:'dd.MM.yyyy HH:mm:ss'}}
