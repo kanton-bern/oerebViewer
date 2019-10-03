@@ -1,15 +1,17 @@
 export class ExtractsService {
-    constructor($location, Loading, OEREB, Notification, localStorageService, Helpers, $filter) {
+    constructor($location, Loading, OEREB, Notification, localStorageService, Helpers, $filter, $translate, Config) {
 
         'ngInject';
 
         this.$filter = $filter;
         this.Helpers = Helpers;
         this.$location = $location;
+        this.$translate = $translate;
         this.Loading = Loading;
         this.OEREB = OEREB;
         this.Notification = Notification;
         this.localStorageService = localStorageService;
+        this.Config = Config;
 
         this.extracts = [];
         this.observers = [];
@@ -115,6 +117,7 @@ export class ExtractsService {
             let hasChildren = restrictions.some(restriction => restriction.SubTheme);
 
             restrictions = this.combineByTypeCode(restrictions);
+            restrictions = this.orderLandUsePlans(restrictions, theme);
 
             if (! hasChildren) {
                 return Object.assign(theme, {
@@ -175,6 +178,23 @@ export class ExtractsService {
 
             return acc;
         }, {}));
+    }
+
+    orderLandUsePlans(restrictions, theme) {
+        if (theme.Code !== 'LandUsePlans') {
+            return restrictions;
+        }
+
+        const lang = this.$translate.use() !== undefined ? this.$translate.use() : this.$translate.proposedLanguage();
+        const customSortList = this.Config.customSortList.map(pair => pair[lang]).reverse()
+
+        const getPos = function (restriction) {
+            return customSortList.indexOf(restriction.SubTheme)
+        };
+
+        return restrictions.sort((a, b) => {
+            return getPos(b) - getPos(a)
+        })
     }
 
     setCurrent(egrid, reloading = false) {

@@ -34,6 +34,37 @@ export class ConfigService {
 
         this.opacityRestrictionLayers = 0.7;
 
+        // configure order of sub themes of accordion 'LandUsePlans'
+        this.customSortList = [
+            {
+                de: 'Zonenflächen der Grundnutzung',
+                fr: 'Surfaces de zones de l’affectation primaire'
+            },
+            {
+                de: 'Zonenflächen Grundnutzung (Nutzungszonen)',
+                fr: 'Surfaces de zones de l’affectation primaire (Type de zone d\'affectation)'
+            },
+            {
+                de: 'Zonenflächen Grundnutzung (Bauklassen)',
+                fr: 'Surfaces de zones de l’affectation primaire (Classe de construction)'
+            },
+            {
+                de: 'Überlagernde Zonenflächen',
+                fr: 'Zones superposées'
+            },
+            {
+                de: 'Andere flächenbezogene Festlegungen',
+                fr: 'Autres périmètres superposés'
+            },
+            {
+                de: 'Linienbezogene Festlegungen',
+                fr: 'Contenus linéaires'
+            },
+            {
+                de: 'Punktbezogene Festlegungen',
+                fr: 'Contenus ponctuels'
+            },
+        ];
 
         // layer configurations are in: ../layers/layers.service.js
     }
