@@ -2,7 +2,7 @@
     <h3 class="theme-heading">{{list.title | translate}}</h3>
 </div>
 
-<div ng-repeat="document in list.documents | unique:'OfficialTitle.Text' | legals:list.xsitype as filtered" class="accordion-navigation">
+<div ng-repeat="document in list.documents | legals:list.xsitype | unique:true as filtered" class="accordion-navigation">
     <div class="row more-info pdf-list">
         <div class="small-12">
             <legal-entry document="document" icon="list.entryicon"></legal-entry>
