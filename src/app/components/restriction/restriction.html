@@ -23,13 +23,13 @@
             <use xlink:href="#icon-layers"></use>
         </svg>
 
-        <a class="external-link" target="_blank" href="{{theme.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{theme.data.key}})</a>
+        <a class="external-link" target="_blank" href="{{theme.data.values[0].Map.LegendAtWeb}}" title="{{'restrictionKeyDownload' | translate}}">{{"restrictionKeyDownload" | translate}} ({{theme.data.key || theme.data.Text.Text}})</a>
     </div>
 </div>
 
 <!-- TEST ONLY
 <pre>
-  {{restriction.values}}
+  {{theme.data.values}}
 </pre>
 -->
 
@@ -40,7 +40,7 @@
 <legal-list title="'restrictionLegal'" documents="theme.data.values" xsitype="'Law'" entryicon="'icon-open'"></legal-list>
 
 <!-- References (Weitere Informationen und Hinweise) -->
-<legal-list title="'restrictionReference'" documents="theme.data.values" xsitype="'Reference'" entryicon="'icon-open'"></legal-list>
+<legal-list title="'restrictionReference'" documents="theme.data.values" xsitype="'Hint'" entryicon="'icon-open'"></legal-list>
 
 <div class="row">
     <h3 class="theme-heading">{{"restrictionAuthority" | translate}}</h3>
