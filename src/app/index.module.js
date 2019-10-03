@@ -30,6 +30,7 @@ import { RouterConfig } from './index.route';
 // utilities
 import { UniqueFilter } from '../app/components/utilities/unique.filter';
 import { LegalsFilter } from '../app/components/utilities/legals.filter';
+import { RestrictionFilter } from '../app/components/utilities/restriction.filter';
 import { HttpRequestInterceptorFactory } from '../app/components/utilities/httpRequestInterceptor.factory';
 
 // controller imports
@@ -118,6 +119,7 @@ angular.module(MODULE_NAME, [
 
     // register filters
     .filter('unique', UniqueFilter)
-    .filter('legals', LegalsFilter);
+    .filter('legals', LegalsFilter)
+    .filter('restriction', RestrictionFilter);
 
 export default MODULE_NAME;

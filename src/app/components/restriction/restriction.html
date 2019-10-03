@@ -2,7 +2,7 @@
     <h3>{{"restrictionConcernedKey" | translate}}</h3>
 </div>
 
-<div ng-repeat="v in theme.data.values" class="accordion-navigation">
+<div ng-repeat="v in theme.data.values | restriction" class="accordion-navigation">
     <div class="row restriction-info">
         <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.SymbolRef}}" /></div>
         <div class="small-10 medium-7 oereb-value">
@@ -11,7 +11,7 @@
             </span>
         </div>
         <div class="small-2 show-for-small-only"></div>
-        <div ng-if="v.AreaShare" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m² ({{v.PartInPercent}}%)</div>
+        <div ng-if="v.AreaShare" class="small-10 medium-4 oereb-area">{{v.AreaShare}}m² ({{(v.PartInPercent).toFixed(1)}}%)</div>
         <div ng-if="v.LengthShare" class="small-10 medium-4 oereb-area">{{v.LengthShare}}m</div>
         <div ng-if="v.NrOfPoints" class="small-10 medium-4 oereb-area">{{"amount" | translate}}: {{v.NrOfPoints}}</div>
     </div>
