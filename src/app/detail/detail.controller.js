@@ -184,7 +184,7 @@ export class DetailController {
     }
 
     getPDFLink(egrid) {
-        return this.Config.services.oerebTest + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
+        return this.Config.services.pdf + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
     }
 
 

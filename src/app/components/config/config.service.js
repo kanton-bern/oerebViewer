@@ -27,7 +27,7 @@ export class ConfigService {
             wfsPropertyMarking: 'https://www.geoservice.apps.be.ch/geoservice2/services/a42geo/a42geo_ortsangabenwfs_d_fk/MapServer/WFSServer',
             // Basis URL des OEREB-Webservice gemäss Weisung
             oereb: 'https://www.oereb.apps.be.ch',
-            oerebTest: 'https://www.oereb-test.apps.be.ch',
+            pdf: 'https://www.oereb-test.apps.be.ch',
             // Aufruf der Karte des ÖREB-Katasters für das im Samrt-Auszug ausgewählte Grundstück. Variablen EGRID und Language.
             extern: 'https://www.map.apps.be.ch/pub/externalcall.jsp?query1=egrid&keyvalue1=-EGRID-&keyname1=EGRID&project=a42pub_oereb_oeffen_-LANGUAGE-&language=-LANGUAGE-&userprofile=geo&client=auto'
         };
