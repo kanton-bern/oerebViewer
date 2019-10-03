@@ -2,7 +2,7 @@
     <h3>{{"restrictionConcernedKey" | translate}}</h3>
 </div>
 
-<div ng-repeat="v in theme.data.values | unique:'Information[0].Text'" class="accordion-navigation">
+<div ng-repeat="v in theme.data.values" class="accordion-navigation">
     <div class="row restriction-info">
         <div class="small-2 oereb-label medium-1"><img class="legend-symbol" ng-src="{{v.SymbolRef}}" /></div>
         <div class="small-10 medium-7 oereb-value">
