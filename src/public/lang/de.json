@@ -85,7 +85,7 @@
     "languageISO": "de",
     "oerebText": "Dies ist der SmartAuszug zum Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB)",
     "logoBundPath": "https://files.be.ch/bve/agi/oereb/logos/eidgenossenschaft.png",
-    "logoKantonPath": "https://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif",
+    "logoKantonPath": "/assets/images/Kanton_Bern_KS_RGB.png",
     "responsibilityContent": "Katasterverantwortliche Stelle",
     "responsibilityDesign": "Gestaltung und Frontend-Design",
     "responsibilityBackend": "Technische Realisierung",

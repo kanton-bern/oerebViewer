@@ -88,7 +88,7 @@
     "oerebService500": "Le service RDPPF ne contient pas de données concernant ce bien-fonds.",
     "oerebService204": "Aucun bien-fonds avec cet identificateur.",
     "logoBundPath": "https://files.be.ch/bve/agi/oereb/logos/eidgenossenschaft.png",
-    "logoKantonPath": "https://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif",
+    "logoKantonPath": "/assets/images/Kanton_Bern_KS_RGB.png",
     "responsibilityContent": "Organisme responsable du cadastre",
     "responsibilityDesign": "Conception et mise en page interface utilisateur",
     "responsibilityBackend": "Réalisation technique",
