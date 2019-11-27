@@ -158,24 +158,6 @@ export class ExtractsService {
                 accumulation.LengthShare += restriction.LengthShare
             }
 
-            const combineList = function (listName, equalOperator) {
-                if (!accumulation.hasOwnProperty(listName) || !restriction.hasOwnProperty(listName)) {
-                    return;
-                }
-
-                restriction[listName].forEach(listItem => {
-                    if (!accumulation[listName].find(compareItem => equalOperator(compareItem, listItem))) {
-                        accumulation[listName].push(listItem)
-                    }
-                });
-            };
-
-            combineList('LegalProvisions', (a, b) => {
-                return a.TextAtWeb[0].Text === b.TextAtWeb[0].Text &&
-                    a.Title[0].Text === b.Title[0].Text &&
-                    a.DocumentType === b.DocumentType;
-            });
-
             return acc;
         }, {}));
     }
