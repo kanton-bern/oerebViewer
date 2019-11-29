@@ -49,7 +49,7 @@
             </div>
 
             <div ng-class="{'hidden': !main.extract}" class="show-for-medium header-title">
-                <h2><button ng-if="!details.noData" ng-click="main.centerObject()">{{"detailProperty" | translate}} {{main.extract.data.RealEstate.Number}} ({{main.extract.data.RealEstate.Municipality}})</button></h2>
+                <h2><button ng-if="!details.noData" ng-click="main.centerObject()">{{"detailProperty" | translate}} {{main.extract.RealEstate.Number}} ({{main.extract.RealEstate.Municipality}})</button></h2>
             </div>
             <a ng-click="main.reloadPage()" title="{{'appReset' | translate}}" class="mainlogo">
                 <p>
@@ -116,44 +116,44 @@
                         </div>
                         <p class="clearfix">{{"kantonText" | translate}}</p>
                       </div>
-                      <div ng-if="main.extract.data.MunicipalityLogo" class="logo-item">
+                      <div ng-if="main.extract.MunicipalityLogoRef" class="logo-item">
 
-                       <div style="background-image:url('{{main.extract.data.MunicipalityLogo}}')"
+                       <div style="background-image:url('{{main.extract.MunicipalityLogoRef}}')"
                             class="logo-gemeinde">
                           </div>
-                          <p class="clearfix">{{"detailCommunity" | translate}} {{main.extract.data.RealEstate.Municipality}}</p>
+                          <p class="clearfix">{{"detailCommunity" | translate}} {{main.extract.RealEstate.Municipality}}</p>
                         </div>
 
-                        <div ng-if="!main.extract.data.MunicipalityLogo" class="logo-item">
+                        <div ng-if="!main.extract.MunicipalityLogoRef" class="logo-item">
                        <div  style="background-image:url('/assets/images/gde_dummy.png')"
                                  class="logo-gemeinde">
                        </div>
                        <p class="clearfix">{{"notification_noCommunity" | translate}}</p>
                      </div>
                      </div>
-                      <h2 ng-if="main.extract.data.MunicipalityLogo">{{'titleRemarksImprint' | translate}}</h2>
-                      <section ng-if="main.extract.data.MunicipalityLogo" class="section">
+                      <h2 ng-if="main.extract.MunicipalityLogoRef">{{'titleRemarksImprint' | translate}}</h2>
+                      <section ng-if="main.extract.MunicipalityLogoRef" class="section">
                       <div class="section-item">
                         <h3>{{ 'titleGeneralInformation' | translate}}</h3>
-                        <p>{{main.extract.data.GeneralInformation.LocalisedText.Text}}</p>
+                        <p>{{main.extract.GeneralInformation[0].Text}}</p>
                         <h3>{{ 'titleBaseData' | translate}}</h3>
-                        <p>{{main.extract.data.BaseData.LocalisedText.Text}}</p>
+                        <p>{{main.extract.BaseData[0].Text}}22y</p>
                       </div>
-                      <div ng-repeat="LiabilityItem in main.extract.data.ExclusionOfLiability" class="section-item">
-                        <h3>{{LiabilityItem.Title.LocalisedText.Text}}</h3>
-                        <p>{{LiabilityItem.Content.LocalisedText.Text}}</p>
+                      <div ng-repeat="LiabilityItem in main.extract.ExclusionOfLiability" class="section-item">
+                        <h3>{{LiabilityItem.Title[0].Text}}</h3>
+                        <p>{{LiabilityItem.Content[0].Text}}</p>
                       </div>
                     </section>
-                    <h2 ng-if="main.extract.data.MunicipalityLogo">{{'responsibilityContent' | translate}}</h2>
-                    <section ng-if="main.extract.data.MunicipalityLogo" class="section">
+                    <h2 ng-if="main.extract.MunicipalityLogoRef">{{'responsibilityContent' | translate}}</h2>
+                    <section ng-if="main.extract.MunicipalityLogoRef" class="section">
                       <div class="section-item">
-                        <h3>{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</h3>
+                        <h3>{{main.extract.PLRCadastreAuthority.Name[0].Text}}</h3>
                         <p>
 
 
-                          {{main.extract.data.PLRCadastreAuthority.Street}} {{main.extract.data.PLRCadastreAuthority.Number}}<br />
-                          {{main.extract.data.PLRCadastreAuthority.PostalCode}} {{main.extract.data.PLRCadastreAuthority.City}}<br />
-                          <a href="{{main.extract.data.PLRCadastreAuthority.OfficeAtWeb}}" target="_blank" class="url-link">{{main.extract.data.PLRCadastreAuthority.Name.LocalisedText.Text}}</a>
+                          {{main.extract.PLRCadastreAuthority.Street}} {{main.extract.PLRCadastreAuthority.Number}}<br />
+                          {{main.extract.PLRCadastreAuthority.PostalCode}} {{main.extract.PLRCadastreAuthority.City}}<br />
+                          <a href="{{main.extract.PLRCadastreAuthority.OfficeAtWeb}}" target="_blank" class="url-link">{{main.extract.PLRCadastreAuthority.Name[0].Text}}</a>
                         </p>
                       </div>
                       </section>
@@ -183,9 +183,9 @@
                     <div class="columns small-12">
                       <h1>{{"contentTitleGlossary" | translate}}</h1>
                       <div class="glossary-items">
-                        <dl ng-repeat="element in main.extract.data.Glossary">
-                            <dt>{{element.Title.LocalisedText.Text}}</dt>
-                            <dd>{{element.Content.LocalisedText.Text}}</dd>
+                        <dl ng-repeat="element in main.extract.Glossary">
+                            <dt>{{element.Title[0].Text}}</dt>
+                            <dd>{{element.Content[0].Text}}</dd>
                         </dl>
                       </div>
                     </div>

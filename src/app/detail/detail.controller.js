@@ -36,7 +36,7 @@ export class DetailController {
         });
 
         // on restriction reload add layer to map
-        this.Extracts.registerRestrictionObserverCallback(() => {
+        this.Extracts.registerRestrictionObserverCallback((code) => {
             this.tempLayers = [];
 
             const unique = (function () {
@@ -143,11 +143,9 @@ export class DetailController {
             this.Extracts.setRestrictionByCode(this.activeRestriction);
         }
 
-
         if (!hasChildren && code != null) {
             this.Extracts.setRestrictionByCode(code);
             this.activeRestriction = code;
-
         }
     }
 
@@ -186,7 +184,19 @@ export class DetailController {
     }
 
     getPDFLink(egrid) {
-        return this.Config.services.oereb + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
+        return this.Config.services.pdf + '/extract/reduced/pdf/' + egrid + '?lang=' + this.$translate.use();
+    }
+
+
+    restrictionsOf(extract, theme) {
+        return extract.RealEstate.RestrictionOnLandownership.filter((restriction => {
+            // only top level restrictions will be parsed. sub themes are ignored
+            if (angular.isDefined(theme.SubTheme)) {
+                return false;
+            }
+
+            return restriction.Theme.Code === theme.Code;
+        }));
     }
 
     showInList(item) {

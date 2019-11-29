@@ -8,7 +8,7 @@ export function RestrictionDirective() {
             data: '=',
         },
         controller: RestrictionController,
-        controllerAs: 'restriction',
+        controllerAs: 'theme',
         bindToController: true
     };
 

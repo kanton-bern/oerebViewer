@@ -1,4 +1,4 @@
-<div ng-show="map.isSearchOpen() || !main.extract.data.MunicipalityLogo" class="search-input search-open">
+<div ng-show="map.isSearchOpen() || !main.extract.MunicipalityLogoRef" class="search-input search-open">
     <input type="text" id="search-me" placeholder="{{'searchboxPlaceholder' | translate}}" class="typeahead searchbox" sf-typeahead datasets="search.places" ng-model="search.search" name="search_input" autofocus>
     <button class="button svg-icon delete-search" ng-click="search.reset()">
         <svg class="icon icon-cross">

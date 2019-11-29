@@ -1,15 +1,17 @@
 export class ExtractsService {
-    constructor($location, Loading, OEREB, Notification, localStorageService, Helpers, $filter) {
+    constructor($location, Loading, OEREB, Notification, localStorageService, Helpers, $filter, $translate, Config) {
 
         'ngInject';
 
         this.$filter = $filter;
         this.Helpers = Helpers;
         this.$location = $location;
+        this.$translate = $translate;
         this.Loading = Loading;
         this.OEREB = OEREB;
         this.Notification = Notification;
         this.localStorageService = localStorageService;
+        this.Config = Config;
 
         this.extracts = [];
         this.observers = [];
@@ -48,16 +50,18 @@ export class ExtractsService {
             this.remove(this.egrid);
         };
 
-        this.OEREB.getExtractById(newExtract.egrid).then((d) => {
-            if (d.status === 204)
-                throw d;
+        this.OEREB.getExtractById(newExtract.egrid).then((response) => {
+            if (response.status === 204) {
+                throw "No Content";
+            }
 
-            newExtract = this.wrap(newExtract, d.data);
+            newExtract = this.wrap(newExtract, response.data);
 
             this.extracts.push(newExtract);
 
-            while (this.extracts.length > 10)
+            while (this.extracts.length > 10) {
                 this.extracts.shift();
+            }
 
             this.setCurrent(newExtract.egrid, reloading);
             this.localStorageService.set('extracts', this.extracts);
@@ -68,7 +72,7 @@ export class ExtractsService {
                 let loadSuccess1 = this.$filter('translate')('notification_loadsuccess1');
                 let loadSuccess2 = this.$filter('translate')('notification_loadsuccess2');
 
-                this.Notification.success(loadSuccess1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadSuccess2);
+                this.Notification.success(loadSuccess1 + ' ' + newExtract.RealEstate.Number + ' (' + newExtract.RealEstate.Municipality + ') ' + loadSuccess2);
             }
 
             setTimeout(() => {
@@ -77,116 +81,102 @@ export class ExtractsService {
 
         }).catch((data) => {
 
+            console.error('whoops', data)
+
             if (data.status === 204) {
                 this.Notification.error(this.$filter('translate')('oerebService204'));
             } else {
                 let loadFailed1 = this.$filter('translate')('notification_failed1');
                 let loadFailed2 = this.$filter('translate')('notification_failed2');
-                this.Notification.error(loadFailed1 + ' ' + newExtract.data.RealEstate.Number + ' (' + newExtract.data.RealEstate.Municipality + ') ' + loadFailed2);
+                this.Notification.error(loadFailed1 + ' ' + newExtract.RealEstate.Number + ' (' + newExtract.RealEstate.Municipality + ') ' + loadFailed2);
             }
-
 
             this.Loading.hide();
         });
     }
 
-    wrap(newExtract, data) {
-        newExtract.data = data;
+    groupBy(xs, key) {
+        // https://stackoverflow.com/questions/14446511/most-efficient-method-to-groupby-on-a-array-of-objects
+        return xs.reduce(function (rv, x) { let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); if (el) { el.values.push(x); } else { rv.push({ key: v, values: [x] }); } return rv; }, []);
+    }
 
-        newExtract.themes = (data.ConcernedTheme instanceof Array) ? data.ConcernedTheme : [data.ConcernedTheme];
-        newExtract.ncthemes = (data.NotConcernedTheme instanceof Array) ? data.NotConcernedTheme : [data.NotConcernedTheme];
-        newExtract.wdthemes = (data.ThemeWithoutData instanceof Array) ? data.ThemeWithoutData : [data.ThemeWithoutData];
+    wrap(newExtract, data) {
+        Object.assign(newExtract, data);
+
         newExtract.layers = [];
 
-        let restrictions = [];
-        let count = 0;
+        let allRestrictions = newExtract.RealEstate.RestrictionOnLandownership;
 
-
-        let restrictionArray = newExtract.data.RealEstate.RestrictionOnLandownership;
-
-        // checks if there is only one restriction
-        if (angular.isDefined(restrictionArray) && angular.isDefined(restrictionArray.SubTheme)) {
-            restrictionArray = [];
-            restrictionArray.push(newExtract.data.RealEstate.RestrictionOnLandownership);
-        }
-
-
-        angular.forEach(restrictionArray, function (d) {
-
-            if (angular.isUndefined(d.SubTheme))
-                return false;
-
-
-
-            // legalProvisions must be an array
-             if (!angular.isArray(d.LegalProvisions)) {
-                 let legalProvision = d.LegalProvisions;
-                 d.LegalProvisions = [];
-                 d.LegalProvisions.push(legalProvision);
-             }
-
-             // filter for legalProvisions without Links
-             /*d.LegalProvisions = d.LegalProvisions.filter(function(legalProvision) {
-                return legalProvision.TextAtWeb.LocalisedText.Text.length > 0;
-             })*/
-
-            // if subtheme and theme.name are not identical then it's a restriction with a hierarchy
-            let complex = (d.SubTheme != d.Theme.Name);
-
-            // check if restriction type allready exists - if yes, lets just push it as a value and skip the rest
-            let doesRestrictionTypeExist = false;
-
-            angular.forEach(restrictions, function (value, key) {
-                if (value.code == d.SubTheme) {
-                    value.values.push(d);
-                    doesRestrictionTypeExist = true;
-                }
+        // loop all concerned themes and get their restrictions
+        newExtract.ConcernedTheme.map((theme) => {
+            let restrictions = allRestrictions.filter(restriction => {
+                return restriction.Theme.Code === theme.Code;
             });
 
-            if (complex) {
-                let doesRestrictionParentTypeExist = false;
+            // check if the given theme has subthemes
+            let hasChildren = restrictions.some(restriction => restriction.SubTheme);
 
-                angular.forEach(restrictions, function (value, key) {
-                    if (value.code == d.Theme.Code) {
-                        doesRestrictionParentTypeExist = true;
-                    }
+            restrictions = this.combineByTypeCode(restrictions);
+            restrictions = this.orderLandUsePlans(restrictions, theme);
+
+            if (! hasChildren) {
+                return Object.assign(theme, {
+                    values: restrictions,
+                    hasChildren: false,
                 });
-
-                // create a new parent theme
-                if (!doesRestrictionParentTypeExist) {
-                    let theme = {};
-                    theme.name = d.Theme.Name;
-                    theme.code = d.Theme.Code;
-                    theme.complex = complex;
-                    theme.hasChildren = true;
-                    theme.values = []; // empty!
-                    theme.index = count++;
-
-                    restrictions.push(theme);
-                }
             }
 
-            if (!doesRestrictionTypeExist) {
-                let theme = {};
-                theme.name = d.SubTheme;
-                theme.code = d.SubTheme;
-                theme.parent = d.Theme.Name;
-                theme.complex = complex;
-                theme.hasChildren = false;
-                theme.values = [];
-
-                theme.values.push(d);
-                theme.index = count++;
-
-                restrictions.push(theme);
-            }
+            return Object.assign(theme, {
+                SubThemes: this.groupBy(restrictions, restriction => restriction.SubTheme),
+                hasChildren: true,
+            });
 
         });
 
-        newExtract.restrictions = restrictions;
-        newExtract.restrictionLength = Object.keys(restrictions).length;
-
         return newExtract;
+    }
+
+    combineByTypeCode(restrictions) {
+        return Object.values(restrictions.reduce((acc, restriction) => {
+            if (! acc[restriction.TypeCode]) {
+                acc[restriction.TypeCode] = restriction;
+                return acc;
+            }
+
+            const accumulation = acc[restriction.TypeCode];
+
+            if (accumulation.NrOfPoints) {
+                accumulation.NrOfPoints += restriction.NrOfPoints
+            }
+            if (accumulation.PartInPercent) {
+                accumulation.PartInPercent += restriction.PartInPercent
+            }
+            if (accumulation.AreaShare) {
+                accumulation.AreaShare += restriction.AreaShare
+            }
+            if (accumulation.LengthShare) {
+                accumulation.LengthShare += restriction.LengthShare
+            }
+
+            return acc;
+        }, {}));
+    }
+
+    orderLandUsePlans(restrictions, theme) {
+        if (theme.Code !== 'LandUsePlans') {
+            return restrictions;
+        }
+
+        const lang = this.$translate.use() !== undefined ? this.$translate.use() : this.$translate.proposedLanguage();
+        const customSortList = this.Config.customSortList.map(pair => pair[lang]).reverse()
+
+        const getPos = function (restriction) {
+            return customSortList.indexOf(restriction.SubTheme)
+        };
+
+        return restrictions.sort((a, b) => {
+            return getPos(b) - getPos(a)
+        })
     }
 
     setCurrent(egrid, reloading = false) {
@@ -233,8 +223,9 @@ export class ExtractsService {
 
         this.$location.search('restriction', code);
 
-        if (notify)
+        if (notify) {
             this.notifyRestrictionObservers();
+        }
     }
 
     getRestrictionByCode() {
@@ -242,14 +233,25 @@ export class ExtractsService {
         let self = this;
         let current = this.getCurrent();
 
-        if (angular.isUndefined(current))
+        if (angular.isUndefined(current)) {
             return result;
+        }
 
-        angular.forEach(current.restrictions, function (r) {
-            if (r.code == self.currentRestrictionCode) {
-                result = r;
+        current.ConcernedTheme.forEach((theme) => {
+            if (theme.Code == this.currentRestrictionCode) {
+                result = theme;
+                return;
             }
-        });
+
+            if (theme.hasChildren) {
+                theme.SubThemes.forEach((subTheme) => {
+                    if (subTheme.key == this.currentRestrictionCode) {
+                        result = subTheme;
+                        return;
+                    }
+                })
+            }
+        })
 
         return result;
     }
@@ -268,8 +270,8 @@ export class ExtractsService {
     }
 
     notifyRestrictionObservers() {
-        angular.forEach(this.restrictionObservers, function (callback) {
-            callback();
+        angular.forEach(this.restrictionObservers, (callback) => {
+            callback(this.currentRestrictionCode);
         });
     }
 

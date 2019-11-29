@@ -1,21 +1,21 @@
-<svg ng-if="entry.document.TextAtWeb.LocalisedText.Text.length > 0" class="icon {{entry.icon}}">
+<svg ng-if="entry.document.TextAtWeb[0].Text.length > 0" class="icon {{entry.icon}}">
     <use xlink:href="{{'#' + entry.icon}}"></use>
 </svg>
 
-<a class="legal-entry" ng-if="entry.document.TextAtWeb.LocalisedText.Text.length > 0" class="external-link" target="_blank" href="{{ entry.document.TextAtWeb.LocalisedText.Text }}" title="PDF">
-    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length > 0">
-        {{entry.document.OfficialTitle.LocalisedText.Text}}
+<a class="legal-entry" ng-if="entry.document.TextAtWeb[0].Text.length > 0" class="external-link" target="_blank" href="{{ entry.document.TextAtWeb[0].Text }}" title="PDF">
+    <span ng-if="entry.document.OfficialTitle[0].Text.length > 0">
+        {{entry.document.OfficialTitle[0].Text}}
     </span>
-    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length == 0">
-        {{entry.document.Title.LocalisedText.Text}}
+    <span ng-if="entry.document.OfficialTitle[0].Text.length == 0">
+        {{entry.document.Title[0].Text}}
     </span>
 </a>
 
-<span class="legal-entry" ng-if="entry.document.TextAtWeb.LocalisedText.Text.length == 0">
-    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length > 0">
-        {{entry.document.OfficialTitle.LocalisedText.Text}}
+<span class="legal-entry" ng-if="entry.document.TextAtWeb[0].Text.length == 0">
+    <span ng-if="entry.document.OfficialTitle[0].Text.length > 0">
+        {{entry.document.OfficialTitle[0].Text}}
     </span>
-    <span ng-if="entry.document.OfficialTitle.LocalisedText.Text.length == 0">
-        {{entry.document.Title.LocalisedText.Text}}
+    <span ng-if="entry.document.OfficialTitle[0].Text.length == 0">
+        {{entry.document.Title[0].Text}}
     </span>
 </span>
