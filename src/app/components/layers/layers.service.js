@@ -32,6 +32,9 @@ export class LayersService {
         // Grundbuchplan schwarz-weiss
         this.add(this.asyncGrundbuchMapLayer());
 
+        // Grundbuchplan schwarz-weiss
+        this.add(this.asyncGrundbuchLowResolutionMapLayer());
+
         // Orthophoto für zweite Hintergrundansicht
         this.add(this.asyncOrthoPhotoLayer());
     }
@@ -144,6 +147,49 @@ export class LayersService {
             return wmtsLayer;
         }).catch(function(ex) {
             self.Notification.warning('a4p_a4p_mopube_n_bk konnte nicht geladen werden.');
+        });
+    }
+
+
+    asyncGrundbuchLowResolutionMapLayer() {
+        let self = this;
+        let configuration = {
+            url: 'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_hintergrund_grau_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+            token: this.globalTokenForWMTS,
+        };
+
+        // fetches capabilities from a service
+        return this.waitForToken(configuration.token).then(function () {
+            return fetch(configuration.url + '?token=' + configuration.token.token).then(function (response) {
+                return response.text();
+            })
+        }).then(function (text) {
+            let result = self.parser.read(text);
+
+            // parses options based on the capabilities
+            let options = ol.source.WMTS.optionsFromCapabilities(result, {
+                layer: 'a4p_a4p_hintergrund_grau_n_bk',
+                matrixSet: 'EPSG:2056'
+            });
+            self.applyTokeToWMTSOptions(configuration.token, options);
+
+            // http://geoadmin.github.io/ol3/apidoc/ol.source.WMTS.html
+            let wmtsSource = new ol.source.WMTS(options);
+            self.refreshOnInvalidToken(configuration.token, wmtsSource);
+
+            // creates ol.layer.Tile with the prepared source
+            let wmtsLayer = new ol.layer.Tile({
+                opacity: 1,
+                source: wmtsSource,
+                visible: true, // is visible per default
+                name: 'grundbuchLowResolutionMap' // the name is necessary for interacting with this layer, see setView method
+            });
+
+            wmtsLayer.setZIndex(1);
+
+            return wmtsLayer;
+        }).catch(function(ex) {
+            self.Notification.warning('a4p_hintergrund_grau_n_bk konnte nicht geladen werden.');
         });
     }
 
@@ -366,5 +412,3 @@ export class LayersService {
         });
     }
 }
-
-
