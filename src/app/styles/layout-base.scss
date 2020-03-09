@@ -320,7 +320,7 @@ body {
           margin-right:12px;
 
         }
-        v-pane-header, 
+        v-pane-header,
         .history {
             .badge {
               vertical-align: middle;
@@ -388,7 +388,7 @@ body {
         v-pane-header[aria-expanded^="true"]{
           @include fontNormal;
           background-color: $colorHeadContent;
-          
+
           > div *,
           > div {
             color:$colorWhite !important;
@@ -413,7 +413,7 @@ body {
                 line-height: $fontLineHeightBase - 10%;
               }
             }
-            
+
           v-pane-content[aria-hidden='false'] {
             border-bottom:1px solid $colorMenuTop;
             background-color: $colorContentBgnd;
@@ -818,6 +818,7 @@ body {
         background-color: $colorContentBgnd;
         margin-bottom:20px;
         margin-right:20px;
+        background-blend-mode: multiply;
 
       }
       .logo-oereb, .logo-kanton, .logo-bund {
