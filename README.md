@@ -19,7 +19,6 @@
   * [6.2. Bearbeiten der Sprachvariablen](#62-bearbeiten-der-sprachvariablen)
   * [6.3 Allgemeine Map Konfiguration](#63-allgemeine-map-konfiguration)
     + [6.3.1 Suchdienst konfigurieren / programmieren](#631-suchdienst-konfigurieren---programmieren)
-  * [6.4 Konfiguration des Kantonswappens](#64-konfiguration-des-kantonswappens)
 - [7. DIVERSES](#7-diverses)
   * [7.1 Verantwortlichkeiten](#71-verantwortlichkeiten)
 
