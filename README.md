@@ -161,25 +161,6 @@ Bestehende Integrationen gibt es für die API von Mapbox (searchMapbox.directive
 Die Directives werden in ``/src/app/index.module.js`` importiert und auf den Selektor ‘search’ registiert. ‘search’ wird in ``/src/app/components/map/map.html `` verwendet.
  
 
-## 6.4 Konfiguration des Kantonswappens ##
-Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/public/lang/[SPRACHE].json`` abgelegt:
-
-
-```
-#!html
-
-    "logoKantonPath": "http://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif", 
-```
-
-Ist der Name nicht intergraler Bestandteil des Kantons-Logos, so kann dieser ebenfalls im selben Sprachfile definiert werden:
-
-
-```
-#!html
-
-    "kantonText": "Der Kanton Bern",
-```
-
 
 
 ---
