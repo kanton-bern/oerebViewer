@@ -42,7 +42,7 @@ export class DetailController {
             const unique = (function () {
                 const tempLayerHash = [];
                 return function (source) {
-                    const hash = source.getUrls().join();
+                    const hash = source.getUrls ? source.getUrls().join() : source.getUrl();
                     if (tempLayerHash.indexOf(hash) === -1) {
                         tempLayerHash.push(hash);
                         return {
@@ -61,35 +61,36 @@ export class DetailController {
                 angular.forEach(this.Extracts.getRestriction().values, (v) => {
                     bbox = Helpers.getParameterByName('bbox', v.Map.ReferencerWMS);
 
-                    let indexOfWMSServer = v.Map.ReferenceWMS.indexOf('WMSServer?');
+                    let isNotWMSServer = v.Map.ReferenceWMS.indexOf('WMSServer?') === -1 &&
+                                         v.Map.ReferenceWMS.indexOf('mapserv.fcgi?') === -1;
                     let wmsTempSource;
 
-                    if (indexOfWMSServer === -1) {
-                        wmsTempSource = new this.Map.ol.source.TileWMS(({
+                    if (isNotWMSServer) {
+                        console.log('detail.controller.js', 68);
+                        wmsTempSource = new this.Map.ol.source.ImageWMS(({
                             url: v.Map.ReferenceWMS,
-                            params: {
-                                'TILED': true,
-                            },
                             serverType: 'geoserver'
                         }));
                     }
                     else {
-                        let url = v.Map.ReferenceWMS.substr(0, indexOfWMSServer) + 'WMSServer?';
+                        let url = v.Map.ReferenceWMS.split('?')[0];
+                        // omit the rest of the url as a parameter may be used twice
 
-                        wmsTempSource = new this.Map.ol.source.TileWMS(({
+                        wmsTempSource = new this.Map.ol.source.ImageWMS(({
                             url: url,
                             params: {
+                                // manually set the required parameter
                                 'LAYERS': Helpers.getParameterByName('LAYERS', v.Map.ReferenceWMS),
-                                'TILED': true,
                                 'VERSION': Helpers.getParameterByName('VERSION', v.Map.ReferenceWMS),
                                 'FORMAT': Helpers.getParameterByName('FORMAT', v.Map.ReferenceWMS),
-                                'CRS': Helpers.getParameterByName('CRS', v.Map.ReferenceWMS)
+                                'CRS': Helpers.getParameterByName('CRS', v.Map.ReferenceWMS),
+                                'map': Helpers.getParameterByName('map', v.Map.ReferenceWMS),
                             },
                             serverType: 'geoserver'
                         }));
                     }
 
-                    let layer = new this.Map.ol.layer.Tile({
+                    let layer = new this.Map.ol.layer.Image({
                         /*preload: Infinity,*/
                         opacity: this.Config.opacityRestrictionLayers,
                         visible: true,
