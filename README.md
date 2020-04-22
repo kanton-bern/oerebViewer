@@ -4,21 +4,23 @@
   * [1.1 Zu diesem Repository](#11-zu-diesem-repository)
 - [2. FUNKTIONSSCHEMA DES SMARTAUSZUGS](#2-funktionsschema-des-smartauszugs)
 - [3. TECHNISCHE VORAUSSETZUNGEN](#3-technische-voraussetzungen)
-  * [3.1 Client-Technologie](#31-client-technologie)
-  * [3.2 Einschränkungen](#32-einschr-nkungen)
-    + [3.2.1 SSL-Zertifikate](#321-ssl-zertifikate)
-    + [3.2.2 Browser](#322-browser)
+  * [3.1 Server-Infrastruktur](#31-server-infrastruktur)
+  * [3.2 Client-Technologie](#32-client-technologie)
+  * [3.3 Einschränkungen](#33-einschränkungen)
+    + [3.3.1 SSL-Zertifikate](#331-ssl-zertifikate)
+    + [3.3.2 Browser](#332-browser)
 - [4. ENTWICKLUNG UND LOKALES TESTEN](#4-entwicklung-und-lokales-testen)
   * [4.1 Voraussetzungen und Vorbereitung](#41-voraussetzungen-und-vorbereitung)
   * [4.2 Installationsanleitung](#42-installationsanleitung)
   * [4.3 Anmerkung](#43-anmerkung)
   * [4.4 Testen der Applikation](#44-testen-der-applikation)
-- [5. ERSTELLEN EINES LAUFFÄHIGEN BUILD](#5-erstellen-eines-lauff-higen-build)
+- [5. ERSTELLEN EINES LAUFFÄHIGEN BUILD](#5-erstellen-eines-lauffähigen-build)
 - [6. KONFIGURATION](#6-konfiguration)
   * [6.1. Layers](#61-layers)
   * [6.2. Bearbeiten der Sprachvariablen](#62-bearbeiten-der-sprachvariablen)
   * [6.3 Allgemeine Map Konfiguration](#63-allgemeine-map-konfiguration)
     + [6.3.1 Suchdienst konfigurieren / programmieren](#631-suchdienst-konfigurieren---programmieren)
+  * [6.4 Konfiguration des Kantonswappens](#64-konfiguration-des-kantonswappens)
 - [7. DIVERSES](#7-diverses)
   * [7.1 Verantwortlichkeiten](#71-verantwortlichkeiten)
 
@@ -40,20 +42,21 @@ Beim oerebViewer handelt es sich um Open-Source Software des Katon Berns, die un
 ---
 
 # 3. TECHNISCHE VORAUSSETZUNGEN #
+## 3.1 Server-Infrastruktur
 Damit die Applikation auf einem Webserver installiert werden kann, müssen folgende Bedingungen erfüllt sein:
 
-* Die Applikation muss als lauffähiger "Build" vorliegen. Wie dieser Build erzeugt wird, ist weiter unten beschrieben.
+* Die Applikation muss als lauffähiger "Build" vorliegen. Wie dieser Build erzeugt wird, ist in [ERSTELLEN EINES LAUFFÄHIGEN BUILD](#5-erstellen-eines-lauff-higen-build) beschrieben und setzt [ENTWICKLUNG UND LOKALES TESTEN](#4-entwicklung-und-lokales-testen) voraus.
 * Der Webserver muss fähig sein, HTML-Dokumente auszuliefern. Auf der Betreiberseite wird also nur eine minimale Infrastruktur benötigt.
 
-## 3.1 Client-Technologie ##
+## 3.2 Client-Technologie ##
 Da die gesamte Anwendungs-Logik im Client implementiert ist, wurde die Applikation vollständig mit [AngularJS, Version 1.5.11](https://angularjs.org/) realisiert. Für das Markup des Frontends wurde - basierend auf dem [Foundation Framework, v6.1](http://foundation.zurb.com/) - ein HTML/CSS(SASS)/JS-Template erstellt.
-Damit konnte eine performante und flexible Lösung gebaut werden welche kaum Anforderungen an die (Web)Server-Infrastruktur stellt: dies macht es möglich, den SmartAuszug sehr einfach durch einen beliebigen Kanton zu betreiben.
+Damit konnte eine performante und flexible Lösung gebaut werden, welche kaum Anforderungen an die (Web)Server-Infrastruktur stellt: dies macht es möglich, den SmartAuszug sehr einfach durch einen beliebigen Kanton zu betreiben.
 
-## 3.2 Einschränkungen ##
-### 3.2.1 SSL-Zertifikate ###
+## 3.3 Einschränkungen ##
+### 3.3.1 SSL-Zertifikate ###
 Damit die App vollständig genutzt werden kann, müssen alle Dienste mit dem SSL-Protokoll arbeiten (ansonsten funktioniert unter Chrome die Geolokalisierung nicht). Einige Dienste besitzen nur ein manuell ausgestelltes Zertifikat. Dieses wird nicht immer akzeptiert und muss gesondert hinzugefügt werden.
 
-### 3.2.2 Browser ###
+### 3.3.2 Browser ###
 Die Applikation wurde mit folgenden Browsern (jeweils mit der aktuellen und vorletzten Version) getestet ([siehe auch: Browser-Test-Issue](https://bitbucket.org/stubr/oereb-app/issues/41/browser-check)):
 
  * Windows (7/10): Chrome, Firefox, IE, Opera
@@ -69,12 +72,12 @@ Die Applikation kann unter einem der gängigen OS installiert werden. Vorrausset
 
 ```bash
 $ touch ~/.bashrc
-$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 // restart bash
-$ nvm install node
+$ nvm install 12
 ```
 
-Bitte beachten Sie, dass sich zur Zeit die Applikation nur mit einer node-Version < 12.0 builden lässt. Aktuell ist die v11.4.0 eine lauffähige Version. Bitte prüfen Sie dies mit einem:
+Bitte beachten Sie, dass die Applikation mit node-Version `v12.13` getestet ist und builden lässt. Builden mit node-Version > v12 ist nicht garantiert. Bitte prüfen Sie dies mit einem:
 
 ```bash
 node -v
@@ -82,17 +85,18 @@ node -v
 
 
 
-
 ## 4.2 Installationsanleitung ##
 
 1. Die aktuelle Version aus diesem Repository herunterladen
 2. Die Datei .env.example kopieren und zu .env umbenennen.
-3. npm install
-4. npm run serve
+3. `npm install`
+4. `npm run serve`
 
 ## 4.3 Anmerkung ##
-Mit **npm run serve** wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
-Mit **npm run build** wird eine produktive Version der App gebaut. Externe Ressourcen werden gekürzt (minified) und zusammengefasst (concatenate). Die produktive Version befindet sich im Verzeichnis /dist/. Das gesamte **/dist/** Verzeichnis muss ins Root der produktiven Umgebung kopiert werden, damit die Applikation lauffähig ist.
+Mit `npm run serve` wird der Builder im Entwicklungsmodus gestartet: die Applikation läuft dann in einem lokalen Websverver.  
+Mit `npm run build` wird eine produktive Version der App gebaut. Externe Ressourcen werden gekürzt (minified) und zusammengefasst (concatenate). Die produktive Version befindet sich im Verzeichnis /dist/.
+
+Das gesamte `/dist/` Verzeichnis muss ins Root der produktiven Umgebung kopiert werden, damit die Applikation lauffähig ist.
 
 ## 4.4 Testen der Applikation ##
 Für Tests können die folgenden Parzellen verwendet werden:
@@ -107,8 +111,8 @@ Damit eine lauffähige Version auf einem externen Webserver publiziert werden ka
 
 1. Die aktuelle Version aus diesem Repository herunterladen
 2. Die Datei .env.example kopieren und zu .env umbenennen.
-3. npm install
-4. **npm run build**
+3. `npm install`
+4. `npm run build`
 
 ```
 Der letzte Schritt besteht aus einem npm run build.
@@ -133,13 +137,11 @@ Es können mindestens 3 Sprachversionen gleichzeitig betrieben werden. Dazu muss
 Das entsprechende Snippet für den Sprachwechsel sieht so aus:
 
 
-```
-#!html
-
-                  <span ng-click="main.changeLanguage('it')">
-                    <a ng-click="main.changeLanguage('it')" title="Version italiano"
-                         ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
-                  </span>
+```html
+    <span ng-click="main.changeLanguage('it')">
+        <a ng-click="main.changeLanguage('it')" title="Version italiano"
+             ng-class="{'is-active': main.isCurrentLanguage('it')}">Italiano</a>
+    </span>
 ```
 
 
@@ -159,6 +161,21 @@ Bestehende Integrationen gibt es für die API von Mapbox (searchMapbox.directive
 
 Die Directives werden in ``/src/app/index.module.js`` importiert und auf den Selektor ‘search’ registiert. ‘search’ wird in ``/src/app/components/map/map.html `` verwendet.
  
+
+## 6.4 Konfiguration des Kantonswappens ##
+Im Impressum wird das jeweilige Kantonswappen aufgeführt. Dieses wird direkt aus einer externen Bild-Resource geladen. Diese Resource wird in den entsprechenden Sprachfiles ``/src/public/lang/[SPRACHE].json`` abgelegt:
+
+
+```json
+  "logoKantonPath": "http://files.be.ch/bve/agi/oereb/logos/kanton_BE.gif", 
+```
+
+Ist der Name nicht intergraler Bestandteil des Kantons-Logos, so kann dieser ebenfalls im selben Sprachfile definiert werden:
+
+
+```json
+  "kantonText": "Der Kanton Bern",
+```
 
 
 
