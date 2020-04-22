@@ -2,6 +2,9 @@
     "name": "oereb-viewer",
     "version": "1.0.0",
     "description": "Source code to setup a viewer for the Cadastre of Public-law Restrictions on landownership (DE: ÖREB-Kataster) displaying the XML-Extract of the PLR-cadastre.",
+    "engines": {
+        "node": "12.x"
+    },
     "scripts": {
         "build": "rimraf dist && webpack --bail --progress --profile --mode=production",
         "server": "webpack-dev-server --history-api-fallback --inline --progress",
