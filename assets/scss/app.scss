@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background-primary: 45, 54, 62;
+    --color-text-primary: 255, 255, 255;
+
+    --color-background-secondary: 203, 211, 219;
+    --color-text-secondary: 45, 54, 62;
+
+    --color-background-accent: 255, 255, 255;
+    --color-text-accent: 203, 0, 14;
+    --color-background-accent-dark: 203, 0, 14;
+
+    --color-text-decent: 94, 114, 135;
+
+    --color-background-base: 254, 254, 254;
+    --color-text-base: 45, 54, 62;
+
+    --color-background-active: 94, 114, 135;
+    --color-text-active: 255, 255, 255;
+
+    --color-border-primary: 94, 114, 135;
+    --color-border-secondary: 187, 187, 187;
+
+    --color-background-thirdly: 228, 233, 237;
+  }
+}
+
+body {
+  @apply antialiased;
+}
+
+/** accordion style */
+.accordion-item {
+  @apply border-t border-theme-primary;
+
+  > .accordion-item__header {
+    @apply px-4 py-3 w-full text-left bg-theme-secondary flex items-center transition-all duration-200 relative pr-[42px] md:pr-[46px] 3xl:pr-[50px];
+
+    &::after,
+    &::before {
+      @apply block absolute right-0 top-1/2 transition-all duration-200 mr-[16px] w-[10px] md:w-[14px] 3xl:w-[18px] ;
+      content: '';
+      height: 1px;
+      background-color: currentColor;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    &::before {
+      transform: rotate(-90deg);
+    }
+
+    &:hover {
+      color: currentColor;
+
+      @apply bg-theme-active text-theme-active;
+    }
+  }
+
+  > .accordion-item__wraper { 
+    @apply bg-theme-base border-l-4 border-l-theme-primary;
+  }
+
+  &.expanded {
+    @apply bg-theme-active border-theme-secondary;
+
+    > .accordion-item__header {
+      @apply pl-5 bg-theme-active text-theme-active;
+
+      &::after {
+        transform: rotate(90deg);
+        opacity: 0;
+      }
+      &::before {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  &.decent {
+     > .accordion-item__wraper, > .accordion-item__header {
+      @apply opacity-40;
+    }
+  }
+
+  .accordion-item {
+    @apply border-l;
+
+    > .accordion-item__header {
+      @apply bg-theme-thirdly;
+
+      &:hover {
+        @apply bg-theme-active text-theme-active;
+      }
+    }
+
+    &.expanded {
+      > .accordion-item__header {
+        @apply bg-theme-active;
+      }
+    }
+  }
+}

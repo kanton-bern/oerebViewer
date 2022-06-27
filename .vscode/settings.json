@@ -1,0 +1,41 @@
+{
+    "eslint.packageManager": "yarn",
+    "npm.packageManager": "yarn",
+    "[javascript]": {
+      "editor.formatOnSave": false,
+      "editor.tabSize": 2
+    },
+    "[vue]": {
+      "editor.formatOnSave": false,
+      "editor.tabSize": 2
+    },
+    "eslint.validate": [
+      {
+        "language": "javascript",
+        "autoFix": true
+      },
+      {
+        "language": "javascriptreact",
+        "autoFix": true
+      },
+      {
+        "language": "html",
+        "autoFix": true
+      },
+      {
+        "language": "vue",
+        "autoFix": true
+      }
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "i18n-ally.localesPaths": [
+      "locales",
+      "config/bern/locales",
+      "config/defaults/locales"
+    ],
+    "i18n-ally.keystyle": "flat",
+    "i18n-ally.displayLanguage": "DE",
+    "i18n-ally.sourceLanguage": "de"
+  }

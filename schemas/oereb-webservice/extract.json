@@ -1,0 +1,91 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"$id": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/extract.json",
+	"fileVersion": "2.0.0",
+	"type": "object",
+	"anyOf": [{
+			"$ref": "#/definitions/GetExtractByIdResponse"
+		},
+		{
+			"$ref": "#/definitions/GetEGRIDResponse"
+		},
+		{
+			"$ref": "#/definitions/GetCapabilitiesResponse"
+		}
+	],
+	"definitions": {
+
+		"FlavourType": {
+			"pattern": "REDUCED|SIGNED|(ch.[A-Z]{2}.[a-zA-Z][a-zA-Z0-9]*)|(fl.[a-zA-Z][a-zA-Z0-9]*)"
+		},
+
+		"GetExtractByIdResponse": {
+			"type": "object",
+			"properties": {
+				"extract": {
+					"$ref": "schemas/oereb-webservice/extractdata.json#/definitions/Extract"
+				}
+			}
+		},
+		"GetEGRIDResponse": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"egrid": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					},
+					"identDN": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "schemas/oereb-webservice/extractdata.json#/definitions/RealEstateType"
+					},
+					"limit": {
+						"$ref": "schemas/oereb-webservice/extractdata.json#/definitions/MultiSurface"
+					}
+				}
+			}
+		},
+
+		"GetCapabilitiesResponse": {
+			"type": "object",
+			"properties": {
+				"topic": {
+					"type": "array",
+					"items": {
+						"$ref": "schemas/oereb-webservice/extractdata.json#/definitions/Theme"
+					}
+				},
+				"municipality": {
+					"type": "array",
+					"items": {
+						"$ref": "schemas/oereb-webservice/extractdata.json#/definitions/MunicipalityCode"
+					}
+				},
+				"flavour": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/FlavourType"
+					}
+				},
+				"language": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"crs": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		}
+
+	}
+}

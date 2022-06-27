@@ -1,0 +1,47 @@
+{
+  "name": "oereb-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "16"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint": "yarn lint:js",
+    "lint:fix": "eslint --fix --ext \".js,.vue\" --ignore-path .gitignore .",
+    "json2ts": "json2ts -i 'schemas/**/*.json' -o types/"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/i18n": "^7.2.2",
+    "core-js": "^3.22.5",
+    "lodash": "^4.17.21",
+    "nuxt": "^2.15.8",
+    "ol": "^6.14.1",
+    "proj4": "^2.8.0",
+    "vue-multiselect": "^2.1.6",
+    "vue-toastification": "^1.7.14"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.1.0",
+    "@nuxtjs/tailwindcss": "^5.0.4",
+    "@vue/reactivity": "^3.2.31",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.7.0",
+    "json-schema-to-typescript": "^10.1.4",
+    "postcss": "^8.4.13",
+    "prettier": "^2.6.2",
+    "sass": "^1.51.0",
+    "sass-loader": "10",
+    "tailwindcss": "^3.0.24"
+  }
+}
