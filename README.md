@@ -93,8 +93,8 @@ NUXT_ENV_TITLE="ÖREB-Viewer | Visualiseur RDPPF"
 NUXT_ENV_CONFIG_CONTEXT=bern
 
 # if your viewer reqires 
-NUXT_ENV_TOKEN_USERNAME=a4p_oerebsmart_user
-NUXT_ENV_TOKEN_PASSWORD=a4p_ntW6MTq5TvDE6HA
+NUXT_ENV_TOKEN_USERNAME=user
+NUXT_ENV_TOKEN_PASSWORD=password
 ```
 
 Custom configurations are merged with the default configurations by merging and overwriting same configurations.
