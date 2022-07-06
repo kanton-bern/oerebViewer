@@ -15,7 +15,7 @@ export const state = () => {
     searchResults: [],
     selectedSearchResult: null,
     isSearchResultLoading: false,
-    isSearchVisible: false,
+    isSearchVisible: true,
     jumpToSwissCoordinates: null,
 
     previewCoordinate: null,

@@ -2,6 +2,7 @@
   <div>
     <Multiselect
       id="ajax"
+      ref="vms"
       class="search-dropdown"
       select-label=""
       :value="$store.state.map.selectedSearchResult"
@@ -52,6 +53,10 @@ export default {
     return {}
   },
 
+  mounted() {
+    this.focus()
+  },
+
   methods: {
     ...mapActions('map', ['updateSearchQuery', 'searchResultSelected']),
 
@@ -77,6 +82,10 @@ export default {
 
     clearAll() {
       this.searchResultSelected(null)
+    },
+
+    focus() {
+      this.$refs.vms.$el.focus()
     },
   },
 }
