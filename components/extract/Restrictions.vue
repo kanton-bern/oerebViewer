@@ -277,8 +277,10 @@ export default {
           url: multilingualtext(document.TextAtWeb),
           type: multilingualtext(document.Type.Text),
           code: document.Type.Code,
+          index: document.Index,
         }))
         .filter(uniqueDocument)
+        .sort((a, b) => a.index - b.index)
 
       function uniqueDocument(v, i, a) {
         return (
