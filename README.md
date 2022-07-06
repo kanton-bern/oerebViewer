@@ -1,5 +1,6 @@
 # OEREB-Viewer
 
+Source code to setup a viewer for the Cadastre of Public-law Restrictions on landownership (DE: ÖREB-Kataster) displaying the JSON-Extract of the PLR-cadastre.
 
 # Setup
 ## Configuration
@@ -154,3 +155,9 @@ export const locales = [
 ```
 
 A JavaScript language file is required, to add merge capabilities with default locales
+
+# Built With
+- [Vue](https://v2.vuejs.org/)
+- [Nuxt](https://nuxtjs.org/)
+- [Tailwind](https://tailwindcss.com/)
+- [Open Layers](https://openlayers.org/)
