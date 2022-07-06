@@ -64,6 +64,11 @@ export const externalService = {
   ...config.externalService,
 }
 
+export const externalInstructions = {
+  ...defaults.externalInstructions,
+  ...config.externalInstructions,
+}
+
 export const ownerService = {
   ...defaults.ownerService,
   ...config.ownerService,

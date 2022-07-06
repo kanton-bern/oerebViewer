@@ -62,11 +62,11 @@
         <a
           :href="loadedExtract.ownerUrl"
           target="_blank"
-          class="flex items-center gap-4 hover:underline"
+          class="flex items-center gap-2 hover:underline"
           :title="$t('detail_owner_info', templateVars)"
         >
-          <IconOpen class="w-6 h-6 flex-shrink-0" />
           {{ $t('detail_owner_info', templateVars) }}
+          <IconOpen class="w-4 h-4 flex-shrink-0" />
         </a>
       </div>
     </div>

@@ -27,27 +27,32 @@
 
     <template #sidebar>
       <div
-        class="bg-theme-secondary text-theme-secondary h-full overflow-y-auto"
+        class="bg-theme-secondary text-theme-secondary h-full overflow-y-auto flex flex-col justify-between"
       >
-        <ExtractDetail />
-        <button
-          class="w-full text-left px-4 py-3 border-t border-theme-primary hover:bg-theme-active hover:text-theme-active 3xl:text-lg"
-          @click="toggleGlossaryVisibility"
-        >
-          {{ $t('glossary_title') }}
-        </button>
-        <button
-          class="w-full text-left px-4 py-3 border-t border-theme-primary border-b hover:bg-theme-active hover:text-theme-active 3xl:text-lg"
-          @click="toggleImprintAndLegalVisibility"
-        >
-          {{ $t('imprint_title') }}
-        </button>
-        <AppLanguageSwitcher
-          class="lg:hidden px-4 py-3"
-          list-class="flex items-center gap-2"
-          icon-class="h-4 w-4"
-        />
-        <Nuxt />
+        <div>
+          <ExtractDetail />
+          <button
+            class="w-full text-left px-4 py-3 border-t border-theme-primary hover:bg-theme-active hover:text-theme-active 3xl:text-lg"
+            @click="toggleGlossaryVisibility"
+          >
+            {{ $t('glossary_title') }}
+          </button>
+          <button
+            class="w-full text-left px-4 py-3 border-t border-theme-primary border-b hover:bg-theme-active hover:text-theme-active 3xl:text-lg"
+            @click="toggleImprintAndLegalVisibility"
+          >
+            {{ $t('imprint_title') }}
+          </button>
+          <AppLanguageSwitcher
+            class="lg:hidden px-4 py-3"
+            list-class="flex items-center gap-2"
+            icon-class="h-4 w-4"
+          />
+          <Nuxt />
+        </div>
+        <div>
+          <ExternalInstructions class="px-4 pt-3 pb-8 relative bottom-0" />
+        </div>
       </div>
     </template>
 
@@ -67,8 +72,10 @@
 
 <script>
 import { mapActions } from 'vuex'
+import ExternalInstructions from '~/components/app/ExternalInstructions.vue'
 
 export default {
+  components: { ExternalInstructions },
   methods: {
     ...mapActions('map', [
       'toggleImprintAndLegalVisibility',

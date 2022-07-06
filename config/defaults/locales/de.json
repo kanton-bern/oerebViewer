@@ -61,5 +61,6 @@
   "no_property_found": "Für dieses Grundstück kann keine Auswertung erstellt werden, da die Daten der amtlichen Vermessung nicht in ausreichender Qualität vorliegen.",
   "amount": "Anzahl",
   "show_changes": "Zwichen Rechtskräfitg und Änderungen wechseln",
-  "detail_updated_date": "Stand der amtlichen Vermessung"
+  "detail_updated_date": "Stand der amtlichen Vermessung",
+  "external_instructions": "Anleitung zum Portal"
 }

@@ -60,5 +60,6 @@
   "oereb_service_invalid_data": "Echec de l'évaluation des données RDPPF par rapport au bien-fonds {number} ({municipality}) ou problème de connexion avec le service web RDPPF. Veuillez ressayer plus tard.",
   "no_property_found": "Ce bien-fonds se situe à l'extérieur des zones disposant d'une Mensuration Officielle de qualité suffisante, il n'est pas possible démarrer l'évaluation.",
   "amount": "Nombre",
-  "detail_updated_date": "Etat de la mensuration officielle"
+  "detail_updated_date": "Etat de la mensuration officielle",
+  "external_instructions": "Instructions pour le portail"
 }

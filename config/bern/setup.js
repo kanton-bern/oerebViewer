@@ -170,6 +170,15 @@ export const externalService = {
 }
 
 /**
+ * External Instructions
+ * ---------------------
+ * provides url for visiting the external instructions
+ */
+export const externalInstructions = {
+  // - instructionUrl: url to external instruciton - disabled if false
+}
+
+/**
  * Owner Service
  * ---------------------
  * provides url for visiting information about the owner of the extract
