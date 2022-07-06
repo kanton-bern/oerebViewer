@@ -22,7 +22,7 @@
 <script>
 export default {
   data: () => ({
-    allwaysShowMenu: true,
+    allwaysShowMenu: false,
   }),
 
   created() {
