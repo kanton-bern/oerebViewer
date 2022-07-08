@@ -80,6 +80,6 @@ export const searchService = {
 }
 
 export const userInterface = {
-  ...defaults.searchService,
-  ...config.searchService,
+  ...defaults.userInterface,
+  ...config.userInterface,
 }
