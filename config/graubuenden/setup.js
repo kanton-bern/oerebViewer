@@ -173,7 +173,7 @@ export const externalService = {
  * provides url for visiting the external instructions
  */
 export const externalInstructions = {
-  // - instructionUrl: url to external instruciton - disabled if false
+  // - instructionUrl: url to external instruciton - place holder {{language}} and {{languageUppercase}} - disabled if false
 }
 
 /**

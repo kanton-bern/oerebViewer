@@ -8,11 +8,16 @@
 </template>
 
 <script>
-import { externalInstructions } from '~/config/setup'
+import { externalInstructions, stringTemplate } from '~/config/setup'
 
 export default {
-  data: () => ({
-    url: externalInstructions.instructionUrl,
-  }),
+  computed: {
+    url() {
+      return stringTemplate(externalInstructions.instructionUrl, {
+        language: this.$i18n.locale,
+        languageUppercase: this.$i18n.locale.toUpperCase(),
+      })
+    },
+  },
 }
 </script>
