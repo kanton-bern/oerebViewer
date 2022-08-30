@@ -71,6 +71,9 @@ export const searchService = {
       y: item.attrs.y,
     })),
   ],
+
+  // search labels are formatted with html
+  isHtmlFormatted: true,
 }
 
 /**

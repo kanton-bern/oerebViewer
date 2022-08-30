@@ -66,6 +66,9 @@ export const searchService = {
       x: item.x,
       y: item.y,
     })),
+
+  // search labels are formatted with html
+  isHtmlFormatted: false,
 }
 
 export const projectionDefinitions = {

@@ -35,6 +35,12 @@
           @mousedown.prevent.stop="clearAll(props.search)"
         />
       </template>
+      <template v-if="isHtmlFormatted" slot="singleLabel" slot-scope="props">
+        <span class="option__title" v-html="props.option.label" />
+      </template>
+      <template v-if="isHtmlFormatted" slot="option" slot-scope="props">
+        <span class="option__title" v-html="props.option.label" />
+      </template>
       <span slot="noResult">{{ $t('no_search_result') }}</span>
       <span slot="noOptions">{{ $t('search_list_empty') }}</span>
     </Multiselect>
@@ -46,11 +52,14 @@ import Multiselect from 'vue-multiselect'
 import { mapActions } from 'vuex'
 import { debounce } from 'lodash'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
+import { searchService } from '~/config/setup'
 
 export default {
   components: { Multiselect },
   data() {
-    return {}
+    return {
+      isHtmlFormatted: searchService.isHtmlFormatted,
+    }
   },
 
   mounted() {
