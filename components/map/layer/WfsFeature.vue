@@ -36,7 +36,7 @@ export default {
       required: true,
     },
 
-    width: {
+    strokeWidth: {
       type: Number,
       default: 1,
     },
@@ -104,7 +104,7 @@ export default {
         style: new Style({
           stroke: new Stroke({
             color: this.strokeColor,
-            width: this.width,
+            width: this.strokeWidth,
           }),
 
           fill: new Fill({

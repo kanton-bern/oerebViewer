@@ -131,14 +131,14 @@ export const usesEsriToken = false
  */
 export const mapLayerStyles = {
   extractFeature: {
-    stroke: 'rgba(255, 0, 0, 0.9)',
+    stroke: 'rgba(230, 0, 0, 0.6)',
     fill: 'rgba(255, 0, 0, 0)',
-    width: 2,
+    width: 5,
   },
   previewFeature: {
-    stroke: 'rgba(255, 100, 0, 0.9)',
+    stroke: 'rgba(255, 100, 0, 0.6)',
     fill: 'rgba(255, 100, 0, 0.2)',
-    width: 2,
+    width: 5,
   },
 }
 

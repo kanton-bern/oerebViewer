@@ -14,7 +14,7 @@
         :features="previewFeatures"
         :fill-color="featureStyle.fill"
         :stroke-color="featureStyle.stroke"
-        :width="featureStyle.width"
+        :stroke-width="featureStyle.width"
         v-on="$listeners"
       />
       <div>{{ $t('preview_show_extract') }}</div>
