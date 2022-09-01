@@ -140,11 +140,11 @@ export const mapLayerStyles = {}
 export const oerebService = {
   // get EGRID by coordinates - placeholder {{latitude}} and {{longitude}}
   getEGRIDByCoordinate:
-    'https://www.oereb2.apps.be.ch/getegrid/json/?GNSS={{latitude}},{{longitude}}&GEOMETRY=True',
+    'https://www.oereb2-test.apps.be.ch/getegrid/json/?GNSS={{latitude}},{{longitude}}&GEOMETRY=True',
 
   // get Extract by EGRID - placeholder {{EGRID}} and {{language}}
   getExtractByEGRID:
-    'https://www.oereb2.apps.be.ch/extract/json?egrid={{EGRID}}&lang={{language}}&geometry=true',
+    'https://www.oereb2-test.apps.be.ch/extract/json?egrid={{EGRID}}&lang={{language}}&geometry=true',
 }
 
 /**
@@ -155,7 +155,7 @@ export const oerebService = {
 export const pdfService = {
   // get PDF by EGRID - placeholder {{EGRID}} and {{language}}
   getPDFUrlByEGRID:
-    'https://www.oereb2.apps.be.ch/extract/pdf?egrid={{EGRID}}&lang={{language}}',
+    'https://www.oereb2-test.apps.be.ch/extract/pdf?egrid={{EGRID}}&lang={{language}}',
 }
 
 /**
