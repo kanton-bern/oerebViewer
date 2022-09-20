@@ -7,7 +7,7 @@
     <div v-if="previewEGRID && previewEGRID.length === 0">
       {{ $t('no_property_found') }}
     </div>
-    <div v-else-if="previewEGRID && $store.state.map.previewFeatures">
+    <div v-else-if="previewEGRID">
       <MapLayerWfsFeature
         v-if="previewFeatures"
         id="preview_plot"
