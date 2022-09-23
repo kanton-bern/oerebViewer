@@ -13,10 +13,12 @@ import { externalInstructions, stringTemplate } from '~/config/setup'
 export default {
   computed: {
     url() {
-      return stringTemplate(externalInstructions.instructionUrl, {
-        language: this.$i18n.locale,
-        languageUppercase: this.$i18n.locale.toUpperCase(),
-      })
+      return externalInstructions.instructionUrl
+        ? stringTemplate(externalInstructions.instructionUrl, {
+            language: this.$i18n.locale,
+            languageUppercase: this.$i18n.locale.toUpperCase(),
+          })
+        : false
     },
   },
 }
