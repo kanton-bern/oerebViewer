@@ -57,7 +57,7 @@
       </div>
 
       <a
-        v-if="disableLegendAtWeb && restrictions[0].Map.LegendAtWeb"
+        v-if="!disableMapLegendAtWeb && restrictions[0].Map.LegendAtWeb"
         :href="restrictions[0].Map.LegendAtWeb"
         class="flex gap-2 mt-2 hover:underline"
         :title="`${$t(
@@ -166,7 +166,7 @@ export default {
   data() {
     return {
       showChanges: false,
-      disableLegendAtWeb: userInterface.disableLegendAtWeb,
+      disableMapLegendAtWeb: userInterface.disableMapLegendAtWeb,
     }
   },
 
