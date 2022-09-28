@@ -1,6 +1,6 @@
 <template>
   <div
-    class="logo w-full"
+    class="logo"
     :style="{ backgroundImage: `url(${src})` }"
     :class="{
       canton: type === 'canton',
@@ -48,9 +48,12 @@ export default {
   height: 100px;
 }
 
-.municipal {
+.logo.municipal {
   width: 40px;
-  height: 50px;
+  height: calc(40px * var(--ratio-municipality-banner));
   margin-right: 15px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
 }
 </style>

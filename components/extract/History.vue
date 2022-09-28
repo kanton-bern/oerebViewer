@@ -12,7 +12,10 @@
         class="flex gap-x-2 hover:underline"
       >
         <div class="w-8 flex-grow-0 flex-shrink-0">
-          <img :src="item.municipalityLogo" class="w-full" />
+          <div
+            :style="`background-image: url(${item.municipalityLogo})`"
+            class="municipality-banner"
+          />
         </div>
 
         <div>
@@ -72,3 +75,13 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.municipality-banner {
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  width: 100%;
+  padding-top: calc(100% * var(--ratio-municipality-banner));
+}
+</style>
