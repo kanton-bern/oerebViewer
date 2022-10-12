@@ -7,3 +7,13 @@
     {{ $t('menu') }}
   </button>
 </template>
+
+<script>
+export default {
+  mounted() {
+    if (window.innerWidth >= 1024) {
+      this.$store.commit('app/setMenuOpen', true)
+    }
+  },
+}
+</script>
