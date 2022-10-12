@@ -19,7 +19,9 @@
           <ExtractHeader />
         </div>
 
-        <div class="flex items-center justify-end text-2xl font-thin">
+         <div
+          class="flex items-center justify-end lg:text-xl xl:text-2xl font-thin"
+        >
           <span>{{ $t('app_title') }}</span>
         </div>
       </div>
