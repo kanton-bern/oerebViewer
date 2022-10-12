@@ -24,10 +24,6 @@ import loadedextract from '~/mixins/loadedextract'
 export default {
   mixins: [loadedextract],
 
-  mounted() {
-    this.$store.commit('app/setMenuOpen', false)
-  },
-
   beforeDestroy() {
     this.$store.commit('app/setMenuOpen', true)
   },
