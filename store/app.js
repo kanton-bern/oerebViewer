@@ -1,7 +1,7 @@
 import { locales } from '~/config/setup'
 
 export const state = () => ({
-  isMenuOpen: true,
+  isMenuOpen: false,
   locales,
 })
 
