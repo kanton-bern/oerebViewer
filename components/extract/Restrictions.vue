@@ -273,7 +273,11 @@ export default {
         )
         .filter((document) => document.Type.Code === type)
         .map((document) => ({
-          title: multilingualtext(document.Title),
+          title:
+            multilingualtext(document.Title) +
+            (document.OfficialNumber
+              ? ', ' + multilingualtext(document.OfficialNumber)
+              : ''),
           url: multilingualtext(document.TextAtWeb),
           type: multilingualtext(document.Type.Text),
           code: document.Type.Code,
