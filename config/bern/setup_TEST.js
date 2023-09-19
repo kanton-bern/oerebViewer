@@ -97,7 +97,7 @@ export const orthoPhotoLayers = [
     type: 'WMTS',
     sourceType: 'Capabilities',
     sourceUrl:
-      'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_orthofoto_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+      'https://www.geoservice.apps.be.ch/geoservice3/rest/services/a4p/a4p_orthofoto_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
     capabilityLayer: 'a4p_a4p_orthofoto_n_bk',
     capabilityMatrixSet: 'EPSG:2056',
     zIndex: 3,
@@ -110,7 +110,7 @@ export const additionalLayers = [
     type: 'WMTS',
     sourceType: 'Capabilities',
     sourceUrl:
-      'https://www.geoservice.apps.be.ch/geoservice2/rest/services/a4p/a4p_kanton5_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
+      'https://www.geoservice.apps.be.ch/geoservice3/rest/services/a4p/a4p_kanton5_n_bk/MapServer/WMTS/1.0.0/WMTSCapabilities.xml',
     capabilityLayer: 'a4p_a4p_kanton5_n_bk',
     capabilityMatrixSet: 'EPSG:2056',
     zIndex: 500,
@@ -119,7 +119,7 @@ export const additionalLayers = [
 
 export const esriTokenService = {
   endpoint:
-    'https://www.geoservice.apps.be.ch/geoservice2/tokens/generateToken',
+    'https://www.geoservice.apps.be.ch/geoservice3/tokens/generateToken',
   username: process.env.NUXT_ENV_TOKEN_USERNAME,
   password: process.env.NUXT_ENV_TOKEN_PASSWORD,
   intervalMinutes: 59, // token for 59min
