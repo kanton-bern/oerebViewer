@@ -30,7 +30,7 @@ export const locales = [
  */
 export const view = {
   projection: 'EPSG:2056',
-  centerX: 2616445.3125,
+  centerX: 2650445.3125,
   centerY: 1190976.5625,
   zoom: 10,
   minZoom: 9,
