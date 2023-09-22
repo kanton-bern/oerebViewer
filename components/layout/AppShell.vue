@@ -7,7 +7,8 @@
       <Transition name="slide-fade">
         <aside
           v-show="allwaysShowMenu || $store.state.app.isMenuOpen"
-          class="z-10 overflow-hidden drop-shadow flex-none h-full max-w-full w-80 md:w-100 lg:w-112 transition-all duration-500 absolute lg:relative"
+          class="z-10 overflow-hidden drop-shadow flex-none h-full max-w-full w-80 md:w-100 lg:w-112 duration-500 absolute lg:relative"
+          :class="{ 'transition-all': !allwaysShowMenu }"
         >
           <slot name="sidebar" />
         </aside>
@@ -26,6 +27,7 @@ export default {
   }),
 
   created() {
+    this.myEventHandler()
     // eslint-disable-next-line nuxt/no-globals-in-created
     window.addEventListener('resize', this.myEventHandler)
   },
