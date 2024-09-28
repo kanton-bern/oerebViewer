@@ -8,7 +8,7 @@
 export function stringTemplate(string, values) {
   if (typeof string !== 'string')
     throw new Error(
-      `expected first argument (string) to be of type String but ${typeof string} given`
+      `expected first argument (string) to be of type String but ${typeof string} given`,
     )
 
   const replacer = (match, key) => values[key] || match

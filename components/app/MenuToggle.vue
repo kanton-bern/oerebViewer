@@ -1,19 +1,26 @@
+<script setup>
+import { useAppStore } from '~/store/app'
+import { onMounted } from 'vue'
+
+const appStore = useAppStore()
+
+const toggleMenu = () => {
+  appStore.toggleMenuOpen()
+}
+
+onMounted(() => {
+  if (window.innerWidth >= 1024) {
+    appStore.setMenuOpen(true)
+  }
+})
+</script>
+
 <template>
   <button
     class="flex items-center gap-2 md:gap-4"
-    @click="$store.commit('app/toggleMenuOpen')"
+    @click="toggleMenu"
   >
     <IconMenu class="w-6 h-6" />
     {{ $t('menu') }}
   </button>
 </template>
-
-<script>
-export default {
-  mounted() {
-    if (window.innerWidth >= 1024) {
-      this.$store.commit('app/setMenuOpen', true)
-    }
-  },
-}
-</script>

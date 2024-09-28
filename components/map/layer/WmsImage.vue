@@ -2,142 +2,126 @@
   <div />
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import ImageLayer from 'ol/layer/Image'
 import ImageWMS from 'ol/source/ImageWMS'
+import { useMapStore } from '~/store/map'
 
-export default {
-  props: {
-    id: {
-      required: true,
-      type: String,
-    },
-
-    visible: {
-      type: Boolean,
-      default: true,
-    },
-
-    opacity: {
-      type: Number,
-      default: 1,
-    },
-
-    settings: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  id: {
+    required: true,
+    type: String,
   },
-
-  data() {
-    return {
-      wmtsOptions: null,
-      layer: null,
-      mounted: false,
-    }
+  visible: {
+    type: Boolean,
+    default: true,
   },
-
-  computed: {
-    esriToken() {
-      return this.$store.state.map.esriToken
-    },
+  opacity: {
+    type: Number,
+    default: 1,
   },
-
-  watch: {
-    async esriToken() {
-      const newLayer = await this.createLayer()
-
-      if (this.mounted) {
-        this.onUnmounted()
-      }
-
-      this.layer = newLayer
-      this.onMounted()
-    },
-
-    visible() {
-      this.layer.setVisible(this.visible)
-    },
+  settings: {
+    type: Object,
+    required: true,
   },
+})
 
-  async created() {
-    this.layer = await this.createLayer()
-    this.onMounted()
-  },
+const emit = defineEmits(['layeradded', 'layerremoved'])
 
-  mounted() {
-    this.mounted = true
-    this.onMounted()
-  },
+const mapStore = useMapStore()
+const esriToken = computed(() => mapStore.esriToken)
 
-  destroyed() {
-    this.mounted = false
-    this.onUnmounted()
-  },
+const layer = ref(null)
+const mounted = ref(false)
 
-  methods: {
-    createLayer() {
-      const settings = {
-        opacity: this.opacity,
-        visible: this.visible,
-        url: this.settings.sourceUrl,
-        serverType: 'geoserver',
+function createLayer() {
+  const settings = {
+    opacity: props.opacity,
+    visible: props.visible,
+    url: props.settings.sourceUrl,
+    serverType: 'geoserver',
+    ...props.settings,
+  }
 
-        ...this.settings,
-      }
+  validateOrThrow(settings)
 
-      this.validateOrThrow(settings)
+  if (esriToken.value) {
+    settings.url += `?token=${esriToken.value}`
+  }
+  delete settings.sourceType
+  delete settings.sourceUrl
+  delete settings.capabilityLayer
+  delete settings.capabilityMatrixSet
 
-      if (this.esriToken) {
-        settings.url += `?token=${this.esriToken}`
-      }
-      delete settings.sourceType
-      delete settings.sourceUrl
-      delete settings.capabilityLayer
-      delete settings.capabilityMatrixSet
+  const newLayer = new ImageLayer({
+    ...settings,
+    source: new ImageWMS(settings),
+  })
 
-      const layer = new ImageLayer({
-        ...settings,
-        source: new ImageWMS(settings),
-      })
+  if (!newLayer) {
+    throwError('invalid layer settings')
+  }
 
-      if (!layer) {
-        this.throw('invalid layer settings')
-      }
+  newLayer.setZIndex(50)
 
-      layer.setZIndex(50)
-
-      return layer
-    },
-
-    onMounted() {
-      if (this.layer && this.mounted) {
-        this.$emit('layer-added', this.layer)
-      }
-    },
-
-    onUnmounted() {
-      if (!this.layer) return
-      this.$emit('layer-removed', this.layer)
-    },
-
-    validateOrThrow(settings) {
-      if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
-        this.throw('sourceUrl required')
-      }
-    },
-
-    throw(message) {
-      const context = {
-        layerId: this.id,
-        component: 'WmsImage',
-        ...this.settings,
-      }
-      console.error(message, context)
-      throw new Error(
-        `Error: ${message} (layerId: ${context.layerId}, component: ${context.component})`
-      )
-    },
-  },
+  return newLayer
 }
+
+function onMountedHandler() {
+  if (layer.value && mounted.value) {
+    emit('layeradded', layer.value)
+  }
+}
+
+function onUnmountedHandler() {
+  if (!layer.value) return
+  emit('layerremoved', layer.value)
+}
+
+function validateOrThrow(settings) {
+  if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
+    throwError('sourceUrl required')
+  }
+}
+
+function throwError(message) {
+  const context = {
+    layerId: props.id,
+    component: 'WmsImage',
+    ...props.settings,
+  }
+  console.error(message, context)
+  throw new Error(
+    `Error: ${message} (layerId: ${context.layerId}, component: ${context.component})`,
+  )
+}
+
+onMounted(async () => {
+  mounted.value = true
+  layer.value = await createLayer()
+  onMountedHandler()
+})
+
+onUnmounted(() => {
+  mounted.value = false
+  onUnmountedHandler()
+})
+
+watch(esriToken, async () => {
+  const newLayer = await createLayer()
+
+  if (mounted.value) {
+    onUnmountedHandler()
+  }
+
+  layer.value = newLayer
+  onMountedHandler()
+})
+
+watch(() => props.visible, (newVisible) => {
+  if (layer.value) {
+    layer.value.setVisible(newVisible)
+  }
+})
 </script>

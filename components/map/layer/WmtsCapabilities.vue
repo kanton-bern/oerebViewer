@@ -2,170 +2,160 @@
   <div />
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useMapStore } from '~/store/map'
 import TileLayer from 'ol/layer/Tile'
 import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS'
 import WMTSCapabilities from 'ol/format/WMTSCapabilities'
 
-export default {
-  props: {
-    id: {
-      required: true,
-      type: String,
-    },
-
-    visible: {
-      type: Boolean,
-      default: true,
-    },
-
-    settings: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  id: {
+    required: true,
+    type: String,
   },
+  visible: {
+    type: Boolean,
+    default: true,
+  },
+  settings: {
+    type: Object,
+    required: true,
+  },
+})
 
-  data() {
-    return {
-      wmtsOptions: null,
-      layer: null,
-      mounted: false,
+const emit = defineEmits(['layeradded', 'layerremoved'])
+
+const mapStore = useMapStore()
+const wmtsOptions = ref(null)
+const layer = ref(null)
+const mounted = ref(false)
+
+const esriToken = computed(() => mapStore.esriToken)
+
+const createLayer = async () => {
+  const settings = {
+    visible: props.visible,
+    ...props.settings,
+  }
+
+  await validateOrThrow(settings)
+
+  if (esriToken.value) {
+    settings.sourceUrl += `?token=${esriToken.value}`
+  }
+
+  const response = await fetch(settings.sourceUrl)
+  const text = await response.text()
+
+  if (!text) throwError('could not load capabilities')
+
+  const parser = new WMTSCapabilities()
+  const result = parser.read(text)
+
+  wmtsOptions.value = optionsFromCapabilities(result, {
+    layer: settings.capabilityLayer,
+    matrixSet: settings.capabilityMatrixSet,
+  })
+
+  if (esriToken.value) {
+    for (let i = 0; i < wmtsOptions.value.urls.length; i++) {
+      wmtsOptions.value.urls[i] += '?token=' + esriToken.value
     }
-  },
+  }
 
-  computed: {
-    esriToken() {
-      return this.$store.state.map.esriToken
-    },
-  },
+  delete settings.sourceType
+  delete settings.sourceUrl
+  delete settings.capabilityLayer
+  delete settings.capabilityMatrixSet
 
-  watch: {
-    async esriToken() {
-      const newLayer = await this.createLayer()
+  const source = new WMTS(wmtsOptions.value)
 
-      if (this.mounted) {
-        this.onUnmounted()
-      }
+  const layer = new TileLayer({
+    ...settings,
+    source,
+  })
 
-      this.layer = newLayer
-      this.onMounted()
-    },
 
-    visible() {
-      this.layer.setVisible(this.visible)
-    },
-  },
+  if (!layer) {
+    throwError('invalid layer settings')
+  }
 
-  async created() {
-    this.layer = await this.createLayer()
-    this.onMounted()
-  },
+  return layer
+}
 
-  mounted() {
-    this.mounted = true
-    this.onMounted()
-  },
+watch(esriToken, async () => {
+  const newLayer = await createLayer()
 
-  destroyed() {
-    this.mounted = false
-    this.onUnmounted()
-  },
+  if (mounted.value) {
+    onUnmountedHandler()
+  }
 
-  methods: {
-    async createLayer() {
-      const settings = {
-        visible: this.visible,
-        ...this.settings,
-      }
+  layer.value = newLayer
+  onMountedHandler()
+})
 
-      this.validateOrThrow(settings)
+watch(() => props.visible, () => {
+  if (layer.value) {
+    layer.value.setVisible(props.visible)
+  }
+})
 
-      if (this.esriToken) {
-        settings.sourceUrl += `?token=${this.esriToken}`
-      }
+onMounted(async () => {
+  layer.value = await createLayer()
+  mounted.value = true
+  onMountedHandler()
+})
 
-      const response = await fetch(settings.sourceUrl)
-      const text = await response.text()
+onUnmounted(() => {
+  mounted.value = false
+  onUnmountedHandler()
+})
 
-      if (!text) this.throw('could not load capabilities')
+const onMountedHandler = () => {
+  if (layer.value && mounted.value) {
+    emit('layeradded', layer.value)
+  }
+}
 
-      const parser = new WMTSCapabilities()
-      const result = parser.read(text)
+const onUnmountedHandler = () => {
+  if (!layer.value) return
+  emit('layerremoved', layer.value)
+}
 
-      this.wmtsOptions = optionsFromCapabilities(result, {
-        layer: settings.capabilityLayer,
-        matrixSet: settings.capabilityMatrixSet,
-      })
+const validateOrThrow = (settings) => {
+  if (settings.sourceType !== 'Capabilities') {
+    throwError('sourceType should be "Capabilities"')
+  }
 
-      if (this.esriToken) {
-        for (let i = 0; i < this.wmtsOptions.urls.length; i++) {
-          this.wmtsOptions.urls[i] += '?token=' + this.esriToken
-        }
-      }
+  if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
+    throwError('sourceUrl required')
+  }
 
-      delete settings.sourceType
-      delete settings.sourceUrl
-      delete settings.capabilityLayer
-      delete settings.capabilityMatrixSet
+  if (
+    typeof settings.capabilityLayer !== 'string' ||
+    !settings.capabilityLayer
+  ) {
+    throwError('capabilityLayer required')
+  }
 
-      const layer = new TileLayer({
-        ...settings,
-        source: new WMTS(this.wmtsOptions),
-      })
+  if (
+    typeof settings.capabilityMatrixSet !== 'string' ||
+    !settings.capabilityMatrixSet
+  ) {
+    throwError('capabilityMatrixSet required')
+  }
+}
 
-      if (!layer) {
-        this.throw('invalid layer settings')
-      }
-
-      return layer
-    },
-
-    onMounted() {
-      if (this.layer && this.mounted) {
-        this.$emit('layer-added', this.layer)
-      }
-    },
-
-    onUnmounted() {
-      if (!this.layer) return
-      this.$emit('layer-removed', this.layer)
-    },
-
-    validateOrThrow(settings) {
-      if (settings.sourceType !== 'Capabilities') {
-        this.throw('sourceType should be "Capabilities"')
-      }
-
-      if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
-        this.throw('sourceUrl required')
-      }
-
-      if (
-        typeof settings.capabilityLayer !== 'string' ||
-        !settings.capabilityLayer
-      ) {
-        this.throw('capabilityLayer required')
-      }
-
-      if (
-        typeof settings.capabilityMatrixSet !== 'string' ||
-        !settings.capabilityMatrixSet
-      ) {
-        this.throw('capabilityMatrixSet required')
-      }
-    },
-
-    throw(message) {
-      const context = {
-        layerId: this.id,
-        component: 'WmtsCapabilities',
-        ...this.settings,
-      }
-      console.error(message, context)
-      throw new Error(
-        `Error: ${message} (layerId: ${context.layerId}, component: ${context.component})`
-      )
-    },
-  },
+const throwError = (message) => {
+  const context = {
+    layerId: props.id,
+    component: 'WmtsCapabilities',
+    ...props.settings,
+  }
+  console.error(message, context)
+  throw new Error(
+    `Error: ${message} (layerId: ${context.layerId}, component: ${context.component})`,
+  )
 }
 </script>

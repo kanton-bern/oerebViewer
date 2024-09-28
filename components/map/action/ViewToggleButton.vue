@@ -1,27 +1,21 @@
 <template>
   <div>
-    <div v-show="isSatelliteView">
-      <MapViewButton />
+    <div v-if="isSatelliteView">
+      <MapActionMapViewButton />
     </div>
-    <div v-show="isMapView">
-      <SatelliteViewButton />
+    <div v-else>
+      <MapActionSatelliteViewButton />
     </div>
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-import MapViewButton from './MapViewButton.vue'
-import SatelliteViewButton from './SatelliteViewButton.vue'
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useMapStore } from '~/store/map'
 
-export default {
-  components: {
-    MapViewButton,
-    SatelliteViewButton,
-  },
+// Use the map store
+const mapStore = useMapStore()
 
-  computed: {
-    ...mapGetters('map', ['isSatelliteView', 'isMapView']),
-  },
-}
+// Destructure and make reactive refs from the store
+const { isSatelliteView } = storeToRefs(mapStore)
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!usesEsriToken || $store.state.map.esriToken">
+    <div v-if="!usesEsriToken || mapStore.esriToken">
       <Component
         :is="getComponentForLayer(orthoPhtoLayer)"
         v-for="(orthoPhtoLayer, index) in orthoPhotoLayers"
@@ -8,7 +8,7 @@
         :key="'orthoPhoto' + index"
         :settings="orthoPhtoLayer"
         :visible="isSatelliteView"
-        v-on="$listeners"
+        v-bind="$attrs"
       >
         {{ getComponentForLayer(orthoPhtoLayer) }}
       </Component>
@@ -20,7 +20,7 @@
         :key="'background' + index"
         :settings="backgroundLayer"
         :visible="isMapView"
-        v-on="$listeners"
+        v-bind="$attrs"
       >
         {{ getComponentForLayer(backgroundLayer) }}
       </Component>
@@ -31,7 +31,7 @@
         :id="'additional' + index"
         :key="'additional' + index"
         :settings="additionalLayer"
-        v-on="$listeners"
+        v-bind="$attrs"
       >
         {{ getComponentForLayer(additionalLayer) }}
       </Component>
@@ -39,62 +39,61 @@
   </div>
 </template>
 
-<script>
-import { camelCase, upperFirst } from 'lodash'
-import { mapActions, mapGetters } from 'vuex'
+<script setup>
+import { ref, computed, onBeforeMount } from 'vue'
+import { useMapStore } from '~/store/map'
 import {
-  backgroundLayers,
-  orthoPhotoLayers,
-  additionalLayers,
-  usesEsriToken,
-} from '~/config/setup'
-import WfsFeature from '~/components/map/layer/WfsFeature'
-import WmsCapabilities from '~/components/map/layer/WmsCapabilities'
-import WmtsCapabilities from '~/components/map/layer/WmtsCapabilities'
-import WmtsXyz from '~/components/map/layer/WmtsXyz'
+  getBackgroundLayers,
+  getOrthoPhotoLayers,
+  getAdditionalLayers,
+  getUsesEsriToken,
+} from '~/config/setup.js'
+import WfsFeature from '~/components/map/layer/WfsFeature.vue'
+import WmsCapabilities from '~/components/map/layer/WmsCapabilities.vue'
+import WmtsCapabilities from '~/components/map/layer/WmtsCapabilities.vue'
+import WmtsXyz from '~/components/map/layer/WmtsXyz.vue'
 
-export default {
-  components: {
-    WfsFeature,
-    WmsCapabilities,
-    WmtsCapabilities,
-    WmtsXyz,
-  },
+const mapStore = useMapStore()
 
-  data() {
-    return {
-      backgroundLayers: [...backgroundLayers],
-      orthoPhotoLayers: [...orthoPhotoLayers],
-      additionalLayers: [...additionalLayers],
-      usesEsriToken,
-    }
-  },
+const backgroundLayers = ref(await getBackgroundLayers())
+const orthoPhotoLayers = ref(await getOrthoPhotoLayers())
+const additionalLayers = ref(await getAdditionalLayers())
+const usesEsriToken = await getUsesEsriToken()
 
-  computed: {
-    ...mapGetters('map', ['isSatelliteView', 'isMapView']),
-  },
+const isSatelliteView = computed(() => mapStore.isSatelliteView)
+const isMapView = computed(() => mapStore.isMapView)
 
-  created() {
-    if (this.usesEsriToken) this.enableTokenUpdater()
-  },
+onBeforeMount(() => {
+  if (usesEsriToken) mapStore.enableTokenUpdater()
+})
 
-  methods: {
-    ...mapActions('map', ['enableTokenUpdater', 'updateToken']),
-    getComponentForLayer(settings) {
-      // convert to component name ex.: MapLayerWmtsXyz
-      const componentName = upperFirst(
-        camelCase('MapLayer_' + settings.type + '_' + settings.sourceType)
-      )
+const componentMap = {
+  WfsFeature,
+  WmsCapabilities,
+  WmtsCapabilities,
+  WmtsXyz,
+}
 
-      if (!(componentName in this.$options.components)) {
-        console.error('check your configuration')
-        throw new Error(
-          `Invalid layer type: ${settings.type} or layer source type: ${settings.sourceType}`
-        )
-      }
+function camelCase(str) {
+  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+}
 
-      return componentName
-    },
-  },
+function upperFirst(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+function getComponentForLayer(settings) {
+  const componentName = upperFirst(
+    camelCase(`${settings.type}_${settings.sourceType}`),
+  )
+
+  if (!(componentName in componentMap)) {
+    console.error('check your configuration')
+    throw new Error(
+      `Invalid layer type: ${settings.type} or layer source type: ${settings.sourceType}`,
+    )
+  }
+
+  return componentMap[componentName]
 }
 </script>

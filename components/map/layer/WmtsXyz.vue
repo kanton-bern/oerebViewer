@@ -2,96 +2,87 @@
   <div>XYZ</div>
 </template>
 
-<script>
+<script setup>
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { XYZ } from 'ol/source'
 import TileLayer from 'ol/layer/Tile'
 
-export default {
-  props: {
-    id: {
-      required: true,
-      type: String,
-    },
-
-    visible: {
-      type: Boolean,
-      default: true,
-    },
-
-    settings: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  id: {
+    required: true,
+    type: String,
   },
-
-  data() {
-    return {
-      layer: null,
-    }
+  visible: {
+    type: Boolean,
+    default: true,
   },
-
-  watch: {
-    visible() {
-      this.layer.setVisible(this.visible)
-    },
+  settings: {
+    type: Object,
+    required: true,
   },
+})
 
-  created() {
-    const settings = {
-      visible: this.visible,
-      ...this.settings,
-    }
+const emit = defineEmits(['layeradded', 'layerremoved'])
 
-    this.validateOrThrow(settings)
+const layer = ref(null)
 
-    const source = new XYZ({
-      url: settings.sourceUrl,
-    })
+watch(() => props.visible, (newVisible) => {
+  layer.value.setVisible(newVisible)
+})
 
-    delete settings.sourceUrl
-    delete settings.sourceType
+const validateOrThrow = (settings) => {
+  if (settings.sourceType !== 'XYZ') {
+    throwError('invalid configuration')
+  }
 
-    this.layer = new TileLayer({
-      id: this.id,
-      ...settings,
-      source,
-    })
-
-    if (!this.layer) {
-      this.throw('invalid layer settings')
-    }
-  },
-
-  mounted() {
-    this.$emit('layer-added', this.layer)
-  },
-
-  destroyed() {
-    this.$emit('layer-removed', this.layer)
-  },
-
-  methods: {
-    validateOrThrow(settings) {
-      if (settings.sourceType !== 'XYZ') {
-        this.throw('invalid configuration')
-      }
-
-      if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
-        this.throw('sourceUrl required')
-      }
-    },
-
-    throw(message) {
-      const context = {
-        layerId: this.id,
-        component: 'WmtsXyz',
-        ...this.settings,
-      }
-      console.error(`Error: ${message}`, context)
-      throw new Error(
-        `${message} (layerId: ${context.layerId}, component: ${context.component})`
-      )
-    },
-  },
+  if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
+    throwError('sourceUrl required')
+  }
 }
+
+const throwError = (message) => {
+  const context = {
+    layerId: props.id,
+    component: 'WmtsXyz',
+    ...props.settings,
+  }
+  console.error(`Error: ${message}`, context)
+  throw new Error(
+    `${message} (layerId: ${context.layerId}, component: ${context.component})`,
+  )
+}
+
+// Create the layer
+const settings = {
+  visible: props.visible,
+  ...props.settings,
+}
+
+validateOrThrow(settings)
+
+const source = new XYZ({
+  url: settings.sourceUrl,
+})
+
+delete settings.sourceUrl
+delete settings.sourceType
+
+layer.value = new TileLayer({
+  id: props.id,
+  ...settings,
+  source,
+})
+
+if (!layer.value) {
+  throwError('invalid layer settings')
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  emit('layeradded', layer.value)
+})
+
+onUnmounted(() => {
+  emit('layerremoved', layer.value)
+})
 </script>

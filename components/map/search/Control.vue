@@ -5,15 +5,15 @@
       ref="vms"
       class="search-dropdown"
       select-label=""
-      :value="$store.state.map.selectedSearchResult"
+      :model-value="mapStore.selectedSearchResult"
       label="label"
       track-by="id"
       :placeholder="$t('search_placeholder')"
       open-direction="bottom"
-      :options="$store.state.map.searchResults"
+      :options="mapStore.searchResults"
       :multiple="false"
       :searchable="true"
-      :loading="$store.state.map.isSearchResultLoading"
+      :loading="mapStore.isSearchResultLoading"
       :internal-search="false"
       :clear-on-select="false"
       :close-on-select="false"
@@ -25,79 +25,100 @@
       :hide-selected="true"
       :show-labels="false"
       :custom-label="formatLabel"
+      @update:model-value="searchResultSelected"
       @search-change="internalSearchChanged"
-      @select="searchResultSelected"
     >
-      <template slot="clear" slot-scope="props">
+      <template #clear="props">
         <div
-          v-if="$store.state.map.selectedSearchResult"
+          v-if="mapStore.selectedSearchResult"
           class="multiselect__clear"
           @mousedown.prevent.stop="clearAll(props.search)"
         />
       </template>
-      <template v-if="isHtmlFormatted" slot="singleLabel" slot-scope="props">
+      <template v-if="isHtmlFormatted" #singleLabel="props">
         <span class="option__title" v-html="props.option.label" />
       </template>
-      <template v-if="isHtmlFormatted" slot="option" slot-scope="props">
+      <template v-if="isHtmlFormatted" #option="props">
         <span class="option__title" v-html="props.option.label" />
       </template>
-      <span slot="noResult">{{ $t('no_search_result') }}</span>
-      <span slot="noOptions">{{ $t('search_list_empty') }}</span>
+      <template #noResult>{{ $t('no_search_result') }}</template>
+      <template #noOptions>{{ $t('search_list_empty') }}</template>
     </Multiselect>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
 import Multiselect from 'vue-multiselect'
-import { mapActions } from 'vuex'
-import { debounce } from 'lodash'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
-import { searchService } from '~/config/setup'
+import { getSearchService } from '~/config/setup'
+import { useMapStore } from '~/store/map'
 
-export default {
-  components: { Multiselect },
-  data() {
-    return {
-      isHtmlFormatted: searchService.isHtmlFormatted,
+const debounce = (fn, wait = 300) => {
+  let timeoutId
+  let lastExecTime = 0
+
+  return (...args) => {
+    const execute = () => {
+      fn(...args)
+      lastExecTime = Date.now()
     }
-  },
 
-  mounted() {
-    this.focus()
-  },
-
-  methods: {
-    ...mapActions('map', ['updateSearchQuery', 'searchResultSelected']),
-
-    limitText(count) {
-      return `and ${count} other countries`
-    },
-
-    formatLabel(item) {
-      if (item) {
-        return item.label
+    const later = () => {
+      const timeSinceLastExec = Date.now() - lastExecTime
+      if (timeSinceLastExec >= wait) {
+        execute()
+      } else {
+        timeoutId = requestAnimationFrame(later)
       }
+    }
 
-      return ''
-    },
-
-    internalSearchChanged(query) {
-      this.searchChanged(query)
-    },
-
-    searchChanged: debounce(function (input) {
-      this.updateSearchQuery(input)
-    }, 300),
-
-    clearAll() {
-      this.searchResultSelected(null)
-    },
-
-    focus() {
-      this.$refs.vms.$el.focus()
-    },
-  },
+    cancelAnimationFrame(timeoutId)
+    timeoutId = requestAnimationFrame(later)
+  }
 }
+
+const mapStore = useMapStore()
+
+const searchService = await getSearchService()
+
+const vms = ref(null)
+const isHtmlFormatted = ref(searchService.isHtmlFormatted)
+
+const limitText = (count) => {
+  return `and ${count} other countries`
+}
+
+const formatLabel = (item) => {
+  if (item) {
+    return item.label
+  }
+  return ''
+}
+
+const internalSearchChanged = (query) => {
+  searchChanged(query)
+}
+
+const searchChanged = debounce((input) => {
+  mapStore.updateSearchQuery(input)
+}, 300)
+
+const clearAll = () => {
+  mapStore.searchResultSelected(null)
+}
+
+const focus = () => {
+  vms.value.$el.focus()
+}
+
+const searchResultSelected = (result) => {
+  mapStore.searchResultSelected(result)
+}
+
+onMounted(() => {
+  focus()
+})
 </script>
 
 <style lang="scss">

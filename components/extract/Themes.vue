@@ -1,3 +1,27 @@
+<script setup>
+import { watch } from 'vue'
+import { useLoadedExtract } from '~/composables/useLoadedExtract'
+import { useMultilingualText } from '~/composables/useMultilingualText'
+
+const emit = defineEmits(['item-show'])
+
+// Store
+const { loadedExtract } = useLoadedExtract()
+const { multilingualText }= useMultilingualText()
+
+// Methods
+const openActiveTheme = () => {
+  emit('item-show', 'accordion-item-concerned-themes')
+}
+
+// Watch
+watch(loadedExtract, (newValue, oldValue) => {
+  if (newValue && newValue !== oldValue) {
+    openActiveTheme()
+  }
+})
+</script>
+
 <template>
   <div v-if="loadedExtract">
     <LayoutAccordionItem
@@ -10,7 +34,7 @@
         <LayoutAccordionItem
           v-for="theme in loadedExtract.ConcernedTheme"
           :key="`active-${theme.Code}`"
-          :header="theme.Text | multilingualtext"
+          :header="multilingualText(theme.Text)"
         >
           <ExtractTheme :code="theme.Code" />
         </LayoutAccordionItem>
@@ -27,7 +51,7 @@
         <LayoutAccordionItem
           v-for="theme in loadedExtract.NotConcernedTheme"
           :key="`inactive-${theme.Code}`"
-          :header="theme.Text | multilingualtext"
+          :header="multilingualText(theme.Text)"
           :disabled="true"
         />
       </LayoutAccordion>
@@ -43,45 +67,10 @@
         <LayoutAccordionItem
           v-for="theme in loadedExtract.ThemeWithoutData"
           :key="`nodata-${theme.Code}`"
-          :header="theme.Text | multilingualtext"
+          :header="multilingualText(theme.Text)"
           :disabled="true"
         />
       </LayoutAccordion>
     </LayoutAccordionItem>
   </div>
 </template>
-
-<script>
-import loadedextract from '~/mixins/loadedextract'
-
-export default {
-  mixins: [loadedextract],
-
-  computed: {
-    accordion() {
-      const findAccordion = (parent, up = 3) =>
-        parent &&
-        (typeof parent.accordion === 'boolean' && parent.accordion
-          ? parent
-          : up && findAccordion(parent.$parent, up - 1))
-      const parent = findAccordion(this.$parent)
-      if (!parent) throw new Error('AccordionItem requires Accordion as parent')
-      return parent
-    },
-  },
-
-  watch: {
-    loadedExtract(newValue, oldValue) {
-      if (newValue && newValue !== oldValue) {
-        this.openActiveTheme()
-      }
-    },
-  },
-
-  methods: {
-    openActiveTheme() {
-      this.accordion.$emit('item-show', 'accordion-item-concerned-themes')
-    },
-  },
-}
-</script>
