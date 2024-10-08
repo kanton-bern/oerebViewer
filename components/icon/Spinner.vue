@@ -4,39 +4,34 @@
   </svg>
 </template>
 
-<style lang="scss" scoped>
-$spinnerSize: 60;
+<style scoped>
+.spinner {
+  --spinner-size: 60px;
+  --spinner-color: currentColor;
+  --spinner-width: 4px;
 
-svg.spinner {
-  width: $spinnerSize + px;
-  height: $spinnerSize + px;
-  x: 0px;
-  y: 0px;
-  viewbox: 0 0 $spinnerSize $spinnerSize;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
 
   circle {
     fill: transparent;
-    stroke: currentColor;
-    stroke-width: 4;
+    stroke: var(--spinner-color);
+    stroke-width: var(--spinner-width);
     stroke-linecap: round;
-    stroke-dasharray: (3.14 * $spinnerSize);
-    transform-origin: (0.5px * $spinnerSize) (0.5px * $spinnerSize) 0;
+    stroke-dasharray: calc(3.14 * var(--spinner-size));
+    transform-origin: center;
     animation: spinner 4s linear infinite;
   }
 }
 
 @keyframes spinner {
-  0% {
+  0%, 100% {
     transform: rotate(0deg);
-    stroke-dashoffset: (0.66 * $spinnerSize);
+    stroke-dashoffset: calc(0.66 * var(--spinner-size));
   }
   50% {
     transform: rotate(720deg);
-    stroke-dashoffset: (3.14 * $spinnerSize);
-  }
-  100% {
-    transform: rotate(1080deg);
-    stroke-dashoffset: (0.66 * $spinnerSize);
+    stroke-dashoffset: calc(3.14 * var(--spinner-size));
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="$store.state.map.previewCoordinate"
+    v-if="mapStore.previewCoordinates"
     class="bg-theme-primary text-theme-primary opacity-90 p-4 rounded-md relative max-w-xs"
   >
     <MapMarkerIcon class="marker-position absolute top-0 left-0 h-7 w-7" />
@@ -9,13 +9,13 @@
     </div>
     <div v-else-if="previewEGRID">
       <MapLayerWfsFeature
-        v-if="previewFeatures"
+        v-if="previewFeatures && featureStyle"
         id="preview_plot"
         :features="previewFeatures"
         :fill-color="featureStyle.fill"
         :stroke-color="featureStyle.stroke"
         :stroke-width="featureStyle.width"
-        v-on="$listeners"
+        v-bind="$attrs"
       />
       <div>{{ $t('preview_show_extract') }}</div>
       <div
@@ -35,82 +35,63 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue'
+import { useMapStore } from '~/store/map'
+import { usePropertyStore } from '~/store/property'
 import Overlay from 'ol/Overlay'
-import { mapActions, mapMutations } from 'vuex'
 import { MultiPolygon } from 'ol/geom'
 import { Feature } from 'ol'
-import { mapLayerStyles } from '~/config/setup'
+import { getMapLayerStyles } from '~/config/setup.js'
 
-export default {
-  props: {
-    pointer: {
-      type: Array,
-      default: null,
-    },
-  },
+const mapStore = useMapStore()
+const propertyStore = usePropertyStore()
 
-  data() {
-    return {
-      overlay: null,
-      loading: false,
-      featureStyle: mapLayerStyles.previewFeature,
-    }
-  },
-
-  computed: {
-    loadedEGRID() {
-      return this.$store.state.property.extract?.RealEstate?.EGRID
-    },
-
-    previewEGRID() {
-      return this.$store.state.map.previewEGRID
-    },
-
-    previewFeatures() {
-      const rawFeatures = this.$store.state.map.previewFeatures
-      if (!rawFeatures) return null
-
-      const multiPolygon = new MultiPolygon(rawFeatures.coordinates)
-
-      return new Feature({ geometry: multiPolygon })
-    },
-  },
-
-  watch: {
-    '$store.state.map.previewCoordinate'() {
-      if (this.overlay && this.$store.state.map.previewCoordinate) {
-        this.$emit('overlay-removed', this.overlay)
-        this.overlay = null
-      }
-
-      if (!this.overlay && this.$store.state.map.previewCoordinate) {
-        this.overlay = new Overlay({
-          element: this.$el,
-        })
-        this.$emit('overlay-added', this.overlay)
-      }
-
-      if (this.overlay && this.$store.state.map.previewCoordinate) {
-        const coordinate = [
-          this.$store.state.map.previewCoordinate.longitude,
-          this.$store.state.map.previewCoordinate.latitude,
-        ]
-        this.overlay.setPosition(coordinate)
-      }
-    },
-  },
-
-  methods: {
-    ...mapActions('property', ['showExtractById']),
-    ...mapMutations('map', ['clearPreview']),
-
-    startExtraction({ egrid }) {
-      this.showExtractById(egrid)
-      this.clearPreview()
-    },
-  },
+const startExtraction = ({ egrid }) => {
+  propertyStore.showExtractById(egrid)
+  mapStore.clearPreview()
 }
+
+defineExpose({
+  startExtraction,
+})
+
+const mapStyles = await getMapLayerStyles()
+
+const mapLayerStyles = ref(mapStyles)
+const overlay = ref(null)
+const featureStyle = computed(() => mapLayerStyles.value?.previewFeature || null)
+
+const loadedEGRID = computed(() => propertyStore.extract?.RealEstate?.EGRID)
+const previewEGRID = computed(() => mapStore.previewEGRID)
+const previewFeatures = computed(() => {
+  const rawFeatures = mapStore.previewFeatures
+  if (!rawFeatures) return null
+
+  const multiPolygon = new MultiPolygon(rawFeatures.coordinates)
+  return new Feature({ geometry: multiPolygon })
+})
+
+const emit = defineEmits(['overlay-added', 'overlay-removed'])
+
+watch(() => mapStore.previewCoordinates, (newCoordinate) => {
+  if (overlay.value && newCoordinate) {
+    emit('overlay-removed', overlay.value)
+    overlay.value = null
+  }
+
+  if (!overlay.value && newCoordinate) {
+    overlay.value = new Overlay({
+      element: document.querySelector('#pointer-preview-container'), // Make sure to add this ID to your template
+    })
+    emit('overlay-added', overlay.value)
+  }
+
+  if (overlay.value && newCoordinate) {
+    const coordinate = [newCoordinate.longitude, newCoordinate.latitude]
+    overlay.value.setPosition(coordinate)
+  }
+})
 </script>
 
 <style scoped>

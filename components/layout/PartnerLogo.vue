@@ -10,20 +10,17 @@
   />
 </template>
 
-<script>
-export default {
-  props: {
-    src: {
-      required: true,
-      type: String,
-    },
-
-    type: {
-      required: true,
-      type: String,
-    },
+<script setup>
+defineProps({
+  src: {
+    required: true,
+    type: String,
   },
-}
+  type: {
+    required: true,
+    type: String,
+  },
+})
 </script>
 
 <style lang="scss" scoped>

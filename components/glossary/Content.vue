@@ -3,35 +3,40 @@
     <section v-if="loadedExtract" class="block sm:flex flex-wrap">
       <div
         v-for="glossaryItem in loadedExtract.Glossary"
-        :key="glossaryItem.Title | multilingualtext"
+        :key="multilingualText(glossaryItem.Title)"
         class="item"
       >
         <LayoutInformationSection
-          :title="glossaryItem.Title | multilingualtext"
-          >{{
-            glossaryItem.Content | multilingualtext
-          }}</LayoutInformationSection
+          :title="multilingualText(glossaryItem.Title)"
         >
+          {{ multilingualText(glossaryItem.Content) }}
+        </LayoutInformationSection>
       </div>
     </section>
   </LayoutClosablePage>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-import loadedextract from '~/mixins/loadedextract'
+<script setup>
+import { onBeforeUnmount } from 'vue'
+import { useAppStore } from '~/store/app'
+import { useMapStore } from '~/store/map'
+import { useLoadedExtract } from '~/composables/useLoadedExtract'
+import { useMultilingualText } from '~/composables/useMultilingualText'
 
-export default {
-  mixins: [loadedextract],
+const { multilingualText } = useMultilingualText()
 
-  beforeDestroy() {
-    this.$store.commit('app/setMenuOpen', true)
-  },
+const appStore = useAppStore()
+const mapStore = useMapStore()
 
-  methods: {
-    ...mapActions('map', ['closeGlossary']),
-  },
+const { loadedExtract } = useLoadedExtract()
+
+const closeGlossary = () => {
+  mapStore.closeGlossary()
 }
+
+onBeforeUnmount(() => {
+  appStore.setMenuOpen(true)
+})
 </script>
 
 <style lang="scss" scoped>

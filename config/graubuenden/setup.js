@@ -20,9 +20,9 @@
  * Available locales for this app
  */
 export const locales = [
-  { code: 'de', iso: 'de-CH', file: 'de.js', title: 'Deutsch' },
-  { code: 'fr', iso: 'fr-CH', file: 'fr.js', title: 'Français' },
-  { code: 'rm', iso: 'rm-CH', file: 'rm.js', title: 'Rumantsch' },
+  { code: 'de', language: 'de-CH', file: 'de.js', title: 'Deutsch' },
+  { code: 'fr', language: 'fr-CH', file: 'fr.js', title: 'Français' },
+  { code: 'rm', language: 'rm-CH', file: 'rm.js', title: 'Rumantsch' },
 ]
 
 /**

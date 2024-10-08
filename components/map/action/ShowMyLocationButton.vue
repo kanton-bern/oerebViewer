@@ -10,64 +10,62 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-import { convertToSwissCoordinates } from '../../../helpers/coordinates.js'
+<script setup>
+import { useMapStore } from '~/store/map'
+import { useNotificationStore } from '~/store/notification'
+import { convertToSwissCoordinates } from '~/helpers/coordinates'
 
-export default {
-  methods: {
-    ...mapActions('map', ['jumpToSwissCoordinates', 'previewCoordinate']),
-    ...mapActions('notification', ['notifyError']),
+const { t } = useI18n()
 
-    showMyLocationActionClicked() {
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: Infinity,
-      }
+const mapStore = useMapStore()
+const notificationStore = useNotificationStore()
 
-      navigator.geolocation.getCurrentPosition(
-        this.handlePositionGranted,
-        this.handleError,
-        options
-      )
+const showMyLocationActionClicked = () => {
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: Infinity,
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    handlePositionGranted,
+    handleError,
+    options,
+  )
+}
+
+const handlePositionGranted = async (pos) => {
+  const swissCoordinates = convertToSwissCoordinates(
+    pos.coords.longitude,
+    pos.coords.latitude,
+  )
+
+  mapStore.jumpToSwissCoordinates(swissCoordinates)
+  await mapStore.previewCoordinate({
+    globalCoordinate: {
+      latitude: pos.coords.latitude,
+      longitude: pos.coords.longitude,
     },
-
-    async handlePositionGranted(pos) {
-      const swissCoordinates = convertToSwissCoordinates(
-        pos.coords.longitude,
-        pos.coords.latitude
-      )
-
-      this.jumpToSwissCoordinates(swissCoordinates)
-      await this.previewCoordinate({
-        globalCoordinate: {
-          latitude: pos.coords.latitude,
-          longitude: pos.coords.longitude,
-        },
-
-        swissCoordinate: {
-          latitude: swissCoordinates[1],
-          longitude: swissCoordinates[0],
-        },
-      })
+    swissCoordinate: {
+      latitude: swissCoordinates[1],
+      longitude: swissCoordinates[0],
     },
+  })
+}
 
-    handleError(err) {
-      console.warn(err)
+const handleError = (err) => {
+  console.warn(err)
 
-      switch (err.code) {
-        case err.PERMISSION_DENIED:
-          this.notifyError(this.$t('notification_geolocation_permission'))
-          break
-        case err.POSITION_UNAVAILABLE:
-          this.notifyError(this.$t('notification_geolocation_coordinates'))
-          break
-        default:
-          this.notifyError(this.$t('notification_geolocation_unknown'))
-          break
-      }
-    },
-  },
+  switch (err.code) {
+    case err.PERMISSION_DENIED:
+      notificationStore.notifyError(t('notification_geolocation_permission'))
+      break
+    case err.POSITION_UNAVAILABLE:
+      notificationStore.notifyError(t('notification_geolocation_coordinates'))
+      break
+    default:
+      notificationStore.notifyError(t('notification_geolocation_unknown'))
+      break
+  }
 }
 </script>

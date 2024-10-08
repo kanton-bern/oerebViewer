@@ -41,38 +41,25 @@
   </LayoutAccordionItem>
 </template>
 
-<script>
-export default {
-  computed: {
-    properties() {
-      return this.$store.state.history.properties
-    },
-  },
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useHistoryStore } from '~/store/history'
 
-  methods: {
-    creationDate(rawDate) {
-      if (!rawDate) return ''
-      const date = new Date(rawDate)
-      // Then specify how you want your dates to be formatted
-      return new Intl.DateTimeFormat('de-CH', {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        hour12: false,
-      }).format(date)
-    },
+const historyStore = useHistoryStore()
+const { properties } = storeToRefs(historyStore)
 
-    i18nAlly() {
-      // used for vs code extension i18n ally
-      // $t('detail_extract_history')
-      // $t('detail_of_property')
-      // $t('detail_of_municipality')
-      // $t('detail_of_subunit_of_land_register')
-    },
-  },
+const creationDate = (rawDate) => {
+  if (!rawDate) return ''
+  const date = new Date(rawDate)
+  return new Intl.DateTimeFormat('de-CH', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false,
+  }).format(date)
 }
 </script>
 

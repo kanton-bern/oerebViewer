@@ -2,152 +2,138 @@
   <div />
 </template>
 
-<script>
+<script setup>
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import WFS from 'ol/format/WFS'
 import VectorSource from 'ol/source/Vector'
 import VectorLayer from 'ol/layer/Vector'
 import { Stroke, Fill, Style } from 'ol/style'
 
-export default {
-  props: {
-    id: {
-      required: true,
-      type: String,
-    },
-
-    visible: {
-      type: Boolean,
-      default: true,
-    },
-
-    features: {
-      type: [String, Object],
-      required: false,
-      default: null,
-    },
-
-    fillColor: {
-      type: String,
-      required: true,
-    },
-
-    strokeColor: {
-      type: String,
-      required: true,
-    },
-
-    strokeWidth: {
-      type: Number,
-      default: 1,
-    },
+const props = defineProps({
+  id: {
+    required: true,
+    type: String,
   },
-
-  data() {
-    return {
-      layer: null,
-      source: null,
-      mounted: false,
-    }
+  visible: {
+    type: Boolean,
+    default: true,
   },
-
-  watch: {
-    visible() {
-      this.layer.setVisible(this.visible)
-    },
-
-    features() {
-      this.onUnmounted()
-      this.createLayer()
-      this.onMounted()
-      this.onFocus()
-    },
+  features: {
+    type: [String, Object],
+    required: false,
+    default: null,
   },
-
-  created() {
-    this.createLayer()
-    this.onMounted()
+  fillColor: {
+    type: String,
+    required: true,
   },
-
-  mounted() {
-    this.mounted = true
-    this.onMounted()
-    this.onFocus()
+  strokeColor: {
+    type: String,
+    required: true,
   },
-
-  destroyed() {
-    this.mounted = false
-    this.onUnmounted()
+  strokeWidth: {
+    type: Number,
+    default: 1,
   },
+})
 
-  methods: {
-    createLayer() {
-      if (!this.features) return
+const emit = defineEmits(['layeradded', 'layerremoved', 'layerfocus'])
 
-      let vectorSource = new VectorSource()
+const layer = ref(null)
+const source = ref(null)
+const mounted = ref(false)
 
-      if (typeof this.features === 'object') {
-        this.source = [this.features]
-        vectorSource.addFeature(this.features)
-      } else {
-        const features = new WFS().readFeatures(this.features)
-        this.source = features
+const createLayer = () => {
+  if (!props.features) return
 
-        vectorSource = new VectorSource({
-          features,
-        })
-      }
+  let vectorSource = new VectorSource()
 
-      this.layer = new VectorLayer({
-        id: this.id,
-        source: vectorSource,
-        zIndex: 5000,
-        style: new Style({
-          stroke: new Stroke({
-            color: this.strokeColor,
-            width: this.strokeWidth,
-          }),
+  if (typeof props.features === 'object') {
+    source.value = [props.features]
+    vectorSource.addFeature(props.features)
+  } else {
+    const features = new WFS().readFeatures(props.features)
+    source.value = features
 
-          fill: new Fill({
-            color: this.fillColor,
-          }),
-        }),
-      })
+    vectorSource = new VectorSource({
+      features,
+    })
+  }
 
-      if (!this.layer) {
-        this.throw('invalid layer settings')
-      }
-    },
+  layer.value = new VectorLayer({
+    id: props.id,
+    source: vectorSource,
+    zIndex: 5000,
+    style: new Style({
+      stroke: new Stroke({
+        color: props.strokeColor,
+        width: props.strokeWidth,
+      }),
+      fill: new Fill({
+        color: props.fillColor,
+      }),
+    }),
+  })
 
-    throw(message) {
-      const context = {
-        layerId: this.id,
-        component: 'WmtsXyz',
-        ...this.settings,
-      }
-      console.error(`Error: ${message}`, context)
-      throw new Error(
-        `${message} (layerId: ${context.layerId}, component: ${context.component})`
-      )
-    },
-
-    onMounted() {
-      if (this.layer && this.mounted) {
-        this.$emit('layer-added', this.layer)
-      }
-    },
-
-    onUnmounted() {
-      if (!this.layer) return
-      this.$emit('layer-removed', this.layer)
-    },
-
-    onFocus() {
-      if (!this.layer) return
-
-      this.$emit('layer-focus', {
-        target: this.source?.[0]?.getGeometry(),
-      })
-    },
-  },
+  if (!layer.value) {
+    throwError('invalid layer settings')
+  }
 }
+
+const throwError = (message) => {
+  const context = {
+    layerId: props.id,
+    component: 'WfsFeature',
+  }
+  console.error(`Error: ${message}`, context)
+  throw new Error(
+    `${message} (layerId: ${context.layerId}, component: ${context.component})`,
+  )
+}
+
+const onMountedHandler = () => {
+  if (layer.value && mounted.value) {
+    emit('layeradded', layer.value)
+  }
+}
+
+const onUnmountedHandler = () => {
+  if (!layer.value) return
+  emit('layerremoved', layer.value)
+}
+
+const onFocus = () => {
+  if (!layer.value) return
+  emit('layerfocus', {
+    target: source.value?.[0]?.getGeometry(),
+  })
+}
+
+watch(() => props.visible, (newVisible) => {
+  layer.value.setVisible(newVisible)
+})
+
+watch(() => props.features, () => {
+  onUnmountedHandler()
+  createLayer()
+  onMountedHandler()
+  onFocus()
+})
+
+// Lifecycle hooks
+onMounted(() => {
+  createLayer()
+  mounted.value = true
+  onMountedHandler()
+  onFocus()
+})
+
+onUnmounted(() => {
+  mounted.value = false
+  onUnmountedHandler()
+})
+
+// Initial layer creation
+createLayer()
+onMountedHandler()
 </script>

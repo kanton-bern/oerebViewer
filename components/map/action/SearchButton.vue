@@ -10,12 +10,10 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
 
-export default {
-  methods: {
-    ...mapActions('map', ['toggleSearchVisibility']),
-  },
-}
+<script setup>
+import { useMapStore } from '~/store/map'
+
+const mapStore = useMapStore()
+const { toggleSearchVisibility } = mapStore
 </script>

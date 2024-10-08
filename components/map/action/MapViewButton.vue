@@ -10,12 +10,9 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
+<script setup>
+import { useMapStore } from '~/store/map'
 
-export default {
-  methods: {
-    ...mapActions('map', ['setMapView']),
-  },
-}
+const mapStore = useMapStore()
+const setMapView = () => mapStore.setMapView()
 </script>

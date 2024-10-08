@@ -1,3 +1,24 @@
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { getExternalInstructions } from '~/config/setup.js'
+import { stringTemplate } from '~/helpers/template'
+import IconOpen from '~/components/icon/Open.vue'
+
+const { locale } = useI18n()
+
+const externalInstructions = await getExternalInstructions()
+
+const url = computed(() => {
+  return externalInstructions.instructionUrl
+    ? stringTemplate(externalInstructions.instructionUrl, {
+      language: locale.value,
+      languageUppercase: locale.value.toUpperCase(),
+    })
+    : false
+})
+</script>
+
 <template>
   <div>
     <a v-if="url" :href="url" class="flex items-center gap-2 hover:underline">
@@ -6,20 +27,3 @@
     </a>
   </div>
 </template>
-
-<script>
-import { externalInstructions, stringTemplate } from '~/config/setup'
-
-export default {
-  computed: {
-    url() {
-      return externalInstructions.instructionUrl
-        ? stringTemplate(externalInstructions.instructionUrl, {
-            language: this.$i18n.locale,
-            languageUppercase: this.$i18n.locale.toUpperCase(),
-          })
-        : false
-    },
-  },
-}
-</script>
