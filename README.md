@@ -42,7 +42,7 @@ The `oereb-viewer` image exposes the port `3000`.
 
 ```bash
 # link local port 3000 to exposed port 3000
-docker run -it -p 3000:3000 oereb-app
+docker run -it -p 3000:3000 oereb-viewer
 ```
 
 
