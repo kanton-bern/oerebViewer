@@ -37,5 +37,10 @@
     ],
     "i18n-ally.keystyle": "flat",
     "i18n-ally.displayLanguage": "DE",
-    "i18n-ally.sourceLanguage": "de"
+    "i18n-ally.sourceLanguage": "de",
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#2C3004",
+      "titleBar.activeBackground": "#3D4405",
+      "titleBar.activeForeground": "#F9FCDD"
+    }
   }

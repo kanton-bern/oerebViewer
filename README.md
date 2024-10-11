@@ -161,3 +161,10 @@ A JavaScript language file is required, to add merge capabilities with default l
 - [Nuxt](https://nuxtjs.org/)
 - [Tailwind](https://tailwindcss.com/)
 - [Open Layers](https://openlayers.org/)
+
+# Maintainer of This Repo
+Owner is the Canton of Berne. Admins of the repo are:
+
+- Bernard Kessler (AGI) bernard.kessler@be.ch
+- Mario Siegenthaler (BEDAG, linkyard) m@riosiegenthaler.ch
+- Bernhard Sturm (Sturm und Bräm) bs@sturmundbraem.ch
