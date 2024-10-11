@@ -8,10 +8,11 @@ export const useHistoryStore = defineStore('history', () => {
 
   function addProperty(extract: Extract, language: string) {
     const languagePrefix = language !== 'de' ? `/${language}` : ''
-    console.log(language )
+
     if (!extract.RealEstate) {
       return
     }
+
     const entry = extractToTemplateVars(extract, {
       url: `${languagePrefix}/d/${extract.RealEstate.EGRID}`,
     })

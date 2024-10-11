@@ -31,6 +31,7 @@ export const useMapStore = defineStore('map', () => {
   const contentType = ref('map')
   const view = ref(null)
   const searchService = ref(null)
+  const skipZoomWatch = ref(false)
 
   async function initializeStore() {
     const viewConfig = await getView()
@@ -69,7 +70,9 @@ export const useMapStore = defineStore('map', () => {
   }
 
   function setZoom(newZoom: number) {
-    zoom.value = newZoom
+    if (!skipZoomWatch.value) {
+      zoom.value = newZoom
+    }
   }
 
   function setSearchQuery(newSearchQuery) {
@@ -282,6 +285,10 @@ export const useMapStore = defineStore('map', () => {
     }
   }
 
+  function setSkipZoomWatch(value: boolean) {
+    skipZoomWatch.value = value
+  }
+
   return {
     tokenUpdateIntervalId,
     esriToken,
@@ -300,6 +307,7 @@ export const useMapStore = defineStore('map', () => {
     contentType,
     isSatelliteView,
     isMapView,
+    skipZoomWatch,
     initializeStore,
     setTokenUpdateIntervalId,
     clearTokenUpdateIntervalId,
@@ -336,5 +344,6 @@ export const useMapStore = defineStore('map', () => {
     disableTokenUpdater,
     updateToken,
     previewCoordinate,
+    setSkipZoomWatch,
   }
 })
