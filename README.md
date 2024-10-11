@@ -165,6 +165,6 @@ A JavaScript language file is required, to add merge capabilities with default l
 # Maintainer of This Repo
 Owner is the Canton of Berne. Admins of the repo are:
 
-- Bernard Kessler (AGI) (bernard.kesser@be.ch)
+- Bernard Kessler (AGI) bernard.kessler@be.ch
 - Mario Siegenthaler (BEDAG, linkyard) m@riosiegenthaler.ch
 - Bernhard Sturm (Sturm und Bräm) bs@sturmundbraem.ch
