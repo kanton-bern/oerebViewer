@@ -45,7 +45,7 @@ const props = defineProps({
 })
 
 const mapStore = useMapStore()
-const { zoom, jumpToCoordinates } = storeToRefs(mapStore)
+const { zoom, jumpToCoordinates, skipZoomWatch } = storeToRefs(mapStore)
 
 const zoomConfig = await getZoom()
 const projectionDefinitions = await getProjectionDefinitions()
@@ -156,13 +156,13 @@ const focus = ({ target }) => {
 }
 
 const handleSingleClick = async (pointerEvent) => {
-  console.log('handleSingleClick', zoom.value, zoomConfig.oerebLayer)
   if (
     !zoom.value ||
     zoom.value < zoomConfig.oerebLayer
   )
     return
 
+  mapStore.setSkipZoomWatch(true)
   const transformedXYCoordinate = transform(
     pointerEvent.coordinate,
     'EPSG:2056',
@@ -185,16 +185,21 @@ const handleSingleClick = async (pointerEvent) => {
 }
 
 watch(() => zoom.value, (newValue) => {
-  if (map.value) {
+  if (map.value && !skipZoomWatch?.value) {
     const view = map.value.getView()
     if (view.getZoom() !== newValue) {
       view.setZoom(newValue)
     }
   }
+
+  if (skipZoomWatch?.value) {
+    mapStore.setSkipZoomWatch(false)
+  }
 }, { immediate: true, deep: true })
 
 watch(() => jumpToCoordinates.value, (swissCoordinates) => {
   if (map.value && swissCoordinates) {
+    mapStore.setSkipZoomWatch(true)
     const view = map.value.getView()
     view.setCenter(swissCoordinates)
     mapStore.setZoom(18)

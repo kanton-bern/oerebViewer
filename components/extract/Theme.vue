@@ -32,7 +32,6 @@ const subThemes = ref<Theme[]>([])
 
 onMounted(async () => {
   const subThemesTemp = await getSubThemesByCode(props.code)
-  console.log(subThemesTemp)
   subThemes.value = subThemesTemp as Theme[]
 })
 

@@ -103,11 +103,11 @@ export const usePropertyStore = defineStore('property', () => {
     setLoading(true)
 
     let newExtract: Extract|null
+
     let templateVars = extractToTemplateVars(null, { municipality: EGRID })
-
     try {
-      const { getExtractById } = await useOereb()
 
+      const { getExtractById } = await useOereb()
       const response = await getExtractById({ EGRID, language })
 
       if ('extract' in response && response.extract) {
