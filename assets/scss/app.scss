@@ -30,7 +30,9 @@
 
     --ratio-municipality-banner: calc(70 / 50);
 
-    --color-white:        #FFF;
+
+    --col-dark: #5e7287;
+    --col-white:        #FFF;
     --col-success:      #46A447;
     --col-success-dark:  #286E2A;
     --col-alert:        #C31924;
@@ -46,36 +48,31 @@ body {
   @apply antialiased;
 }
 
-// Notifications
-.notification-wrapper {
-  @include opacityTransition;
-  position:absolute;
-  z-index:5000;
-  bottom:0px;
-  width:100%;
-  left:0px;
+// Notifications Toastify
+.Toastify__toast {
+  border-radius:0 !important;
+  box-shadow:none;
+  color:var(--col-white) !important;
+  background-color:var(--col-dark);
+  border-left:15px solid var(--col-success-dark);
 
-  .callout {
-    position:relative;
-    border:none;
-    color:var(--col-white);
-    border-left:15px solid var(--col-success)Dark;
-    margin-bottom:0px;
+  .Toastify__toast-icon {
+    display:none;
+  }
 
-    p {
-      width:80%;
-    }
-    &.success {
+
+    &.Toastify__toast--success {
       background-color: var(--col-success);
+      border-left:15px solid var(--col-success-dark);
 
     }
-    &.alert {
+    &.Toastify__toast--error {
       border-left:15px solid var(--col-alert-dark);
       background-color: var(--col-alert);
 
 
     }
-    &.warning {
+    &.Toastify__toast--warning {
       border-left:15px solid var(--col-warning-dark);
       background-color: var(--col-warning);
 
@@ -85,21 +82,9 @@ body {
       position:absolute;
       right:10px;
       top:10px;
+      color:var(--col-white) !important;
 
-      &.notification-button {
-        border:1px solid var(--col-white);
-        transform: none;
-        position:inherit;
-        display: inline-block;
-        margin-bottom:0px;
-        right:auto;
-        top:auto;
-        text-transform: uppercase;
-
-        color:var(--col-white);
-      }
     }
-  }
 }
 // End Notifcaion
 
