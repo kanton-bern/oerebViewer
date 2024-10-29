@@ -5,8 +5,8 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useMapStore } from '~/store/map'
-import TileLayer from 'ol/layer/Tile'
-import TileWMS from 'ol/source/TileWMS'
+import ImageLayer from 'ol/layer/Image'
+import ImageWMS from 'ol/source/ImageWMS'
 
 const props = defineProps({
   id: {
@@ -24,20 +24,16 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['layeradded', 'layerremoved'])
-
 const mapStore = useMapStore()
 const esriToken = computed(() => mapStore.esriToken)
-
 const layer = ref(null)
 const mounted = ref(false)
 
 watch(esriToken, async () => {
   const newLayer = await createLayer()
-
   if (mounted.value) {
     onUnmountedHandler()
   }
-
   layer.value = newLayer
   onMountedHandler()
 })
@@ -59,7 +55,7 @@ onUnmounted(() => {
   onUnmountedHandler()
 })
 
-function createLayer() {
+async function createLayer() {
   const settings = {
     visible: props.visible,
     url: props.settings.sourceUrl,
@@ -74,14 +70,28 @@ function createLayer() {
   if (esriToken.value) {
     settings.url += `?token=${esriToken.value}`
   }
+
   delete settings.sourceType
   delete settings.sourceUrl
   delete settings.capabilityLayer
   delete settings.capabilityMatrixSet
 
-  const newLayer = new TileLayer({
+  const imageWMSSettings = {
     ...settings,
-    source: new TileWMS(settings),
+    params: {
+      ...settings.params,
+      FORMAT: 'image/png',
+    },
+    ratio: 1,
+    pixelRatio: 2,
+    imageSmoothing: true,
+  }
+
+  const source = new ImageWMS(imageWMSSettings)
+
+  const newLayer = new ImageLayer({
+    ...settings,
+    source,
   })
 
   newLayer.set('id', props.id)
@@ -108,15 +118,10 @@ function validateOrThrow(settings) {
   if (settings.sourceType !== 'Capabilities') {
     throwError('sourceType should be "Capabilities"')
   }
-
   if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
     throwError('sourceUrl required')
   }
-
-  if (
-    typeof settings.capabilityLayer !== 'string' ||
-    !settings.capabilityLayer
-  ) {
+  if (typeof settings.capabilityLayer !== 'string' || !settings.capabilityLayer) {
     throwError('capabilityLayer required')
   }
 }
