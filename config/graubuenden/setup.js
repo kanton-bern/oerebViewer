@@ -21,8 +21,8 @@
  */
 export const locales = [
   { code: 'de', language: 'de-CH', file: 'de.js', title: 'Deutsch' },
-  { code: 'fr', language: 'fr-CH', file: 'fr.js', title: 'Français' },
   { code: 'rm', language: 'rm-CH', file: 'rm.js', title: 'Rumantsch' },
+  { code: 'it', language: 'it-CH', file: 'it.js', title: 'Italiano' },
 ]
 
 /**
