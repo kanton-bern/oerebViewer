@@ -97,6 +97,14 @@ const safeMapOperation = (operation) => {
 
 const registerForZoomChanged = () => {
   if (!map.value) return
+
+  map.value.on('moveend', () => {
+    const newValue = view.getZoom()
+    if (zoom.value !== newValue) {
+      mapStore.setZoom(newValue)
+    }
+  })
+
   const view = map.value.getView()
   view.on('change:resolution', () => {
     const newValue = map.value.getView().getZoom()
@@ -156,11 +164,9 @@ const focus = ({ target }) => {
 }
 
 const handleSingleClick = async (pointerEvent) => {
-  if (
-    !zoom.value ||
-    zoom.value < zoomConfig.oerebLayer
-  )
-    return
+  const currentZoom = map.value.getView().getZoom()
+  console.log('handleSingleClick', currentZoom, zoomConfig.oerebLayer)
+  if (currentZoom < zoomConfig.oerebLayer) return
 
   mapStore.setSkipZoomWatch(true)
   const transformedXYCoordinate = transform(
