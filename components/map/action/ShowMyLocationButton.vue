@@ -41,7 +41,7 @@ const handlePositionGranted = async (pos) => {
   )
 
   mapStore.jumpToSwissCoordinates(swissCoordinates)
-  await mapStore.previewCoordinate({
+  await mapStore.setPreviewCoordinate({
     globalCoordinate: {
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude,

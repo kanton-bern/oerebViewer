@@ -99,7 +99,7 @@ const registerForZoomChanged = () => {
   if (!map.value) return
 
   map.value.on('moveend', () => {
-    const newValue = view.getZoom()
+    const newValue = map.value.getView().getZoom()
     if (zoom.value !== newValue) {
       mapStore.setZoom(newValue)
     }
@@ -165,10 +165,8 @@ const focus = ({ target }) => {
 
 const handleSingleClick = async (pointerEvent) => {
   const currentZoom = map.value.getView().getZoom()
-  console.log('handleSingleClick', currentZoom, zoomConfig.oerebLayer)
   if (currentZoom < zoomConfig.oerebLayer) return
 
-  mapStore.setSkipZoomWatch(true)
   const transformedXYCoordinate = transform(
     pointerEvent.coordinate,
     'EPSG:2056',
@@ -184,7 +182,7 @@ const handleSingleClick = async (pointerEvent) => {
     latitude: pointerEvent.coordinate[1],
   }
 
-  await mapStore.previewCoordinate({
+  await mapStore.setPreviewCoordinate({
     globalCoordinate,
     swissCoordinate,
   })
@@ -197,15 +195,10 @@ watch(() => zoom.value, (newValue) => {
       view.setZoom(newValue)
     }
   }
-
-  if (skipZoomWatch?.value) {
-    mapStore.setSkipZoomWatch(false)
-  }
-}, { immediate: true, deep: true })
+})
 
 watch(() => jumpToCoordinates.value, (swissCoordinates) => {
   if (map.value && swissCoordinates) {
-    mapStore.setSkipZoomWatch(true)
     const view = map.value.getView()
     view.setCenter(swissCoordinates)
     mapStore.setZoom(18)
