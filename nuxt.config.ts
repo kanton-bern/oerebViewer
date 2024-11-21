@@ -62,7 +62,10 @@ export default defineNuxtConfig({
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/i18nLoader.ts', '~/plugins/vueToastification'],
+  plugins: [
+    '~/plugins/i18nLoader.ts',
+    '~/plugins/vueToastification.ts',
+  ],
   vite: {
     css: {
       preprocessorOptions: {
@@ -79,8 +82,6 @@ export default defineNuxtConfig({
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxt/devtools',
-    // https://i18n.nuxtjs.org/
-    '@nuxtjs/i18n',
     // https://go.nuxtjs.dev/eslint
     '@nuxt/eslint',
     // https://go.nuxtjs.dev/tailwindcss
@@ -88,6 +89,8 @@ export default defineNuxtConfig({
     // https://pinia.vuejs.org/cookbook/plugins.html
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
+    // https://i18n.nuxtjs.org/
+    '@nuxtjs/i18n',
     '~/modules/setupModule',
   ],
 

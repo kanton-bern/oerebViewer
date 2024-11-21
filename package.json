@@ -25,17 +25,17 @@
   "dependencies": {
     "nuxt": "^3.13.2",
     "ol": "^10.2.0",
-    "pinia": "^2.2.2",
+    "pinia": "^2.2.6",
     "proj4": "^2.8.0",
     "vue-multiselect": "^3.1.0",
     "vue3-toastify": "^0.2.3"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.5.1",
-    "@nuxt/eslint": "^0.6.1",
+    "@nuxt/eslint": "^0.7.1",
     "@nuxtjs/i18n": "^8.5.5",
     "@nuxtjs/tailwindcss": "^6.12.1",
-    "@pinia/nuxt": "^0.5.4",
+    "@pinia/nuxt": "^0.7.0",
     "@stylistic/eslint-plugin": "^2.8.0",
     "eslint": "^9.11.1",
     "json-schema-to-typescript": "^15.0.2",

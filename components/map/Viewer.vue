@@ -45,7 +45,7 @@ const props = defineProps({
 })
 
 const mapStore = useMapStore()
-const { zoom, jumpToCoordinates, skipZoomWatch } = storeToRefs(mapStore)
+const { zoom, jumpToCoordinates } = storeToRefs(mapStore)
 
 const zoomConfig = await getZoom()
 const projectionDefinitions = await getProjectionDefinitions()
@@ -189,7 +189,9 @@ const handleSingleClick = async (pointerEvent) => {
 }
 
 watch(() => zoom.value, (newValue) => {
-  if (map.value && !skipZoomWatch?.value) {
+  if (map.value) {
+    // prevent zooming out to 10 when clicking on the zoomed in map
+    if (newValue === 10 && map.value.getView().getZoom() > 12) return
     const view = map.value.getView()
     if (view.getZoom() !== newValue) {
       view.setZoom(newValue)

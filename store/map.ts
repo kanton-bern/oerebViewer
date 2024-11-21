@@ -31,7 +31,6 @@ export const useMapStore = defineStore('map', () => {
   const contentType = ref('map')
   const view = ref(null)
   const searchService = ref(null)
-  const skipZoomWatch = ref(false)
   const minZoom = ref<number>(0)
   const maxZoom = ref<number>(42)
 
@@ -74,9 +73,7 @@ export const useMapStore = defineStore('map', () => {
   }
 
   function setZoom(newZoom: number) {
-    if (!skipZoomWatch.value) {
-      zoom.value = newZoom
-    }
+    zoom.value = newZoom
   }
 
   function setSearchQuery(newSearchQuery) {
@@ -274,7 +271,7 @@ export const useMapStore = defineStore('map', () => {
       if (EGRIDs.length === 1) {
         // auto start extraction
         const propertyStore = usePropertyStore()
-        await propertyStore.showExtractById(EGRIDs[0].egrid)
+        propertyStore.showExtractById(EGRIDs[0].egrid)
         clearPreview()
       }
     } catch (error) {
@@ -288,10 +285,6 @@ export const useMapStore = defineStore('map', () => {
 
       notificationStore.notifyWarning({ text: warning, vars: {} })
     }
-  }
-
-  function setSkipZoomWatch(value: boolean) {
-    skipZoomWatch.value = value
   }
 
   return {
@@ -314,7 +307,6 @@ export const useMapStore = defineStore('map', () => {
     contentType,
     isSatelliteView,
     isMapView,
-    skipZoomWatch,
     initializeStore,
     setTokenUpdateIntervalId,
     clearTokenUpdateIntervalId,
@@ -350,6 +342,5 @@ export const useMapStore = defineStore('map', () => {
     enableTokenUpdater,
     disableTokenUpdater,
     updateToken,
-    setSkipZoomWatch,
   }
 })

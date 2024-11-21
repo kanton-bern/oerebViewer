@@ -53,8 +53,6 @@ export const usePropertyStore = defineStore('property', () => {
     extract.value = newExtract
   }
   function setLoading(isLoading: boolean) {
-    const mapStore = useMapStore()
-    mapStore.setSkipZoomWatch(isLoading)
     loading.value = isLoading
   }
 
