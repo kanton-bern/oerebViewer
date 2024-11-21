@@ -7,8 +7,8 @@ export default async function loadTranslations(locale: string) {
 
   const config = useRuntimeConfig()
   const defaults = await import(`~/config/defaults/locales/${locale}.json`).then(m => m.default)
-  const contextConfig = config.NUX_ENV_CONFIG_CONTEXT
-    ? await import(`~/config/${config.NUX_ENV_CONFIG_CONTEXT}/locales/${locale}.json`).then(m => m.default)
+  const contextConfig = config.NUXT_ENV_CONFIG_CONTEXT
+    ? await import(`~/config/${config.NUXT_ENV_CONFIG_CONTEXT}/locales/${locale}.json`).then(m => m.default)
     : {}
 
   const translations = {

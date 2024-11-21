@@ -12,6 +12,7 @@ import { stringTemplate } from '~/helpers/template'
 import { extractToTemplateVars } from '~/helpers/transformers'
 import { useHistoryStore } from '~/store/history'
 import { useNotificationStore } from '~/store/notification'
+import { useMapStore } from './map'
 
 export const usePropertyStore = defineStore('property', () => {
   const extract = ref(null)
@@ -52,6 +53,8 @@ export const usePropertyStore = defineStore('property', () => {
     extract.value = newExtract
   }
   function setLoading(isLoading: boolean) {
+    const mapStore = useMapStore()
+    mapStore.setSkipZoomWatch(isLoading)
     loading.value = isLoading
   }
 

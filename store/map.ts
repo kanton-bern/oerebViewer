@@ -32,11 +32,15 @@ export const useMapStore = defineStore('map', () => {
   const view = ref(null)
   const searchService = ref(null)
   const skipZoomWatch = ref(false)
+  const minZoom = ref<number>(0)
+  const maxZoom = ref<number>(42)
 
   async function initializeStore() {
     const viewConfig = await getView()
     view.value = viewConfig
     zoom.value = viewConfig.zoom
+    minZoom.value = viewConfig.minZoom || 0
+    maxZoom.value = viewConfig.maxZoom || 42
     searchService.value = await getSearchService()
   }
 
@@ -109,10 +113,6 @@ export const useMapStore = defineStore('map', () => {
     previewEGRID.value = null
   }
 
-  function setPreviewCoordinate({ longitude, latitude }: { longitude: number; latitude: number }) {
-    previewCoordinates.value = { longitude, latitude }
-  }
-
   function setPreviewEGRID(egridResponse) {
     previewEGRID.value = egridResponse
   }
@@ -161,7 +161,7 @@ export const useMapStore = defineStore('map', () => {
         longitude: swissCoordinates[0],
         latitude: swissCoordinates[1],
       }
-      await previewCoordinate({ swissCoordinate, globalCoordinate })
+      await setPreviewCoordinate({ swissCoordinate, globalCoordinate })
     }
   }
 
@@ -205,14 +205,19 @@ export const useMapStore = defineStore('map', () => {
 
   function zoomInActionClicked() {
     const newValue = zoom.value + 0.5
-    if (newValue <= 42) {
+    console.log('zoomInActionClicked', newValue, zoom.value)
+    if (newValue <= maxZoom.value) {
+      console.log('zoomInActionClicked2', newValue, zoom.value)
       setZoom(newValue)
     }
   }
 
   function zoomOutActionClicked() {
+
     const newValue = zoom.value - 0.5
-    if (newValue >= 0) {
+    console.log('zoomOutActionClicked', newValue, zoom.value)
+    if (newValue >= minZoom.value) {
+      console.log('zoomOutActionClicked2', newValue, zoom.value)
       setZoom(newValue)
     }
   }
@@ -251,12 +256,12 @@ export const useMapStore = defineStore('map', () => {
     useEsriToken(token)
   }
 
-  async function previewCoordinate({ globalCoordinate, swissCoordinate }) {
+  async function setPreviewCoordinate({ globalCoordinate, swissCoordinate }) {
     const notificationStore = useNotificationStore()
     const { getEGRID } = useOereb()
 
     clearPreview()
-    setPreviewCoordinate(swissCoordinate)
+    previewCoordinates.value = swissCoordinate
 
     let EGRIDs
 
@@ -295,6 +300,8 @@ export const useMapStore = defineStore('map', () => {
     esriTokenExpiredAt,
     viewType,
     zoom,
+    minZoom,
+    maxZoom,
     searchQuery,
     searchResults,
     selectedSearchResult,
@@ -343,7 +350,6 @@ export const useMapStore = defineStore('map', () => {
     enableTokenUpdater,
     disableTokenUpdater,
     updateToken,
-    previewCoordinate,
     setSkipZoomWatch,
   }
 })

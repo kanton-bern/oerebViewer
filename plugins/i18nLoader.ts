@@ -3,12 +3,16 @@
  */
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-
   const loadTranslations = async (locale: string) => {
-    const configContext = process.env.NUXT_ENV_CONFIG_CONTEXT || 'defaults'
+    const config = useRuntimeConfig()
+    const configContext = config.public.configContext || 'defaults'
 
     try {
       const defaultModule = await import(`../config/defaults/locales/${locale}.json`)
+
+      if (configContext === 'defaults') {
+        return defaultModule.default
+      }
 
       let contextTranslations = {}
       try {
