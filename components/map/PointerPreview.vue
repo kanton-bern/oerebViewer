@@ -89,7 +89,7 @@ watch(previewCoordinates, async (newCoordinate) => {
     await nextTick()
     overlay.value = new Overlay({
       element: previewContainer.value,
-      positioning: 'center-center',
+      positioning: 'top-left',
       stopEvent: false,
     })
     emit('overlayadded', overlay.value)

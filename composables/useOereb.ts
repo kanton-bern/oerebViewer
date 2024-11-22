@@ -90,6 +90,7 @@ export function useOereb() {
 
     try {
       const data = await $fetch<{ GetExtractByIdResponse: unknown }>(url)
+      console.log('getExtractById')
       return data.GetExtractByIdResponse
     } catch (error) {
       if (error instanceof Error) {
