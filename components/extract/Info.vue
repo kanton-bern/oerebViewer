@@ -1,7 +1,34 @@
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { extractToTemplateVars } from '~/helpers/transformers'
+import { useLoadedExtract } from '~/composables/useLoadedExtract'
+import { useMultilingualText } from '~/composables/useMultilingualText'
+
+const { multilingualText } = useMultilingualText()
+
+const { t } = useI18n()
+
+// Store
+const { loadedExtract } = useLoadedExtract()
+
+// Computed
+const templateVars = computed(() => {
+  if (!loadedExtract.value) return {}
+  return extractToTemplateVars(loadedExtract.value)
+})
+
+const updateDate = computed(() => {
+  if (!loadedExtract.value?.UpdateDateCS) return '-'
+  const date = new Date(loadedExtract.value.UpdateDateCS)
+  return date.toLocaleDateString('de-CH')
+})
+</script>
+
 <template>
   <LayoutAccordionItem
     v-if="loadedExtract"
-    :header="$t('detail_property_info', templateVars)"
+    :header="t('detail_property_info', templateVars)"
     header-class="3xl:text-lg"
   >
     <div class="grid divide-y divide-dotted text-l leading-none">
@@ -16,7 +43,7 @@
         <div class="text-theme-decent w-36 lg:w-44">
           {{ $t('detail_property_type', templateVars) }}
         </div>
-        <div>{{ loadedExtract.RealEstate.Type.Text | multilingualtext }}</div>
+        <div>{{ multilingualText(loadedExtract.RealEstate.Type.Text) }}</div>
       </div>
 
       <div class="px-3 py-2 flex gap-3 w-full">
@@ -63,7 +90,7 @@
           :href="loadedExtract.ownerUrl"
           target="_blank"
           class="flex items-center gap-2 hover:underline"
-          :title="$t('detail_owner_info', templateVars)"
+          :title="t('detail_owner_info', templateVars)"
         >
           {{ $t('detail_owner_info', templateVars) }}
           <IconOpen class="w-4 h-4 flex-shrink-0" />
@@ -72,27 +99,3 @@
     </div>
   </LayoutAccordionItem>
 </template>
-
-<script>
-import { extractToTemplateVars } from '~/helpers/transformers'
-import loadedextract from '~/mixins/loadedextract'
-
-export default {
-  mixins: [loadedextract],
-
-  computed: {
-    templateVars() {
-      if (!this.loadedExtract) return {}
-
-      return extractToTemplateVars(this.loadedExtract)
-    },
-
-    updateDate() {
-      const date = new Date(this.loadedExtract.UpdateDateCS)
-      return this.loadedExtract.UpdateDateCS
-        ? `${date.toLocaleDateString('de-CH')}`
-        : '-'
-    },
-  },
-}
-</script>

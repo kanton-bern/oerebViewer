@@ -13,12 +13,10 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
+<script setup>
+import { useMapStore } from '~/store/map'
 
-export default {
-  methods: {
-    ...mapActions('map', ['setSatelliteView']),
-  },
-}
+const mapStore = useMapStore()
+const setSatelliteView = () => mapStore.setSatelliteView()
+
 </script>

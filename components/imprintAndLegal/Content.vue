@@ -45,26 +45,26 @@
       <section class="block sm:grid grid-cols-2 gap-4">
         <div class="item">
           <LayoutInformationSection
-            :title="$t('imprint_general_information_title')"
+            :title="t('imprint_general_information_title')"
           >
             <p
               v-for="(text, index) in loadedExtract.GeneralInformation"
               :key="index"
             >
-              {{ text | multilingualtext }}
+              {{ multilingualText(text) }}
             </p>
           </LayoutInformationSection>
         </div>
         <div
           v-for="liabilityItem in loadedExtract.Disclaimer"
-          :key="liabilityItem.Title | multilingualtext"
+          :key="multilingualText(liabilityItem.Title)"
           class="item"
         >
           <LayoutInformationSection
-            :title="liabilityItem.Title | multilingualtext"
+            :title="multilingualText(liabilityItem.Title)"
           >
             <p v-for="(text, index) in liabilityItem.Content" :key="index">
-              {{ text | multilingualtext }}
+              {{ multilingualText(text) }}
             </p>
           </LayoutInformationSection>
         </div>
@@ -75,7 +75,7 @@
       <section class="block sm:grid grid-cols-2 gap-4">
         <div class="item">
           <LayoutInformationSection
-            :title="loadedExtract.PLRCadastreAuthority.Name | multilingualtext"
+            :title="multilingualText(loadedExtract.PLRCadastreAuthority.Name)"
           >
             {{ loadedExtract.PLRCadastreAuthority.Street }}
             {{ loadedExtract.PLRCadastreAuthority.Number }}<br />
@@ -83,18 +83,17 @@
             {{ loadedExtract.PLRCadastreAuthority.City }}<br />
             <a
               :href="
-                loadedExtract.PLRCadastreAuthority.OfficeAtWeb
-                  | multilingualtext
-              "
+                multilingualText(loadedExtract.PLRCadastreAuthority.OfficeAtWeb)
+  "
               target="_blank"
               class="url-link"
               :title="
-                $options.filters.multilingualtext(
+                multilingualText(
                   loadedExtract.PLRCadastreAuthority.Name
                 )
               "
               >{{
-                loadedExtract.PLRCadastreAuthority.Name | multilingualtext
+                multilingualText(loadedExtract.PLRCadastreAuthority.Name)
               }}</a
             >
           </LayoutInformationSection>
@@ -104,28 +103,27 @@
   </LayoutClosablePage>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-import { extractToTemplateVars } from '~/helpers/transformers'
-import loadedextract from '~/mixins/loadedextract'
+<script setup>
+import { onBeforeUnmount } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useAppStore } from '~/store/app'
+import { useMapStore } from '~/store/map'
+import { useLoadedExtract } from '~/composables/useLoadedExtract'
+import { useMultilingualText } from '~/composables/useMultilingualText'
 
-export default {
-  mixins: [loadedextract],
+const { multilingualText } = useMultilingualText()
+const { t } = useI18n()
+const appStore = useAppStore()
+const mapStore = useMapStore()
+const { loadedExtract } = useLoadedExtract()
 
-  computed: {
-    templateVars() {
-      return extractToTemplateVars(this.loadedExtract)
-    },
-  },
-
-  beforeDestroy() {
-    this.$store.commit('app/setMenuOpen', true)
-  },
-
-  methods: {
-    ...mapActions('map', ['closeImprintAndLegal']),
-  },
+const closeImprintAndLegal = () => {
+  mapStore.closeImprintAndLegal()
 }
+
+onBeforeUnmount(() => {
+  appStore.setMenuOpen(true)
+})
 </script>
 
 <style lang="scss" scoped>

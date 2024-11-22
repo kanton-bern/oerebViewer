@@ -4,19 +4,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
+import { useLoadedExtract } from '~/composables/useLoadedExtract'
 import { extractToTemplateVars } from '~/helpers/transformers'
-import loadedextract from '~/mixins/loadedextract'
 
-export default {
-  mixins: [loadedextract],
+const { loadedExtract } = useLoadedExtract()
 
-  computed: {
-    templateVars() {
-      if (!this.loadedExtract) return {}
-
-      return extractToTemplateVars(this.loadedExtract)
-    },
-  },
-}
+const templateVars = computed(() => {
+  if (!loadedExtract.value) return {}
+  return extractToTemplateVars(loadedExtract.value)
+})
 </script>

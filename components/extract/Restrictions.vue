@@ -7,12 +7,12 @@
             'text-theme-decent': showChanges,
           }"
         >
-          {{ lawStates[0].Text | multilingualtext }}
+          {{ multilingualText(lawStates[0].Text) }}
         </div>
         <template v-if="lawStates.length > 1">
           <LayoutToggle
             v-model="showChanges"
-            :title="$t('show_changes')"
+            :title="t('show_changes')"
             class="mx-2"
           />
           <div
@@ -20,7 +20,7 @@
               'text-theme-decent': !showChanges,
             }"
           >
-            {{ lawStates[1].Text | multilingualtext }}
+            {{ multilingualText(lawStates[1].Text) }}
           </div>
         </template>
       </div>
@@ -28,19 +28,19 @@
       <div class="text-l font-bold mt-8">{{ $t('restriction_legend') }}</div>
 
       <div class="grid gap-x-2 gap-y-4 grid-legend mt-2">
-        <template v-for="(restriction, index) in sortedRestrictions">
-          <div :key="`restrictions-${index}-symbol`" class="flex items-center">
+        <template v-for="(restriction, index) in sortedRestrictions" :key="`restrictions-${index}`">
+          <div class="flex items-center">
             <img
               :src="restriction.SymbolRef"
               class="hover:scale-150 transition-transform duration-500"
-            />
+            >
           </div>
 
-          <div :key="`restrictions-${index}-label`">
-            {{ restriction.LegendText | multilingualtext | wordbreak }}
+          <div>
+            {{ multilingualText(wordbreak(restriction.LegendText)) }}
           </div>
 
-          <div :key="`restrictions-${index}-value`">
+          <div>
             <span v-if="restriction.AreaShare" class="whitespace-nowrap">
               {{ restriction.AreaShare }}m² ({{
                 restriction.PartInPercent.toFixed(1)
@@ -62,12 +62,12 @@
         class="flex gap-2 mt-2 hover:underline"
         :title="`${$t(
           'restriction_key_download'
-        )} (${$options.filters.multilingualtext(restrictions[0].Theme.Text)})`"
+        )} (${multilingualText(restrictions[0].Theme.Text)})`"
       >
         <IconLayers class="w-4 h-4 mt-1 shrink-0" />
         <div>
           {{ $t('restriction_key_download') }} ({{
-            restrictions[0].Theme.Text | multilingualtext
+            multilingualText(restrictions[0].Theme.Text)
           }})
         </div>
       </a>
@@ -87,7 +87,7 @@
       >
         <IconFile class="w-4 h-4 mt-1 shrink-0" />
         <div>
-          {{ document.title | wordbreak }}
+          {{ wordbreak(document.title) }}
         </div>
       </a>
     </div>
@@ -106,7 +106,7 @@
         target="_blank"
       >
         <IconOpen class="w-4 h-4 mt-1 shrink-0" />
-        <div>{{ document.title | wordbreak }}</div>
+        <div>{{ wordbreak(document.title) }}</div>
       </a>
     </div>
 
@@ -125,7 +125,7 @@
         target="_blank"
       >
         <IconOpen v-if="document.url" class="w-4 h-4 mt-1 shrink-0" />
-        <div>{{ document.title | wordbreak }}</div>
+        <div>{{ wordbreak(document.title) }}</div>
       </Component>
     </div>
 
@@ -149,174 +149,161 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-import { multilingualtext } from '~/plugins/vue-multilingual-text'
+<script setup>
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { usePropertyStore } from '~/store/property'
+import { useI18n } from 'vue-i18n'
+import { getUserInterface } from '~/config/setup.js'
+import { useMultilingualText } from '~/composables/useMultilingualText'
+import { useWordbreak } from '~/composables/useWordbreak'
 
-import { userInterface } from '~/config/setup'
+const { multilingualText } = useMultilingualText()
+const { wordbreak } = useWordbreak()
+const userInterface = await getUserInterface()
 
-export default {
-  props: {
-    code: {
-      type: String,
-      required: true,
-    },
+// Props
+const props = defineProps({
+  code: {
+    type: String,
+    required: true,
   },
+})
 
-  data() {
-    return {
-      showChanges: false,
-      disableMapLegendAtWeb: userInterface.disableMapLegendAtWeb,
-    }
-  },
+// Composables
+const { t } = useI18n()
+const propertyStore = usePropertyStore()
 
-  computed: {
-    sortedRestrictions() {
-      return this.restrictions.concat().sort((b, a) => {
-        return (
-          this.priorityCompare(a, b) ||
-          a.AreaShare - b.AreaShare ||
-          a.LengthShare - b.LengthShare ||
-          a.NrOfPoints - b.NrOfPoints ||
-          ('' + b.Information?.[0].Text).localeCompare(
-            '' + a.Information?.[0].Text
-          )
-        )
-      })
-    },
+// State
+const showChanges = ref(false)
+const disableMapLegendAtWeb = ref(userInterface.disableMapLegendAtWeb)
 
-    legalProvisions() {
-      return this.collectUniqueDocumentType(this.restrictions, 'LegalProvision')
-    },
+// Store state
+const {
+  getRestrictionsByThemeCode,
+  lawStatesByThemeCode,
+} = storeToRefs(propertyStore)
 
-    laws() {
-      return this.collectUniqueDocumentType(this.restrictions, 'Law')
-    },
-
-    hints() {
-      return this.collectUniqueDocumentType(this.restrictions, 'Hint')
-    },
-
-    offices() {
-      return this.restrictions
-        .reduce((offices, restriction) => {
-          offices.push(restriction.ResponsibleOffice)
-          return offices
-        }, [])
-        .map((office) => ({
-          name: multilingualtext(office.Name),
-          url: multilingualtext(office.OfficeAtWeb),
-        }))
-        .filter(
-          (v, i, a) =>
-            a.findIndex(
-              (office) => office.name === v.name && office.url === v.url
-            ) === i
-        )
-    },
-
-    restrictions() {
-      return (
-        this.$store.getters['property/restrictionsByThemeCode'](
-          this.code,
-          this.lawStatusCode
-        ) || []
+// Computed properties
+const sortedRestrictions = computed(() => {
+  return restrictions.value.concat().sort((b, a) => {
+    return (
+      priorityCompare(a, b) ||
+      a.AreaShare - b.AreaShare ||
+      a.LengthShare - b.LengthShare ||
+      a.NrOfPoints - b.NrOfPoints ||
+      ('' + b.Information?.[0].Text).localeCompare(
+        '' + a.Information?.[0].Text,
       )
-    },
+    )
+  })
+})
 
-    theme() {
-      const theme = this.$store.getters['property/themeByCode'](this.code) || {}
-      return theme
-    },
+const legalProvisions = computed(() => collectUniqueDocumentType(restrictions.value, 'LegalProvision'))
+const laws = computed(() => collectUniqueDocumentType(restrictions.value, 'Law'))
+const hints = computed(() => collectUniqueDocumentType(restrictions.value, 'Hint'))
 
-    lawStates() {
-      const order = ['inForce', 'changeWithPreEffect', 'changeWithoutPreEffect']
-      return (
-        this.$store.getters['property/lawStatesByThemeCode'](this.code) || []
-      ).sort((a, b) => {
-        return order.indexOf(a.Code) - order.indexOf(b.Code)
-      })
-    },
+const offices = computed(() => {
+  return restrictions.value
+    .reduce((offices, restriction) => {
+      offices.push(restriction.ResponsibleOffice)
+      return offices
+    }, [])
+    .map((office) => ({
+      name: multilingualText(office.Name),
+      url: multilingualText(office.OfficeAtWeb),
+    }))
+    .filter(
+      (v, i, a) =>
+        a.findIndex(
+          (office) => office.name === v.name && office.url === v.url,
+        ) === i,
+    )
+})
 
-    lawStatusCode() {
-      return !this.showChanges
-        ? this.lawStates[0]?.Code
-        : this.lawStates[1]?.Code
-    },
-  },
+const restrictions = computed(() => {
+  const themeRestrictions = getRestrictionsByThemeCode.value(props.code, lawStatusCode.value)
+  return themeRestrictions || []
+})
 
-  watch: {
-    lawStatusCode() {
-      this.setActiveLawStatusCode(this.lawStatusCode)
-    },
-  },
+const lawStates = computed(() => {
+  const order = ['inForce', 'changeWithPreEffect', 'changeWithoutPreEffect']
+  return (lawStatesByThemeCode.value(props.code) || [])
+    .sort((a, b) => order.indexOf(a.Code) - order.indexOf(b.Code))
+})
 
-  mounted() {
-    this.setActiveThemeCode(this.code)
-    this.setActiveLawStatusCode(this.lawStatusCode)
-  },
+const lawStatusCode = computed(() =>
+  !showChanges.value ? lawStates.value[0]?.Code : lawStates.value[1]?.Code,
+)
 
-  destroyed() {
-    this.setActiveThemeCode(null)
-    this.setActiveLawStatusCode(null)
-  },
+// Methods
+const collectUniqueDocumentType = (restrictions, type) => {
+  return restrictions
+    .reduce(
+      (provisions, restriction) =>
+        provisions.concat(restriction.LegalProvisions),
+      [],
+    )
+    .filter((document) => document.Type.Code === type)
+    .map((document) => ({
+      title:
+        multilingualText(document.Title) +
+        (document.OfficialNumber
+          ? ', ' + multilingualText(document.OfficialNumber)
+          : ''),
+      url: multilingualText(document.TextAtWeb),
+      type: multilingualText(document.Type.Text),
+      code: document.Type.Code,
+      index: document.Index,
+    }))
+    .filter(uniqueDocument)
+    .sort((a, b) => a.index - b.index)
 
-  methods: {
-    ...mapActions('property', ['setActiveThemeCode', 'setActiveLawStatusCode']),
-
-    collectUniqueDocumentType(restrictions, type) {
-      return restrictions
-        .reduce(
-          (provisions, restriction) =>
-            provisions.concat(restriction.LegalProvisions),
-          []
-        )
-        .filter((document) => document.Type.Code === type)
-        .map((document) => ({
-          title:
-            multilingualtext(document.Title) +
-            (document.OfficialNumber
-              ? ', ' + multilingualtext(document.OfficialNumber)
-              : ''),
-          url: multilingualtext(document.TextAtWeb),
-          type: multilingualtext(document.Type.Text),
-          code: document.Type.Code,
-          index: document.Index,
-        }))
-        .filter(uniqueDocument)
-        .sort((a, b) => a.index - b.index)
-
-      function uniqueDocument(v, i, a) {
-        return (
-          a.findIndex(
-            (document) => document.title === v.title && document.url === v.url
-          ) === i
-        )
-      }
-    },
-
-    priorityCompare(first, second) {
-      let prioFirst = 0
-      if (first.AreaShare) {
-        prioFirst = 3
-      } else if (first.LengthShare) {
-        prioFirst = 2
-      } else if (first.NrOfPoints) {
-        prioFirst = 1
-      }
-      let prioSecond = 0
-      if (second.AreaShare) {
-        prioSecond = 3
-      } else if (second.LengthShare) {
-        prioSecond = 2
-      } else if (second.NrOfPoints) {
-        prioSecond = 1
-      }
-
-      return prioFirst - prioSecond
-    },
-  },
+  function uniqueDocument(v, i, a) {
+    return (
+      a.findIndex(
+        (document) => document.title === v.title && document.url === v.url,
+      ) === i
+    )
+  }
 }
+
+const priorityCompare = (first, second) => {
+  let prioFirst = 0
+  if (first.AreaShare) {
+    prioFirst = 3
+  } else if (first.LengthShare) {
+    prioFirst = 2
+  } else if (first.NrOfPoints) {
+    prioFirst = 1
+  }
+  let prioSecond = 0
+  if (second.AreaShare) {
+    prioSecond = 3
+  } else if (second.LengthShare) {
+    prioSecond = 2
+  } else if (second.NrOfPoints) {
+    prioSecond = 1
+  }
+
+  return prioFirst - prioSecond
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  propertyStore.setActiveThemeCode(props.code)
+  propertyStore.setActiveLawStatusCode(lawStatusCode.value)
+})
+
+onUnmounted(() => {
+  propertyStore.setActiveThemeCode(null)
+  propertyStore.setActiveLawStatusCode(null)
+})
+
+// Watchers
+watch(lawStatusCode, (newValue) => {
+  propertyStore.setActiveLawStatusCode(newValue)
+})
 </script>
 
 <style lang="scss" scoped>

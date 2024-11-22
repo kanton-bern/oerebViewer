@@ -1,218 +1,233 @@
 <template>
   <div v-show="visible" class="h-full relative">
     <div id="map" class="h-full" />
-    <MapActions @layer-focus="focus" />
+    <MapActions
+      @layerfocus="focus"
+    />
     <MapLayerManager
-      @layer-added="addLayer"
-      @layer-removed="removeLayer"
-      @layer-focus="focus"
+      @layeradded="addLayer"
+      @layerremoved="removeLayer"
+      @layerfocus="focus"
     />
     <MapPointerPreview
-      @overlay-added="addOverlay"
-      @overlay-removed="removeOverlay"
-      @layer-added="addLayer"
-      @layer-removed="removeLayer"
-      @layer-focus="focus"
+      @overlayadded="addOverlay"
+      @overlayremoved="removeOverlay"
+      @layeradded="addLayer"
+      @layerremoved="removeLayer"
+      @layerfocus="focus"
     />
     <MapPropertyLayers
-      @layer-added="addLayer"
-      @layer-removed="removeLayer"
-      @layer-focus="focus"
+      @layeradded="addLayer"
+      @layerremoved="removeLayer"
+      @layerfocus="focus"
     />
     <slot />
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, nextTick, watch, onMounted, onBeforeMount } from 'vue'
+import { useMapStore } from '~/store/map'
+import { storeToRefs } from 'pinia'
 import 'ol/ol.css'
 import { register } from 'ol/proj/proj4'
 import proj4 from 'proj4'
 import { Map, View } from 'ol'
 import { get as getProjection, transform } from 'ol/proj'
 import { ScaleLine } from 'ol/control'
-import { mapActions } from 'vuex'
-import * as config from '~/config/setup'
+import { getZoom, getProjectionDefinitions, getView } from '~/config/setup'
 
-export default {
-  props: {
-    visible: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: true,
   },
+})
 
-  data() {
-    return {
-      map: null,
+const mapStore = useMapStore()
+const { zoom, jumpToCoordinates } = storeToRefs(mapStore)
+
+const zoomConfig = await getZoom()
+const projectionDefinitions = await getProjectionDefinitions()
+const view = await getView()
+
+const map = ref(null)
+const mapInitialized = ref(false)
+const pendingOperations = ref([])
+
+const registerSwissProjections = () => {
+  for (const key in projectionDefinitions) {
+    if (Object.hasOwnProperty.call(projectionDefinitions, key)) {
+      const definition = projectionDefinitions[key]
+      proj4.defs(`EPSG:${definition.type}`, definition.proj4)
     }
-  },
+  }
+  register(proj4)
+}
 
-  watch: {
-    '$store.state.map.zoom': {
-      immediate: true,
-      handler() {
-        if (this.map) {
-          const newValue = this.$store.state.map.zoom
+const initMap = () => {
+  if (mapInitialized.value) return
 
-          const view = this.map.getView()
-          if (view.getZoom() !== newValue) {
-            view.setZoom(newValue)
-          }
-        }
-      },
-    },
+  const view = createView()
+  const controls = createControls()
+  map.value = new Map({
+    target: 'map',
+    controls,
+    view,
+  })
 
-    '$store.state.map.jumpToSwissCoordinates': {
-      immediate: true,
-      handler() {
-        const swissCoordinates = this.$store.state.map.jumpToSwissCoordinates
+  registerForZoomChanged()
+  if (map.value) {
+    map.value.on('singleclick', handleSingleClick)
+  }
+  mapInitialized.value = true
 
-        if (this.map && swissCoordinates) {
-          const view = this.map.getView()
+  // Process any pending operations
+  pendingOperations.value.forEach(op => op())
+  pendingOperations.value = []
+}
 
-          view.setCenter(swissCoordinates)
-          this.setZoom(18)
-        }
-      },
-    },
+const safeMapOperation = (operation) => {
+  if (mapInitialized.value) {
+    operation()
+  } else {
+    pendingOperations.value.push(operation)
+  }
+}
 
-    visible(newValue, oldValue) {
-      if (newValue && !oldValue) {
-        this.render()
-      }
-    },
-  },
+const registerForZoomChanged = () => {
+  if (!map.value) return
 
-  created() {
-    this.registerSwissProjections()
-  },
+  map.value.on('moveend', () => {
+    const newValue = map.value.getView().getZoom()
+    if (zoom.value !== newValue) {
+      mapStore.setZoom(newValue)
+    }
+  })
 
-  mounted() {
-    this.initMap()
-  },
+  const view = map.value.getView()
+  view.on('change:resolution', () => {
+    const newValue = map.value.getView().getZoom()
+    if (zoom.value !== newValue) {
+      mapStore.setZoom(newValue)
+    }
+  })
+}
 
-  methods: {
-    ...mapActions('map', ['setZoom', 'previewCoordinate']),
+const createView = () => {
+  const settings = { ...view }
+  settings.center = [settings.centerX, settings.centerY]
+  delete settings.centerX
+  delete settings.centerY
+  settings.projection = getProjection(settings.projection)
+  return new View(settings)
+}
 
-    registerSwissProjections() {
-      for (const key in config.projectionDefinitions) {
-        if (Object.hasOwnProperty.call(config.projectionDefinitions, key)) {
-          const definition = config.projectionDefinitions[key]
+const createControls = () => {
+  return [
+    new ScaleLine({
+      units: 'metric',
+    }),
+  ]
+}
 
-          proj4.defs(`EPSG:${definition.type}`, definition.proj4)
-        }
-      }
+const addLayer = (layer) => {
+  safeMapOperation(() => {
+    map.value.addLayer(layer)
+  })
+}
 
-      register(proj4)
-    },
+const removeLayer = (layer) => {
+  safeMapOperation(() => {
+    map.value.removeLayer(layer)
+  })
+}
 
-    initMap() {
-      const view = this.createView()
-      const controls = this.createControls()
+const addOverlay = (overlay) => {
+  safeMapOperation(() => {
+    map.value.addOverlay(overlay)
+  })
+}
 
-      this.map = new Map({
-        target: 'map',
-        controls,
-        view,
-      })
+const removeOverlay = (overlay) => {
+  safeMapOperation(() => {
+    map.value.removeOverlay(overlay)
+  })
+}
 
-      this.registerForZoomChanged()
-      this.map.on('singleclick', this.handleSingleClick)
-    },
+const focus = ({ target }) => {
+  safeMapOperation(() => {
+    if (target) {
+      map.value.getView().fit(target, { padding: [100, 100, 50, 50] })
+    }
+  })
+}
 
-    registerForZoomChanged() {
-      const view = this.map.getView()
+const handleSingleClick = async (pointerEvent) => {
+  const currentZoom = map.value.getView().getZoom()
+  if (currentZoom < zoomConfig.oerebLayer) return
 
-      view.on('change:resolution', () => {
-        const currentZoom = this.$store.state.map.zoom
+  const transformedXYCoordinate = transform(
+    pointerEvent.coordinate,
+    'EPSG:2056',
+    'EPSG:4326',
+  )
 
-        const newValue = this.map.getView().getZoom()
-        if (currentZoom !== newValue) {
-          this.setZoom(newValue)
-        }
-      })
-    },
+  const globalCoordinate = {
+    latitude: transformedXYCoordinate[1],
+    longitude: transformedXYCoordinate[0],
+  }
+  const swissCoordinate = {
+    longitude: pointerEvent.coordinate[0],
+    latitude: pointerEvent.coordinate[1],
+  }
 
-    createView() {
-      const settings = {
-        ...config.view,
-      }
+  await mapStore.setPreviewCoordinate({
+    globalCoordinate,
+    swissCoordinate,
+  })
+}
 
-      settings.center = [settings.centerX, settings.centerY]
-      delete settings.centerX
-      delete settings.centerY
+watch(() => zoom.value, (newValue) => {
+  if (map.value) {
+    // prevent zooming out to 10 when clicking on the zoomed in map
+    if (newValue === 10 && map.value.getView().getZoom() > 12) return
+    const view = map.value.getView()
+    if (view.getZoom() !== newValue) {
+      view.setZoom(newValue)
+    }
+  }
+})
 
-      settings.projection = getProjection(settings.projection)
+watch(() => jumpToCoordinates.value, (swissCoordinates) => {
+  if (map.value && swissCoordinates) {
+    const view = map.value.getView()
+    view.setCenter(swissCoordinates)
+    mapStore.setZoom(18)
+  }
+}, { immediate: true, deep: true })
 
-      return new View(settings)
-    },
+watch(() => props.visible, (newValue, oldValue) => {
+  if (newValue && !oldValue) {
+    render()
+  }
+}, { deep: true })
 
-    createControls() {
-      return [
-        new ScaleLine({
-          units: 'metric',
-        }),
-      ]
-    },
+onBeforeMount(() => {
+  registerSwissProjections()
+})
 
-    addLayer(layer) {
-      this.map.addLayer(layer)
-    },
+onMounted(() => {
+  nextTick(() => {
+    initMap()
+  })
+})
 
-    removeLayer(layer) {
-      this.map.removeLayer(layer)
-    },
-
-    addOverlay(overlay) {
-      this.map.addOverlay(overlay)
-    },
-
-    removeOverlay(overlay) {
-      this.map.removeOverlay(overlay)
-    },
-
-    async handleSingleClick(pointerEvent) {
-      // handle click events only if oereb layer is visible
-      if (
-        !this.$store.state.map.zoom ||
-        this.$store.state.map.zoom < config.zoom.oerebLayer
-      )
-        return
-
-      const transformedXYCoordinate = transform(
-        pointerEvent.coordinate,
-        'EPSG:2056',
-        'EPSG:4326'
-      )
-
-      const globalCoordinate = {
-        latitude: transformedXYCoordinate[1],
-        longitude: transformedXYCoordinate[0],
-      }
-      const swissCoordinate = {
-        longitude: pointerEvent.coordinate[0],
-        latitude: pointerEvent.coordinate[1],
-      }
-
-      await this.previewCoordinate({
-        globalCoordinate,
-        swissCoordinate,
-      })
-    },
-
-    focus({ target }) {
-      if (!target) return
-
-      this.map.getView().fit(target, { padding: [100, 100, 50, 50] })
-    },
-
-    render() {
-      this.$nextTick(() => {
-        if (this.map) {
-          this.map.updateSize()
-        }
-      })
-    },
-  },
+const render = () => {
+  nextTick(() => {
+    if (map.value) {
+      map.value.updateSize()
+    }
+  })
 }
 </script>

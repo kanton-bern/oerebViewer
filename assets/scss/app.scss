@@ -29,12 +29,64 @@
     --color-background-thirdly: 228, 233, 237;
 
     --ratio-municipality-banner: calc(70 / 50);
+
+
+    --col-dark: #5e7287;
+    --col-white:        #FFF;
+    --col-success:      #46A447;
+    --col-success-dark:  #286E2A;
+    --col-alert:        #C31924;
+    --col-alert-dark:    #991614;
+    --col-warning:      #DA9E1A;
+    --col-warning-dark:  #966D15;
+
+
   }
 }
 
 body {
   @apply antialiased;
 }
+
+// Notifications Toastify
+.Toastify__toast {
+  border-radius:0 !important;
+  box-shadow:none;
+  color:var(--col-white) !important;
+  background-color:var(--col-dark);
+  border-left:15px solid var(--col-success-dark);
+
+  .Toastify__toast-icon {
+    display:none;
+  }
+
+
+    &.Toastify__toast--success {
+      background-color: var(--col-success);
+      border-left:15px solid var(--col-success-dark);
+
+    }
+    &.Toastify__toast--error {
+      border-left:15px solid var(--col-alert-dark);
+      background-color: var(--col-alert);
+
+
+    }
+    &.Toastify__toast--warning {
+      border-left:15px solid var(--col-warning-dark);
+      background-color: var(--col-warning);
+
+    }
+    button {
+      background-color: transparent;
+      position:absolute;
+      right:10px;
+      top:10px;
+      color:var(--col-white) !important;
+
+    }
+}
+// End Notifcaion
 
 /** accordion style */
 .accordion-item {
@@ -64,7 +116,7 @@ body {
     }
   }
 
-  > .accordion-item__wraper { 
+  > .accordion-item__wraper {
     @apply bg-theme-base border-l-4 border-l-theme-primary;
   }
 

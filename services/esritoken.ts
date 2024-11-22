@@ -1,10 +1,14 @@
-import { esriTokenService } from '~/config/setup'
+import { getEsriTokenService } from '~/config/setup'
 
-/**
- * applies authtentication and fetches a esri token
- * @returns {Promise<String>}
- */
-export async function fetchEsriToken() {
+interface EsriTokenResponse {
+  token: string,
+  expires: number,
+}
+
+export async function fetchEsriToken(): Promise<EsriTokenResponse> {
+
+  const esriTokenService = await getEsriTokenService()
+
   const settings = {
     ...esriTokenService,
   }
@@ -12,10 +16,10 @@ export async function fetchEsriToken() {
   const formData = new URLSearchParams()
   formData.append('username', settings.username)
   formData.append('password', settings.password)
-  formData.append('expiration', Math.min(settings.intervalMinutes, 60))
+  formData.append('expiration', `${Math.min(settings.intervalMinutes, 60)}`)
   formData.append('f', 'json')
 
-  const response = await fetch(settings.endpoint, {
+  const response = await $fetch(settings.endpoint, {
     method: 'POST',
     body: formData.toString(),
     headers: {

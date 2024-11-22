@@ -42,7 +42,7 @@ The `oereb-viewer` image exposes the port `3000`.
 
 ```bash
 # link local port 3000 to exposed port 3000
-docker run -it -p 3000:3000 oereb-app
+docker run -it -p 3000:3000 oereb-viewer
 ```
 
 
@@ -93,7 +93,7 @@ NUXT_ENV_TITLE="ÖREB-Viewer | Visualiseur RDPPF"
 # define wich configuration should be applied
 NUXT_ENV_CONFIG_CONTEXT=bern
 
-# if your viewer reqires 
+# if your viewer reqires
 NUXT_ENV_TOKEN_USERNAME=user
 NUXT_ENV_TOKEN_PASSWORD=password
 ```
@@ -147,17 +147,24 @@ Overwrite languages by adding locales to your `setup.js`
 
 ```js
 export const locales = [
-  { code: 'de', iso: 'de-CH', file: 'de.js', title: 'Deutsch' },
-  { code: 'fr', iso: 'fr-CH', file: 'fr.js', title: 'Français' },
-  { code: 'rm', iso: 'rm-CH', file: 'rm.js', title: 'Rumantsch' },
-  { code: 'en', iso: 'en-CH', file: 'en.js', title: 'English' },
+  { code: 'de', language: 'de-CH', file: 'de.js', title: 'Deutsch' },
+  { code: 'fr', language: 'fr-CH', file: 'fr.js', title: 'Français' },
+  { code: 'rm', language: 'rm-CH', file: 'rm.js', title: 'Rumantsch' },
+  { code: 'en', language: 'en-CH', file: 'en.js', title: 'English' },
 ]
 ```
 
 A JavaScript language file is required, to add merge capabilities with default locales
 
 # Built With
-- [Vue](https://v2.vuejs.org/)
+- [Vue](https://v3.vuejs.org/)
 - [Nuxt](https://nuxtjs.org/)
 - [Tailwind](https://tailwindcss.com/)
 - [Open Layers](https://openlayers.org/)
+
+# Maintainer of This Repo
+Owner is the Canton of Berne. Admins of the repo are:
+
+- Bernard Kessler (AGI) bernard.kessler@be.ch
+- Mario Siegenthaler (BEDAG, linkyard) m@riosiegenthaler.ch
+- Bernhard Sturm (Sturm und Bräm) bs@sturmundbraem.ch

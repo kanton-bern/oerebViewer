@@ -11,19 +11,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    src: {
-      required: true,
-      type: String,
-    },
-
-    name: {
-      required: false,
-      type: String,
-      default: '',
-    },
+<script setup>
+defineProps({
+  src: {
+    required: true,
+    type: String,
   },
-}
+  name: {
+    required: false,
+    type: String,
+    default: '',
+  },
+})
 </script>

@@ -2,147 +2,139 @@
   <div />
 </template>
 
-<script>
-import TileLayer from 'ol/layer/Tile'
-import TileWMS from 'ol/source/TileWMS'
+<script setup>
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useMapStore } from '~/store/map'
+import ImageLayer from 'ol/layer/Image'
+import ImageWMS from 'ol/source/ImageWMS'
 
-export default {
-  props: {
-    id: {
-      required: true,
-      type: String,
-    },
-
-    visible: {
-      type: Boolean,
-      default: true,
-    },
-
-    settings: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  id: {
+    required: true,
+    type: String,
   },
-
-  data() {
-    return {
-      wmtsOptions: null,
-      layer: null,
-      mounted: false,
-    }
+  visible: {
+    type: Boolean,
+    default: true,
   },
-
-  computed: {
-    esriToken() {
-      return this.$store.state.map.esriToken
-    },
+  settings: {
+    type: Object,
+    required: true,
   },
+})
 
-  watch: {
-    async esriToken() {
-      const newLayer = await this.createLayer()
+const emit = defineEmits(['layeradded', 'layerremoved'])
+const mapStore = useMapStore()
+const esriToken = computed(() => mapStore.esriToken)
+const layer = ref(null)
+const mounted = ref(false)
 
-      if (this.mounted) {
-        this.onUnmounted()
-      }
+watch(esriToken, async () => {
+  const newLayer = await createLayer()
+  if (mounted.value) {
+    onUnmountedHandler()
+  }
+  layer.value = newLayer
+  onMountedHandler()
+})
 
-      this.layer = newLayer
-      this.onMounted()
+watch(() => props.visible, (newVisible) => {
+  if (layer.value) {
+    layer.value.setVisible(newVisible)
+  }
+})
+
+onMounted(async () => {
+  layer.value = await createLayer()
+  mounted.value = true
+  onMountedHandler()
+})
+
+onUnmounted(() => {
+  mounted.value = false
+  onUnmountedHandler()
+})
+
+async function createLayer() {
+  const settings = {
+    visible: props.visible,
+    url: props.settings.sourceUrl,
+    params: {
+      LAYERS: props.settings.capabilityLayer,
     },
+    ...props.settings,
+  }
 
-    visible() {
-      this.layer.setVisible(this.visible)
+  validateOrThrow(settings)
+
+  if (esriToken.value) {
+    settings.url += `?token=${esriToken.value}`
+  }
+
+  delete settings.sourceType
+  delete settings.sourceUrl
+  delete settings.capabilityLayer
+  delete settings.capabilityMatrixSet
+
+  const imageWMSSettings = {
+    ...settings,
+    params: {
+      ...settings.params,
+      FORMAT: 'image/png',
     },
-  },
+    ratio: 1,
+    pixelRatio: 2,
+    imageSmoothing: true,
+  }
 
-  async created() {
-    this.layer = await this.createLayer()
-    this.onMounted()
-  },
+  const source = new ImageWMS(imageWMSSettings)
 
-  mounted() {
-    this.mounted = true
-    this.onMounted()
-  },
+  const newLayer = new ImageLayer({
+    ...settings,
+    source,
+  })
 
-  destroyed() {
-    this.mounted = false
-    this.onUnmounted()
-  },
+  newLayer.set('id', props.id)
 
-  methods: {
-    createLayer() {
-      const settings = {
-        visible: this.visible,
-        url: this.settings.sourceUrl,
-        params: {
-          LAYERS: this.settings.capabilityLayer,
-        },
+  if (!newLayer) {
+    throwError('invalid layer settings')
+  }
 
-        ...this.settings,
-      }
+  return newLayer
+}
 
-      this.validateOrThrow(settings)
+function onMountedHandler() {
+  if (layer.value && mounted.value) {
+    emit('layeradded', layer.value)
+  }
+}
 
-      if (this.esriToken) {
-        settings.url += `?token=${this.esriToken}`
-      }
-      delete settings.sourceType
-      delete settings.sourceUrl
-      delete settings.capabilityLayer
-      delete settings.capabilityMatrixSet
+function onUnmountedHandler() {
+  if (!layer.value) return
+  emit('layerremoved', layer.value)
+}
 
-      const layer = new TileLayer({
-        ...settings,
-        source: new TileWMS(settings),
-      })
+function validateOrThrow(settings) {
+  if (settings.sourceType !== 'Capabilities') {
+    throwError('sourceType should be "Capabilities"')
+  }
+  if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
+    throwError('sourceUrl required')
+  }
+  if (typeof settings.capabilityLayer !== 'string' || !settings.capabilityLayer) {
+    throwError('capabilityLayer required')
+  }
+}
 
-      if (!layer) {
-        this.throw('invalid layer settings')
-      }
-
-      return layer
-    },
-
-    onMounted() {
-      if (this.layer && this.mounted) {
-        this.$emit('layer-added', this.layer)
-      }
-    },
-
-    onUnmounted() {
-      if (!this.layer) return
-      this.$emit('layer-removed', this.layer)
-    },
-
-    validateOrThrow(settings) {
-      if (settings.sourceType !== 'Capabilities') {
-        this.throw('sourceType should be "Capabilities"')
-      }
-
-      if (typeof settings.sourceUrl !== 'string' || !settings.sourceUrl) {
-        this.throw('sourceUrl required')
-      }
-
-      if (
-        typeof settings.capabilityLayer !== 'string' ||
-        !settings.capabilityLayer
-      ) {
-        this.throw('capabilityLayer required')
-      }
-    },
-
-    throw(message) {
-      const context = {
-        layerId: this.id,
-        component: 'WmsCapabilities',
-        ...this.settings,
-      }
-      console.error(message, context)
-      throw new Error(
-        `Error: ${message} (layerId: ${context.layerId}, component: ${context.component})`
-      )
-    },
-  },
+function throwError(message) {
+  const context = {
+    layerId: props.id,
+    component: 'WmsCapabilities',
+    ...props.settings,
+  }
+  console.error(message, context)
+  throw new Error(
+    `Error: ${message} (layerId: ${context.layerId}, component: ${context.component})`,
+  )
 }
 </script>

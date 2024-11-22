@@ -1,42 +1,37 @@
+<!-- components/Accordion.vue -->
 <template>
   <div class="accordion" :class="{ decent: isDecent }">
     <slot />
   </div>
 </template>
 
-<script>
-import { ref } from '@vue/reactivity'
-import decent from '~/mixins/decent'
+<script setup>
+import { ref, provide } from 'vue'
+import { useDecent } from '~/composables/useDecent'
 
-export default {
-  mixins: [decent],
-
-  provide() {
-    return {
-      accordionActiveItem: this.activeItem,
-    }
+const props = defineProps({
+  decent: {
+    type: Boolean,
+    default: false,
   },
+})
 
-  data() {
-    return {
-      accordion: true, // mark this component as accordion
-      activeItem: ref(null),
-    }
-  },
+const { isDecent } = useDecent(props)
 
-  created() {
-    this.$on('item-clicked', this.handleItemClicked)
-    this.$on('item-show', this.handleItemShow)
-  },
+const activeItem = ref(null)
 
-  methods: {
-    handleItemClicked(id) {
-      this.activeItem.value = this.activeItem.value !== id ? id : null
-    },
-
-    handleItemShow(id) {
-      this.activeItem.value = id
-    },
-  },
+const toggleItem = (id) => {
+  activeItem.value = activeItem.value !== id ? id : null
 }
+
+provide('accordionActiveItem', activeItem)
+provide('toggleAccordionItem', toggleItem)
+
+const handleItemShow = (id) => {
+  activeItem.value = id
+}
+
+defineExpose({
+  handleItemShow,
+})
 </script>

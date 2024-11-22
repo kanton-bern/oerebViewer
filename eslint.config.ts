@@ -1,20 +1,18 @@
-module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true,
-  },
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
-  extends: [
-    '@nuxtjs',
-    'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
-  ],
-  plugins: ['prettier'],
+import withNuxt from './.nuxt/eslint.config.mjs'
+import stylistic from '@stylistic/eslint-plugin'
 
+export default withNuxt({
+  ignores: ['types/**/*'],
+  plugins: {
+    '@stylistic': stylistic,
+  },
   rules: {
+    '@stylistic/indent': ['error', 2],
+    '@stylistic/semi': ['error', 'never'],
+    '@stylistic/comma-dangle': ['error', 'always-multiline'],
+    '@stylistic/quotes': ['error', 'single'],
+    '@stylistic/no-multi-spaces': 'error',
+    '@stylistic/no-multiple-empty-lines': 'error',
     'no-console': 'off',
     'import/newline-after-import': ['error', { count: 1 }],
     'vue/no-v-html': 'off',
@@ -26,12 +24,11 @@ module.exports = {
         ignores: ['transition', 'client-only', 'i18n'],
       },
     ],
-    'vue/custom-event-name-casing': ['error', 'kebab-case'],
     'vue/v-on-event-hyphenation': [
       'error',
       'always',
       {
-        autofix: false,
+        autofix: true,
       },
     ],
     'vue/html-self-closing': [
@@ -63,13 +60,10 @@ module.exports = {
     ],
     'vue/v-for-delimiter-style': ['error', 'in'],
     'vue/no-empty-component-block': ['error'],
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        trailingComma: 'es5',
-        semi: false,
-      },
-    ],
+    'vue/no-template-shadow': 'error',
+    'vue/no-unused-refs': 'error',
+    'vue/no-unused-vars': 'error',
+    'vue/no-v-for-template-key-on-child': 'error',
+
   },
-}
+})

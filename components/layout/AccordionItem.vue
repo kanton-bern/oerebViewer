@@ -1,3 +1,4 @@
+<!-- components/AccordionItem.vue -->
 <template>
   <div class="accordion-item" :class="{ expanded: isActive, decent: isDecent }">
     <div
@@ -55,64 +56,49 @@
   </div>
 </template>
 
-<script>
-import decent from '~/mixins/decent'
+<script setup>
+import { inject, computed, getCurrentInstance } from 'vue'
+import { useDecent } from '~/composables/useDecent'
 
-export default {
-  mixins: [decent],
-
-  inject: ['accordionActiveItem'],
-
-  props: {
-    header: {
-      type: String,
-      required: true,
-    },
-
-    headerClass: {
-      type: String,
-      default: '',
-    },
-
-    tag: {
-      type: [String, Number],
-      default: null,
-    },
-
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-
-    id: {
-      type: String,
-      default() {
-        return `accordion-item-${this._uid}`
-      },
-    },
+const props = defineProps({
+  header: {
+    type: String,
+    required: true,
   },
-
-  computed: {
-    accordion() {
-      const findAccordion = (parent, up = 3) =>
-        parent &&
-        (typeof parent.accordion === 'boolean' && parent.accordion
-          ? parent
-          : up && findAccordion(parent.$parent, up - 1))
-      const parent = findAccordion(this.$parent)
-      if (!parent) throw new Error('AccordionItem requires Accordion as parent')
-      return parent
-    },
-
-    isActive() {
-      return this.accordionActiveItem.value === this.id
-    },
+  headerClass: {
+    type: String,
+    default: '',
   },
-
-  methods: {
-    toggle() {
-      this.accordion.$emit('item-clicked', this.id)
-    },
+  tag: {
+    type: [String, Number],
+    default: null,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  id: {
+    type: String,
+    default: () => `accordion-item-${getCurrentInstance().uid}`,
+  },
+  decent: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const { isDecent } = useDecent(props)
+
+const accordionActiveItem = inject('accordionActiveItem')
+const toggleAccordionItem = inject('toggleAccordionItem')
+
+const isActive = computed(() => accordionActiveItem.value === props.id)
+
+const toggle = () => {
+  if (toggleAccordionItem) {
+    toggleAccordionItem(props.id)
+  } else {
+    console.error('AccordionItem requires Accordion as parent')
+  }
 }
 </script>

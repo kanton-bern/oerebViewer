@@ -20,8 +20,8 @@
  * Available locales for this app
  */
 export const locales = [
-  { code: 'de', iso: 'de-CH', file: 'de.js', title: 'Deutsch' },
-  { code: 'fr', iso: 'fr-CH', file: 'fr.js', title: 'Français' },
+  { code: 'de', language: 'de-CH', file: 'de.js', title: 'Deutsch' },
+  { code: 'fr', language: 'fr-CH', file: 'fr.js', title: 'Français' },
 ]
 
 /**
@@ -89,6 +89,10 @@ export const backgroundLayers = [
       'https://geodienste.ch/db/av_situationsplan_0/deu?SERVICE=WMS&REQUEST=GetCapabilities',
     capabilityLayer: 'daten',
     zIndex: 1,
+    // tileSize: 512,
+    // buffer: 256,
+    // serverType: 'geoserver',
+    // ratio: 1.5,
   },
 ]
 

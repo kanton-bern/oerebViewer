@@ -1,18 +1,19 @@
 {
   "name": "oereb-viewer",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Source code to setup a viewer for the Cadastre of Public-law Restrictions on landownership (DE: ÖREB-Kataster) displaying the JSON-Extract of the PLR-cadastre.",
   "engines": {
-    "node": "16.x"
+    "node": "20.x"
   },
+  "type": "module",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "npx serve dist",
+    "generate": "nuxi generate",
+    "lint:js": "eslint",
     "lint": "yarn lint:js",
-    "lint:fix": "eslint --fix --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix",
     "json2ts": "json2ts -i 'schemas/**/*.json' -o types/"
   },
   "author": "kanton-bern",
@@ -22,32 +23,28 @@
   },
   "homepage": "https://github.com/kanton-bern/oerebViewer",
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/i18n": "^7.2.2",
-    "core-js": "^3.22.5",
-    "lodash": "^4.17.21",
-    "nuxt": "^2.15.8",
-    "ol": "^6.14.1",
+    "nuxt": "^3.13.2",
+    "ol": "^10.2.0",
+    "pinia": "^2.2.6",
     "proj4": "^2.8.0",
-    "vue-multiselect": "^2.1.6",
-    "vue-toastification": "^1.7.14"
+    "vue-multiselect": "^3.1.0",
+    "vue3-toastify": "^0.2.3"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^6.0.1",
-    "@nuxtjs/eslint-module": "^3.1.0",
-    "@nuxtjs/tailwindcss": "^5.0.4",
-    "@vue/reactivity": "^3.2.31",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.7.0",
-    "json-schema-to-typescript": "^10.1.4",
+    "@nuxt/devtools": "^1.5.1",
+    "@nuxt/eslint": "^0.7.1",
+    "@nuxtjs/i18n": "^8.5.5",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/nuxt": "^0.7.0",
+    "@stylistic/eslint-plugin": "^2.8.0",
+    "eslint": "^9.11.1",
+    "json-schema-to-typescript": "^15.0.2",
+    "pinia-plugin-persistedstate": "^4.0.2",
     "postcss": "^8.4.13",
-    "prettier": "^2.6.2",
+    "prettier": "^3.3.3",
     "sass": "^1.51.0",
-    "sass-loader": "10",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "vue": "^3.5.8",
+    "vue-router": "^4.4.5"
   }
 }

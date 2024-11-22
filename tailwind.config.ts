@@ -1,3 +1,5 @@
+import type { Config } from 'tailwindcss'
+
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
     if (opacityValue !== undefined) {
@@ -7,7 +9,7 @@ function withOpacity(variableName) {
   }
 }
 
-module.exports = {
+export default {
   content: [
     './components/**/*.{vue,js}',
     './layouts/**/*.vue',
@@ -61,4 +63,4 @@ module.exports = {
       },
     },
   },
-}
+} satisfies Config

@@ -3,48 +3,47 @@
     <div :class="listClass">
       <IconGlobe :class="iconClass" />
       <button
-        v-for="locale in availableLocales"
-        :key="locale.code"
+        v-for="localeName in availableLocales"
+        :key="localeName.code"
         class="block cursor-pointer hover:underline"
-        @click="use(locale.code)"
+        @click="use(localeName.code)"
       >
-        {{ locale.title || locale.code }}
+        {{ localeName.title || localeName.code }}
       </button>
     </div>
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '~/store/app'
+import { usePropertyStore } from '~/store/property'
 
-export default {
-  props: {
-    iconClass: {
-      type: String,
-      default: 'h-4 w-4',
-    },
-
-    listClass: {
-      type: String,
-      default: 'flex gap-2',
-    },
+defineProps({
+  iconClass: {
+    type: String,
+    default: 'h-4 w-4',
   },
-
-  computed: {
-    availableLocales() {
-      return this.$store.state.app.locales.filter(
-        (locale) => this.$i18n.locale !== locale.code
-      )
-    },
+  listClass: {
+    type: String,
+    default: 'flex gap-2',
   },
+})
 
-  methods: {
-    ...mapActions('property', ['reloadExtract']),
+const { locale, setLocale } = useI18n()
+const appStore = useAppStore()
+const propertyStore = usePropertyStore()
 
-    use(language) {
-      this.$i18n.setLocale(language)
-      this.reloadExtract(language)
-    },
-  },
+const { locales } = storeToRefs(appStore)
+
+const availableLocales = computed(() =>
+  locales.value.filter((l) => locale.value !== l.code),
+)
+
+const use = (language) => {
+  setLocale(language)
+  propertyStore.reloadExtract(language)
 }
 </script>

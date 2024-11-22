@@ -1,13 +1,13 @@
 <template>
   <div v-if="extract">
     <MapLayerWfsFeature
-      v-if="extractFeatures"
+      v-if="featureFromExtract"
       id="property_plot"
-      :features="extractFeatures"
-      :stroke-color="extractFeature.stroke"
-      :fill-color="extractFeature.fill"
-      :stroke-width="extractFeature.width"
-      v-on="$listeners"
+      :features="featureFromExtract"
+      :stroke-color="getStrokeColor"
+      :fill-color="getFillColor"
+      :stroke-width="getStrokeWidth"
+      v-bind="$attrs"
     />
 
     <MapLayerWmsImage
@@ -16,65 +16,69 @@
       :key="layer.url"
       :opacity="layer.opacity"
       :settings="{ sourceUrl: layer.url }"
-      v-on="$listeners"
+      v-bind="$attrs"
     />
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue'
 import { MultiPolygon } from 'ol/geom'
 import { Feature } from 'ol'
-import { mapLayerStyles } from '~/config/setup'
-import { multilingualtext } from '~/plugins/vue-multilingual-text'
+import { getMapLayerStyles } from '~/config/setup.js'
+import { usePropertyStore } from '~/store/property'
+import { useMultilingualText } from '~/composables/useMultilingualText'
 
-export default {
-  props: {
-    pointer: {
-      type: Array,
-      default: null,
-    },
+const { multilingualText } = useMultilingualText()
+
+const mapLayerStyles = await getMapLayerStyles()
+
+// style
+const extractFeature = ref(null)
+const getStrokeColor = computed(() => extractFeature.value?.stroke ?? 'defaultStrokeColor')
+const getFillColor = computed(() => extractFeature.value?.fill ?? 'defaultFillColor')
+const getStrokeWidth = computed(() => extractFeature.value?.width ?? 1)
+
+extractFeature.value = await mapLayerStyles.extractFeature
+
+const propertyStore = usePropertyStore()
+
+const { extract, extractFeatures } = storeToRefs(propertyStore)
+
+defineProps({
+  pointer: {
+    type: Array,
+    default: null,
   },
+})
 
-  data() {
-    return {
-      overlay: null,
-      loading: false,
-      extractFeature: mapLayerStyles.extractFeature,
-    }
-  },
+const layers = computed(() => {
+  const activeThemeCode = propertyStore.activeThemeCode
+  if (!activeThemeCode) return []
+  const activeLawStatusCode = propertyStore.activeLawStatusCode
 
-  computed: {
-    extract() {
-      return this.$store.state.property.extract
-    },
+  const restrictions = propertyStore.getRestrictionsByThemeCode(
+    activeThemeCode,
+    activeLawStatusCode,
+  ) || []
 
-    layers() {
-      const activeThemeCode = this.$store.state.property.activeThemeCode
-      if (!activeThemeCode) return []
-      const activeLawStatusCode = this.$store.state.property.activeLawStatusCode
+  return restrictions
+    .map((restriction) => ({
+      opacity: restriction.Map.layerOpacity,
+      url: multilingualText(restriction.Map.ReferenceWMS),
+    }))
+    .filter((v, i, a) => a.findIndex((f) => f.url === v.url) === i) // unique url
+})
 
-      const restrictions =
-        this.$store.getters['property/restrictionsByThemeCode'](
-          activeThemeCode,
-          activeLawStatusCode
-        ) || []
+const featureFromExtract = computed(() => {
+  const rawFeatures = extractFeatures.value
+  if (!rawFeatures) return null
 
-      return restrictions
-        .map((restriction) => ({
-          opacity: restriction.Map.layerOpacity,
-          url: multilingualtext(restriction.Map.ReferenceWMS),
-        }))
-        .filter((v, i, a) => a.findIndex((f) => f.url === v.url) === i) // unique url
-    },
+  const multiPolygon = new MultiPolygon(rawFeatures.coordinates)
 
-    extractFeatures() {
-      const rawFeatures = this.$store.state.property.extractFeatures
-      if (!rawFeatures) return null
-
-      const multiPolygon = new MultiPolygon(rawFeatures.coordinates)
-
-      return new Feature({ geometry: multiPolygon })
-    },
-  },
-}
+  // Create a new Feature object with a unique id
+  return new Feature({
+    geometry: multiPolygon,
+  })
+})
 </script>

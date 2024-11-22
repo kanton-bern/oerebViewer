@@ -8,18 +8,22 @@
     </div>
     <LayoutCloseButton
       class="fixed top-24 right-7"
-      @clicked="$emit('close-clicked')"
+      @clicked="emitCloseClicked"
     />
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    titleKey: {
-      required: true,
-      type: String,
-    },
+<script setup>
+defineProps({
+  titleKey: {
+    required: true,
+    type: String,
   },
+})
+
+const emit = defineEmits(['close-clicked'])
+
+const emitCloseClicked = () => {
+  emit('close-clicked')
 }
 </script>

@@ -1,5 +1,3 @@
-import loadTranslations from './setup'
-
-export default {
-  ...loadTranslations('fr'),
-}
+export default defineI18nLocale(() => {
+  return Promise.resolve({})
+})

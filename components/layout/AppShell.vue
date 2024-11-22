@@ -6,9 +6,9 @@
     <div class="flex flex-1 relative overflow-hidden">
       <Transition name="slide-fade">
         <aside
-          v-show="allwaysShowMenu || $store.state.app.isMenuOpen"
+          v-show="alwaysShowMenu || appStore.isMenuOpen"
           class="z-10 overflow-hidden drop-shadow flex-none h-full max-w-full w-80 md:w-100 lg:w-112 duration-500 absolute lg:relative"
-          :class="{ 'transition-all': !allwaysShowMenu }"
+          :class="{ 'transition-all': !alwaysShowMenu }"
         >
           <slot name="sidebar" />
         </aside>
@@ -20,28 +20,25 @@
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    allwaysShowMenu: false,
-  }),
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useAppStore } from '~/store/app'
 
-  created() {
-    this.myEventHandler()
-    // eslint-disable-next-line nuxt/no-globals-in-created
-    window.addEventListener('resize', this.myEventHandler)
-  },
+const appStore = useAppStore()
+const alwaysShowMenu = ref(false)
 
-  destroyed() {
-    window.removeEventListener('resize', this.myEventHandler)
-  },
-
-  methods: {
-    myEventHandler(e) {
-      this.allwaysShowMenu = window.innerWidth >= 1024
-    },
-  },
+const updateMenuVisibility = () => {
+  alwaysShowMenu.value = window.innerWidth >= 1024
 }
+
+onMounted(() => {
+  updateMenuVisibility()
+  window.addEventListener('resize', updateMenuVisibility)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateMenuVisibility)
+})
 </script>
 
 <style scoped>

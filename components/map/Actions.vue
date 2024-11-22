@@ -8,26 +8,22 @@
         <div>
           <ShowMyLocationButton />
         </div>
-
         <div>
           <CenterObjectButton />
         </div>
-
         <div>
           <ZoomInButton />
         </div>
-
         <div>
           <ZoomOutButton />
         </div>
-
         <div>
           <ViewToggleButton />
         </div>
       </div>
 
       <div
-        v-show="$store.state.map.isSearchVisible"
+        v-show="isSearchVisible"
         class="absolute top-0 right-16"
       >
         <MapSearchControl />
@@ -36,22 +32,18 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
+import { useMapStore } from '~/store/map'
 import SearchButton from '~/components/map/action/SearchButton.vue'
 import ShowMyLocationButton from '~/components/map/action/ShowMyLocationButton.vue'
 import CenterObjectButton from '~/components/map/action/CenterObjectButton.vue'
 import ZoomInButton from '~/components/map/action/ZoomInButton.vue'
 import ZoomOutButton from '~/components/map/action/ZoomOutButton.vue'
 import ViewToggleButton from '~/components/map/action/ViewToggleButton.vue'
+import MapSearchControl from '~/components/map/search/Control.vue'
 
-export default {
-  components: {
-    SearchButton,
-    ShowMyLocationButton,
-    CenterObjectButton,
-    ZoomInButton,
-    ZoomOutButton,
-    ViewToggleButton,
-  },
-}
+const mapStore = useMapStore()
+
+const isSearchVisible = computed(() => mapStore.isSearchVisible)
 </script>

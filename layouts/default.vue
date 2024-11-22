@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useMapStore } from '~/store/map'
+import ExternalInstructions from '~/components/app/ExternalInstructions.vue'
+
+const mapStore = useMapStore()
+const { contentType } = storeToRefs(mapStore)
+
+const toggleGlossaryVisibility = () => {
+  mapStore.toggleGlossaryVisibility()
+}
+
+const toggleImprintAndLegalVisibility = () => {
+  mapStore.toggleImprintAndLegalVisibility()
+}
+</script>
+
 <template>
   <LayoutAppShell>
     <template #header>
@@ -50,7 +67,7 @@
             list-class="flex items-center gap-2"
             icon-class="h-4 w-4"
           />
-          <Nuxt />
+          <NuxtPage />
         </div>
         <div>
           <ExternalInstructions class="px-4 pt-3 pb-8 relative bottom-0" />
@@ -61,32 +78,17 @@
     <template #content>
       <div class="h-full bg-theme-base text-theme-base">
         <ImprintAndLegalContent
-          v-if="$store.state.map.contentType === 'imprintAndLegal'"
+          v-if="contentType === 'imprintAndLegal'"
         />
-        <GlossaryContent v-if="$store.state.map.contentType === 'glossary'" />
-        <MapViewer :visible="$store.state.map.contentType === 'map'" />
+        <GlossaryContent v-if="contentType === 'glossary'" />
+        <MapViewer :visible="contentType === 'map'" />
         <ExtractLoadingOverlay />
-        <AppNotifyer />
+        <AppNotificationComponent />
       </div>
     </template>
   </LayoutAppShell>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-import ExternalInstructions from '~/components/app/ExternalInstructions.vue'
-
-export default {
-  components: { ExternalInstructions },
-  methods: {
-    ...mapActions('map', [
-      'toggleImprintAndLegalVisibility',
-      'toggleGlossaryVisibility',
-    ]),
-  },
-}
-</script>
-
 <style lang="scss">
-@import '~/config/defaults/setup.scss';
+@use '~/config/defaults/setup.scss';
 </style>
