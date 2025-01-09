@@ -8,7 +8,6 @@
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
-    "build": "nuxi build",
     "start": "npx serve dist",
     "generate": "nuxi generate",
     "lint:js": "eslint",
