@@ -74,10 +74,27 @@ export const usePropertyStore = defineStore('property', () => {
   }
 
   function showActiveExtract(path: string) {
-    const EGRID = path.match(/\/d\/([A-Z0-9]+)$/i)?.[1]
+    // Get the full URL to check query parameters for old format of URLs
+    const url = window.location.href
+    if (url.includes('extract/url')) {
+      const urlParams = new URL(url).searchParams
+      const egridFromQuery = urlParams.get('EGRID')
+      const baseUrl = window.location.origin
+      const languagePrefix = i18n.locale.value !== 'de' ? `/${i18n.locale.value}` : ''
 
-    if (EGRID) {
-      return loadExtractById(EGRID)
+      if (egridFromQuery) {
+        window.location.href = `${baseUrl}/#d/${egridFromQuery}`
+        return
+      } else {
+        window.location.href = `${baseUrl}/#/${languagePrefix}`
+        return
+      }
+    }
+
+    // Handle new format: /d/EGRID
+    const newFormatMatch = path.match(/\/d\/([A-Z0-9]+)$/i)
+    if (newFormatMatch) {
+      return loadExtractById(newFormatMatch[1])
     }
   }
 
