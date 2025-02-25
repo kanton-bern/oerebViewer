@@ -56,6 +56,7 @@
   "oereb_service_not_available": "Le service web RDPPF est actuellement inaccessible.",
   "oereb_service_500": "Le service web RDPPF ne contient pas des données relatives à ce bien-fonds.",
   "oereb_service_204": "Pas d'immeuble avec cet identifiant.",
+  "oereb_service_204_temp": "Le résultat de cette requête ne contient pas d'informations. Veuillez essayer avec une nouvelle recherche.",
   "oereb_service_invalid_data": "Echec de l'évaluation des données RDPPF par rapport au bien-fonds {number} ({municipality}) ou problème de connexion avec le service web RDPPF. Veuillez ressayer plus tard.",
   "no_property_found": "Ce bien-fonds se situe à l'extérieur des zones disposant d'une Mensuration Officielle de qualité suffisante, il n'est pas possible démarrer l'évaluation.",
   "amount": "Nombre",

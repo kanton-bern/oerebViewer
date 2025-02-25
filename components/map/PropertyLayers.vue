@@ -25,7 +25,7 @@
 import { ref, computed } from 'vue'
 import { MultiPolygon } from 'ol/geom'
 import { Feature } from 'ol'
-import { getMapLayerStyles } from '~/config/setup.js'
+import { getMapLayerStyles } from '~/config/setup'
 import { usePropertyStore } from '~/store/property'
 import { useMultilingualText } from '~/composables/useMultilingualText'
 

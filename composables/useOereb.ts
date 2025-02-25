@@ -1,4 +1,4 @@
-import { getOerebService } from '~/config/setup.js'
+import { getOerebService } from '~/config/setup'
 import { stringTemplate } from '~/helpers/template'
 
 export function useOereb() {
@@ -89,16 +89,68 @@ export function useOereb() {
     })
 
     try {
-      const data = await $fetch<{ GetExtractByIdResponse: unknown }>(url)
-      console.log('getExtractById')
-      return data.GetExtractByIdResponse
-    } catch (error) {
-      if (error instanceof Error) {
-        (error as Error & { invalidData?: boolean }).invalidData = true
-      } else {
-        console.error('An unknown error occurred:', error)
+      const data = await $fetch(url)
+
+      // Check if the response is undefined or null (likely a 204 No Content for temporary parcels)
+      if (data === undefined || data === null) {
+        // Check if this is a temporary parcel number
+        const isTempParcel = EGRID.match(/^[A-Z]{2}\d+[A-Z]+\d+-\d+-\d+$/) !== null
+
+        // Create an error with a special property for temporary parcels
+        const error = new Error('Empty response') as Error & {
+          response?: { status: number },
+          isTempParcel?: boolean
+        }
+        error.response = { status: 204 }
+        error.isTempParcel = isTempParcel
+        throw error
       }
-      throw error
+
+      // Check if the response has the expected structure
+      if (data && typeof data === 'object' && 'GetExtractByIdResponse' in data) {
+        return data.GetExtractByIdResponse
+      } else if (data && typeof data === 'object' && 'extract' in data) {
+        // Some services might return the extract directly
+        return data
+      } else {
+        const error = new Error('Unexpected response structure') as Error & { invalidData?: boolean }
+        error.invalidData = true
+        throw error
+      }
+    } catch (error) {
+      // If it's already our custom error with isTempParcel, just rethrow it
+      if (error instanceof Error && 'isTempParcel' in error) {
+        throw error
+      }
+
+      // Check if it's a 204 response (No Content)
+      if (error &&
+          typeof error === 'object' &&
+          'response' in error &&
+          error.response &&
+          typeof error.response === 'object' &&
+          'status' in error.response &&
+          error.response.status === 204) {
+
+        // Check if this is a temporary parcel number
+        const isTempParcel = EGRID.match(/^[A-Z]{2}\d+[A-Z]+\d+-\d+-\d+$/) !== null
+
+        // Create a new Error with the isTempParcel property
+        const newError = new Error('204 No Content') as Error & {
+          response?: { status: number },
+          isTempParcel?: boolean
+        }
+        newError.response = { status: 204 }
+        newError.isTempParcel = isTempParcel
+
+        throw newError
+      }
+
+      // For other errors, mark as invalid data
+      const newError = error instanceof Error ? error : new Error(String(error))
+      ;(newError as Error & { invalidData?: boolean }).invalidData = true
+
+      throw newError
     }
   }
 

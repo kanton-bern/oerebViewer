@@ -47,7 +47,7 @@ import {
   getOrthoPhotoLayers,
   getAdditionalLayers,
   getUsesEsriToken,
-} from '~/config/setup.js'
+} from '~/config/setup'
 import WfsFeature from '~/components/map/layer/WfsFeature.vue'
 import WmsCapabilities from '~/components/map/layer/WmsCapabilities.vue'
 import WmtsCapabilities from '~/components/map/layer/WmtsCapabilities.vue'

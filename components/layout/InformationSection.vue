@@ -14,7 +14,7 @@ defineProps({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 h3 {
   @apply text-lg font-bold mt-7 mb-3 text-theme-secondary;
 }

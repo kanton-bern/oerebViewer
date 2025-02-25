@@ -23,7 +23,7 @@ defineProps({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .logo {
   display: block;
   background-size: contain;
