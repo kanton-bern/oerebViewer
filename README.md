@@ -108,10 +108,10 @@ They won't be tracked by git, as they are in `.gitignore`.
 ## setup.js
 This is where you place your settings.
 
-## setup.scss
-Create a `setup.scss` file in your config directory, if you wan't to overwrite theme colors or any css.
+## setup.css
+Create a `setup.css` file in your config directory, if you want to overwrite theme colors or any css.
 
-```scss
+```css
 /** overwrite theme css variables with your own RGB colors */
 :root {
     --color-background-primary: 45, 54, 62;

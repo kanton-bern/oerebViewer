@@ -154,7 +154,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { usePropertyStore } from '~/store/property'
 import { useI18n } from 'vue-i18n'
-import { getUserInterface } from '~/config/setup.js'
+import { getUserInterface } from '~/config/setup'
 import { useMultilingualText } from '~/composables/useMultilingualText'
 import { useWordbreak } from '~/composables/useWordbreak'
 
@@ -306,7 +306,7 @@ watch(lawStatusCode, (newValue) => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .grid-legend {
   grid-template-columns: 1.5rem auto 1fr;
 }

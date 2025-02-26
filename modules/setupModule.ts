@@ -22,14 +22,14 @@ export default defineNuxtModule({
         process.cwd(),
         'config',
         CONFIG_CONTEXT,
-        'setup.scss',
+        'setup.css',
       )
       if (fs.existsSync(styleFile)) {
-        logger.success('found setup.scss')
+        logger.success('found setup.css')
         styles = fs.readFileSync(styleFile, 'utf-8')
       }
       fs.writeFileSync(
-        path.resolve(process.cwd(), 'config/defaults/setup.scss'),
+        path.resolve(process.cwd(), 'config/defaults/setup.css'),
         styles,
       )
     })

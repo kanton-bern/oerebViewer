@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getExternalInstructions } from '~/config/setup.js'
+import { getExternalInstructions } from '~/config/setup'
 import { stringTemplate } from '~/helpers/template'
 import IconOpen from '~/components/icon/Open.vue'
 

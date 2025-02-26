@@ -89,6 +89,6 @@ const toggleImprintAndLegalVisibility = () => {
   </LayoutAppShell>
 </template>
 
-<style lang="scss">
-@use '~/config/defaults/setup.scss';
+<style>
+@import '~/config/defaults/setup.css';
 </style>

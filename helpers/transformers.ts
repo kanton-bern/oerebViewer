@@ -1,5 +1,28 @@
-export const extractToTemplateVars = (extract, defaults = {}) => {
-  const vars = Object.assign({}, defaults, {
+interface Extract {
+  RealEstate?: {
+    EGRID?: string;
+    Number?: string;
+    MunicipalityName?: string;
+    MunicipalityCode?: string;
+    SubunitOfLandRegister?: string;
+  };
+  CreationDate?: string;
+  MunicipalityLogoRef?: string;
+}
+
+interface TemplateVars {
+  EGRID?: string;
+  number?: string;
+  municipality?: string;
+  municipalityCode?: string;
+  creationDate?: string;
+  municipalityLogo?: string;
+  subunitOfLandRegister?: string;
+  [key: string]: string | undefined;
+}
+
+export const extractToTemplateVars = (extract: Extract | undefined, defaults: TemplateVars = {}): TemplateVars => {
+  const vars: TemplateVars = Object.assign({}, defaults, {
     EGRID: extract?.RealEstate?.EGRID || defaults?.EGRID,
     number: extract?.RealEstate?.Number || defaults?.number,
     municipality:

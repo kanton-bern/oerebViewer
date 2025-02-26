@@ -43,7 +43,7 @@ import { usePropertyStore } from '~/store/property'
 import Overlay from 'ol/Overlay'
 import { MultiPolygon } from 'ol/geom'
 import { Feature } from 'ol'
-import { getMapLayerStyles } from '~/config/setup.js'
+import { getMapLayerStyles } from '~/config/setup'
 
 const mapStore = useMapStore()
 const propertyStore = usePropertyStore()

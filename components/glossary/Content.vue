@@ -39,7 +39,7 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 section .item {
   width: 100%;
   flex-basis: 50%;

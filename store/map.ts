@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { convertToSwissCoordinates } from '~/helpers/coordinates.js'
+import { convertToSwissCoordinates } from '~/helpers/coordinates'
 import { usePropertyStore } from '~/store/property'
 import { useNotificationStore } from '~/store/notification'
-import { getView, getSearchService } from '~/config/setup.js'
+import { getView, getSearchService } from '~/config/setup'
 import { stringTemplate } from '~/helpers/template'
 import { fetchEsriToken } from '~/services/esritoken'
 import { useOereb } from '~/composables/useOereb'
@@ -13,24 +13,47 @@ interface EsriToken {
   expires: number
 }
 
+interface SearchResult {
+  x?: number
+  y?: number
+  lon?: number
+  lat?: number
+  [key: string]: unknown
+}
+
+interface Coordinates {
+  longitude: number
+  latitude: number
+}
+
+interface ConfigObject {
+  [key: string]: unknown
+}
+
+interface EGRIDResponse {
+  egrid?: string
+  limit?: Record<string, unknown>
+  [key: string]: unknown
+}
+
 export const useMapStore = defineStore('map', () => {
-  const tokenUpdateIntervalId = ref<string | null>(null)
+  const tokenUpdateIntervalId = ref<NodeJS.Timeout | null>(null)
   const esriToken = ref<string | null>(null)
   const esriTokenExpiredAt = ref<number | null>(null)
   const viewType = ref<string>('map')
   const zoom = ref<number | null>(null)
   const searchQuery = ref<string | null>(null)
-  const searchResults = ref<any[]>([])
-  const selectedSearchResult = ref<any>(null)
+  const searchResults = ref<SearchResult[]>([])
+  const selectedSearchResult = ref<SearchResult | null>(null)
   const isSearchResultLoading = ref<boolean>(false)
   const isSearchVisible = ref<boolean>(true)
-  const jumpToCoordinates = ref(null)
-  const previewCoordinates = ref<{ longitude: number; latitude: number } | null>(null)
-  const previewFeatures = ref(null)
-  const previewEGRID = ref(null)
-  const contentType = ref('map')
-  const view = ref(null)
-  const searchService = ref(null)
+  const jumpToCoordinates = ref<[number, number] | null>(null)
+  const previewCoordinates = ref<Coordinates | null>(null)
+  const previewFeatures = ref<Record<string, unknown> | null>(null)
+  const previewEGRID = ref<EGRIDResponse[] | null>(null)
+  const contentType = ref<string>('map')
+  const view = ref<ConfigObject | null>(null)
+  const searchService = ref<ConfigObject | null>(null)
   const minZoom = ref<number>(0)
   const maxZoom = ref<number>(42)
 
@@ -46,7 +69,7 @@ export const useMapStore = defineStore('map', () => {
   const isSatelliteView = computed(() => viewType.value === 'satellite')
   const isMapView = computed(() => viewType.value === 'map')
 
-  function setTokenUpdateIntervalId(id: string) {
+  function setTokenUpdateIntervalId(id: NodeJS.Timeout) {
     tokenUpdateIntervalId.value = id
   }
 
@@ -64,11 +87,11 @@ export const useMapStore = defineStore('map', () => {
     viewType.value = newViewType
   }
 
-  function setJumpToCoordinates(coordinates) {
+  function setJumpToCoordinates(coordinates: [number, number] | null) {
     jumpToCoordinates.value = coordinates
   }
 
-  function jumpToSwissCoordinates(coordinates) {
+  function jumpToSwissCoordinates(coordinates: [number, number]) {
     setJumpToCoordinates(coordinates)
   }
 
@@ -76,15 +99,15 @@ export const useMapStore = defineStore('map', () => {
     zoom.value = newZoom
   }
 
-  function setSearchQuery(newSearchQuery) {
+  function setSearchQuery(newSearchQuery: string | null) {
     searchQuery.value = newSearchQuery
   }
 
-  function setSearchResults(newSearchResults) {
+  function setSearchResults(newSearchResults: SearchResult[]) {
     searchResults.value = newSearchResults
   }
 
-  function setSelectedSearchResult(newSelectedSearchResult) {
+  function setSelectedSearchResult(newSelectedSearchResult: SearchResult | null): void {
     selectedSearchResult.value = newSelectedSearchResult
   }
 
@@ -110,15 +133,15 @@ export const useMapStore = defineStore('map', () => {
     previewEGRID.value = null
   }
 
-  function setPreviewEGRID(egridResponse) {
+  function setPreviewEGRID(egridResponse: EGRIDResponse[]) {
     previewEGRID.value = egridResponse
   }
 
-  function setPreviewFeatures(plotFeatures) {
+  function setPreviewFeatures(plotFeatures: Record<string, unknown> | null) {
     previewFeatures.value = plotFeatures
   }
 
-  function setContentType(newContentType) {
+  function setContentType(newContentType: string) {
     contentType.value = newContentType
   }
 
@@ -142,27 +165,27 @@ export const useMapStore = defineStore('map', () => {
     isSearchVisible.value = !isSearchVisible.value
   }
 
-  async function searchResultSelected(item) {
+  async function searchResultSelected(item: SearchResult) {
     setSelectedSearchResult(item)
 
     if (item) {
       const swissCoordinates =
         item.x && item.y
-          ? [item.x, item.y]
-          : convertToSwissCoordinates(item.lon, item.lat)
+          ? [item.x, item.y] as [number, number]
+          : convertToSwissCoordinates(item.lon!, item.lat!)
 
       setJumpToCoordinates(swissCoordinates)
 
-      const globalCoordinate = { longitude: item.lon, latitude: item.lat }
+      const globalCoordinate = { longitude: item.lon!, latitude: item.lat! }
       const swissCoordinate = {
         longitude: swissCoordinates[0],
         latitude: swissCoordinates[1],
       }
-      await setPreviewCoordinate({ swissCoordinate, globalCoordinate })
+      await setPreviewCoordinate({ globalCoordinate, swissCoordinate })
     }
   }
 
-  async function updateSearchQuery(newSearchQuery) {
+  async function updateSearchQuery(newSearchQuery: string) {
     if (!newSearchQuery || newSearchQuery === '') {
       return
     }
@@ -170,8 +193,13 @@ export const useMapStore = defineStore('map', () => {
     markSearchResultIsLoading()
     setSearchQuery(newSearchQuery)
 
-    const encodedQuery = encodeURI(searchQuery.value)
-    const endpoint = stringTemplate(searchService.value.search, {
+    const encodedQuery = encodeURI(searchQuery.value || '')
+
+    if (!searchService.value) {
+      throw new Error('Search service not initialized')
+    }
+
+    const endpoint = stringTemplate(searchService.value.search as string, {
       query: encodedQuery,
     })
 
@@ -179,7 +207,7 @@ export const useMapStore = defineStore('map', () => {
       const response = await fetch(endpoint)
       const data = await response.json()
 
-      if (typeof searchService.value.parser !== 'function')
+      if (typeof searchService.value?.parser !== 'function')
         throw new Error(
           'searchService.parse is not a function. provide a function to parse the response as search result.',
         )
@@ -201,6 +229,8 @@ export const useMapStore = defineStore('map', () => {
   }
 
   function zoomInActionClicked() {
+    if (zoom.value === null) return
+
     const newValue = zoom.value + 0.5
     console.log('zoomInActionClicked', newValue, zoom.value)
     if (newValue <= maxZoom.value) {
@@ -210,6 +240,7 @@ export const useMapStore = defineStore('map', () => {
   }
 
   function zoomOutActionClicked() {
+    if (zoom.value === null) return
 
     const newValue = zoom.value - 0.5
     console.log('zoomOutActionClicked', newValue, zoom.value)
@@ -253,35 +284,48 @@ export const useMapStore = defineStore('map', () => {
     useEsriToken(token)
   }
 
-  async function setPreviewCoordinate({ globalCoordinate, swissCoordinate }) {
+  async function setPreviewCoordinate({ globalCoordinate, swissCoordinate }: { globalCoordinate: Coordinates, swissCoordinate: Coordinates }) {
     const notificationStore = useNotificationStore()
     const { getEGRID } = useOereb()
 
     clearPreview()
     previewCoordinates.value = swissCoordinate
 
-    let EGRIDs
+    let EGRIDs: EGRIDResponse[] = []
 
     try {
-      EGRIDs = (await getEGRID(globalCoordinate)) || []
+      const response = await getEGRID(globalCoordinate)
+      EGRIDs = Array.isArray(response) ? response : []
 
       setPreviewEGRID(EGRIDs)
       setPreviewFeatures(EGRIDs[0]?.limit ?? null)
 
-      if (EGRIDs.length === 1) {
+      if (EGRIDs.length === 1 && EGRIDs[0].egrid) {
         // auto start extraction
         const propertyStore = usePropertyStore()
-        propertyStore.showExtractById(EGRIDs[0].egrid)
+        propertyStore.showExtractById(EGRIDs[0].egrid as string)
         clearPreview()
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error in previewCoordinate:', error)
 
       clearPreview()
 
       let warning = 'oereb_service_not_available'
-      if (error.response?.status === 500) warning = 'oereb_service_500'
-      if (error.response?.status === 204) warning = 'oereb_service_204'
+
+      // Type guard for error with response property
+      interface ErrorWithResponse {
+        response?: { status?: number };
+      }
+
+      const isErrorWithResponse = (err: unknown): err is ErrorWithResponse => {
+        return typeof err === 'object' && err !== null && 'response' in err
+      }
+
+      if (isErrorWithResponse(error)) {
+        if (error.response?.status === 500) warning = 'oereb_service_500'
+        if (error.response?.status === 204) warning = 'oereb_service_204'
+      }
 
       notificationStore.notifyWarning({ text: warning, vars: {} })
     }
