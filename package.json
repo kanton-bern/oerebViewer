@@ -8,11 +8,10 @@
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
-    "build": "nuxi build",
     "start": "npx serve dist",
     "generate": "nuxi generate",
     "lint:js": "eslint",
-    "lint": "yarn lint:js",
+    "lint": "npm run lint:js",
     "lint:fix": "eslint --fix",
     "json2ts": "json2ts -i 'schemas/**/*.json' -o types/"
   },
@@ -25,26 +24,26 @@
   "dependencies": {
     "nuxt": "^3.13.2",
     "ol": "^10.2.0",
-    "pinia": "^2.2.6",
     "proj4": "^2.8.0",
     "vue-multiselect": "^3.1.0",
     "vue3-toastify": "^0.2.3"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^1.5.1",
-    "@nuxt/eslint": "^0.7.1",
-    "@nuxtjs/i18n": "^8.5.5",
+    "@nuxt/devtools": "^2.1.0",
+    "@nuxt/eslint": "^1.1.0",
+    "@nuxtjs/i18n": "^9.2.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
-    "@pinia/nuxt": "^0.7.0",
-    "@stylistic/eslint-plugin": "^2.8.0",
+    "@pinia/nuxt": "^0.10.1",
+    "@stylistic/eslint-plugin": "^4.0.1",
     "eslint": "^9.11.1",
     "json-schema-to-typescript": "^15.0.2",
+    "pinia": "^3.0.1",
     "pinia-plugin-persistedstate": "^4.0.2",
     "postcss": "^8.4.13",
     "prettier": "^3.3.3",
-    "sass": "^1.51.0",
     "tailwindcss": "^3.0.24",
     "vue": "^3.5.8",
     "vue-router": "^4.4.5"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

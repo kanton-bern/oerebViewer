@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getLocales } from '~/config/setup.js'
+import { getLocales } from '~/config/setup'
 import { ref } from 'vue'
 
 export const useAppStore = defineStore('app', () => {

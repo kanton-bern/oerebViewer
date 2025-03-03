@@ -13,7 +13,17 @@ export const useHistoryStore = defineStore('history', () => {
       return
     }
 
-    const entry = extractToTemplateVars(extract, {
+    const entry = extractToTemplateVars(extract as unknown as {
+      RealEstate?: {
+        EGRID?: string;
+        Number?: string;
+        MunicipalityName?: string;
+        MunicipalityCode?: string;
+        SubunitOfLandRegister?: string;
+      };
+      CreationDate?: string;
+      MunicipalityLogoRef?: string;
+    }, {
       url: `${languagePrefix}/d/${extract.RealEstate.EGRID}`,
     })
 

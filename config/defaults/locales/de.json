@@ -57,6 +57,7 @@
   "oereb_service_not_available": "Der OEREB-Webservice ist derzeit nicht erreichbar.",
   "oereb_service_500": "Der OEREB-Webservice hat keine Daten zu diesem Grundstück.",
   "oereb_service_204": "Kein Grundstück mit dieser ID.",
+  "oereb_service_204_temp": "Das Resultat zu dieser Anfrage enthält keine Informationen. Bitte versuchen Sie es mit einer neuen Suche.",
   "oereb_service_invalid_data": "Die ÖREB-Daten zum Grundstück {number} ({municipality}) konnten nicht ausgewertet werden, oder es liegt ein Fehler in der Verbindung zum ÖREB-Webservice vor. Versuchen Sie es später noch einmal.",
   "no_property_found": "Für dieses Grundstück kann keine Auswertung erstellt werden, da die Daten der amtlichen Vermessung nicht in ausreichender Qualität vorliegen.",
   "amount": "Anzahl",

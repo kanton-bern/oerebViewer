@@ -1,6 +1,5 @@
 /config/local
 /config/*-local
-/config/defaults/setup.scss
 /testdata
 
 
@@ -98,3 +97,6 @@ sw.*
 # VSCode
 .vscode
 
+# Nuxt intermediary output
+# "real" generated files are in dist
+.output/

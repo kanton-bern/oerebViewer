@@ -126,17 +126,20 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style>
 h2 {
   @apply text-lg leading-tight font-bold mt-12 text-theme-secondary;
 }
 
-.url-link:link,
-.url-link:visited {
-  text-decoration: underline;
-}
-.url-link:hover,
-.url-link:active {
-  text-decoration: none;
+.url-link {
+  &:link,
+  &:visited {
+    text-decoration: underline;
+  }
+
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
 }
 </style>

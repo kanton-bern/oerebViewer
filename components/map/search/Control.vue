@@ -121,32 +121,32 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss">
+<style>
 .search-dropdown {
   width: 500px;
   max-width: calc(100vw - 5.5rem);
 
-  .multiselect__content-wrapper {
+  & .multiselect__content-wrapper {
     @apply bg-theme-primary text-theme-primary bg-opacity-90 border-none;
 
-    .multiselect__content {
-      .multiselect__option--highlight {
+    & .multiselect__content {
+      & .multiselect__option--highlight {
         @apply bg-white bg-opacity-10;
       }
     }
   }
 
-  .multiselect__tags {
+  & .multiselect__tags {
     min-height: 44px;
     @apply px-3 py-0 bg-theme-primary text-theme-primary bg-opacity-90 rounded border-none text-base flex items-center;
 
-    .multiselect__single {
+    & .multiselect__single {
       @apply text-theme-primary bg-transparent hover:bg-transparent;
       margin: 0;
       padding: 0;
     }
 
-    .multiselect__input {
+    & .multiselect__input {
       @apply text-theme-primary bg-transparent hover:bg-transparent;
       margin: 0;
       padding: 0;
@@ -155,16 +155,16 @@ onMounted(() => {
       box-sizing: border-box; /* Opera/IE 8+ */
     }
 
-    .multiselect__placeholder {
+    & .multiselect__placeholder {
       @apply text-theme-primary;
       margin: 0;
       padding: 0;
     }
 
-    .multiselect__input::placeholder {
+    & .multiselect__input::placeholder {
       @apply text-theme-primary;
     }
-    .multiselect__spinner {
+    & .multiselect__spinner {
       @apply bg-theme-primary rounded;
       top: 0px;
       right: 0px;
