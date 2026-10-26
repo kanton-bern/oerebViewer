@@ -88,6 +88,9 @@ dist
 # Service worker
 sw.*
 
+# Windows
+*Zone.Identifier
+
 # macOS
 .DS_Store
 
@@ -104,3 +107,4 @@ sw.*
 # playwright
 /test-results/
 /playwright-report/
+

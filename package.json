@@ -8,8 +8,10 @@
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
+    "predev": "node scripts/copy-theme-fonts.js",
     "start": "npx serve dist",
     "generate": "nuxi generate",
+    "pregenerate": "node scripts/copy-theme-fonts.js",
     "lint:js": "eslint",
     "lint": "npm run lint:js",
     "lint:fix": "eslint --fix",

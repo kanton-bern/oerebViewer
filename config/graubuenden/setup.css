@@ -23,6 +23,27 @@
     /* --color-background-thirdly: 228, 233, 237; */
 
     --ratio-municipality-banner: calc(50 / 45);
+
+  --font-sans: 'Eudoxus Sans', Asap, Helvetica, Arial, sans-serif;
+  --default-font-family: 'Eudoxus Sans', Asap, Helvetica, Arial, sans-serif;
+
+  }
+
+  /* GR Fonts */
+@font-face {
+  font-family: 'Eudoxus Sans';
+  src: url('/graubuenden/fonts/EudoxusSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
 }
+
+@font-face {
+  font-family: 'Eudoxus Sans';
+  src: url('/graubuenden/fonts/EudoxusSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
 
 /** place your custom css here */
