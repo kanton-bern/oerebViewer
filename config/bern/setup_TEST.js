@@ -164,9 +164,9 @@ export const pdfService = {
  * provides url for visiting the extract externaly
  */
 export const externalService = {
-  // get external URL by EGRID - placeholder {{EGRID}} and {{language}} - disabled if false
+  // get external URL by EGRID - placeholder {{EGRID}},{{language}} and {{languageUppercase}} - disabled if false
   getExternalUrlByEGRID: //false,
-	'https://www.map.apps.be.ch/pub/externalcall.jsp?query1=egrid&keyvalue1={{EGRID}}&keyname1=EGRID&project=a42pub_oereb_oeffen_{{languageUppercase}}&language={{language}}&userprofile=geo&client=auto',
+	'https://www.topo.apps.be.ch/pub/map/?lang={{language}}&datatheme=OEREB_FK&DIPANU_DIPANUF_KMGDM1=DIPANUF_EGRID={{EGRID}}',
 }
 
 /**
@@ -175,9 +175,9 @@ export const externalService = {
  * provides url for visiting information about the owner of the extract
  */
 export const ownerService = {
-  // get external URL by EGRID - placeholder {{number}}, {{municipalityCode}}, {{EGRID}} and {{language}} - disabled if false
+  // get external URL by EGRID - placeholder {{number}}, {{municipalityCode}}, {{EGRID}}, {{language}} and {{languageUppercase}} - disabled if false
   getOwnerUrlByEGRID: //false,
-	'https://www.map.apps.be.ch/pub/externalcall.jsp?query1=egrid&keyvalue1={{EGRID}}&keyname1=EGRID&project=a42pub_oereb_oeffen_{{languageUppercase}}&language={{language}}&userprofile=geo&client=auto',
+	'https://grudis-public.apps.be.ch/grudis-public/ui/grundstueck/es?egrid={{EGRID}}&language={{language}}',
 }
 
 /**
